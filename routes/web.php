@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
+use DebugBar\DebugBar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    FacadesDebugbar::info('hi');
     return view('welcome');
 });
 
