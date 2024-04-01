@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Doctor;
+use App\Models\Patient;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use DebugBar\DebugBar;
+use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +23,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     FacadesDebugbar::info('hi');
+
+
     return view('welcome');
 });
-
+Route::get('/about',function (HttpRequest $request) {
+    FacadesDebugbar::info('hi');
+    return response('Hello World', 200)->header('Access-Control-Allow-Origin',$request->ip());
+});
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -31,7 +40,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/home', function () {
+    FacadesDebugbar::info('info');
+    return "h";
+});
 
-Route::get('/patients',[PatientController::class,'all']);
+Route::get('patients', function () {
 
+    return  Patient::with('doctor')->get();
+});
 require __DIR__.'/auth.php';

@@ -15,4 +15,9 @@ class Patient extends Model
             set:fn($value)=> trim($value),
         );
     }
+
+    public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Doctor::class);
+    }
 }

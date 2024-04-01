@@ -8,20 +8,19 @@ use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
-    public function all(Request $request)
-    {
-        Patient::create([
-            'name' => '          ali ahmed               ',
-            'phone' => '0991961111',
-            'insurance_no' => '0',
-            'user_id' => $request->user()->id,
-            'shift_id' => 1,
 
-        ]);
+    public function store(Request $request){
+        $val = $request->all();
+        $patient = new Patient();
 
-        //    $p = DB::table('patients')->where('id',1)->value('name');
-        //    $p = DB::table('patients')->find(1);
-        $p =   Patient::find(1)->created_at;
-        dd($p);
+        $patient->name = $request->name;
+        $patient->doctor_id = $request->doc_id;
+        $patient->phone = $request->phone;
+        $patient->user_id = 1;
+        $patient->shift_id = 1;
+        $result = $patient->save();
+        if($result){
+          return ['status'=>true,'id'=> $patient->id];
+        }
     }
 }

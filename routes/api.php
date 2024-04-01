@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use App\Http\Requests\StorePatientRequest;
 use App\Models\Patient;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
+use Illuminate\Log\Logger;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
-
-
-
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,23 +23,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
     return $request->user();
 });
 
 
-Route::get('patients', function () {
+Route::get('patients', function (Request $request) {
 
-    echo json_encode(Patient::all());
+
+    return  Patient::query()
+        ->with('doctor')
+    ->orderBy('id', 'desc')
+    ->get();
 });
 
-Route::post('patients/add', function (StorePatientRequest $request) {
-
-    Patient::create([
-        'name' => $request->name,
-        'doc_id' => $request->doc_id,
-        'age' => $request->age,
-        'phone' => $request->phone,
-        'user_id' => $request->user()->id,
-        'shift_id' => 1,
-    ]);
-});
+Route::post('patients/add',[PatientController::class,'store']);

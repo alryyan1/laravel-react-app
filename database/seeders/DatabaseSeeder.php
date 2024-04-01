@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\Specialist;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,10 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+        //Specialist::truncate();
+        //Doctor::truncate();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+       $specialist =  Specialist::create(['name'=>'الباطنيه']);
+       $doctor = Doctor::factory(10)->create();
+       Patient::factory(10)->create();
     }
 }

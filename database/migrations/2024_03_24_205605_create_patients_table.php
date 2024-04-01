@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('doctor_id');
+            $table->foreignId('doctor_id')->references('id')->on('doctors');
             $table->string('phone',10);
             $table->integer('company_id')->nullable();
             $table->integer('sub_company_id')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('paper_fees')->nullable();
             $table->string('guarantor')->nullable();
             $table->date('expire_date')->nullable();
-            $table->string('insurance_no');
+            $table->string('insurance_no')->nullable();
             $table->integer('user_id');
             $table->integer('shift_id');
             $table->timestamps();
