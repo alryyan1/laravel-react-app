@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('main_tests', function (Blueprint $table) {
             $table->foreign(['container_id'], 'cntainer_fk')->references(['id'])->on('containers')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign(['pack_id'], 'pakid_FK')->references(['package_id'])->on('package')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign(['pack_id'], 'pakid_FK')->references(['package_id'])->on('packages')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

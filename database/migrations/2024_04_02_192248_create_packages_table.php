@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('package', function (Blueprint $table) {
+        Schema::create('packages', function (Blueprint $table) {
             $table->integer('package_id', true);
             $table->string('package_name', 50)->nullable();
             $table->string('container', 50);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('package');
+        Schema::dropIfExists('packages');
     }
 };

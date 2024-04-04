@@ -36,5 +36,10 @@ Route::get('patients', function (Request $request) {
     ->orderBy('id', 'desc')
     ->get();
 });
-
+Route::get('doctors', function (Request $request) {
+    return  \App\Models\Doctor::with('specialist')->get();
+});
+Route::get('packages/all',function (){
+    return \App\Models\Package::with('tests')->get();
+});
 Route::post('patients/add',[PatientController::class,'store']);

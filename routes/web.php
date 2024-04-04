@@ -44,9 +44,18 @@ Route::get('/home', function () {
     FacadesDebugbar::info('info');
     return "h";
 });
-
+Route::get('doctors', function () {
+    return  \App\Models\Doctor::with('specialist')->get();
+});
 Route::get('patients', function () {
 
     return  Patient::with('doctor')->get();
+});
+Route::get('packages/all',function (){
+    return \App\Models\Package::with('tests')->get();
+});
+
+Route::get('tests/all',function (){
+   return \App\Models\MainTest::with('package')->get();
 });
 require __DIR__.'/auth.php';
