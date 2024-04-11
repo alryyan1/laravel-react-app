@@ -10,6 +10,18 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
+    public function edit(Request  $request,Patient $patient){
+        $data = $request->all();
+
+        $patient->name = $data['name'];
+        $patient->phone = $data['phone'];
+        $patient->doctor_id = $data['doctor'];
+        $result = $patient->save();
+        if ($result){
+            return ['status'=>true];
+        }
+
+    }
     public function store(Request $request){
         $val = $request->all();
         $patient = new Patient();

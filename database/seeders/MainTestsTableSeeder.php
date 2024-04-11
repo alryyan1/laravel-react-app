@@ -26,7 +26,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 1,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             1 => 
             array (
@@ -35,7 +35,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 1,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             2 => 
             array (
@@ -44,7 +44,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 5,
                 'pageBreak' => 1,
                 'container_id' => 5,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             3 => 
             array (
@@ -53,7 +53,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 9,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             4 => 
             array (
@@ -62,7 +62,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 9,
-                'lab_perc' => 0.0,
+                'price' => 9000.0,
             ),
             5 => 
             array (
@@ -71,7 +71,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             6 => 
             array (
@@ -80,7 +80,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 5,
                 'pageBreak' => 0,
                 'container_id' => 5,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             7 => 
             array (
@@ -89,7 +89,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             8 => 
             array (
@@ -98,7 +98,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             9 => 
             array (
@@ -107,7 +107,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 3,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             10 => 
             array (
@@ -116,7 +116,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             11 => 
             array (
@@ -125,7 +125,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 26000.0,
             ),
             12 => 
             array (
@@ -134,7 +134,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 1,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 22000.0,
             ),
             13 => 
             array (
@@ -143,7 +143,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             14 => 
             array (
@@ -152,7 +152,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             15 => 
             array (
@@ -161,7 +161,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             16 => 
             array (
@@ -170,7 +170,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             17 => 
             array (
@@ -179,7 +179,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 8,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 7500.0,
             ),
             18 => 
             array (
@@ -188,7 +188,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 8,
                 'pageBreak' => 1,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 9000.0,
             ),
             19 => 
             array (
@@ -197,7 +197,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             20 => 
             array (
@@ -206,7 +206,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             21 => 
             array (
@@ -215,7 +215,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             22 => 
             array (
@@ -224,7 +224,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             23 => 
             array (
@@ -233,7 +233,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             24 => 
             array (
@@ -242,7 +242,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             25 => 
             array (
@@ -251,7 +251,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 10,
                 'pageBreak' => 0,
                 'container_id' => 7,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             26 => 
             array (
@@ -260,7 +260,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             27 => 
             array (
@@ -269,7 +269,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             28 => 
             array (
@@ -278,7 +278,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             29 => 
             array (
@@ -287,7 +287,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             30 => 
             array (
@@ -296,7 +296,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             31 => 
             array (
@@ -305,7 +305,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             32 => 
             array (
@@ -314,7 +314,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             33 => 
             array (
@@ -323,7 +323,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             34 => 
             array (
@@ -332,7 +332,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 5,
                 'pageBreak' => 0,
                 'container_id' => 5,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             35 => 
             array (
@@ -341,7 +341,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             36 => 
             array (
@@ -350,7 +350,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             37 => 
             array (
@@ -359,7 +359,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             38 => 
             array (
@@ -368,7 +368,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             39 => 
             array (
@@ -377,7 +377,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             40 => 
             array (
@@ -386,7 +386,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             41 => 
             array (
@@ -395,7 +395,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             42 => 
             array (
@@ -404,7 +404,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             43 => 
             array (
@@ -413,7 +413,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 11,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             44 => 
             array (
@@ -422,7 +422,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 11,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             45 => 
             array (
@@ -431,7 +431,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             46 => 
             array (
@@ -440,7 +440,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             47 => 
             array (
@@ -449,7 +449,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             48 => 
             array (
@@ -458,7 +458,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             49 => 
             array (
@@ -467,7 +467,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             50 => 
             array (
@@ -476,7 +476,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             51 => 
             array (
@@ -485,7 +485,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             52 => 
             array (
@@ -494,7 +494,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             53 => 
             array (
@@ -503,7 +503,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 30000.0,
             ),
             54 => 
             array (
@@ -512,7 +512,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             55 => 
             array (
@@ -521,7 +521,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             56 => 
             array (
@@ -530,7 +530,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             57 => 
             array (
@@ -539,7 +539,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             58 => 
             array (
@@ -548,7 +548,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             59 => 
             array (
@@ -557,7 +557,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             60 => 
             array (
@@ -566,7 +566,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             61 => 
             array (
@@ -575,7 +575,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             62 => 
             array (
@@ -584,7 +584,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             63 => 
             array (
@@ -593,7 +593,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             64 => 
             array (
@@ -602,7 +602,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             65 => 
             array (
@@ -611,7 +611,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             66 => 
             array (
@@ -620,7 +620,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             67 => 
             array (
@@ -629,7 +629,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             68 => 
             array (
@@ -638,7 +638,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 30000.0,
             ),
             69 => 
             array (
@@ -647,7 +647,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             70 => 
             array (
@@ -656,7 +656,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             71 => 
             array (
@@ -665,7 +665,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             72 => 
             array (
@@ -674,7 +674,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             73 => 
             array (
@@ -683,7 +683,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 12500.0,
             ),
             74 => 
             array (
@@ -692,7 +692,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 12500.0,
             ),
             75 => 
             array (
@@ -701,7 +701,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             76 => 
             array (
@@ -710,7 +710,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             77 => 
             array (
@@ -719,7 +719,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             78 => 
             array (
@@ -728,7 +728,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             79 => 
             array (
@@ -737,7 +737,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             80 => 
             array (
@@ -746,7 +746,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 1,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             81 => 
             array (
@@ -755,7 +755,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             82 => 
             array (
@@ -764,7 +764,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             83 => 
             array (
@@ -773,7 +773,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             84 => 
             array (
@@ -782,7 +782,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 32000.0,
             ),
             85 => 
             array (
@@ -791,7 +791,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 32000.0,
             ),
             86 => 
             array (
@@ -800,7 +800,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             87 => 
             array (
@@ -809,7 +809,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             88 => 
             array (
@@ -818,7 +818,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             89 => 
             array (
@@ -827,7 +827,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             90 => 
             array (
@@ -836,7 +836,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             91 => 
             array (
@@ -845,7 +845,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             92 => 
             array (
@@ -854,7 +854,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             93 => 
             array (
@@ -863,7 +863,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             94 => 
             array (
@@ -872,7 +872,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             95 => 
             array (
@@ -881,7 +881,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             96 => 
             array (
@@ -890,7 +890,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             97 => 
             array (
@@ -899,7 +899,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             98 => 
             array (
@@ -908,7 +908,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             99 => 
             array (
@@ -917,7 +917,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 5,
                 'pageBreak' => 0,
                 'container_id' => 5,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             100 => 
             array (
@@ -926,7 +926,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 40000.0,
             ),
             101 => 
             array (
@@ -935,7 +935,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 30000.0,
             ),
             102 => 
             array (
@@ -944,7 +944,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             103 => 
             array (
@@ -953,7 +953,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             104 => 
             array (
@@ -962,7 +962,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             105 => 
             array (
@@ -971,7 +971,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 1,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 29000.0,
             ),
             106 => 
             array (
@@ -980,7 +980,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             107 => 
             array (
@@ -989,7 +989,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             108 => 
             array (
@@ -998,7 +998,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 10,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             109 => 
             array (
@@ -1007,7 +1007,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             110 => 
             array (
@@ -1016,7 +1016,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             111 => 
             array (
@@ -1025,7 +1025,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             112 => 
             array (
@@ -1034,7 +1034,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             113 => 
             array (
@@ -1043,7 +1043,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 9000.0,
             ),
             114 => 
             array (
@@ -1052,7 +1052,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 1,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             115 => 
             array (
@@ -1061,7 +1061,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             116 => 
             array (
@@ -1070,7 +1070,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             117 => 
             array (
@@ -1079,7 +1079,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             118 => 
             array (
@@ -1088,7 +1088,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             119 => 
             array (
@@ -1097,7 +1097,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             120 => 
             array (
@@ -1106,7 +1106,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             121 => 
             array (
@@ -1115,7 +1115,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             122 => 
             array (
@@ -1124,7 +1124,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             123 => 
             array (
@@ -1133,7 +1133,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             124 => 
             array (
@@ -1142,7 +1142,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             125 => 
             array (
@@ -1151,7 +1151,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             126 => 
             array (
@@ -1160,7 +1160,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             127 => 
             array (
@@ -1169,7 +1169,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             128 => 
             array (
@@ -1178,7 +1178,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             129 => 
             array (
@@ -1187,7 +1187,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             130 => 
             array (
@@ -1196,7 +1196,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             131 => 
             array (
@@ -1205,7 +1205,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             132 => 
             array (
@@ -1214,7 +1214,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             133 => 
             array (
@@ -1223,7 +1223,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             134 => 
             array (
@@ -1232,7 +1232,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             135 => 
             array (
@@ -1241,7 +1241,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             136 => 
             array (
@@ -1250,7 +1250,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 13000.0,
             ),
             137 => 
             array (
@@ -1259,7 +1259,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             138 => 
             array (
@@ -1268,7 +1268,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             139 => 
             array (
@@ -1277,7 +1277,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             140 => 
             array (
@@ -1286,7 +1286,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             141 => 
             array (
@@ -1295,7 +1295,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             142 => 
             array (
@@ -1304,7 +1304,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             143 => 
             array (
@@ -1313,7 +1313,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             144 => 
             array (
@@ -1322,7 +1322,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             145 => 
             array (
@@ -1331,7 +1331,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             146 => 
             array (
@@ -1340,7 +1340,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             147 => 
             array (
@@ -1349,7 +1349,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             148 => 
             array (
@@ -1358,7 +1358,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             149 => 
             array (
@@ -1367,7 +1367,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             150 => 
             array (
@@ -1376,7 +1376,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             151 => 
             array (
@@ -1385,7 +1385,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             152 => 
             array (
@@ -1394,7 +1394,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             153 => 
             array (
@@ -1403,7 +1403,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             154 => 
             array (
@@ -1412,7 +1412,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             155 => 
             array (
@@ -1421,7 +1421,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             156 => 
             array (
@@ -1430,7 +1430,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             157 => 
             array (
@@ -1439,7 +1439,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             158 => 
             array (
@@ -1448,7 +1448,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             159 => 
             array (
@@ -1457,7 +1457,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 16000.0,
             ),
             160 => 
             array (
@@ -1466,7 +1466,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             161 => 
             array (
@@ -1475,7 +1475,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             162 => 
             array (
@@ -1484,7 +1484,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 22500.0,
             ),
             163 => 
             array (
@@ -1493,7 +1493,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             164 => 
             array (
@@ -1502,7 +1502,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             165 => 
             array (
@@ -1511,7 +1511,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 40000.0,
             ),
             166 => 
             array (
@@ -1520,7 +1520,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 30000.0,
             ),
             167 => 
             array (
@@ -1529,7 +1529,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             168 => 
             array (
@@ -1538,7 +1538,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             169 => 
             array (
@@ -1547,7 +1547,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 40000.0,
             ),
             170 => 
             array (
@@ -1556,7 +1556,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             171 => 
             array (
@@ -1565,7 +1565,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             172 => 
             array (
@@ -1574,7 +1574,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             173 => 
             array (
@@ -1583,7 +1583,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             174 => 
             array (
@@ -1592,7 +1592,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             175 => 
             array (
@@ -1601,7 +1601,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             176 => 
             array (
@@ -1610,7 +1610,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             177 => 
             array (
@@ -1619,7 +1619,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             178 => 
             array (
@@ -1628,7 +1628,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             179 => 
             array (
@@ -1637,7 +1637,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             180 => 
             array (
@@ -1646,7 +1646,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             181 => 
             array (
@@ -1655,7 +1655,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             182 => 
             array (
@@ -1664,7 +1664,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             183 => 
             array (
@@ -1673,7 +1673,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             184 => 
             array (
@@ -1682,7 +1682,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             185 => 
             array (
@@ -1691,7 +1691,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             186 => 
             array (
@@ -1700,7 +1700,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             187 => 
             array (
@@ -1709,7 +1709,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             188 => 
             array (
@@ -1718,7 +1718,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             189 => 
             array (
@@ -1727,7 +1727,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             190 => 
             array (
@@ -1736,7 +1736,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             191 => 
             array (
@@ -1745,7 +1745,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             192 => 
             array (
@@ -1754,7 +1754,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             193 => 
             array (
@@ -1763,7 +1763,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             194 => 
             array (
@@ -1772,7 +1772,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             195 => 
             array (
@@ -1781,7 +1781,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             196 => 
             array (
@@ -1790,7 +1790,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 13000.0,
             ),
             197 => 
             array (
@@ -1799,7 +1799,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             198 => 
             array (
@@ -1808,7 +1808,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             199 => 
             array (
@@ -1817,7 +1817,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3500.0,
             ),
             200 => 
             array (
@@ -1826,7 +1826,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             201 => 
             array (
@@ -1835,7 +1835,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             202 => 
             array (
@@ -1844,7 +1844,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             203 => 
             array (
@@ -1853,7 +1853,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             204 => 
             array (
@@ -1862,7 +1862,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             205 => 
             array (
@@ -1871,7 +1871,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             206 => 
             array (
@@ -1880,7 +1880,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             207 => 
             array (
@@ -1889,7 +1889,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2500.0,
             ),
             208 => 
             array (
@@ -1898,7 +1898,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             209 => 
             array (
@@ -1907,7 +1907,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             210 => 
             array (
@@ -1916,7 +1916,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             211 => 
             array (
@@ -1925,7 +1925,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             212 => 
             array (
@@ -1934,7 +1934,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             213 => 
             array (
@@ -1943,7 +1943,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             214 => 
             array (
@@ -1952,7 +1952,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             215 => 
             array (
@@ -1961,7 +1961,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             216 => 
             array (
@@ -1970,7 +1970,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             217 => 
             array (
@@ -1979,7 +1979,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             218 => 
             array (
@@ -1988,7 +1988,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             219 => 
             array (
@@ -1997,7 +1997,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             220 => 
             array (
@@ -2006,7 +2006,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 11000.0,
             ),
             221 => 
             array (
@@ -2015,7 +2015,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             222 => 
             array (
@@ -2024,7 +2024,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             223 => 
             array (
@@ -2033,7 +2033,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             224 => 
             array (
@@ -2042,7 +2042,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             225 => 
             array (
@@ -2051,7 +2051,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             226 => 
             array (
@@ -2060,7 +2060,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             227 => 
             array (
@@ -2069,7 +2069,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             228 => 
             array (
@@ -2078,7 +2078,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             229 => 
             array (
@@ -2087,7 +2087,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             230 => 
             array (
@@ -2096,7 +2096,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             231 => 
             array (
@@ -2105,7 +2105,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             232 => 
             array (
@@ -2114,7 +2114,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             233 => 
             array (
@@ -2123,7 +2123,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 3,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             234 => 
             array (
@@ -2132,7 +2132,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             235 => 
             array (
@@ -2141,7 +2141,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 11,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             236 => 
             array (
@@ -2150,7 +2150,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             237 => 
             array (
@@ -2159,7 +2159,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             238 => 
             array (
@@ -2168,7 +2168,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             239 => 
             array (
@@ -2177,7 +2177,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 22000.0,
             ),
             240 => 
             array (
@@ -2186,7 +2186,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             241 => 
             array (
@@ -2195,7 +2195,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             242 => 
             array (
@@ -2204,7 +2204,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             243 => 
             array (
@@ -2213,7 +2213,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             244 => 
             array (
@@ -2222,7 +2222,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             245 => 
             array (
@@ -2231,7 +2231,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 12,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             246 => 
             array (
@@ -2240,7 +2240,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             247 => 
             array (
@@ -2249,7 +2249,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             248 => 
             array (
@@ -2258,7 +2258,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             249 => 
             array (
@@ -2267,7 +2267,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 26000.0,
             ),
             250 => 
             array (
@@ -2276,7 +2276,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 18000.0,
             ),
             251 => 
             array (
@@ -2285,7 +2285,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             252 => 
             array (
@@ -2294,7 +2294,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             253 => 
             array (
@@ -2303,7 +2303,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 17000.0,
             ),
             254 => 
             array (
@@ -2312,7 +2312,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             255 => 
             array (
@@ -2321,7 +2321,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 9000.0,
             ),
             256 => 
             array (
@@ -2330,7 +2330,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 9000.0,
             ),
             257 => 
             array (
@@ -2339,7 +2339,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 1,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => NULL,
             ),
             258 => 
             array (
@@ -2348,7 +2348,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             259 => 
             array (
@@ -2357,7 +2357,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             260 => 
             array (
@@ -2366,7 +2366,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             261 => 
             array (
@@ -2375,7 +2375,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 6000.0,
             ),
             262 => 
             array (
@@ -2384,7 +2384,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             263 => 
             array (
@@ -2393,7 +2393,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 16000.0,
             ),
             264 => 
             array (
@@ -2402,7 +2402,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             265 => 
             array (
@@ -2411,7 +2411,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             266 => 
             array (
@@ -2420,7 +2420,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             267 => 
             array (
@@ -2429,7 +2429,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             268 => 
             array (
@@ -2438,7 +2438,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             269 => 
             array (
@@ -2447,7 +2447,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             270 => 
             array (
@@ -2456,7 +2456,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             271 => 
             array (
@@ -2465,7 +2465,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             272 => 
             array (
@@ -2474,7 +2474,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             273 => 
             array (
@@ -2483,7 +2483,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             274 => 
             array (
@@ -2492,7 +2492,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             275 => 
             array (
@@ -2501,7 +2501,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 15000.0,
             ),
             276 => 
             array (
@@ -2510,7 +2510,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             277 => 
             array (
@@ -2519,7 +2519,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             278 => 
             array (
@@ -2528,7 +2528,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             279 => 
             array (
@@ -2537,7 +2537,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 2500.0,
             ),
             280 => 
             array (
@@ -2546,7 +2546,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 2500.0,
             ),
             281 => 
             array (
@@ -2555,7 +2555,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             282 => 
             array (
@@ -2564,7 +2564,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             283 => 
             array (
@@ -2573,7 +2573,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 12,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             284 => 
             array (
@@ -2582,7 +2582,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             285 => 
             array (
@@ -2591,7 +2591,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             286 => 
             array (
@@ -2600,7 +2600,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             287 => 
             array (
@@ -2609,7 +2609,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             288 => 
             array (
@@ -2618,7 +2618,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 9,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             289 => 
             array (
@@ -2627,7 +2627,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 9,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             290 => 
             array (
@@ -2636,7 +2636,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             291 => 
             array (
@@ -2645,7 +2645,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             292 => 
             array (
@@ -2654,7 +2654,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             293 => 
             array (
@@ -2663,7 +2663,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 30000.0,
             ),
             294 => 
             array (
@@ -2672,7 +2672,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             295 => 
             array (
@@ -2681,7 +2681,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             296 => 
             array (
@@ -2690,7 +2690,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 12,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             297 => 
             array (
@@ -2699,7 +2699,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             298 => 
             array (
@@ -2708,7 +2708,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             299 => 
             array (
@@ -2717,7 +2717,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             300 => 
             array (
@@ -2726,7 +2726,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             301 => 
             array (
@@ -2735,7 +2735,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             302 => 
             array (
@@ -2744,7 +2744,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             303 => 
             array (
@@ -2753,7 +2753,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 7000.0,
             ),
             304 => 
             array (
@@ -2762,7 +2762,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             305 => 
             array (
@@ -2771,7 +2771,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             306 => 
             array (
@@ -2780,7 +2780,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             307 => 
             array (
@@ -2789,7 +2789,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             308 => 
             array (
@@ -2798,7 +2798,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             309 => 
             array (
@@ -2807,7 +2807,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             310 => 
             array (
@@ -2816,7 +2816,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             311 => 
             array (
@@ -2825,7 +2825,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             312 => 
             array (
@@ -2834,7 +2834,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             313 => 
             array (
@@ -2843,7 +2843,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             314 => 
             array (
@@ -2852,7 +2852,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             315 => 
             array (
@@ -2861,7 +2861,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             316 => 
             array (
@@ -2870,7 +2870,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             317 => 
             array (
@@ -2879,7 +2879,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 1000.0,
             ),
             318 => 
             array (
@@ -2888,7 +2888,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             319 => 
             array (
@@ -2897,7 +2897,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             320 => 
             array (
@@ -2906,7 +2906,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             321 => 
             array (
@@ -2915,7 +2915,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             322 => 
             array (
@@ -2924,7 +2924,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 7,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             323 => 
             array (
@@ -2933,7 +2933,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 9,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             324 => 
             array (
@@ -2942,7 +2942,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             325 => 
             array (
@@ -2951,7 +2951,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             326 => 
             array (
@@ -2960,7 +2960,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 6,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 2000.0,
             ),
             327 => 
             array (
@@ -2969,7 +2969,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             328 => 
             array (
@@ -2978,7 +2978,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             329 => 
             array (
@@ -2987,7 +2987,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 9,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 12000.0,
             ),
             330 => 
             array (
@@ -2996,7 +2996,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 13000.0,
             ),
             331 => 
             array (
@@ -3005,7 +3005,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             332 => 
             array (
@@ -3014,7 +3014,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             333 => 
             array (
@@ -3023,7 +3023,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 5,
-                'lab_perc' => 0.0,
+                'price' => 5000.0,
             ),
             334 => 
             array (
@@ -3032,7 +3032,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             335 => 
             array (
@@ -3041,7 +3041,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 1,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             336 => 
             array (
@@ -3050,7 +3050,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             337 => 
             array (
@@ -3059,7 +3059,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             338 => 
             array (
@@ -3068,7 +3068,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             339 => 
             array (
@@ -3077,7 +3077,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             340 => 
             array (
@@ -3086,7 +3086,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 6,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             341 => 
             array (
@@ -3095,7 +3095,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             342 => 
             array (
@@ -3104,7 +3104,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 3,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 8000.0,
             ),
             343 => 
             array (
@@ -3113,7 +3113,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             344 => 
             array (
@@ -3122,7 +3122,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 14,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             345 => 
             array (
@@ -3131,7 +3131,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 14,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 25000.0,
             ),
             346 => 
             array (
@@ -3140,7 +3140,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 20000.0,
             ),
             347 => 
             array (
@@ -3149,7 +3149,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 2,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             348 => 
             array (
@@ -3158,7 +3158,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 0.0,
             ),
             349 => 
             array (
@@ -3167,7 +3167,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 10000.0,
             ),
             350 => 
             array (
@@ -3176,7 +3176,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 2,
                 'pageBreak' => 0,
                 'container_id' => 8,
-                'lab_perc' => 0.0,
+                'price' => 4000.0,
             ),
             351 => 
             array (
@@ -3185,7 +3185,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 4,
                 'pageBreak' => 0,
                 'container_id' => 1,
-                'lab_perc' => 0.0,
+                'price' => 3000.0,
             ),
             352 => 
             array (
@@ -3194,7 +3194,7 @@ class MainTestsTableSeeder extends Seeder
                 'pack_id' => 8,
                 'pageBreak' => 0,
                 'container_id' => 4,
-                'lab_perc' => 0.0,
+                'price' => 30000.0,
             ),
         ));
         

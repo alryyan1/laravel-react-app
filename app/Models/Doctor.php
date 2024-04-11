@@ -21,6 +21,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Doctor whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctor whereSpecialistId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctor whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Patient> $patients
+ * @property-read int|null $patients_count
+ * @property-read \App\Models\Specialist $specialist
+ * @method static \Database\Factories\DoctorFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class Doctor extends Model

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('pack_id')->nullable()->index('pakid_fk');
             $table->boolean('pageBreak')->default(false);
             $table->integer('container_id')->default(1)->index('cntainer_fk');
-            $table->float('lab_perc', 10, 1);
+            $table->float('price', 10, 1)->nullable( );
         });
     }
 

@@ -58,4 +58,17 @@ Route::get('packages/all',function (){
 Route::get('tests/all',function (){
    return \App\Models\MainTest::with('package')->get();
 });
+Route::get('has',function (Patient $patient){
+
+   $tests =  \App\Models\MainTest::all();
+   foreach ($tests as $test){
+       $id = $test->id;
+      $val =   DB::table("company_tests_relation")->select('price')->where('insu_id',1)->where('test_id',$id)->value('price');
+       $test->price = $val;
+       $test->update();
+   }
+
+});
+
+//Route::get('labrequest',[\App\Http\Controllers\LabRequestController::class,'store']);
 require __DIR__.'/auth.php';

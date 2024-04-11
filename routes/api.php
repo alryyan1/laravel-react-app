@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LabRequestController;
 use App\Http\Controllers\PatientController;
 use App\Http\Requests\StorePatientRequest;
 use App\Models\Patient;
@@ -39,7 +40,13 @@ Route::get('patients', function (Request $request) {
 Route::get('doctors', function (Request $request) {
     return  \App\Models\Doctor::with('specialist')->get();
 });
+Route::get('tests',[\App\Http\Controllers\MainTestController::class,'show']);
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests')->get();
 });
 Route::post('patients/add',[PatientController::class,'store']);
+Route::post('patients/edit/{patient}',[PatientController::class,'edit']);
+Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);
+Route::post('labRequest/all/{patient}',[LabRequestController::class,'storeAll']);
+Route::get('labRequest/{patient}',[LabRequestController::class,'all']);
+Route::delete('labRequest/{patient}',[LabRequestController::class,'destroy']);
