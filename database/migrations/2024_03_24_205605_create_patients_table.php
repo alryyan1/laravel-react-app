@@ -25,7 +25,10 @@ return new class extends Migration
             $table->string('insurance_no')->nullable();
             $table->integer('user_id');
             $table->integer('shift_id');
-            $table->timestamps();
+            $table->boolean('is_lab_paid')->default(0);
+            $table->integer('lab_paid')->default(0);
+
+           $table->timestamps();
         });
     }
 

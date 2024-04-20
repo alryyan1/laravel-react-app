@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 /**
  * App\Models\Patient
  *
@@ -22,9 +23,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $insurance_no
  * @property int $user_id
  * @property int $shift_id
+ * @property int $is_lab_paid
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Doctor $doctor
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\MainTest> $labrequests
+ * @property-read int|null $labrequests_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedResult> $requestedResults
+ * @property-read int|null $requested_results_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LabRequest> $tests
+ * @property-read int|null $tests_count
  * @method static \Database\Factories\PatientFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Patient newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Patient newQuery()
@@ -37,6 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereGuarantor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereInsuranceNo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereIsLabPaid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePaperFees($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePhone($value)
@@ -44,6 +53,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereUserId($value)
+ * @property int $lab_paid
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereLabPaid($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -62,6 +73,12 @@ class Patient extends Model
         return $this->belongsTo(Doctor::class);
     }
     public function labrequests(){
-      return  $this->belongsToMany(MainTest::class,'labrequests','pid','main_test_id');
+      return  $this->belongsToMany(MainTest::class,'labrequests','pid','main_test_id')->withPivot(['discount_per','is_bankak']);
+    }
+    public function requestedResults(){
+        return $this->belongsToMany(RequestedResult::class,'requestedResults');
+    }
+    public function tests(){
+        return $this->hasMany(LabRequest::class,'pid');
     }
 }

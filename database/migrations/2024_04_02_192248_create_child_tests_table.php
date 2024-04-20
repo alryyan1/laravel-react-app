@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('child_test_name', 70);
             $table->double('low', null, 0)->nullable();
             $table->double('upper', null, 0)->nullable();
-            $table->integer('main_id')->index('main_id_fk');
+            $table->bigInteger('main_id')->index('main_id_fk')->unsigned();
             $table->integer('child_test_id', true);
             $table->string('defval', 80);
             $table->integer('Unit')->nullable()->index('unit_fk');

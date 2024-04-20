@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('main_tests', function (Blueprint $table) {
-            $table->integer('id', true);
+            $table->id('id');
             $table->string('main_test_name', 70);
             $table->integer('pack_id')->nullable()->index('pakid_fk');
             $table->boolean('pageBreak')->default(false);

@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest wherePid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereValid($value)
+ * @property-read \App\Models\MainTest $mainTest
+ * @property-read \App\Models\Patient $patient
  * @mixin \Eloquent
  */
 class LabRequest extends Model
@@ -41,8 +43,10 @@ class LabRequest extends Model
     protected $table='labRequests';
     public $timestamps = false;
     protected $guarded = [];
-    public  function patients(){
-        return $this->belongsToMany(Patient::class,'main_test_id',
-        'pid');
+    public  function patient(){
+        return $this->belongsTo(Patient::class,'pid');
+    }
+    public function mainTest(){
+        return  $this->belongsTo(MainTest::class,'main_test_id');
     }
 }

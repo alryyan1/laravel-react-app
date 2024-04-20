@@ -24,6 +24,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|MainTest whereMainTestName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MainTest wherePackId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MainTest wherePageBreak($value)
+ * @property float|null $price
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChildTest> $childTests
+ * @property-read int|null $child_tests_count
+ * @method static \Illuminate\Database\Eloquent\Builder|MainTest wherePrice($value)
  * @mixin \Eloquent
  */
 class MainTest extends Model

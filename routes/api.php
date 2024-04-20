@@ -47,6 +47,13 @@ Route::get('packages/all',function (){
 Route::post('patients/add',[PatientController::class,'store']);
 Route::post('patients/edit/{patient}',[PatientController::class,'edit']);
 Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);
-Route::post('labRequest/all/{patient}',[LabRequestController::class,'storeAll']);
+Route::patch('labRequest/{patient}',[LabRequestController::class,'edit']);
+Route::patch('labRequest/payment/{patient}',[LabRequestController::class,'payment']);
+Route::patch('labRequest/cancelPayment/{patient}',[LabRequestController::class,'cancel']);
+Route::patch('labRequest/bankak/{patient}',[LabRequestController::class,'bankak']);
+
 Route::get('labRequest/{patient}',[LabRequestController::class,'all']);
 Route::delete('labRequest/{patient}',[LabRequestController::class,'destroy']);
+
+
+Route::post('client/create',[\App\Http\Controllers\ClientController::class,'create']);

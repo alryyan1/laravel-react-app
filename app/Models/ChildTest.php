@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereNormalRange($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereUpper($value)
+ * @property-read \App\Models\MainTest $mainTest
  * @mixin \Eloquent
  */
 class ChildTest extends Model

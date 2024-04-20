@@ -52,7 +52,7 @@ Route::get('patients', function () {
     return  Patient::with('doctor')->get();
 });
 Route::get('packages/all',function (){
-    return \App\Models\Package::with('tests')->get();
+    return \App\Models\Package::with('tests.mainTest')->get();
 });
 
 Route::get('tests/all',function (){
@@ -60,14 +60,7 @@ Route::get('tests/all',function (){
 });
 Route::get('has',function (Patient $patient){
 
-   $tests =  \App\Models\MainTest::all();
-   foreach ($tests as $test){
-       $id = $test->id;
-      $val =   DB::table("company_tests_relation")->select('price')->where('insu_id',1)->where('test_id',$id)->value('price');
-       $test->price = $val;
-       $test->update();
-   }
-
+  return Patient::with('tests.mainTest')->find(8);
 });
 
 //Route::get('labrequest',[\App\Http\Controllers\LabRequestController::class,'store']);
