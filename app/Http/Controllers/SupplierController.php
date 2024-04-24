@@ -16,22 +16,24 @@ class SupplierController extends Controller
     public function create(Request $request){
 
         $data = $request->all();
-//        return $data;
+        $email = '';
+        if (isset($data['email'])){
+            $email = $data['email'];
+        }
+
         $result = Supplier::create([
             'name'=>$data['name'],
             'phone'=>$data['phone'],
             'address'=>$data['address'],
-            'email'=>$data['email'],
+            'email'=>$email,
 
         ]);
         return ['status'=> $result->id];
     }
-    public function edit(Request $request , Supplier $client){
+    public function update(Request $request , Supplier $supplier){
         $data = $request->all();
-        $name =  $data['name'];
-        $phone =  $data['phone'];
-        $address =  $data['address'];
-        $email =  $data['email'];
-        $client->update(['name'=>$name,'phone'=>$phone,'address'=>$address,'email'=>$email]);
+//        return $data;
+
+        return ['status'=>$supplier->update([$data['colName']=>$data['val']])];
     }
 }

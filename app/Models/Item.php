@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,8 +32,17 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
+    use EagerLoadPivotTrait;
     protected $fillable =['name','unit_name','section_id','initial_balance'];
+    protected $with = ['section'];
     public function section(){
         return $this->belongsTo(Section::class);
     }
+    public function deposits(){
+        return $this->belongsToMany(Deposit::class,'deposit_items',"item_id","deposit_id")->using(DepositSupplier::class);
+    }
+    public function supplier(){
+        return $this->belongsTo(Supplier::class);
+    }
+
 }

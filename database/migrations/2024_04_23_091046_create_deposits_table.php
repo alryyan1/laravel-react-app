@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('deposits', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Section::class)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
-            $table->string('name');
-            $table->string('unit_name');
-            $table->string('initial_balance')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('deposits');
     }
 };

@@ -18,7 +18,7 @@ class ItemController extends Controller
         return Item::with('section')->get();
     }
     public function destroy(Request $request , Item $item){
-        return $item->delete();
+        return ['status' =>$item->delete()];
     }
     public function update(Request $request , Item $item){
         $data = $request->all();

@@ -14,9 +14,16 @@ class SectionController extends Controller
     }
 
     public function destroy(Request $request , Section $section){
-       return $section->delete();
+       return ['status'=> $section->delete()];
     }
     public function all(Request $request ){
         return Section::all();
+    }
+    public function update(Request $request , Section $section){
+        $data = $request->all();
+//        return $data;
+
+        return ['status'=>$section->update([$data['colName']=>$data['val']])];
+
     }
 }

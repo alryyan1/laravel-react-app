@@ -47,9 +47,9 @@ Route::get('/home', function () {
 Route::get('doctors', function () {
     return  \App\Models\Doctor::with('specialist')->get();
 });
-Route::get('patients', function () {
+Route::get('deducts', function () {
 
-    return  Patient::with('doctor')->get();
+    return  App\Models\Deduct::with('items.pivot.client')->latest()->first()    ;
 });
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests.mainTest')->get();

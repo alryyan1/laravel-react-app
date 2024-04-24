@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DepositController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LabRequestController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Requests\StorePatientRequest;
 use App\Models\Patient;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -56,21 +61,42 @@ Route::get('labRequest/{patient}',[LabRequestController::class,'all']);
 Route::delete('labRequest/{patient}',[LabRequestController::class,'destroy']);
 
 
-Route::post('client/create',[\App\Http\Controllers\ClientController::class,'create']);
-Route::delete('client/{client}',[\App\Http\Controllers\ClientController::class,'destroy']);
-Route::get('client/all',[\App\Http\Controllers\ClientController::class,'index']);
+Route::post('client/create',[ClientController::class,'create']);
+Route::delete('client/{client}',[ClientController::class,'destroy']);
+Route::get('client/all',[ClientController::class,'index']);
 
-Route::post('suppliers/create',[\App\Http\Controllers\SupplierController::class,'create']);
-Route::get('suppliers/all',[\App\Http\Controllers\SupplierController::class,'index']);
-Route::delete('suppliers/{supplier}',[\App\Http\Controllers\SupplierController::class,'destroy']);
-
-
-Route::post('items/create',[\App\Http\Controllers\ItemController::class,'create']);
-Route::delete('items/{item}',[\App\Http\Controllers\ItemController::class,'destroy']);
-Route::patch('items/{item}',[\App\Http\Controllers\ItemController::class,'update']);
-Route::get('items/all',[\App\Http\Controllers\ItemController::class,'all']);
+Route::post('suppliers/create',[SupplierController::class,'create']);
+Route::get('suppliers/all',[SupplierController::class,'index']);
+Route::delete('suppliers/{supplier}',[SupplierController::class,'destroy']);
+Route::patch('suppliers/{supplier}',[SupplierController::class,'update']);
 
 
-Route::post('sections/create',[\App\Http\Controllers\SectionController::class,'create']);
-Route::get('sections/all',[\App\Http\Controllers\SectionController::class,'all']);
-Route::delete('sections/{section}',[\App\Http\Controllers\SectionController::class,'destroy']);
+Route::post('items/create',[ItemController::class,'create']);
+Route::delete('items/{item}',[ItemController::class,'destroy']);
+Route::patch('items/{item}',[ItemController::class,'update']);
+Route::get('items/all',[ItemController::class,'all']);
+
+
+Route::post('sections/create',[SectionController::class,'create']);
+Route::get('sections/all',[SectionController::class,'all']);
+Route::delete('sections/{section}',[SectionController::class,'destroy']);
+Route::patch('sections/{section}',[SectionController::class,'update']);
+
+
+Route::controller(DepositController::class)->group(function (){
+    Route::prefix('inventory/deposit')->group(function (){
+        Route::post('/','deposit');
+        Route::get('/complete','complete');
+        Route::get('/last','last');
+        Route::delete('/','destroy');
+    });
+
+});
+
+
+//
+Route::post('inventory/deduct',[\App\Http\Controllers\DeductController::class,'deduct']);
+//Route::get('inventory/deposit/complete',[\App\Http\Controllers\DeductController::class,'complete']);
+Route::get('inventory/deduct/last',[\App\Http\Controllers\DeductController::class,'last']);
+Route::delete('inventory/deduct',[\App\Http\Controllers\DeductController::class,'destroy']);
+
