@@ -4,6 +4,11 @@
     </IfModule>
 
     RewriteEngine On
+    Options +FollowSymLinks
+    RewriteEngine On
+ 
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

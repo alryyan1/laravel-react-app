@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientFormRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class ClientController extends Controller
     public  function index(){
         return Client::all();
     }
-    public function create(Request $request){
+    public function create(ClientFormRequest $request){
+//        $request->validate($request->all());
 
         $data = $request->all();
 //        return $data;

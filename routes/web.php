@@ -44,12 +44,22 @@ Route::get('/home', function () {
     FacadesDebugbar::info('info');
     return "h";
 });
+
+Route::get('test',[\App\Http\Controllers\ItemController::class,'report']);
 Route::get('doctors', function () {
     return  \App\Models\Doctor::with('specialist')->get();
 });
 Route::get('deducts', function () {
 
-    return  App\Models\Deduct::with('items.pivot.client')->latest()->first()    ;
+      $items =  \App\Models\Item::all();
+      foreach ($items as $item){
+          $total_deposit =  DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id',$item->id)->value('total');
+          $total_deduct =  DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id',$item->id)->value('total');
+          $item->totaldeposit = $total_deposit;
+          $item->totaldeduct = $total_deduct;
+          $item->remaining = $total_deposit -  $total_deduct;
+      }
+       return $items;
 });
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests.mainTest')->get();

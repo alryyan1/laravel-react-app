@@ -7,12 +7,14 @@
     "require": {
         "php": "^8.1",
         "ajcastro/eager-load-pivot-relations": "^0.3.0",
+        "elibyy/tcpdf-laravel": "^11.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/breeze": "^1.28",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "orangehill/iseed": "^3.0"
+        "orangehill/iseed": "^3.0",
+        "tecnickcom/tcpdf": "^6.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.10",

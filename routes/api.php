@@ -61,7 +61,7 @@ Route::get('labRequest/{patient}',[LabRequestController::class,'all']);
 Route::delete('labRequest/{patient}',[LabRequestController::class,'destroy']);
 
 
-Route::post('client/create',[ClientController::class,'create']);
+Route::middleware('auth:sanctum')->post('client/create',[ClientController::class,'create']);
 Route::delete('client/{client}',[ClientController::class,'destroy']);
 Route::get('client/all',[ClientController::class,'index']);
 
@@ -75,6 +75,7 @@ Route::post('items/create',[ItemController::class,'create']);
 Route::delete('items/{item}',[ItemController::class,'destroy']);
 Route::patch('items/{item}',[ItemController::class,'update']);
 Route::get('items/all',[ItemController::class,'all']);
+Route::get('items/balance',[ItemController::class,'balance']);
 
 
 Route::post('sections/create',[SectionController::class,'create']);
@@ -96,7 +97,11 @@ Route::controller(DepositController::class)->group(function (){
 
 //
 Route::post('inventory/deduct',[\App\Http\Controllers\DeductController::class,'deduct']);
-//Route::get('inventory/deposit/complete',[\App\Http\Controllers\DeductController::class,'complete']);
+Route::get('inventory/deduct/complete',[\App\Http\Controllers\DeductController::class,'complete']);
 Route::get('inventory/deduct/last',[\App\Http\Controllers\DeductController::class,'last']);
 Route::delete('inventory/deduct',[\App\Http\Controllers\DeductController::class,'destroy']);
 
+
+Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
+Route::middleware('auth:sanctum')->post('logout',[\App\Http\Controllers\AuthController::class,'logout']);
+Route::post('signup',[\App\Http\Controllers\AuthController::class,'signup']);

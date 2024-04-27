@@ -34,6 +34,9 @@ class DeductController extends Controller
     }
     public function last(){
              return  Deduct::with('items.pivot.client')->latest()->first()    ;
+    }
+    public function complete(){
+        return ['status' => Deduct::create()] ;
 
     }
 }
