@@ -6,6 +6,8 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -23,7 +25,10 @@ class AuthController extends Controller
             return response(['message'=>'password or user is wrong'],401);
         }
         $user =  \Auth::user();
-        return  ['status'=>true,'user'=>$user,'token'=>$user->createToken('main')->plainTextToken];
+        $token =$user->createToken('main');
+//        DB::table('personal_access_tokens')->where('tokenable_id',$user->id)
+//            ->update(['expires_at'=>Carbon::now()->addHour()]);
+        return  ['status'=>true,'user'=>$user,'token'=>$token->plainTextToken];
     }
     public function logout(Request $request){
         /** @var User $user */

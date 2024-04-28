@@ -33,6 +33,15 @@ class ItemController extends Controller
     {
         return Item::with('section')->get();
     }
+    public function pagination(Request $request)
+    {
+        $data = $request->all();
+        if (isset($data['word'])){
+            $query = $data['word'];
+            return collect( Item::with('section')->where('name','like',"%$query%")->paginate(7));
+        }
+        return collect( Item::with('section')->paginate(7));
+    }
 
     public function destroy(Request $request, Item $item)
     {

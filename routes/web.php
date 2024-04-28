@@ -3,6 +3,7 @@
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Doctor;
+use App\Models\Item;
 use App\Models\Patient;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use DebugBar\DebugBar;
@@ -49,17 +50,10 @@ Route::get('test',[\App\Http\Controllers\ItemController::class,'report']);
 Route::get('doctors', function () {
     return  \App\Models\Doctor::with('specialist')->get();
 });
-Route::get('deducts', function () {
+Route::get('items', function () {
 
-      $items =  \App\Models\Item::all();
-      foreach ($items as $item){
-          $total_deposit =  DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id',$item->id)->value('total');
-          $total_deduct =  DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id',$item->id)->value('total');
-          $item->totaldeposit = $total_deposit;
-          $item->totaldeduct = $total_deduct;
-          $item->remaining = $total_deposit -  $total_deduct;
-      }
-       return $items;
+    return collect( Item::with('section')->paginate(10));
+
 });
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests.mainTest')->get();

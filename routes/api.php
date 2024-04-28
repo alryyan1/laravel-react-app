@@ -75,6 +75,7 @@ Route::post('items/create',[ItemController::class,'create']);
 Route::delete('items/{item}',[ItemController::class,'destroy']);
 Route::patch('items/{item}',[ItemController::class,'update']);
 Route::get('items/all',[ItemController::class,'all']);
+Route::post('items/all/pagination',[ItemController::class,'pagination']);
 Route::get('items/balance',[ItemController::class,'balance']);
 
 

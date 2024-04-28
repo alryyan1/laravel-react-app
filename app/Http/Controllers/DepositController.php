@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Deposit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class DepositController extends Controller
 {
@@ -21,13 +22,15 @@ class DepositController extends Controller
             Deposit::create();
 
         }
-        $date = new \DateTime($data['expire']);
+       $carbon_date =  Carbon::parse($data['expire']);
+//        return $carbon_date;
+//        $date = new \DateTime($data['expire']);
         $deposit =  Deposit::latest()->first();
         $deposit->items()->attach($item_id,[
             'price'=>$data['price'],
             'quantity'=>$data['quantity'],
             'notes'=>$data['notes'],
-            'expire'=>$date,
+            'expire'=>$carbon_date,
             'barcode'=>$data['barcode'],
             'batch'=>$data['batch'],
             'supplier_id'=>$data['supplier_id'],
