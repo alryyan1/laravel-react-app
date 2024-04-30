@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Patient;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use DebugBar\DebugBar;
+use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Client\Request;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Route;
@@ -50,11 +51,7 @@ Route::get('test',[\App\Http\Controllers\ItemController::class,'report']);
 Route::get('doctors', function () {
     return  \App\Models\Doctor::with('specialist')->get();
 });
-Route::get('items', function () {
-
-    return collect( Item::with('section')->paginate(10));
-
-});
+Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests.mainTest')->get();
 });

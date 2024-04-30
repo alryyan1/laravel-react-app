@@ -33,13 +33,13 @@ class Item extends Model
 {
     use HasFactory;
     use EagerLoadPivotTrait;
-    protected $fillable =['name','unit_name','section_id','initial_balance'];
+    protected $fillable =['name','unit_name','section_id','initial_balance','bill_number','bill_date'];
     protected $with = ['section'];
     public function section(){
         return $this->belongsTo(Section::class);
     }
     public function deposits(){
-        return $this->belongsToMany(Deposit::class,'deposit_items',"item_id","deposit_id")->using(DepositSupplier::class);
+        return $this->belongsToMany(Deposit::class,'deposit_items',"item_id","deposit_id");
     }
     public function supplier(){
         return $this->belongsTo(Supplier::class);

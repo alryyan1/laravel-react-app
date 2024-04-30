@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Supplier::class)->constrained()->cascadeOnUpdate();
+            $table->string('bill_number');
+            $table->dateTime('bill_date');
+            $table->boolean('complete')->default(0);
             $table->timestamps();
+
         });
     }
 

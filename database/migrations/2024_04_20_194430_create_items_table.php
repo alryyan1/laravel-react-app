@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Section::class)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('name');
             $table->string('unit_name');
-            $table->string('initial_balance')->default(0);
+            $table->string('require_amount')->default(0);
             $table->timestamps();
         });
     }

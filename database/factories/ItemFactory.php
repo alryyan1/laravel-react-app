@@ -22,7 +22,7 @@ class ItemFactory extends Factory
             'section_id'=>$section->id,
             'name'=>$this->faker->name,
             'unit_name'=>'كرتون',
-            'initial_balance'=>0,
+            'require_amount'=>0,
         ];
     }
 }

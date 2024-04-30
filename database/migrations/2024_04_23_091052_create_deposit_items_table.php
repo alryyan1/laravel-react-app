@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('deposit_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Supplier::class)->constrained()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\Item::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Deposit::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->integer('quantity')->default(0);
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->dateTime('expire')->nullable();
             $table->string('notes')->nullable();
             $table->string('barcode')->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

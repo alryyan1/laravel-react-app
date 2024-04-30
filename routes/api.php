@@ -77,6 +77,7 @@ Route::patch('items/{item}',[ItemController::class,'update']);
 Route::get('items/all',[ItemController::class,'all']);
 Route::post('items/all/pagination',[ItemController::class,'pagination']);
 Route::get('items/balance',[ItemController::class,'balance']);
+Route::post('items/all/balance/paginate',[ItemController::class,'paginate']);
 
 
 Route::post('sections/create',[SectionController::class,'create']);
@@ -84,13 +85,18 @@ Route::get('sections/all',[SectionController::class,'all']);
 Route::delete('sections/{section}',[SectionController::class,'destroy']);
 Route::patch('sections/{section}',[SectionController::class,'update']);
 
-
+Route::middleware('auth:sanctum')->post('inventory/deposit',[DepositController::class,'deposit']);
 Route::controller(DepositController::class)->group(function (){
     Route::prefix('inventory/deposit')->group(function (){
-        Route::post('/','deposit');
-        Route::get('/complete','complete');
+
+        Route::post('/complete','complete');
         Route::get('/last','last');
         Route::delete('/','destroy');
+        Route::post('getDepositsByDate','getDepositsByDate');
+        Route::get('getDepositById/{deposit}','getDepositById');
+        Route::patch('finish/{deposit}','finish');
+        Route::post('getDepoistByInvoice','getDepoistByInvoice');
+        Route::post('getDepositBySupplier','getDepositBySupplier');
     });
 
 });

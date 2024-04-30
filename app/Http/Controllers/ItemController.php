@@ -21,11 +21,32 @@ class ItemController extends Controller
         return $items;
     }
 
+    public function paginate(Request $request)
+    {
+        $data  = $request->all();
+        if (isset($data['word'])){
+            $name  = $data['word'];
+            $items = \App\Models\Item::where('name','like',"%$name%")->paginate(7);
+
+        }else{
+            $items = \App\Models\Item::orderByDesc('id')->paginate(7);
+
+        }
+        foreach ($items as $item) {
+            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $item->totaldeposit = $total_deposit;
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct;
+        }
+        return $items;
+    }
+
     public function create(Request $request)
     {
         $data = $request->all();
 //        return $data;
-        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'initial_balance' => $data['balance'], 'unit_name' => $data['unit_name']]);
+        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'unit_name' => $data['unit_name']]);
         return ['status' => $result];
     }
 
