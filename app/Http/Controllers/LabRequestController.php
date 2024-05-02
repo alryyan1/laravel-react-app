@@ -53,7 +53,7 @@ class LabRequestController extends Controller
             $patient->labrequests()->attach($data['main_test_id']);
 
         }
-        return ['status' => true];
+        return ['status' => true,'patient'=>$patient->fresh()];
 
     }
 

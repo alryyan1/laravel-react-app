@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PatientAddRequest;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,14 +23,11 @@ class PatientController extends Controller
         }
 
     }
-    public function store(Request $request){
-        $val = $request->all();
-        $patient = new Patient();
+    public function store(PatientAddRequest $request){
 
-        $patient->name = $request->name;
-        $patient->doctor_id = $request->doc_id;
-        $patient->phone = $request->phone;
-        $patient->user_id = 1;
+//        return $request->validated();
+        $patient = new Patient($request->validated());
+        $patient->user_id = \Auth::user()->id;
         $patient->shift_id = 1;
         try {
             $result = $patient->save();

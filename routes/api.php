@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LabRequestController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Requests\StorePatientRequest;
 use App\Models\Patient;
+use App\Models\Specialist;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Log\Logger;
@@ -42,14 +45,17 @@ Route::get('patients', function (Request $request) {
     ->orderBy('id', 'desc')
     ->get();
 });
-Route::get('doctors', function (Request $request) {
-    return  \App\Models\Doctor::with('specialist')->get();
-});
+
+Route::get('doctors',[DoctorController::class,'all']);
+Route::post('doctors/add',[DoctorController::class,'create']);
+Route::get('specialists/all',[SpecialistController::class,'all']);
+
+
 Route::get('tests',[\App\Http\Controllers\MainTestController::class,'show']);
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests')->get();
 });
-Route::post('patients/add',[PatientController::class,'store']);
+Route::middleware('auth:sanctum')->post('patients/add',[PatientController::class,'store']);
 Route::post('patients/edit/{patient}',[PatientController::class,'edit']);
 Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);
 Route::patch('labRequest/{patient}',[LabRequestController::class,'edit']);

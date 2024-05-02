@@ -51,7 +51,9 @@ Route::get('test',[\App\Http\Controllers\ItemController::class,'report']);
 Route::get('doctors', function () {
     return  \App\Models\Doctor::with('specialist')->get();
 });
+//inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
+Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests.mainTest')->get();
 });

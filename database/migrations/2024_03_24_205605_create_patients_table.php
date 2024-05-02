@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('doctor_id')->references('id')->on('doctors');
             $table->string('phone',10);
+            $table->integer('age_day')->nullable();
+            $table->integer('age_month')->nullable();
+            $table->integer('age_year')->nullable();
             $table->integer('company_id')->nullable();
             $table->integer('sub_company_id')->nullable();
             $table->string('family_member')->nullable();

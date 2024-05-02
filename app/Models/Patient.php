@@ -60,13 +60,13 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id'];
+    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id'];
     protected function name() : Attribute {
         return Attribute::make(
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests'];
+    protected  $with = ['labrequests','doctor'];
 
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

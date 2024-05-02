@@ -46,7 +46,7 @@ class ItemController extends Controller
     {
         $data = $request->all();
 //        return $data;
-        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'unit_name' => $data['unit_name']]);
+        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance']]);
         return ['status' => $result];
     }
 
@@ -59,9 +59,9 @@ class ItemController extends Controller
         $data = $request->all();
         if (isset($data['word'])){
             $query = $data['word'];
-            return collect( Item::with('section')->where('name','like',"%$query%")->paginate(7));
+            return collect( Item::orderByDesc('id')->with('section')->where('name','like',"%$query%")->paginate(7));
         }
-        return collect( Item::with('section')->paginate(7));
+        return collect( Item::orderByDesc('id')->with('section')->paginate(7));
     }
 
     public function destroy(Request $request, Item $item)

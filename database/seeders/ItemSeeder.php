@@ -15,11 +15,11 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
         $section =  Section::first();
-        Item::create(['section_id'=>$section->id  ,'name'=>'حقنه','unit_name'=>'كرتونه','require_amount'=>5]);
-        Item::create(['section_id'=>$section->id  ,'name'=>'Gloves','unit_name'=>'كرتونه','require_amount'=>5]);
-        Item::create(['section_id'=>$section->id  ,'name'=>'EDTA','unit_name'=>'كرتونه','require_amount'=>5]);
-        Item::create(['section_id'=>$section->id  ,'name'=>'Heparin','unit_name'=>'كرتونه','require_amount'=>5]);
-        Item::create(['section_id'=>$section->id  ,'name'=>'UrineContainer','unit_name'=>'كرتونه','require_amount'=>5]);
-        Item::create(['section_id'=>$section->id  ,'name'=>'yellow tips','unit_name'=>'كرتونه','require_amount'=>5]);
+        Item::create(['section_id'=>$section->id  ,'name'=>'حقنه','require_amount'=>5]);
+        Item::create(['section_id'=>$section->id  ,'name'=>'Gloves','require_amount'=>5]);
+        Item::create(['section_id'=>$section->id  ,'name'=>'EDTA','require_amount'=>5]);
+        Item::create(['section_id'=>$section->id  ,'name'=>'Heparin','require_amount'=>5]);
+        Item::create(['section_id'=>$section->id  ,'name'=>'UrineContainer','require_amount'=>5]);
+        Item::create(['section_id'=>$section->id  ,'name'=>'yellow tips','require_amount'=>5]);
     }
 }

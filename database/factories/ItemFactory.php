@@ -21,8 +21,8 @@ class ItemFactory extends Factory
         return [
             'section_id'=>$section->id,
             'name'=>$this->faker->name,
-            'unit_name'=>'كرتون',
             'require_amount'=>0,
+            'initial_balance'=>0,
         ];
     }
 }
