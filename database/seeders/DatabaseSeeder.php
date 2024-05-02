@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ChildTestsTableSeeder::class);
         $this->call(SectionSeeder::class);
         $this->call(SupplierSeeder::class);
-        $this->call(ItemSeeder::class);
         $this->call(ClientSeeder::class);
+        $this->call(ItemsTableSeeder::class);
     }
 }
