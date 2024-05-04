@@ -17,6 +17,7 @@ class SectionSeeder extends Seeder
         Section::create(['name'=> 'عينات الروتين']);
         Section::create(['name'=> ' كيمياء']);
         Section::create(['name'=> 'هرمون']);
-        Section::create(['name'=> 'مستهلكات الCBC']);
+        Section::create(['name'=> 'مستهلكات الهيماتولوجي']);
+        Section::create(['name'=> 'مياكرو']);
     }
 }

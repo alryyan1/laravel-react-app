@@ -80,7 +80,7 @@ class PdfController extends Controller
             $pdf->Cell($table_col_widht,5,$item->initial_price * $item->initial_balance,1,0,'C',stretch: 1);
             $pdf->Cell($table_col_widht,5,  $total_deposit,1,0,'C');
             $pdf->Cell($table_col_widht,5,  $total_deduct,1,0,'C');
-            $pdf->Cell($table_col_widht,5,  $item->remaining,1,1,'C');
+            $pdf->Cell($table_col_widht,5,  $item->remaining + $item->initial_balance,1,1,'C');
         }
 
         $pdf->Ln();
