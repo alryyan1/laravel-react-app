@@ -27,6 +27,7 @@ class PatientAddRequest extends FormRequest
             'phone' => 'numeric',
             'age_day' => '',
             'age_month' => '',
+            'gender' => '',
             'age_year' => 'required|numeric',
         ];
     }

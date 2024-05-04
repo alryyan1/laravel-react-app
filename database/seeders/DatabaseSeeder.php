@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Shift;
 use App\Models\Specialist;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //Specialist::truncate();
         //Doctor::truncate();
 
+        Shift::create();
        $specialist =  Specialist::create(['name'=>'الباطنيه']);
        $doctor = Doctor::factory(10)->create();
        Patient::factory(10)->create();

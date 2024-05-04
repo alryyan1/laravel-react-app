@@ -17,7 +17,7 @@ class PdfController extends Controller
 
 
 
-        $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $lg = array();
         $lg['a_meta_charset'] = 'UTF-8';
         $lg['a_meta_dir'] = 'rtl';
@@ -53,12 +53,15 @@ class PdfController extends Controller
         $pdf->Cell($table_col_widht,5,'التاريخ ',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,$date,1,0,'C');
         $pdf->Cell($table_col_widht,5,'',0,1,'C');
-        $table_col_widht = $page_width / 5;
+        $table_col_widht = $page_width / 8;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
         $pdf->Cell($table_col_widht,5,'كود الصنف',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,'الاسم ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'سعر الوحده ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'رصيد اول المده',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,' الاجمالي ',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,"الوارد  ",1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,"المنصرف  ",1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,"الرصيد  ",1,1,'C',fill: 1);
@@ -72,6 +75,9 @@ class PdfController extends Controller
             $item->remaining = $total_deposit - $total_deduct;
             $pdf->Cell($table_col_widht,5, $item->id,1,0,'C');
             $pdf->Cell($table_col_widht,5,$item->name,1,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$item->initial_balance,1,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$item->initial_price,1,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$item->initial_price * $item->initial_balance,1,0,'C',stretch: 1);
             $pdf->Cell($table_col_widht,5,  $total_deposit,1,0,'C');
             $pdf->Cell($table_col_widht,5,  $total_deduct,1,0,'C');
             $pdf->Cell($table_col_widht,5,  $item->remaining,1,1,'C');

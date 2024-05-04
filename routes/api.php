@@ -56,7 +56,7 @@ Route::get('packages/all',function (){
     return \App\Models\Package::with('tests')->get();
 });
 Route::middleware('auth:sanctum')->post('patients/add',[PatientController::class,'store']);
-Route::post('patients/edit/{patient}',[PatientController::class,'edit']);
+Route::patch('patients/edit/{patient}',[PatientController::class,'edit']);
 Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);
 Route::patch('labRequest/{patient}',[LabRequestController::class,'edit']);
 Route::patch('labRequest/payment/{patient}',[LabRequestController::class,'payment']);
@@ -81,7 +81,7 @@ Route::post('items/create',[ItemController::class,'create']);
 Route::delete('items/{item}',[ItemController::class,'destroy']);
 Route::patch('items/{item}',[ItemController::class,'update']);
 Route::get('items/all',[ItemController::class,'all']);
-Route::post('items/all/pagination',[ItemController::class,'pagination']);
+Route::get('items/all/pagination/{item}',[ItemController::class,'pagination']);
 Route::get('items/balance',[ItemController::class,'balance']);
 Route::post('items/all/balance/paginate',[ItemController::class,'paginate']);
 

@@ -48,8 +48,14 @@ Route::get('/home', function () {
 });
 
 Route::get('test',[\App\Http\Controllers\ItemController::class,'report']);
-Route::get('doctors', function () {
-    return  \App\Models\Doctor::with('specialist')->get();
+Route::get('shift', function () {
+    $shift = \App\Models\Shift::first();
+    $total = 0;
+    /** @var Patient $patient */
+    foreach ($shift->patients as $patient){
+       $total+= $patient->labrequests()->sum('price');
+    }
+    return $total;
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);

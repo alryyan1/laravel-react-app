@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Doctor;
+use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,13 +20,14 @@ class PatientFactory extends Factory
     public function definition(): array
     {
         $doctor =  Doctor::first();
-        $user = User::first();
+        $user = User::factory()->create();
+        $shift = Shift::first();
         return [
             'name' => $this->faker->name(),
             'doctor_id' => Doctor::factory(),
             'phone' => '09'.$this->faker->randomNumber(8,true),
-            'user_id' => 1,
-            'shift_id' => 1,
+            'user_id' => $user->id,
+            'shift_id' => $shift->id,
         ];
     }
 }

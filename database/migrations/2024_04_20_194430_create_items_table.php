@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('require_amount')->default(0);
             $table->integer('initial_balance')->default(0);
+            $table->integer('initial_price')->default(0);
             $table->timestamps();
         });
     }

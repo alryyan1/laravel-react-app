@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignIdFor(\App\Models\Shift::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->foreignId('doctor_id')->references('id')->on('doctors');
             $table->string('phone',10);
+            $table->string('gender');
             $table->integer('age_day')->nullable();
             $table->integer('age_month')->nullable();
             $table->integer('age_year')->nullable();
@@ -26,8 +29,6 @@ return new class extends Migration
             $table->string('guarantor')->nullable();
             $table->date('expire_date')->nullable();
             $table->string('insurance_no')->nullable();
-            $table->integer('user_id');
-            $table->integer('shift_id');
             $table->boolean('is_lab_paid')->default(0);
             $table->integer('lab_paid')->default(0);
 

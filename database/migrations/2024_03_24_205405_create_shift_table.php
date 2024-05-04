@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shift', function (Blueprint $table) {
+        Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->float('total')->default(0);
-            $table->float('bank')->default(0);
-            $table->float('expenses')->default(0);
-            $table->timestamp('open_at');
-            $table->timestamp('close_at')->nullable();
+            $table->float('total')->nullable(0);
+            $table->float('bank')->nullable(0);
+            $table->float('expenses')->nullable(0);
+            $table->dateTime('closed_at')->nullable();
+            $table->timestamps();
         });
     }
 

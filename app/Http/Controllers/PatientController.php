@@ -11,13 +11,13 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
-    public function edit(Request  $request,Patient $patient){
-        $data = $request->all();
-
-        $patient->name = $data['name'];
-        $patient->phone = $data['phone'];
-        $patient->doctor_id = $data['doctor'];
-        $result = $patient->save();
+    public function edit(PatientAddRequest  $request,Patient $patient){
+//        $data = $request->all();
+          $result =  $patient->update($request->validated());
+//        $patient->name = $data['name'];
+//        $patient->phone = $data['phone'];
+//        $patient->doctor_id = $data['doctor'];
+//        $result = $patient->save();
         if ($result){
             return ['status'=>true];
         }
