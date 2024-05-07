@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deposit;
+use App\Models\Patient;
+use App\Models\Shift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mypdf\Pdf;
@@ -91,7 +93,7 @@ class PdfController extends Controller
     {
 
         $id = $request->query('id');
-       $deposit = Deposit::find($id);
+        $deposit = Deposit::find($id);
 
 
 
@@ -163,6 +165,82 @@ class PdfController extends Controller
         $pdf->Cell($table_col_widht,5,' ',0,0,'C');
         $pdf->Cell($table_col_widht,5,' ',0,0,'C');
         $pdf->Cell($table_col_widht,5," _ _ _ _ ",0,1,'C');
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function labreport(Request $request)
+    {
+
+
+
+       $shift =  Shift::latest()->first();
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('ورديه المعمل');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Cell($page_width,5,'ورديه المعمل',0,1,'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200,200,200);
+        $table_col_widht = $page_width / 2;
+        $pdf->Cell($table_col_widht,5,'التاريخ ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,$shift->created_at->format('Y/m/d'),1,1,'C');
+
+        $table_col_widht = ($page_width - 20) / 7;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($table_col_widht,5,'الرقم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht + 20,5,'  الاسم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'القيمه ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'المدفوع ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,"قيمه التخفيض",1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,"بنكك",1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,"الفحوصات",1,1,'C',fill: 1);
+        $pdf->setFont($fontname, 'b', 12);
+
+        $index = 1;
+        /** @var Patient $patient */
+        foreach ($shift->patients as $patient){
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT,$y);
+            $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C');
+            $pdf->Cell($table_col_widht + 20,5,$patient->name,0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$patient->paid(),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$patient->total(),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$patient->discountAmount(),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$patient->bankak(),0,0,'C',stretch: 1);
+            $pdf->MultiCell($table_col_widht,5,$patient->tests_concatinated(),0,'L',false,stretch: 1);
+            $pdf->Line(PDF_MARGIN_LEFT,$y,PDF_MARGIN_RIGHT,$y);
+
+            $index++;
+        }
+        $pdf->Ln();
+
         $pdf->Output('example_003.pdf', 'I');
 
     }

@@ -76,9 +76,68 @@ class Patient extends Model
       return  $this->belongsToMany(MainTest::class,'labrequests','pid','main_test_id')->withPivot(['discount_per','is_bankak']);
     }
     public function requestedResults(){
-        return $this->belongsToMany(RequestedResult::class,'requestedResults');
+        return $this->belongsToMany(MainTest::class,'requested_results','patient_id','main_test_id');
     }
     public function tests(){
         return $this->hasMany(LabRequest::class,'pid');
     }
+    public function paid(){
+
+        $total = 0;
+        foreach ($this->labrequests as $labrequest){
+            if ($this->is_lab_paid){
+                $price = $labrequest->price ;
+                $discount = $labrequest->pivot->discount_per;
+                $discounted_money = ($price * $discount ) / 100;
+                $patient_paid =   $price - $discounted_money ;
+                $total+=$patient_paid;
+            }
+
+        }
+        return $total;
+
+    }
+    public function total(){
+
+
+      return $this->labrequests()->sum('main_tests.price');
+
+    }
+    public function discountAmount(){
+
+        $total = 0;
+        foreach ($this->labrequests as $labrequest){
+            $price = $labrequest->price ;
+            $discount = $labrequest->pivot->discount_per;
+            $discounted_money = ($price * $discount ) / 100;
+            $total += $discounted_money;
+
+        }
+        return $total;
+
+    }
+     public function tests_concatinated(){
+        return join('-',$this::labrequests()->pluck('main_test_name')->all());
+
+     }
+    public function bankak(){
+
+        $total = 0;
+        foreach ($this->labrequests as $labrequest){
+            if ($this->is_lab_paid){
+                if ($labrequest->pivot->is_bankak == 1){
+                    $price = $labrequest->price ;
+                    $discount = $labrequest->pivot->discount_per;
+                    $discounted_money = ($price * $discount ) / 100;
+                    $patient_paid =   $price - $discounted_money ;
+                    $total+=$patient_paid;
+                }
+
+            }
+
+        }
+        return $total;
+
+    }
+
 }

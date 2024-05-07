@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('insurance_no')->nullable();
             $table->boolean('is_lab_paid')->default(0);
             $table->integer('lab_paid')->default(0);
+            $table->integer('lab_No');
 
            $table->timestamps();
         });

@@ -16,8 +16,10 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Patient::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\MainTest::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\ChildTest::class);
+            $table->text('result')->default('');
             $table->text('normal_range');
             $table->timestamps();
+            $table->unique(['main_test_id','patient_id','child_test_id']);
         });
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LabRequestController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Requests\StorePatientRequest;
@@ -50,12 +51,14 @@ Route::get('doctors',[DoctorController::class,'all']);
 Route::post('doctors/add',[DoctorController::class,'create']);
 Route::get('specialists/all',[SpecialistController::class,'all']);
 
+Route::get('lab/money',[ShiftController::class,'total']);
 
 Route::get('tests',[\App\Http\Controllers\MainTestController::class,'show']);
 Route::get('packages/all',function (){
     return \App\Models\Package::with('tests')->get();
 });
 Route::middleware('auth:sanctum')->post('patients/add',[PatientController::class,'store']);
+Route::get('patient/{patient}',[PatientController::class,'get']);
 Route::patch('patients/edit/{patient}',[PatientController::class,'edit']);
 Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);
 Route::patch('labRequest/{patient}',[LabRequestController::class,'edit']);

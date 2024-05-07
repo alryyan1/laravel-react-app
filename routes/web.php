@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Models\ChildTest;
 use App\Models\Doctor;
 use App\Models\Item;
+use App\Models\MainTest;
 use App\Models\Patient;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use DebugBar\DebugBar;
@@ -47,30 +49,12 @@ Route::get('/home', function () {
     return "h";
 });
 
-Route::get('test',[\App\Http\Controllers\ItemController::class,'report']);
-Route::get('shift', function () {
-    $shift = \App\Models\Shift::first();
-    $total = 0;
-    /** @var Patient $patient */
-    foreach ($shift->patients as $patient){
-       $total+= $patient->labrequests()->sum('price');
-    }
-    return $total;
+Route::get('test',function (){
+    return join('-',Patient::first()->labrequests()->pluck('main_test_name')->all());
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
+Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
 Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
-Route::get('packages/all',function (){
-    return \App\Models\Package::with('tests.mainTest')->get();
-});
 
-Route::get('tests/all',function (){
-   return \App\Models\MainTest::with('package')->get();
-});
-Route::get('has',function (Patient $patient){
-
-  return Patient::with('tests.mainTest')->find(8);
-});
-
-//Route::get('labrequest',[\App\Http\Controllers\LabRequestController::class,'store']);
 require __DIR__.'/auth.php';

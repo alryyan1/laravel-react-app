@@ -11,6 +11,9 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
+    public function get(Request $request , Patient $patient){
+        return $patient;
+    }
     public function edit(PatientAddRequest  $request,Patient $patient){
 //        $data = $request->all();
           $result =  $patient->update($request->validated());
