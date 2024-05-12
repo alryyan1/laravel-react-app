@@ -3,6 +3,7 @@
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Models\ChildTest;
+use App\Models\Company;
 use App\Models\Doctor;
 use App\Models\Item;
 use App\Models\MainTest;
@@ -49,8 +50,17 @@ Route::get('/home', function () {
     return "h";
 });
 
+//Route::get('test',function (\Illuminate\Http\Request $request){
+// return   $users = \App\Models\File::with(['patients' => function ($query) use ($request) {
+//        $query->where('phone', '0991961111');
+//
+//
+//}])->toSql();
+//});
 Route::get('test',function (){
-    return join('-',Patient::first()->labrequests()->pluck('main_test_name')->all());
+    /** @var Company $company */
+   $company = Company::with('services')->first();
+    return $company;
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);

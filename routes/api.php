@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LabRequestController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\SupplierController;
@@ -58,6 +60,30 @@ Route::get('packages/all',function (){
     return \App\Models\Package::with('tests')->get();
 });
 Route::middleware('auth:sanctum')->post('patients/add',[PatientController::class,'store']);
+
+
+
+//companies
+
+Route::post('company/create',[CompanyController::class,'create']);
+Route::get('company/all',[CompanyController::class,'all']);
+Route::get('company/all/pagination/{company}',[CompanyController::class,'pagination']);
+Route::patch('company/{company}',[CompanyController::class,'update']);
+Route::patch('company/test/{company}',[CompanyController::class,'updatePivot']);
+Route::patch('company/service/{company}',[CompanyController::class,'updatePivotService']);
+
+
+
+Route::post('service/create',[ServiceController::class,'create']);
+Route::get('service/all',[ServiceController::class,'all']);
+Route::get('service/all/pagination/{service}',[ServiceController::class,'pagination']);
+Route::patch('service/{service}',[ServiceController::class,'update']);
+Route::patch('service/test/{service}',[ServiceController::class,'updatePivot']);
+
+Route::get('serviceGroup/all',[\App\Http\Controllers\ServiceGroupController::class,'all']);
+Route::post('serviceGroup/create',[\App\Http\Controllers\ServiceGroupController::class,'create']);
+
+Route::post('patient/search',[PatientController::class,'search']);
 Route::get('patient/{patient}',[PatientController::class,'get']);
 Route::patch('patients/edit/{patient}',[PatientController::class,'edit']);
 Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);

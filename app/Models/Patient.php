@@ -60,7 +60,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender'];
+    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender','visit_number'];
     protected function name() : Attribute {
         return Attribute::make(
             set:fn($value)=> trim($value),
@@ -104,21 +104,18 @@ class Patient extends Model
 
     }
     public function discountAmount(){
-
         $total = 0;
         foreach ($this->labrequests as $labrequest){
             $price = $labrequest->price ;
             $discount = $labrequest->pivot->discount_per;
             $discounted_money = ($price * $discount ) / 100;
             $total += $discounted_money;
-
         }
         return $total;
 
     }
      public function tests_concatinated(){
         return join('-',$this::labrequests()->pluck('main_test_name')->all());
-
      }
     public function bankak(){
 
@@ -138,6 +135,10 @@ class Patient extends Model
         }
         return $total;
 
+    }
+
+    public function file(){
+        return $this->belongsToMany(File::class);
     }
 
 }

@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         Shift::create();
        $specialist =  Specialist::create(['name'=>'الباطنيه']);
        $doctor = Doctor::factory(10)->create();
-       Patient::factory(10)->create();
+//       Patient::factory(10)->create();
         $this->call(UnitsTableSeeder::class);
         $this->call(PackageTableSeeder::class);
         $this->call(ContainersTableSeeder::class);

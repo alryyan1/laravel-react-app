@@ -9,7 +9,7 @@ use phpDocumentor\Reflection\Types\This;
 class Shift extends Model
 {
     use HasFactory;
-    protected $fillable = ['total',	'bank'	,'expenses'	,'closed_at'];
+    protected $fillable = ['total',	'bank'	,'expenses'	,'closed_at','is_closed'];
     public function patients(){
         return $this->hasMany(Patient::class);
     }
