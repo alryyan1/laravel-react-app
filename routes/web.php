@@ -64,7 +64,13 @@ Route::get('test',function (){
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
-Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
 Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
+
+//lab
+Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
+
+//company
+Route::get('company/test/{company}',[\App\Http\Controllers\PdfController::class,'companyTest']);
+
 
 require __DIR__.'/auth.php';

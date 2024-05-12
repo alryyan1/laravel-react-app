@@ -26,6 +26,9 @@ class Company extends Model
             $this->services()->attach($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $test->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
         }
     }
+    public function define_service($service_id){
+            $this->services()->attach($service_id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $test->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
+    }
 
     public function tests(){
         return $this->belongsToMany(MainTest::class,'company_main_test','company_id','main_test_id')->withPivot(['price','endurance_static','endurance_percentage','status','approve']);

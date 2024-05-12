@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ServiceFormRequest;
+use App\Models\Company;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,11 @@ class ServiceController extends Controller
 {
     public function create(ServiceFormRequest $request){
        $service =  Service::create($request->validated());
+       $companies =   Company::all();
+       /** @var Company $company */
+        foreach ($companies as $company){
+            $company->define_service($service->id);
+        }
        return ['status' => true,'service'=>$service];
     }
 
