@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Deposit;
 use App\Models\MainTest;
 use App\Models\Patient;
+use App\Models\Service;
 use App\Models\Shift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -225,6 +226,7 @@ class PdfController extends Controller
         $pdf->Cell($table_col_widht,5,"بنكك",1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,"الفحوصات",1,1,'C',fill: 1);
         $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
 
         $index = 1;
         /** @var Patient $patient */
@@ -287,7 +289,7 @@ class PdfController extends Controller
         $pdf->setFillColor(200,200,200);
         $table_col_widht = $page_width / 2;
 
-        $table_col_widht = ($page_width - 20) / 5;
+        $table_col_widht = ($page_width ) / 5;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
@@ -297,6 +299,7 @@ class PdfController extends Controller
         $pdf->Cell($table_col_widht,5,'التحمل نسبه ',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,"التحمل ثابت ",1,1,'C',fill: 1);
         $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
 
         $index = 1;
 
@@ -304,13 +307,90 @@ class PdfController extends Controller
         foreach ($company->tests as $test){
             $y = $pdf->GetY();
 //            dd($test);
-            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width ,$y);
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
             $pdf->Cell($table_col_widht,5,$test->id,0,0,'C');
             $pdf->Cell($table_col_widht,5,$test->main_test_name,0,0,'C');
             $pdf->Cell($table_col_widht,5,$test->pivot->price,0,0,'C');
             $pdf->Cell($table_col_widht,5,$test->pivot->endurance_static,0,0,'C');
             $pdf->Cell($table_col_widht,5,$test->pivot->endurance_percentage,0,1,'C');
-            $pdf->Line(PDF_MARGIN_LEFT,$y,PDF_MARGIN_RIGHT,$y);
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
+
+            $index++;
+        }
+        $pdf->Ln();
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function companyService(Request $request,Company $company)
+    {
+        $company->load('services');
+//        dd($company);
+
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('التامين');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Cell($page_width,5,$company->name,0,1,'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200,200,200);
+        $table_col_widht = $page_width / 2;
+
+        $table_col_widht = ($page_width ) / 7;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($table_col_widht,5,'الرقم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'السعر ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'التحمل نسبه',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'التحمل ثابت ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,' نصيب الطبيب ثابت ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,"نصيب الطبيب نسبه",1,1,'C',fill: 1);
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 12);
+
+        $index = 1;
+
+        /** @var Service $service */
+        foreach ($company->services as $service){
+            $y = $pdf->GetY();
+//            dd($service);
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT ,$y);
+            $pdf->Cell($table_col_widht,5,$service->id,0,0,'C');
+            $pdf->Cell($table_col_widht,5,$service->name,0,0,'C');
+            $pdf->Cell($table_col_widht,5,$service->pivot->price,0,0,'C');
+            $pdf->Cell($table_col_widht,5,$service->pivot->percentage_endurance,0,0,'C');
+            $pdf->Cell($table_col_widht,5,$service->pivot->static_endurance,0,0,'C');
+            $pdf->Cell($table_col_widht,5,$service->pivot->static_wage,0,0,'C');
+            $pdf->Cell($table_col_widht,5,$service->pivot->percentage_wage,0,1,'C');
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT ,$y);
 
             $index++;
         }

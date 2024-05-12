@@ -71,6 +71,7 @@ Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']
 
 //company
 Route::get('company/test/{company}',[\App\Http\Controllers\PdfController::class,'companyTest']);
+Route::get('company/service/{company}',[\App\Http\Controllers\PdfController::class,'companyService']);
 
 
 require __DIR__.'/auth.php';
