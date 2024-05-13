@@ -39,4 +39,9 @@ class Doctor extends Model
     public  function  patients(){
         return $this->hasMany(Patient::class);
     }
+
+    public function shifts(){
+        return $this->hasMany(DoctorShift::class);
+    }
+
 }

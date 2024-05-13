@@ -58,12 +58,14 @@ Route::get('/home', function () {
 //}])->toSql();
 //});
 Route::get('test',function (){
-    /** @var Company $company */
-   $company = Company::with('services')->first();
-    return $company;
+   $doctor =  Doctor::with(['shifts'=>function(Illuminate\Database\Eloquent\Relations\HasMany  $query){
+       return $query->orderByDesc('id');
+   }])->get();
+   return $doctor;
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
+Route::get('deduct/report',[\App\Http\Controllers\PdfController::class,'deductReport']);
 Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
 
 //lab
