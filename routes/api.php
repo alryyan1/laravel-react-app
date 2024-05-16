@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DeductController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\DoctorShiftController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LabRequestController;
 use App\Http\Controllers\PatientController;
@@ -43,107 +45,122 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('patients', function (Request $request) {
 
 
-    return  Patient::query()
+    return Patient::query()
         ->with('doctor')
-    ->orderBy('id', 'desc')
-    ->get();
+        ->orderBy('id', 'desc')
+        ->get();
 });
 
-Route::get('doctors',[DoctorController::class,'all']);
-Route::post('doctors/add',[DoctorController::class,'create']);
-Route::get('specialists/all',[SpecialistController::class,'all']);
+//doctors
+Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
+Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
+Route::middleware('auth:sanctum')->get('doctor/openShifts',[DoctorShiftController::class,'openShifts']);
+Route::get('doctors', [DoctorController::class, 'all']);
+Route::post('doctors/add', [DoctorController::class, 'create']);
 
-Route::get('lab/money',[ShiftController::class,'total']);
 
-Route::get('tests',[\App\Http\Controllers\MainTestController::class,'show']);
-Route::get('packages/all',function (){
+
+Route::get('specialists/all', [SpecialistController::class, 'all']);
+
+Route::get('lab/money', [ShiftController::class, 'total']);
+
+Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
+Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
-Route::middleware('auth:sanctum')->post('patients/add',[PatientController::class,'store']);
-
+Route::middleware('auth:sanctum')->post('patients/add', [PatientController::class, 'store']);
+Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [PatientController::class, 'book']);
 
 
 //companies
 
-Route::post('company/create',[CompanyController::class,'create']);
-Route::get('company/all',[CompanyController::class,'all']);
-Route::get('company/all/pagination/{company}',[CompanyController::class,'pagination']);
-Route::patch('company/{company}',[CompanyController::class,'update']);
-Route::patch('company/test/{company}',[CompanyController::class,'updatePivot']);
-Route::patch('company/service/{company}',[CompanyController::class,'updatePivotService']);
+Route::post('company/create', [CompanyController::class, 'create']);
+Route::get('company/all', [CompanyController::class, 'all']);
+Route::get('company/all/pagination/{company}', [CompanyController::class, 'pagination']);
+Route::patch('company/{company}', [CompanyController::class, 'update']);
+Route::patch('company/test/{company}', [CompanyController::class, 'updatePivot']);
+Route::patch('company/service/{company}', [CompanyController::class, 'updatePivotService']);
 
 
+Route::post('service/create', [ServiceController::class, 'create']);
+Route::get('service/all', [ServiceController::class, 'all']);
+Route::get('service/all/pagination/{service}', [ServiceController::class, 'pagination']);
+Route::patch('service/{service}', [ServiceController::class, 'update']);
+Route::patch('service/test/{service}', [ServiceController::class, 'updatePivot']);
+Route::middleware('auth:sanctum')->post('patient/service/add/{patient}', [ServiceController::class, 'addService']);
 
-Route::post('service/create',[ServiceController::class,'create']);
-Route::get('service/all',[ServiceController::class,'all']);
-Route::get('service/all/pagination/{service}',[ServiceController::class,'pagination']);
-Route::patch('service/{service}',[ServiceController::class,'update']);
-Route::patch('service/test/{service}',[ServiceController::class,'updatePivot']);
+Route::get('serviceGroup/all', [\App\Http\Controllers\ServiceGroupController::class, 'all']);
+Route::post('serviceGroup/create', [\App\Http\Controllers\ServiceGroupController::class, 'create']);
+Route::middleware('auth:sanctum')->delete('patient/service/{patient}',[ServiceController::class,'deleteService']);
+Route::middleware('auth:sanctum')->get('patient/service/pay/{patient}',[ServiceController::class,'pay']);
+Route::middleware('auth:sanctum')->get('patient/service/cancel/{patient}',[ServiceController::class,'cancel']);
+Route::middleware('auth:sanctum')->patch('patient/service/bank/{patient}',[ServiceController::class,'bank']);
 
-Route::get('serviceGroup/all',[\App\Http\Controllers\ServiceGroupController::class,'all']);
-Route::post('serviceGroup/create',[\App\Http\Controllers\ServiceGroupController::class,'create']);
+Route::patch('patient/service/discount/{patient}',[ServiceController::class,'discount']);
+Route::post('patient/search', [PatientController::class, 'search']);
+Route::get('patient/{patient}', [PatientController::class, 'get']);
+Route::patch('patients/edit/{patient}', [PatientController::class, 'edit']);
+Route::post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
+Route::patch('labRequest/{patient}', [LabRequestController::class, 'edit']);
+Route::patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
+Route::patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
+Route::patch('labRequest/bankak/{patient}', [LabRequestController::class, 'bankak']);
 
-Route::post('patient/search',[PatientController::class,'search']);
-Route::get('patient/{patient}',[PatientController::class,'get']);
-Route::patch('patients/edit/{patient}',[PatientController::class,'edit']);
-Route::post('labRequest/add/{patient}',[LabRequestController::class,'store']);
-Route::patch('labRequest/{patient}',[LabRequestController::class,'edit']);
-Route::patch('labRequest/payment/{patient}',[LabRequestController::class,'payment']);
-Route::patch('labRequest/cancelPayment/{patient}',[LabRequestController::class,'cancel']);
-Route::patch('labRequest/bankak/{patient}',[LabRequestController::class,'bankak']);
-
-Route::get('labRequest/{patient}',[LabRequestController::class,'all']);
-Route::delete('labRequest/{patient}',[LabRequestController::class,'destroy']);
-
-
-Route::middleware('auth:sanctum')->post('client/create',[ClientController::class,'create']);
-Route::delete('client/{client}',[ClientController::class,'destroy']);
-Route::get('client/all',[ClientController::class,'index']);
-
-Route::post('suppliers/create',[SupplierController::class,'create']);
-Route::get('suppliers/all',[SupplierController::class,'index']);
-Route::delete('suppliers/{supplier}',[SupplierController::class,'destroy']);
-Route::patch('suppliers/{supplier}',[SupplierController::class,'update']);
+Route::get('labRequest/{patient}', [LabRequestController::class, 'all']);
+Route::delete('labRequest/{patient}', [LabRequestController::class, 'destroy']);
 
 
-Route::post('items/create',[ItemController::class,'create']);
-Route::delete('items/{item}',[ItemController::class,'destroy']);
-Route::patch('items/{item}',[ItemController::class,'update']);
-Route::get('items/all',[ItemController::class,'all']);
-Route::get('items/all/pagination/{item}',[ItemController::class,'pagination']);
-Route::get('items/balance',[ItemController::class,'balance']);
-Route::post('items/all/balance/paginate',[ItemController::class,'paginate']);
+Route::middleware('auth:sanctum')->post('client/create', [ClientController::class, 'create']);
+Route::delete('client/{client}', [ClientController::class, 'destroy']);
+Route::get('client/all', [ClientController::class, 'index']);
+
+Route::post('suppliers/create', [SupplierController::class, 'create']);
+Route::get('suppliers/all', [SupplierController::class, 'index']);
+Route::delete('suppliers/{supplier}', [SupplierController::class, 'destroy']);
+Route::patch('suppliers/{supplier}', [SupplierController::class, 'update']);
 
 
-Route::post('sections/create',[SectionController::class,'create']);
-Route::get('sections/all',[SectionController::class,'all']);
-Route::delete('sections/{section}',[SectionController::class,'destroy']);
-Route::patch('sections/{section}',[SectionController::class,'update']);
+Route::post('items/create', [ItemController::class, 'create']);
+Route::delete('items/{item}', [ItemController::class, 'destroy']);
+Route::patch('items/{item}', [ItemController::class, 'update']);
+Route::get('items/all', [ItemController::class, 'all']);
+Route::get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
+Route::get('items/balance', [ItemController::class, 'balance']);
+Route::post('items/all/balance/paginate', [ItemController::class, 'paginate']);
 
-Route::middleware('auth:sanctum')->post('inventory/deposit',[DepositController::class,'deposit']);
-Route::controller(DepositController::class)->group(function (){
-    Route::prefix('inventory/deposit')->group(function (){
 
-        Route::post('/complete','complete');
-        Route::get('/last','last');
-        Route::delete('/','destroy');
-        Route::post('getDepositsByDate','getDepositsByDate');
-        Route::get('getDepositById/{deposit}','getDepositById');
-        Route::patch('finish/{deposit}','finish');
-        Route::post('getDepoistByInvoice','getDepoistByInvoice');
-        Route::post('getDepositBySupplier','getDepositBySupplier');
+Route::post('sections/create', [SectionController::class, 'create']);
+Route::get('sections/all', [SectionController::class, 'all']);
+Route::delete('sections/{section}', [SectionController::class, 'destroy']);
+Route::patch('sections/{section}', [SectionController::class, 'update']);
+
+Route::middleware('auth:sanctum')->post('inventory/deposit', [DepositController::class, 'deposit']);
+Route::controller(DepositController::class)->group(function () {
+    Route::prefix('inventory/deposit')->group(function () {
+
+        Route::post('/complete', 'complete');
+        Route::get('/last', 'last');
+        Route::delete('/', 'destroy');
+        Route::post('getDepositsByDate', 'getDepositsByDate');
+        Route::get('getDepositById/{deposit}', 'getDepositById');
+        Route::patch('finish/{deposit}', 'finish');
+        Route::post('getDepoistByInvoice', 'getDepoistByInvoice');
+        Route::post('getDepositBySupplier', 'getDepositBySupplier');
     });
 
 });
 
 
 //
-Route::post('inventory/deduct',[\App\Http\Controllers\DeductController::class,'deduct']);
-Route::get('inventory/deduct/complete',[\App\Http\Controllers\DeductController::class,'complete']);
-Route::get('inventory/deduct/last',[\App\Http\Controllers\DeductController::class,'last']);
-Route::delete('inventory/deduct',[\App\Http\Controllers\DeductController::class,'destroy']);
+Route::post('inventory/deduct', [DeductController::class, 'deduct']);
+Route::get('inventory/deduct/complete', [DeductController::class, 'complete']);
+Route::get('inventory/deduct/last', [DeductController::class, 'last']);
+Route::delete('inventory/deduct', [DeductController::class, 'destroy']);
+Route::post('inventory/deduct/getDeductsByDate', [DeductController::class, 'getDeductsByDate']);
+Route::post('inventory/deduct/getDeductsByDate', [DeductController::class, 'getDeductsByDate']);
+Route::get('inventory/deduct/showDeductById/{deduct}', [DeductController::class, 'showDeductById']);
 
 
-Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
-Route::middleware('auth:sanctum')->post('logout',[\App\Http\Controllers\AuthController::class,'logout']);
-Route::post('signup',[\App\Http\Controllers\AuthController::class,'signup']);
+Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+Route::post('signup', [\App\Http\Controllers\AuthController::class, 'signup']);

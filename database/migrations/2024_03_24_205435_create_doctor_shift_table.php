@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_shift', function (Blueprint $table) {
+        Schema::create('doctor_shifts', function (Blueprint $table) {
             $table->id();
-            $table->integer('shift_id');
-            $table->foreignId('doctor_id')->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Shift::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Doctor::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('status');
+
             $table->timestamps();
         });
     }

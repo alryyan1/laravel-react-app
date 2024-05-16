@@ -63,6 +63,16 @@ return [
             ]) : [],
         ],
 
+        'altohami' => [
+            'driver' => 'mysql',
+            'host' => env('SECOND_DB_HOST', '127.0.0.1'),
+            'port' => env('SECOND_DB_PORT', '3306'),
+            'database' => env('SECOND_DB_DATABASE', 'forge'),
+            'username' => env('SECOND_DB_USERNAME', 'forge'),
+            'password' => env('SECOND_DB_PASSWORD', ''),
+            // ...
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
@@ -89,8 +99,8 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            // 'encrypt' => .env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => .env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
     ],

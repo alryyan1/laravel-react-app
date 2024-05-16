@@ -50,21 +50,27 @@ Route::get('/home', function () {
     return "h";
 });
 
-//Route::get('test',function (\Illuminate\Http\Request $request){
-// return   $users = \App\Models\File::with(['patients' => function ($query) use ($request) {
-//        $query->where('phone', '0991961111');
-//
-//
-//}])->toSql();
-//});
+
+
 Route::get('test',function (){
-    /** @var Company $company */
-   $company = Company::with('services')->first();
-    return $company;
+
+    /** @var Patient $patient */
+   $patient =  Patient::with('services')->find(11);
+
+  return  $patient->bankak_service();
+
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
-Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
+Route::get('deduct/report',[\App\Http\Controllers\PdfController::class,'deductReport']);
 Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
+
+//lab
+Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
+
+//company
+Route::get('company/test/{company}',[\App\Http\Controllers\PdfController::class,'companyTest']);
+Route::get('company/service/{company}',[\App\Http\Controllers\PdfController::class,'companyService']);
+
 
 require __DIR__.'/auth.php';

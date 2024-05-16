@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Deduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class DeductController extends Controller
 {
+    public function showDeductById(Request $request,Deduct $deduct){
+
+        return ['data'=>$deduct , 'status'=>true];
+    }
+    public function getDeductsByDate(Request $request){
+        $data = $request->all();
+        $date = Carbon::parse($data['date']);
+        $data =  Deduct::WhereDate('created_at','=',$date)->get();
+        return ['data'=>$data , 'status'=>true];
+    }
     public function destroy(Request $request){
         $data = $request->all();
 //        return $data;

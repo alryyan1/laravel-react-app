@@ -66,7 +66,7 @@ class Patient extends Model
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests','doctor'];
+    protected  $with = ['labrequests','doctor','services','services.pivot.user'];
 
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -81,6 +81,14 @@ class Patient extends Model
     public function tests(){
         return $this->hasMany(LabRequest::class,'pid');
     }
+    public function services(){
+        return $this->belongsToMany(Service::class,'requested_service','patient_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid'])->using(UserPivot::class);
+    }
+    public function getTotalServiceBankAttribute()
+    {
+        return $this->bankak_service();
+    }
+    protected $appends = ['totalservicebank'];
     public function paid(){
 
         $total = 0;
@@ -129,6 +137,24 @@ class Patient extends Model
                     $patient_paid =   $price - $discounted_money ;
                     $total+=$patient_paid;
                 }
+
+            }
+
+        }
+        return $total;
+
+    }
+    public function bankak_service(){
+
+        $total = 0;
+        foreach ($this->services as $service){
+            if ($service->pivot->is_paid && $service->pivot->bank == 1){
+
+                    $price = $service->price ;
+                    $discount = $service->pivot->discount;
+                    $discounted_money = ($price * $discount ) / 100;
+                    $patient_paid =   $price - $discounted_money ;
+                    $total+=$patient_paid;
 
             }
 

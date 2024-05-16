@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientAddRequest;
+use App\Models\Doctor;
+use App\Models\DoctorShift;
 use App\Models\File;
 use App\Models\Patient;
 use App\Models\Shift;
@@ -14,6 +16,17 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
+    public  function book(PatientAddRequest $request ,Doctor $doctor){
+        $data = $request->all();
+        /** @var DoctorShift $current_shift */
+        $current_shift =   $doctor->shiftsByOrder[0];
+        $patient_data =  $this->store($request,$doctor->id);
+        $current_shift->visits()->attach($patient_data['patient']->id);
+
+
+
+        return ['status',true];
+    }
     public function search(Request $request){
        $data =  $request->all();
        if ($data['name'] =='') return  [];
@@ -29,10 +42,13 @@ class PatientController extends Controller
         }
 
     }
-    public function store(PatientAddRequest $request){
+    public function store(PatientAddRequest $request,$doc_id){
 
 //        return $request->validated();
         $patient = new Patient($request->validated());
+        if ($doc_id){
+            $patient->doctor_id = $doc_id;
+        }
         $patient->user_id = \Auth::user()->id;
         $shift = Shift::latest()->first();
         if ($shift->is_closed == 0){
