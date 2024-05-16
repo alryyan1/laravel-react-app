@@ -15,5 +15,8 @@ class DoctorShift extends Model
     public function doctor(){
         return $this->belongsTo(Doctor::class);
     }
+    public function visits(){
+        return $this->belongsToMany(Patient::class,'doctor_visit','doctor_shift_id','patient_id');
+    }
     use HasFactory;
 }

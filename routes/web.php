@@ -50,18 +50,15 @@ Route::get('/home', function () {
     return "h";
 });
 
-//Route::get('test',function (\Illuminate\Http\Request $request){
-// return   $users = \App\Models\File::with(['patients' => function ($query) use ($request) {
-//        $query->where('phone', '0991961111');
-//
-//
-//}])->toSql();
-//});
+
+
 Route::get('test',function (){
-   $doctor =  Doctor::with(['shifts'=>function(Illuminate\Database\Eloquent\Relations\HasMany  $query){
-       return $query->orderByDesc('id');
-   }])->get();
-   return $doctor;
+
+    $data =   \Illuminate\Support\Facades\DB::connection('altohami')->table('services')->get();
+    foreach ($data as $service) {
+        \App\Models\Service::create(['name' => $service->name,'price' => $service->price,'service_group_id' => $service->group_id]);
+    }
+
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);

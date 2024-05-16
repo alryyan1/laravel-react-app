@@ -53,6 +53,8 @@ Route::get('patients', function (Request $request) {
 
 //doctors
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
+Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
+Route::middleware('auth:sanctum')->get('doctor/openShifts',[DoctorShiftController::class,'openShifts']);
 Route::get('doctors', [DoctorController::class, 'all']);
 Route::post('doctors/add', [DoctorController::class, 'create']);
 
@@ -67,6 +69,7 @@ Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
 Route::middleware('auth:sanctum')->post('patients/add', [PatientController::class, 'store']);
+Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [PatientController::class, 'book']);
 
 
 //companies
@@ -84,10 +87,16 @@ Route::get('service/all', [ServiceController::class, 'all']);
 Route::get('service/all/pagination/{service}', [ServiceController::class, 'pagination']);
 Route::patch('service/{service}', [ServiceController::class, 'update']);
 Route::patch('service/test/{service}', [ServiceController::class, 'updatePivot']);
+Route::middleware('auth:sanctum')->post('patient/service/add/{patient}', [ServiceController::class, 'addService']);
 
 Route::get('serviceGroup/all', [\App\Http\Controllers\ServiceGroupController::class, 'all']);
 Route::post('serviceGroup/create', [\App\Http\Controllers\ServiceGroupController::class, 'create']);
+Route::middleware('auth:sanctum')->delete('patient/service/{patient}',[ServiceController::class,'deleteService']);
+Route::middleware('auth:sanctum')->get('patient/service/pay/{patient}',[ServiceController::class,'pay']);
+Route::middleware('auth:sanctum')->get('patient/service/cancel/{patient}',[ServiceController::class,'cancel']);
+Route::middleware('auth:sanctum')->patch('patient/service/bank/{patient}',[ServiceController::class,'bank']);
 
+Route::patch('patient/service/discount/{patient}',[ServiceController::class,'discount']);
 Route::post('patient/search', [PatientController::class, 'search']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{patient}', [PatientController::class, 'edit']);

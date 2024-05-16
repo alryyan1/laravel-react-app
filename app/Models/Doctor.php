@@ -43,5 +43,9 @@ class Doctor extends Model
     public function shifts(){
         return $this->hasMany(DoctorShift::class);
     }
+    public function shiftsByOrder(){
+        return $this->hasMany(DoctorShift::class)->orderByDesc('id');
+    }
+
 
 }

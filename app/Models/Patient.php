@@ -66,7 +66,7 @@ class Patient extends Model
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests','doctor'];
+    protected  $with = ['labrequests','doctor','services','services.pivot.user'];
 
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -80,6 +80,9 @@ class Patient extends Model
     }
     public function tests(){
         return $this->hasMany(LabRequest::class,'pid');
+    }
+    public function services(){
+        return $this->belongsToMany(Service::class,'requested_service','patient_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid'])->using(UserPivot::class);
     }
     public function paid(){
 
