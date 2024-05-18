@@ -36,6 +36,30 @@ class Shift extends Model
         return $total;
     }
 
+    public function totalPaidService(): mixed
+    {
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            $total+= $patient->total_paid_services();
+        }
+        return $total;
+    }
+    public function totalPaidServiceBank(): mixed
+    {
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            foreach ($patient->services as $service){
+                if ($service->pivot->bank == 1){
+                    $total += $service->pivot->amount_paid;
+
+                }
+            }
+        }
+        return $total;
+    }
+
     public function totalBank(){
         $total = 0;
         /** @var Patient $patient */

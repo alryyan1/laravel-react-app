@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Patient
  *
  * @property int $id
- * @property-write string $name
+ * @property string $name
  * @property int $doctor_id
  * @property string $phone
  * @property int|null $company_id
@@ -125,6 +125,9 @@ class Patient extends Model
      public function tests_concatinated(){
         return join('-',$this::labrequests()->pluck('main_test_name')->all());
      }
+    public function services_concatinated(){
+        return join(' - ',$this::services()->pluck('name')->all());
+    }
     public function bankak(){
 
         $total = 0;
@@ -143,6 +146,14 @@ class Patient extends Model
         }
         return $total;
 
+    }
+    public function total_paid_services(){
+        $total = 0;
+            foreach ($this->services as $service){
+
+                $total += $service->pivot->amount_paid;
+        }
+        return $total;
     }
     public function bankak_service(){
 

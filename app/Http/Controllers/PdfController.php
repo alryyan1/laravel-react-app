@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Deduct;
 use App\Models\Deposit;
+use App\Models\DoctorShift;
 use App\Models\MainTest;
 use App\Models\Patient;
 use App\Models\Service;
@@ -248,7 +249,7 @@ class PdfController extends Controller
 
 
 
-       $shift =  Shift::latest()->first();
+        $shift =  Shift::latest()->first();
 
         $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $lg = array();
@@ -316,6 +317,201 @@ class PdfController extends Controller
             $index++;
         }
         $pdf->Ln();
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function clinicsReport(Request $request)
+    {
+
+
+
+        $shift =  Shift::latest()->first();
+        $user_id =  $request->get('user');
+        $doctor_shifts =  DoctorShift::with(['doctor','visits'])->where('user_id',$user_id)->where('status',1)->where('shift_id',$shift->id)->get();
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('العيادات');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Cell($page_width,5,'العيادات',0,1,'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200,200,200);
+        $table_col_widht = $page_width / 6;
+        $pdf->Cell($table_col_widht,5,'التاريخ ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,$shift->created_at->format('Y/m/d'),1,1,'C');
+
+        $table_col_widht = ($page_width - 20) / 7;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+        /** @var DoctorShift $doctor_shift */
+        foreach ($doctor_shifts as $doctor_shift){
+            $table_col_widht = ($page_width ) / 6;
+
+            $pdf->Cell($table_col_widht,5,'الطبيب',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor->name,1,0,'C',fill: 0,stretch: 1);
+            $pdf->Cell($table_col_widht,5,'',0,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,'',0,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,'زمن فتح العياده',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->created_at->format('h:i:s'),1,1,'C',fill: 0);
+            $pdf->Ln();
+            $pdf->Cell('30',5,'المرضي',1,1,'C',fill: 0);
+            $pdf->Ln();
+            $table_col_widht = ($page_width ) / 6;
+
+            $pdf->Cell($table_col_widht,5,'الكود',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'اسم',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'المدفوع',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'نصيب الطبيب',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'نصيب المركز',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'الخدمات',1,1,'C',fill: 1);
+            $pdf->Ln();
+            $pdf->setFont($fontname, 'b', 12);
+
+            /** @var Patient $patient */
+            foreach ($doctor_shift->visits as $patient){
+                $y =  $pdf->GetY();
+                $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
+
+                $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5,$patient->name,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated(),0,'R',false,stretch: 1);
+                $y =  $pdf->GetY();
+
+                $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
+
+
+            }
+            $pdf->Ln();
+
+
+        }
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function clinicReport(Request $request)
+    {
+
+
+
+
+        $user_id =  $request->get('user');
+        $doctor_shift_id =  $request->get('doctorshift');
+        $doctorShift =  DoctorShift::find($doctor_shift_id);
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('التقرير الخاص');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Cell($page_width,5,'التقرير الخاص',0,1,'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200,200,200);
+        $table_col_widht = $page_width / 6;
+        $pdf->Cell($table_col_widht,5,'التاريخ ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,$doctorShift->created_at->format('Y/m/d'),1,1,'C');
+
+        $table_col_widht = ($page_width - 20) / 7;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+            $table_col_widht = ($page_width ) / 6;
+
+            $pdf->Cell($table_col_widht,5,'الطبيب',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,$doctorShift->doctor->name,1,0,'C',fill: 0,stretch: 1);
+            $pdf->Cell($table_col_widht,5,'',0,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,'',0,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,'زمن فتح العياده',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,$doctorShift->created_at->format('h:i:s'),1,1,'C',fill: 0);
+            $pdf->Ln();
+            $pdf->Cell('30',5,'المرضي',1,1,'C',fill: 0);
+            $pdf->Ln();
+            $table_col_widht = ($page_width ) / 6;
+
+            $pdf->Cell($table_col_widht,5,'الكود',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'اسم',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'المدفوع',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'نصيب الطبيب',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'نصيب المركز',1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'الخدمات',1,1,'C',fill: 1);
+            $pdf->Ln();
+            $pdf->setFont($fontname, 'b', 12);
+
+            /** @var Patient $patient */
+            foreach ($doctorShift->visits as $patient){
+                $y =  $pdf->GetY();
+                $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
+
+                $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5,$patient->name,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated(),0,'R',false,stretch: 1);
+                $y =  $pdf->GetY();
+
+                $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
+
+
+
+            $pdf->Ln();
+
+
+        }
+
 
         $pdf->Output('example_003.pdf', 'I');
 

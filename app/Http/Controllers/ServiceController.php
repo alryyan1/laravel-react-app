@@ -75,6 +75,12 @@ class ServiceController extends Controller
         $patient->services()->updateExistingPivot($service_id,['discount'=>$data['discount']],touch:false);
         return ['status'=>true,'patient'=>$patient->load(['services','services.pivot.user'])];
     }
+    public function count(Request $request , Patient $patient){
+        $data = $request->all();
+        $service_id =  $data['service_id'];
+        $patient->services()->updateExistingPivot($service_id,['count'=>$data['service_count']],touch:false);
+        return ['status'=>true,'patient'=>$patient->load(['services','services.pivot.user'])];
+    }
     public function create(ServiceFormRequest $request){
        $service =  Service::create($request->validated());
        $companies =   Company::all();

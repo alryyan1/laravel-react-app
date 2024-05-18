@@ -53,8 +53,8 @@ Route::get('patients', function (Request $request) {
 
 //doctors
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
-Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
-Route::middleware('auth:sanctum')->get('doctor/openShifts',[DoctorShiftController::class,'openShifts']);
+Route::middleware('auth:sanctum')->get('doctor/shift/close/{doctor}',[DoctorShiftController::class,'close']);
+Route::middleware('auth:sanctum')->get('doctor/openShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'DoctorShifts']);
 Route::get('doctors', [DoctorController::class, 'all']);
 Route::post('doctors/add', [DoctorController::class, 'create']);
 
@@ -63,6 +63,8 @@ Route::post('doctors/add', [DoctorController::class, 'create']);
 Route::get('specialists/all', [SpecialistController::class, 'all']);
 
 Route::get('lab/money', [ShiftController::class, 'total']);
+Route::get('service/money', [ShiftController::class, 'totalService']);
+Route::get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
 
 Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {
@@ -97,6 +99,7 @@ Route::middleware('auth:sanctum')->get('patient/service/cancel/{patient}',[Servi
 Route::middleware('auth:sanctum')->patch('patient/service/bank/{patient}',[ServiceController::class,'bank']);
 
 Route::patch('patient/service/discount/{patient}',[ServiceController::class,'discount']);
+Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{patient}', [PatientController::class, 'edit']);

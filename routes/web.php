@@ -52,14 +52,7 @@ Route::get('/home', function () {
 
 
 
-Route::get('test',function (){
-
-    /** @var Patient $patient */
-   $patient =  Patient::with('services')->find(11);
-
-  return  $patient->bankak_service();
-
-});
+Route::get('test/{name}/{age}',[\App\Http\Controllers\ShiftController::class,'test']);
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
 Route::get('deduct/report',[\App\Http\Controllers\PdfController::class,'deductReport']);
@@ -67,6 +60,9 @@ Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
 
 //lab
 Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
+//clinics
+Route::get('clinics/report',[\App\Http\Controllers\PdfController::class,'clinicsReport']);
+Route::get('clinics/doctor/report',[\App\Http\Controllers\PdfController::class,'clinicReport']);
 
 //company
 Route::get('company/test/{company}',[\App\Http\Controllers\PdfController::class,'companyTest']);
