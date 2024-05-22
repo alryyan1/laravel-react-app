@@ -25,12 +25,15 @@ class ItemController extends Controller
     }
     public function state(Request $request,$item_id)
     {
+        $month = $request->get('month');
         $date_f = Carbon::now()->addDay()->format('Y-m-d');
         $now =  Carbon::now();
-        $previous_month =  $now->subMonth();
+        $now2 =  Carbon::now();
+        $start_date =  $now->setMonth($month)->setDay(1);
+        $end_date = $now2->setMonth($month)->setDay(1)->addMonth();
         $dates = [];
-        while ($previous_month <= $date_f) {
-            $first_day_last_month =   $previous_month->format('Y-m-d');
+        while ($start_date <= $end_date) {
+            $first_day_last_month =   $start_date->format('Y-m-d');
 
 //         dd($first_day_last_month);
 
@@ -53,21 +56,61 @@ class ItemController extends Controller
                 $total_deducts+= $deduct->items->sum('pivot.quantity');
             }
             $dates [] = ['date'=>$first_day_last_month,'income'=>$total,'deducts'=>$total_deducts];
-            $previous_month->addDay();
+            $start_date->addDay();
+        }
+//    dd($first_day_last_month);
+        return $dates;
+    }
+    public function stateByMonth(Request $request,$item_id)
+    {
+        $month = $request->get('month');
+        $now =  Carbon::now();
+        $now2 =  Carbon::now();
+        $start_date =  $now->setMonth($month)->setDay(1);
+        $end_date = $now2->setMonth($month)->setDay(1)->addMonth();
+        $dates = [];
+        $i = 0;
+        while ($start_date <= $end_date) {
+            $i++;
+            $first_day_last_month =   $start_date->format('Y-m-d');
+
+//         dd($first_day_last_month);
+
+            $deposit_items =  Deposit:: whereDate('bill_date',$first_day_last_month)->get();
+            $total = 0;
+            /** @var Deposit $deposit */
+            foreach ($deposit_items as $deposit) {
+                $deposit->load(['items'=>function ($query) use($item_id) {
+                    $query->where('deposit_items.item_id',$item_id);
+                }]);
+                $total+= $deposit->items->sum('pivot.quantity');
+            }
+            $deducts =  \App\Models\Deduct:: whereDate('created_at',$first_day_last_month)->get();
+            $total_deducts = 0;
+            /** @var \App\Models\Deduct $deduct */
+            foreach ($deducts as $deduct) {
+                $deduct->load(['items'=>function ($query) use($item_id)  {
+                    $query->where('deducted_items.item_id',$item_id);
+                }]);
+                $total_deducts+= $deduct->items->sum('pivot.quantity');
+            }
+            $dates [] = ['date'=>$first_day_last_month,'income'=>$total,'deducts'=>$total_deducts];
+            $start_date->addDay();
+
         }
 //    dd($first_day_last_month);
         return $dates;
     }
 
-    public function paginate(Request $request)
+    public function paginate(Request $request,$page)
     {
         $data  = $request->all();
         if (isset($data['word'])){
             $name  = $data['word'];
-            $items = \App\Models\Item::where('name','like',"%$name%")->paginate(7);
+            $items = \App\Models\Item::where('name','like',"%$name%")->paginate($page);
 
         }else{
-            $items = \App\Models\Item::orderByDesc('id')->paginate(7);
+            $items = \App\Models\Item::orderByDesc('id')->paginate($page);
 
         }
         foreach ($items as $item) {
@@ -76,6 +119,21 @@ class ItemController extends Controller
             $item->totaldeposit = $total_deposit;
             $item->totaldeduct = $total_deduct;
             $item->remaining = $total_deposit - $total_deduct;
+        }
+        return $items;
+    }
+    public function pie(Request $request,$section)
+    {
+
+        $items = \App\Models\Item::orderByDesc('id')->where('section_id',$section)->get();
+
+        /** @var Item $item */
+        foreach ($items as $item) {
+            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $item->totaldeposit = $total_deposit;
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct + $item->initial_balance;
         }
         return $items;
     }

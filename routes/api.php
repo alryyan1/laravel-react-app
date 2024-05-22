@@ -136,13 +136,15 @@ Route::patch('suppliers/{supplier}', [SupplierController::class, 'update']);
 
 
 Route::post('items/create', [ItemController::class, 'create']);
-Route::get('item/state/{item_id}', [ItemController::class, 'state']);
+Route::post('item/state/{item_id}', [ItemController::class, 'state']);
+Route::post('item/stateByMonth/{item_id}', [ItemController::class, 'stateByMonth']);
 Route::delete('items/{item}', [ItemController::class, 'destroy']);
 Route::patch('items/{item}', [ItemController::class, 'update']);
 Route::get('items/all', [ItemController::class, 'all']);
 Route::get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
 Route::get('items/balance', [ItemController::class, 'balance']);
-Route::post('items/all/balance/paginate', [ItemController::class, 'paginate']);
+Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);
+Route::get('items/all/pie/{section}', [ItemController::class, 'pie']);
 
 
 Route::post('sections/create', [SectionController::class, 'create']);
