@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->double('cash_percentage');
+            $table->double('company_percentage');
+            $table->double('static_wage');
+            $table->double('lab_percentage');
             $table->foreignId('specialist_id')->references('id')->on('specialists');
             $table->timestamps();
         });

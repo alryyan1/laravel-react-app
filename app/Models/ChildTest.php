@@ -39,7 +39,18 @@ use Illuminate\Database\Eloquent\Model;
 class ChildTest extends Model
 {
     use HasFactory;
+//    protected $primaryKey = 'child_test_id';
+    public $timestamps =false;
+    protected $with = ['unit'];
     public function mainTest(){
-        return $this->belongsTo(MainTest::class,'main_id');
+        return $this->belongsTo(MainTest::class);
+    }
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+    public function options()
+    {
+        return $this->hasMany(ChildTestOption::class);
     }
 }

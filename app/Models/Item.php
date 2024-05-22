@@ -27,13 +27,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereSectionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUnitName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
+ * @property int $require_amount
+ * @property int $initial_price
+ * @property int $tests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deposit> $deposits
+ * @property-read int|null $deposits_count
+ * @property-read \App\Models\Supplier|null $supplier
+ * @method static \Database\Factories\ItemFactory factory($count = null, $state = [])
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereInitialPrice($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereRequireAmount($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereTests($value)
  * @mixin \Eloquent
  */
 class Item extends Model
 {
     use HasFactory;
     use EagerLoadPivotTrait;
-    protected $fillable =['name','section_id','initial_balance','initial_price','require_amount'];
+    protected $fillable =['name','section_id','initial_balance','initial_price','require_amount','tests'];
     protected $with = ['section'];
     public function section(){
         return $this->belongsTo(Section::class);

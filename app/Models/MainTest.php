@@ -38,6 +38,6 @@ class MainTest extends Model
         return $this->belongsTo(Package::class,'pack_id','package_id');
     }
     public function childTests(){
-        return $this->hasMany(ChildTest::class,'main_id');
+        return $this->hasMany(ChildTest::class);
     }
 }

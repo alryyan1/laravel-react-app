@@ -8,6 +8,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorShiftController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LabRequestController;
+use App\Http\Controllers\MainTestController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ServiceController;
@@ -35,7 +36,11 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+Route::get('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'all']);
+Route::post('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'store']);
+Route::patch('child_tests/{main_test}',[MainTestController::class,'updateChildTest']);
+Route::get('containers/all',[\App\Http\Controllers\ContainerController::class,'all']);
+Route::get('units/all',[\App\Http\Controllers\UnitController::class,'all']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     return $request->user();
@@ -52,17 +57,25 @@ Route::get('patients', function (Request $request) {
 });
 
 //doctors
+Route::patch('doctor/{doctor}', [DoctorController::class, 'update']);
+
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
-Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
-Route::middleware('auth:sanctum')->get('doctor/openShifts',[DoctorShiftController::class,'openShifts']);
+Route::middleware('auth:sanctum')->get('doctor/shift/close/{doctor}',[DoctorShiftController::class,'close']);
+Route::middleware('auth:sanctum')->get('doctor/openShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'DoctorShifts']);
 Route::get('doctors', [DoctorController::class, 'all']);
+Route::patch('doctors/{doctor}', [DoctorController::class, 'update']);
 Route::post('doctors/add', [DoctorController::class, 'create']);
+Route::get('doctors/pagination/{page_size}', [DoctorController::class, 'pagination']);
 
 
-
+//specialists
 Route::get('specialists/all', [SpecialistController::class, 'all']);
+Route::post('specialists/add', [SpecialistController::class, 'store']);
+Route::patch('specialists/{specialist}', [SpecialistController::class, 'update']);
 
 Route::get('lab/money', [ShiftController::class, 'total']);
+Route::get('service/money', [ShiftController::class, 'totalService']);
+Route::get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
 
 Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {
@@ -95,8 +108,10 @@ Route::middleware('auth:sanctum')->delete('patient/service/{patient}',[ServiceCo
 Route::middleware('auth:sanctum')->get('patient/service/pay/{patient}',[ServiceController::class,'pay']);
 Route::middleware('auth:sanctum')->get('patient/service/cancel/{patient}',[ServiceController::class,'cancel']);
 Route::middleware('auth:sanctum')->patch('patient/service/bank/{patient}',[ServiceController::class,'bank']);
+Route::middleware('auth:sanctum')->patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 
 Route::patch('patient/service/discount/{patient}',[ServiceController::class,'discount']);
+Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{patient}', [PatientController::class, 'edit']);
@@ -121,6 +136,7 @@ Route::patch('suppliers/{supplier}', [SupplierController::class, 'update']);
 
 
 Route::post('items/create', [ItemController::class, 'create']);
+Route::get('item/state/{item_id}', [ItemController::class, 'state']);
 Route::delete('items/{item}', [ItemController::class, 'destroy']);
 Route::patch('items/{item}', [ItemController::class, 'update']);
 Route::get('items/all', [ItemController::class, 'all']);
@@ -164,3 +180,4 @@ Route::get('inventory/deduct/showDeductById/{deduct}', [DeductController::class,
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 Route::post('signup', [\App\Http\Controllers\AuthController::class, 'signup']);
+Route::get('print',[\App\Http\Controllers\PrintThermalController::class,'print']);

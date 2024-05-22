@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Patient
  *
  * @property int $id
- * @property-write string $name
+ * @property string $name
  * @property int $doctor_id
  * @property string $phone
  * @property int|null $company_id
@@ -55,6 +55,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereUserId($value)
  * @property int $lab_paid
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereLabPaid($value)
+ * @property string $gender
+ * @property int|null $age_day
+ * @property int|null $age_month
+ * @property int|null $age_year
+ * @property int $visit_number
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\File> $file
+ * @property-read int|null $file_count
+ * @property-read mixed $total_service_bank
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Service> $services
+ * @property-read int|null $services_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAgeDay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAgeMonth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAgeYear($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereVisitNumber($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -82,8 +97,13 @@ class Patient extends Model
         return $this->hasMany(LabRequest::class,'pid');
     }
     public function services(){
-        return $this->belongsToMany(Service::class,'requested_service','patient_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid'])->using(UserPivot::class);
+        return $this->belongsToMany(Service::class,'requested_service','patient_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid','count'])->using(UserPivot::class);
     }
+    public function getTotalServiceBankAttribute()
+    {
+        return $this->bankak_service();
+    }
+    protected $appends = ['totalservicebank'];
     public function paid(){
 
         $total = 0;
@@ -120,6 +140,9 @@ class Patient extends Model
      public function tests_concatinated(){
         return join('-',$this::labrequests()->pluck('main_test_name')->all());
      }
+    public function services_concatinated(){
+        return join(' - ',$this::services()->pluck('name')->all());
+    }
     public function bankak(){
 
         $total = 0;
@@ -139,9 +162,40 @@ class Patient extends Model
         return $total;
 
     }
+    public function total_paid_services(){
+        $total = 0;
+            foreach ($this->services as $service){
+
+                $total += $service->pivot->amount_paid;
+        }
+        return $total;
+    }
+    public function bankak_service(){
+
+        $total = 0;
+        foreach ($this->services as $service){
+            if ($service->pivot->is_paid && $service->pivot->bank == 1){
+
+                    $price = $service->price ;
+                    $discount = $service->pivot->discount;
+                    $discounted_money = ($price * $discount ) / 100;
+                    $patient_paid =   $price - $discounted_money ;
+                    $total+=$patient_paid;
+
+            }
+
+        }
+        return $total;
+
+    }
 
     public function file(){
         return $this->belongsToMany(File::class);
+    }
+
+    public function doctor_credit()
+    {
+       return  $this->doctor->cash_percentage * $this->total_paid_services() / 100;
     }
 
 }

@@ -13,6 +13,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "mike42/escpos-php": "^2.2",
         "orangehill/iseed": "^3.0",
         "tecnickcom/tcpdf": "^6.7"
     },

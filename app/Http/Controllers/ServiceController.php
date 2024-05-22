@@ -14,7 +14,7 @@ class ServiceController extends Controller
     {
         $id =  $request->get('service_id');
         $requested_service = $patient->services()->firstWhere('requested_service.service_id', $id);
-        $price =  $requested_service->price;
+        $price =  $requested_service->price * $requested_service->pivot->count;
         $discount =  $requested_service->pivot->discount;
         $discount_amount = ($price * $discount )/ 100;
         $amount = $price - $discount_amount;
@@ -34,7 +34,7 @@ class ServiceController extends Controller
     public function cancel(Request $request , Patient $patient)
     {
         $id =  $request->get('service_id');
-        $patient->services()->updateExistingPivot($id, ['is_paid' => 0,'amount_paid' => 0,'discount' => 0]);
+        $patient->services()->updateExistingPivot($id, ['is_paid' => 0,'amount_paid' => 0,'discount' => 0,'count'=>1]);
         return ['status' => true,'patient'=> $patient->load(['services','services.pivot.user'])];
 
     }
@@ -52,6 +52,7 @@ class ServiceController extends Controller
                     'discount'=>0,
                     'is_paid'=>0,
                     'amount_paid'=>0,
+                    'count'=>1
                 ]);
             }
         } else {
@@ -73,6 +74,12 @@ class ServiceController extends Controller
         $data = $request->all();
         $service_id =  $data['service_id'];
         $patient->services()->updateExistingPivot($service_id,['discount'=>$data['discount']],touch:false);
+        return ['status'=>true,'patient'=>$patient->load(['services','services.pivot.user'])];
+    }
+    public function count(Request $request , Patient $patient){
+        $data = $request->all();
+        $service_id =  $data['service_id'];
+        $patient->services()->updateExistingPivot($service_id,['count'=>$data['serviceCount']],touch:false);
         return ['status'=>true,'patient'=>$patient->load(['services','services.pivot.user'])];
     }
     public function create(ServiceFormRequest $request){

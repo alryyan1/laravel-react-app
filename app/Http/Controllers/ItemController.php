@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deposit;
+use App\Models\DepositItems;
 use App\Models\Item;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use PDF;
 class ItemController extends Controller
 {
@@ -19,6 +22,41 @@ class ItemController extends Controller
             $item->remaining = $total_deposit - $total_deduct;
         }
         return $items;
+    }
+    public function state(Request $request,$item_id)
+    {
+        $date_f = Carbon::now()->addDay()->format('Y-m-d');
+        $now =  Carbon::now();
+        $previous_month =  $now->subMonth();
+        $dates = [];
+        while ($previous_month <= $date_f) {
+            $first_day_last_month =   $previous_month->format('Y-m-d');
+
+//         dd($first_day_last_month);
+
+            $deposit_items =  Deposit:: whereDate('bill_date',$first_day_last_month)->get();
+            $total = 0;
+            /** @var Deposit $deposit */
+            foreach ($deposit_items as $deposit) {
+                $deposit->load(['items'=>function ($query) use($item_id) {
+                    $query->where('deposit_items.item_id',$item_id);
+                }]);
+                $total+= $deposit->items->sum('pivot.quantity');
+            }
+            $deducts =  \App\Models\Deduct:: whereDate('created_at',$first_day_last_month)->get();
+            $total_deducts = 0;
+            /** @var \App\Models\Deduct $deduct */
+            foreach ($deducts as $deduct) {
+                $deduct->load(['items'=>function ($query) use($item_id)  {
+                    $query->where('deducted_items.item_id',$item_id);
+                }]);
+                $total_deducts+= $deduct->items->sum('pivot.quantity');
+            }
+            $dates [] = ['date'=>$first_day_last_month,'income'=>$total,'deducts'=>$total_deducts];
+            $previous_month->addDay();
+        }
+//    dd($first_day_last_month);
+        return $dates;
     }
 
     public function paginate(Request $request)
@@ -46,7 +84,7 @@ class ItemController extends Controller
     {
         $data = $request->all();
 //        return $data;
-        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance']
+        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests']
             , 'initial_price' => $data['initial_price']]);
         return ['status' => $result];
     }

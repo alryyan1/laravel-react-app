@@ -4,6 +4,8 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Models\ChildTest;
 use App\Models\Company;
+use App\Models\Deposit;
+use App\Models\DepositItems;
 use App\Models\Doctor;
 use App\Models\Item;
 use App\Models\MainTest;
@@ -13,6 +15,7 @@ use DebugBar\DebugBar;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Client\Request;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 Route::get('/', function () {
     FacadesDebugbar::info('hi');
@@ -53,12 +57,38 @@ Route::get('/home', function () {
 
 
 Route::get('test',function (){
+    $date_f = Carbon::now()->addDay()->format('Y-m-d');
+    $now =  Carbon::now();
+    $previous_month =  $now->subMonth();
+    $dates = [];
+    while ($previous_month <= $date_f) {
+         $first_day_last_month =   $previous_month->format('Y-m-d');
 
-    $data =   \Illuminate\Support\Facades\DB::connection('altohami')->table('services')->get();
-    foreach ($data as $service) {
-        \App\Models\Service::create(['name' => $service->name,'price' => $service->price,'service_group_id' => $service->group_id]);
+//         dd($first_day_last_month);
+
+        $deposit_items =  Deposit:: whereDate('bill_date',$first_day_last_month)->get();
+        $total = 0;
+        /** @var Deposit $deposit */
+        foreach ($deposit_items as $deposit) {
+            $deposit->load(['items'=>function ($query) {
+                $query->where('deposit_items.item_id',32);
+            }]);
+            $total+= $deposit->items->sum('pivot.quantity');
+        }
+        $deducts =  \App\Models\Deduct:: whereDate('created_at',$first_day_last_month)->get();
+        $total_deducts = 0;
+        /** @var \App\Models\Deduct $deduct */
+        foreach ($deducts as $deduct) {
+            $deduct->load(['items'=>function ($query) {
+                $query->where('deducted_items.item_id',32);
+            }]);
+            $total_deducts+= $deduct->items->sum('pivot.quantity');
+        }
+        $dates [] = ['income'=>$total,'deducts'=>$total_deducts];
+       $previous_month->addDay();
     }
-
+//    dd($first_day_last_month);
+    return $dates;
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
@@ -67,6 +97,9 @@ Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
 
 //lab
 Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
+//clinics
+Route::get('clinics/report',[\App\Http\Controllers\PdfController::class,'clinicsReport']);
+Route::get('clinics/doctor/report',[\App\Http\Controllers\PdfController::class,'clinicReport']);
 
 //company
 Route::get('company/test/{company}',[\App\Http\Controllers\PdfController::class,'companyTest']);

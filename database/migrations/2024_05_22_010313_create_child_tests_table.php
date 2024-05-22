@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('child_tests', function (Blueprint $table) {
+            $table->id();
             $table->string('child_test_name', 70);
             $table->double('low', null, 0)->nullable();
             $table->double('upper', null, 0)->nullable();
-            $table->bigInteger('main_id')->index('main_id_fk')->unsigned();
-            $table->integer('child_test_id', true);
+            $table->foreignIdFor(\App\Models\MainTest::class);
+//            $table->integer('child_test_id', true);
             $table->string('defval', 80);
-            $table->integer('Unit')->nullable()->index('unit_fk');
+            $table->foreignIdFor(\App\Models\Unit::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->text('normalRange');
             $table->boolean('mulit_range')->default(false);
             $table->decimal('max', 10);

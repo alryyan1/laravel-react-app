@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereNormalRange($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult wherePatientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereUpdatedAt($value)
+ * @property string $result
+ * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereResult($value)
  * @mixin \Eloquent
  */
 class RequestedResult extends Model

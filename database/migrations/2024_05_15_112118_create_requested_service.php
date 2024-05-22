@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_paid');
             $table->integer('discount');
             $table->boolean('bank');
+            $table->integer('count');
             $table->timestamps();
             $table->unique(['patient_id','service_id']);
         });
