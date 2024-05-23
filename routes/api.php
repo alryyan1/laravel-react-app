@@ -104,6 +104,7 @@ Route::middleware('auth:sanctum')->post('patient/service/add/{patient}', [Servic
 
 Route::get('serviceGroup/all', [\App\Http\Controllers\ServiceGroupController::class, 'all']);
 Route::post('serviceGroup/create', [\App\Http\Controllers\ServiceGroupController::class, 'create']);
+Route::patch('serviceGroup/{serviceGroup}', [\App\Http\Controllers\ServiceGroupController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('patient/service/{patient}',[ServiceController::class,'deleteService']);
 Route::middleware('auth:sanctum')->get('patient/service/pay/{patient}',[ServiceController::class,'pay']);
 Route::middleware('auth:sanctum')->get('patient/service/cancel/{patient}',[ServiceController::class,'cancel']);
@@ -145,6 +146,7 @@ Route::get('items/all/pagination/{item}', [ItemController::class, 'pagination'])
 Route::get('items/balance', [ItemController::class, 'balance']);
 Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);
 Route::get('items/all/pie/{section}', [ItemController::class, 'pie']);
+Route::get('items/all/withItemRemaining', [ItemController::class, 'withItemRemaining']);
 
 
 Route::post('sections/create', [SectionController::class, 'create']);
@@ -170,6 +172,7 @@ Route::controller(DepositController::class)->group(function () {
 
 
 //
+Route::delete('inventory/deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
 Route::post('inventory/deduct', [DeductController::class, 'deduct']);
 Route::get('inventory/deduct/complete', [DeductController::class, 'complete']);
 Route::get('inventory/deduct/last', [DeductController::class, 'last']);

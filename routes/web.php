@@ -59,19 +59,21 @@ Route::get('/home', function () {
 Route::get('test',function (){
     $date_f = Carbon::now()->addDay()->format('Y-m-d');
     $now =  Carbon::now();
-    $previous_month =  $now->subMonth();
+    $now2 =  Carbon::now();
+    $start_date =  $now->setMonth(5)->setDay(1);
+    $end_date = $now2->setMonth(5)->setDay(1)->addMonth();
     $dates = [];
-    while ($previous_month <= $date_f) {
-         $first_day_last_month =   $previous_month->format('Y-m-d');
+    while ($start_date <= $end_date) {
+        $first_day_last_month =   $start_date->format('Y-m-d');
 
 //         dd($first_day_last_month);
 
-        $deposit_items =  Deposit:: whereDate('bill_date',$first_day_last_month)->get();
+        $deposit_items =  Deposit:: where('bill_date',$first_day_last_month)->get();
         $total = 0;
         /** @var Deposit $deposit */
         foreach ($deposit_items as $deposit) {
             $deposit->load(['items'=>function ($query) {
-                $query->where('deposit_items.item_id',32);
+                $query->where('deposit_items.item_id',106);
             }]);
             $total+= $deposit->items->sum('pivot.quantity');
         }
@@ -79,13 +81,13 @@ Route::get('test',function (){
         $total_deducts = 0;
         /** @var \App\Models\Deduct $deduct */
         foreach ($deducts as $deduct) {
-            $deduct->load(['items'=>function ($query) {
-                $query->where('deducted_items.item_id',32);
+            $deduct->load(['items'=>function ($query)  {
+                $query->where('deducted_items.item_id',106);
             }]);
             $total_deducts+= $deduct->items->sum('pivot.quantity');
         }
-        $dates [] = ['income'=>$total,'deducts'=>$total_deducts];
-       $previous_month->addDay();
+        $dates [] = ['date'=>$first_day_last_month,'income'=>$total,'deducts'=>$total_deducts];
+        $start_date->addDay();
     }
 //    dd($first_day_last_month);
     return $dates;

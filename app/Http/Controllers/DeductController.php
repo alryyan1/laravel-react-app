@@ -8,6 +8,11 @@ use Illuminate\Support\Carbon;
 
 class DeductController extends Controller
 {
+    public function deleteDeduct(Request $request ,Deduct $deduct)
+    {
+        $deduct->delete();
+        return ['success' => true];
+    }
     public function showDeductById(Request $request,Deduct $deduct){
 
         return ['data'=>$deduct , 'status'=>true];
