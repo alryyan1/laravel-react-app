@@ -34,10 +34,11 @@ class MainTest extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = ['main_test_name','price'];
     public function Package(){
         return $this->belongsTo(Package::class,'pack_id','package_id');
     }
     public function childTests(){
-        return $this->hasMany(ChildTest::class);
+        return $this->hasMany(ChildTest::class,'main_test_id');
     }
 }

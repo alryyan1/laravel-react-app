@@ -14,1454 +14,1353 @@ class ChildTestsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('child_tests')->delete();
-
+        
         \DB::table('child_tests')->insert(array (
-            0 =>
+            0 => 
             array (
+                'id' => 1,
                 'child_test_name' => 'RBS',
                 'low' => 80.0,
                 'upper' => 180.0,
                 'main_test_id' => 8,
-                'id' => 1,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '80-180',
-                'mulit_range' => 0,
                 'max' => '800.00',
                 'lowest' => '20.00',
             ),
-            1 =>
+            1 => 
             array (
+                'id' => 2,
                 'child_test_name' => 'color',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 2,
                 'defval' => 'yellow',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            2 =>
+            2 => 
             array (
+                'id' => 3,
                 'child_test_name' => 'PH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 3,
                 'defval' => 'Acidic',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            3 =>
+            3 => 
             array (
+                'id' => 4,
                 'child_test_name' => 'Protien',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 4,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            4 =>
+            4 => 
             array (
+                'id' => 5,
                 'child_test_name' => 'Sugar',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 5,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            5 =>
+            5 => 
             array (
+                'id' => 6,
                 'child_test_name' => 'Acetone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 6,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            6 =>
+            6 => 
             array (
+                'id' => 7,
                 'child_test_name' => 'Bile',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 7,
                 'defval' => 'Nil',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            7 =>
+            7 => 
             array (
+                'id' => 8,
                 'child_test_name' => 'Pus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 8,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            8 =>
+            8 => 
             array (
+                'id' => 9,
                 'child_test_name' => 'Rbcs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 9,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            9 =>
+            9 => 
             array (
+                'id' => 10,
                 'child_test_name' => 'Epithelial',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 10,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            10 =>
+            10 => 
             array (
+                'id' => 11,
                 'child_test_name' => 'Crystals',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 11,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            11 =>
+            11 => 
             array (
+                'id' => 12,
                 'child_test_name' => 'Cast',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 12,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            12 =>
+            12 => 
             array (
+                'id' => 13,
                 'child_test_name' => 'mucus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 13,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            13 =>
+            13 => 
             array (
+                'id' => 14,
                 'child_test_name' => 'Other',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 2,
-                'id' => 14,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            14 =>
+            14 => 
             array (
+                'id' => 15,
                 'child_test_name' => 'Uric Acid',
                 'low' => 3.5,
                 'upper' => 7.0,
                 'main_test_id' => 33,
-                'id' => 15,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'M:3.4 - 7.0F: 2.0 - 6.0',
-                'mulit_range' => 0,
                 'max' => '20.00',
                 'lowest' => '1.00',
             ),
-            15 =>
+            15 => 
             array (
+                'id' => 16,
                 'child_test_name' => 'Creatinine',
                 'low' => 0.4,
                 'upper' => 1.4,
                 'main_test_id' => 32,
-                'id' => 16,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0.4 -1 .4',
-                'mulit_range' => 0,
                 'max' => '33.00',
                 'lowest' => '0.10',
             ),
-            16 =>
+            16 => 
             array (
+                'id' => 17,
                 'child_test_name' => 'Calcium',
                 'low' => 8.1,
                 'upper' => 10.4,
                 'main_test_id' => 35,
-                'id' => 17,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '8.6 - 10.2',
-                'mulit_range' => 0,
                 'max' => '13.00',
                 'lowest' => '4.00',
             ),
-            17 =>
+            17 => 
             array (
+                'id' => 18,
                 'child_test_name' => 'Phosphorus',
                 'low' => 2.5,
                 'upper' => 5.0,
                 'main_test_id' => 36,
-                'id' => 18,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'children 4 - 7.0
 Adults   2.5 - 5.0',
-                'mulit_range' => 1,
                 'max' => '15.00',
                 'lowest' => '1.00',
             ),
-            18 =>
+            18 => 
             array (
+                'id' => 19,
                 'child_test_name' => 'Total protien',
                 'low' => 6.6,
                 'upper' => 8.3,
                 'main_test_id' => 162,
-                'id' => 19,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '6.6 - 8.7',
-                'mulit_range' => 0,
                 'max' => '11.00',
                 'lowest' => '3.00',
             ),
-            19 =>
+            19 => 
             array (
+                'id' => 20,
                 'child_test_name' => 'Albumin',
                 'low' => 3.5,
                 'upper' => 5.0,
                 'main_test_id' => 163,
-                'id' => 20,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'new born : 3.5 - 4.9
 1 - 20 years old :3.6 - 5.1
 adult : 3.5 - 5.3
 > 60 years old : 3.4 - 4.8',
-                'mulit_range' => 0,
                 'max' => '8.00',
                 'lowest' => '1.00',
             ),
-            20 =>
+            20 => 
             array (
+                'id' => 21,
                 'child_test_name' => 'T.Bilirubin',
                 'low' => 0.2,
                 'upper' => 1.0,
                 'main_test_id' => 164,
-                'id' => 21,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 1.1
 new born : up to 12.0',
-                'mulit_range' => 0,
                 'max' => '40.00',
                 'lowest' => '0.10',
             ),
-            21 =>
+            21 => 
             array (
+                'id' => 22,
                 'child_test_name' => 'D.Bilirubin',
                 'low' => 0.1,
                 'upper' => 0.2,
                 'main_test_id' => 165,
-                'id' => 22,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 0.25',
-                'mulit_range' => 0,
                 'max' => '30.00',
                 'lowest' => '0.10',
             ),
-            22 =>
+            22 => 
             array (
+                'id' => 23,
                 'child_test_name' => 'ALP',
                 'low' => 1.0,
                 'upper' => 98.0,
                 'main_test_id' => 166,
-                'id' => 23,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => '40 - 129',
-                'mulit_range' => 0,
                 'max' => '2000.00',
                 'lowest' => '20.00',
             ),
-            23 =>
+            23 => 
             array (
+                'id' => 24,
                 'child_test_name' => 'AST',
                 'low' => 1.0,
                 'upper' => 45.0,
                 'main_test_id' => 168,
-                'id' => 24,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => 'male : up to 38
 female : up to 31',
-                'mulit_range' => 0,
                 'max' => '4000.00',
                 'lowest' => '3.00',
             ),
-            24 =>
+            24 => 
             array (
+                'id' => 25,
                 'child_test_name' => 'ALT',
                 'low' => 1.0,
                 'upper' => 45.0,
                 'main_test_id' => 169,
-                'id' => 25,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => 'male : up to 45
 female : up to 34',
-                'mulit_range' => 0,
                 'max' => '4000.00',
                 'lowest' => '4.00',
             ),
-            25 =>
+            25 => 
             array (
+                'id' => 26,
                 'child_test_name' => 'Cholesterol',
                 'low' => 54.0,
                 'upper' => 200.0,
                 'main_test_id' => 179,
-                'id' => 26,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 200    ',
-                'mulit_range' => 1,
                 'max' => '600.00',
                 'lowest' => '20.00',
             ),
-            26 =>
+            26 => 
             array (
+                'id' => 27,
                 'child_test_name' => 'Triglyceride',
                 'low' => 67.0,
                 'upper' => 150.0,
                 'main_test_id' => 180,
-                'id' => 27,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 200  ',
-                'mulit_range' => 1,
                 'max' => '600.00',
                 'lowest' => '20.00',
             ),
-            27 =>
+            27 => 
             array (
+                'id' => 28,
                 'child_test_name' => 'HDL',
                 'low' => 1.0,
                 'upper' => 35.0,
                 'main_test_id' => 47,
-                'id' => 28,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '55 - 100',
-                'mulit_range' => 1,
                 'max' => '140.00',
                 'lowest' => '10.00',
             ),
-            28 =>
+            28 => 
             array (
+                'id' => 29,
                 'child_test_name' => 'LDL',
                 'low' => 1.0,
                 'upper' => 129.0,
                 'main_test_id' => 49,
-                'id' => 29,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 155',
-                'mulit_range' => 1,
                 'max' => '360.00',
                 'lowest' => '10.00',
             ),
-            29 =>
+            29 => 
             array (
+                'id' => 30,
             'child_test_name' => 'Sodium (Na+)',
                 'low' => 135.0,
                 'upper' => 145.0,
                 'main_test_id' => 70,
-                'id' => 30,
                 'defval' => '',
                 'unit_id' => 5,
                 'normalRange' => '135-145',
-                'mulit_range' => 0,
                 'max' => '160.00',
                 'lowest' => '115.00',
             ),
-            30 =>
+            30 => 
             array (
+                'id' => 31,
             'child_test_name' => 'Potassium (K+)',
                 'low' => 3.5,
                 'upper' => 5.0,
                 'main_test_id' => 71,
-                'id' => 31,
                 'defval' => '',
                 'unit_id' => 5,
                 'normalRange' => '3.5-5',
-                'mulit_range' => 0,
                 'max' => '8.00',
                 'lowest' => '2.00',
             ),
-            31 =>
+            31 => 
             array (
+                'id' => 38,
                 'child_test_name' => 'Malaria-Ag',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 4,
-                'id' => 38,
                 'defval' => 'Malaria Ag is Not Detected',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            32 =>
+            32 => 
             array (
+                'id' => 39,
                 'child_test_name' => 'H.pylori-Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 6,
-                'id' => 39,
                 'defval' => 'Serum is Not Reactive ',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            33 =>
+            33 => 
             array (
+                'id' => 40,
                 'child_test_name' => 'H.pylori-Ag',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 7,
-                'id' => 40,
                 'defval' => 'Not Detected in Stool sample',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            34 =>
+            34 => 
             array (
+                'id' => 42,
                 'child_test_name' => 'Troponin',
                 'low' => 0.0,
                 'upper' => 0.4,
                 'main_test_id' => 38,
-                'id' => 42,
                 'defval' => 'Negative',
                 'unit_id' => 8,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.40',
                 'lowest' => '0.00',
             ),
-            35 =>
+            35 => 
             array (
+                'id' => 43,
                 'child_test_name' => 'Occult Blood',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 39,
-                'id' => 43,
                 'defval' => 'Not Detected in Stool sample',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            36 =>
+            36 => 
             array (
+                'id' => 44,
                 'child_test_name' => 'Twbcs',
                 'low' => 4.0,
                 'upper' => 11.0,
                 'main_test_id' => 1,
-                'id' => 44,
                 'defval' => '',
                 'unit_id' => 10,
                 'normalRange' => '4-11',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            37 =>
+            37 => 
             array (
+                'id' => 45,
                 'child_test_name' => 'RBCs',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 1,
-                'id' => 45,
                 'defval' => '',
                 'unit_id' => 11,
                 'normalRange' => 'Male: 4.3-5.9
 Female: 3.5-5.5 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            38 =>
+            38 => 
             array (
+                'id' => 46,
                 'child_test_name' => 'Hb',
                 'low' => 11.0,
                 'upper' => 17.0,
                 'main_test_id' => 1,
-                'id' => 46,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => 'male:14-17
 female:12-16',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            39 =>
+            39 => 
             array (
+                'id' => 47,
                 'child_test_name' => 'PCV',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 1,
-                'id' => 47,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'male:41%-51%
 female:36%-47%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            40 =>
+            40 => 
             array (
+                'id' => 48,
                 'child_test_name' => 'MCV',
                 'low' => 80.0,
                 'upper' => 98.0,
                 'main_test_id' => 1,
-                'id' => 48,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '80-98',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            41 =>
+            41 => 
             array (
+                'id' => 49,
                 'child_test_name' => 'HbsAg',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 41,
-                'id' => 49,
                 'defval' => '',
                 'unit_id' => 72,
                 'normalRange' => '0 - 0.9  Non reactive
 0.91 - 0.99  Equivocal
 >1.0     Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            42 =>
+            42 => 
             array (
+                'id' => 50,
                 'child_test_name' => 'HCV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 42,
-                'id' => 50,
                 'defval' => '',
                 'unit_id' => 58,
                 'normalRange' => '
 0 - 0.9  Non reactive
 0.91 - 0.99  Equivocal
 >1.0     Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            43 =>
+            43 => 
             array (
+                'id' => 51,
                 'child_test_name' => 'HIV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 43,
-                'id' => 51,
                 'defval' => '',
                 'unit_id' => 57,
                 'normalRange' => '<1.0  Negative
 ====================
 >1.0   Positive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            44 =>
+            44 => 
             array (
+                'id' => 52,
                 'child_test_name' => 'MCH',
                 'low' => 28.0,
                 'upper' => 32.0,
                 'main_test_id' => 1,
-                'id' => 52,
                 'defval' => '',
                 'unit_id' => 14,
                 'normalRange' => '28-32',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            45 =>
+            45 => 
             array (
+                'id' => 53,
                 'child_test_name' => 'MCHC',
                 'low' => 31.0,
                 'upper' => 33.0,
                 'main_test_id' => 1,
-                'id' => 53,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '31-33',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            46 =>
+            46 => 
             array (
+                'id' => 54,
                 'child_test_name' => 'PLT',
                 'low' => 150.0,
                 'upper' => 450.0,
                 'main_test_id' => 1,
-                'id' => 54,
                 'defval' => '',
                 'unit_id' => 10,
                 'normalRange' => '150-450',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            47 =>
+            47 => 
             array (
+                'id' => 55,
                 'child_test_name' => 'Lympho',
                 'low' => 20.0,
                 'upper' => 45.0,
                 'main_test_id' => 1,
-                'id' => 55,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '20-45',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            48 =>
+            48 => 
             array (
+                'id' => 56,
                 'child_test_name' => 'Neutro',
                 'low' => 40.0,
                 'upper' => 70.0,
                 'main_test_id' => 1,
-                'id' => 56,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '40-70',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            49 =>
+            49 => 
             array (
+                'id' => 57,
                 'child_test_name' => 'MXD',
                 'low' => 3.0,
                 'upper' => 15.0,
                 'main_test_id' => 1,
-                'id' => 57,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '3-15',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            50 =>
+            50 => 
             array (
+                'id' => 58,
                 'child_test_name' => 'Color',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 58,
                 'defval' => 'Brown',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            51 =>
+            51 => 
             array (
+                'id' => 59,
                 'child_test_name' => 'Ph',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 59,
                 'defval' => 'alkaline',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            52 =>
+            52 => 
             array (
+                'id' => 60,
                 'child_test_name' => 'Consistency',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 60,
                 'defval' => 'Soft',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            53 =>
+            53 => 
             array (
+                'id' => 61,
                 'child_test_name' => 'Mucus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 61,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            54 =>
+            54 => 
             array (
+                'id' => 62,
                 'child_test_name' => 'Blood',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 62,
                 'defval' => 'Nil',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            55 =>
+            55 => 
             array (
+                'id' => 63,
                 'child_test_name' => 'Pus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 63,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            56 =>
+            56 => 
             array (
+                'id' => 64,
                 'child_test_name' => 'Rbcs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 64,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            57 =>
+            57 => 
             array (
+                'id' => 65,
                 'child_test_name' => 'Cyst',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 65,
                 'defval' => 'absent',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            58 =>
+            58 => 
             array (
+                'id' => 66,
                 'child_test_name' => 'trophozoite',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 66,
                 'defval' => 'absent',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            59 =>
+            59 => 
             array (
+                'id' => 67,
                 'child_test_name' => 'UNDIGESTED',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 67,
                 'defval' => 'absent',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            60 =>
+            60 => 
             array (
+                'id' => 68,
                 'child_test_name' => 'YEAST',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 68,
                 'defval' => 'absent',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            61 =>
+            61 => 
             array (
+                'id' => 69,
                 'child_test_name' => 'OTHER',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 69,
                 'defval' => 'absent',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            62 =>
+            62 => 
             array (
+                'id' => 70,
                 'child_test_name' => 'Hb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 23,
-                'id' => 70,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => 'male:14-17
 female:12-16',
-                'mulit_range' => 1,
                 'max' => '19.00',
                 'lowest' => '2.00',
             ),
-            63 =>
+            63 => 
             array (
+                'id' => 71,
                 'child_test_name' => 'Pcv',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 23,
-                'id' => 71,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'male:41%-51
 female:36%-47%',
-                'mulit_range' => 1,
                 'max' => '55.00',
                 'lowest' => '15.00',
             ),
-            64 =>
+            64 => 
             array (
+                'id' => 72,
                 'child_test_name' => 'T-wbc',
                 'low' => 4.0,
                 'upper' => 11.0,
                 'main_test_id' => 21,
-                'id' => 72,
                 'defval' => '',
                 'unit_id' => 15,
                 'normalRange' => '4-11',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            65 =>
+            65 => 
             array (
+                'id' => 73,
                 'child_test_name' => 'Abortus',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 46,
-                'id' => 73,
                 'defval' => '1/20',
                 'unit_id' => 23,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            66 =>
+            66 => 
             array (
+                'id' => 74,
                 'child_test_name' => 'melitensis',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 46,
-                'id' => 74,
                 'defval' => '1/20',
                 'unit_id' => 23,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            67 =>
+            67 => 
             array (
+                'id' => 75,
                 'child_test_name' => 'S.typhi-O',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 45,
-                'id' => 75,
                 'defval' => '1/20',
                 'unit_id' => 23,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            68 =>
+            68 => 
             array (
+                'id' => 76,
                 'child_test_name' => 'S.paratyphi B',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 45,
-                'id' => 76,
                 'defval' => '1/20',
                 'unit_id' => 23,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            69 =>
+            69 => 
             array (
+                'id' => 77,
                 'child_test_name' => 'comment',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 46,
-                'id' => 77,
                 'defval' => 'Titer is insignificant for Brucellosis',
                 'unit_id' => 1,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            70 =>
+            70 => 
             array (
+                'id' => 78,
                 'child_test_name' => 'comment',
                 'low' => NULL,
                 'upper' => NULL,
                 'main_test_id' => 45,
-                'id' => 78,
                 'defval' => 'Titer is insignificant for Enterica',
                 'unit_id' => 1,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            71 =>
+            71 => 
             array (
+                'id' => 79,
                 'child_test_name' => 'Pregnancy-test',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 28,
-                'id' => 79,
                 'defval' => 'Not Detected in Serum Sample',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            72 =>
+            72 => 
             array (
+                'id' => 80,
                 'child_test_name' => 'Pregnancy-test.',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 29,
-                'id' => 80,
                 'defval' => 'Not detected in urine sample',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            73 =>
+            73 => 
             array (
+                'id' => 81,
                 'child_test_name' => 'ABO-group',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 51,
-                'id' => 81,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            74 =>
+            74 => 
             array (
+                'id' => 82,
                 'child_test_name' => 'Rh-group',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 51,
-                'id' => 82,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            75 =>
+            75 => 
             array (
+                'id' => 83,
                 'child_test_name' => 'FBS',
                 'low' => 70.0,
                 'upper' => 120.0,
                 'main_test_id' => 10,
-                'id' => 83,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '70-120',
-                'mulit_range' => 0,
                 'max' => '550.00',
                 'lowest' => '20.00',
             ),
-            76 =>
+            76 => 
             array (
+                'id' => 84,
                 'child_test_name' => '2hr PP',
                 'low' => 140.0,
                 'upper' => 180.0,
                 'main_test_id' => 11,
-                'id' => 84,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '140-180',
-                'mulit_range' => 0,
                 'max' => '600.00',
                 'lowest' => '20.00',
             ),
-            77 =>
+            77 => 
             array (
+                'id' => 85,
                 'child_test_name' => 'ASO',
                 'low' => 0.0,
                 'upper' => 200.0,
                 'main_test_id' => 24,
-                'id' => 85,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 160',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            78 =>
+            78 => 
             array (
+                'id' => 87,
                 'child_test_name' => 'ESR',
                 'low' => 5.0,
                 'upper' => 25.0,
                 'main_test_id' => 27,
-                'id' => 87,
                 'defval' => '',
                 'unit_id' => 18,
                 'normalRange' => 'up to 30',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            79 =>
+            79 => 
             array (
+                'id' => 88,
                 'child_test_name' => 'Clotting time',
                 'low' => 8.0,
                 'upper' => 15.0,
                 'main_test_id' => 55,
-                'id' => 88,
                 'defval' => '',
                 'unit_id' => 17,
                 'normalRange' => '8-15',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            80 =>
+            80 => 
             array (
+                'id' => 89,
                 'child_test_name' => 'Bleeding time',
                 'low' => 2.0,
                 'upper' => 9.0,
                 'main_test_id' => 56,
-                'id' => 89,
                 'defval' => '',
                 'unit_id' => 17,
                 'normalRange' => '2-9',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            81 =>
+            81 => 
             array (
+                'id' => 97,
                 'child_test_name' => 'Prothrombin-time',
                 'low' => 11.0,
                 'upper' => 13.0,
                 'main_test_id' => 19,
-                'id' => 97,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '10.0-16.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            82 =>
+            82 => 
             array (
+                'id' => 99,
                 'child_test_name' => 'INR',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 19,
-                'id' => 99,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'Up to 1.2',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            83 =>
+            83 => 
             array (
+                'id' => 102,
                 'child_test_name' => 'Urea',
                 'low' => 10.0,
                 'upper' => 45.0,
                 'main_test_id' => 12,
-                'id' => 102,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '10-50',
-                'mulit_range' => 0,
                 'max' => '350.00',
                 'lowest' => '7.00',
             ),
-            84 =>
+            84 => 
             array (
+                'id' => 103,
                 'child_test_name' => 'Creatinine',
                 'low' => 0.4,
                 'upper' => 1.2,
                 'main_test_id' => 12,
-                'id' => 103,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0.4 - 1.6',
-                'mulit_range' => 0,
                 'max' => '30.00',
                 'lowest' => '0.20',
             ),
-            85 =>
+            85 => 
             array (
+                'id' => 107,
                 'child_test_name' => 'HbA1c',
                 'low' => 3.5,
                 'upper' => 6.5,
                 'main_test_id' => 9,
-                'id' => 107,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'Non diabetic : < 6.6
 Control diabetic < 8.0
 Uncontrol diabetic > 8.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            86 =>
+            86 => 
             array (
+                'id' => 108,
                 'child_test_name' => 'RF',
                 'low' => 0.0,
                 'upper' => 18.0,
                 'main_test_id' => 26,
-                'id' => 108,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            87 =>
+            87 => 
             array (
+                'id' => 116,
                 'child_test_name' => 'BFFM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 5,
-                'id' => 116,
                 'defval' => 'No malaria parasite seen',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            88 =>
+            88 => 
             array (
+                'id' => 119,
                 'child_test_name' => 'Urea',
                 'low' => 10.0,
                 'upper' => 45.0,
                 'main_test_id' => 31,
-                'id' => 119,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '10-45',
-                'mulit_range' => 0,
                 'max' => '400.00',
                 'lowest' => '5.00',
             ),
-            89 =>
+            89 => 
             array (
+                'id' => 120,
                 'child_test_name' => 'Total',
                 'low' => 4.0,
                 'upper' => 11.0,
                 'main_test_id' => 22,
-                'id' => 120,
                 'defval' => '',
                 'unit_id' => 10,
                 'normalRange' => '4-11',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            90 =>
+            90 => 
             array (
+                'id' => 121,
                 'child_test_name' => 'Neutrophils',
                 'low' => 40.0,
                 'upper' => 70.0,
                 'main_test_id' => 22,
-                'id' => 121,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '40-70',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            91 =>
+            91 => 
             array (
+                'id' => 122,
                 'child_test_name' => 'Lymphocyte',
                 'low' => 20.0,
                 'upper' => 40.0,
                 'main_test_id' => 22,
-                'id' => 122,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '20-40',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            92 =>
+            92 => 
             array (
+                'id' => 123,
                 'child_test_name' => 'Monocyte',
                 'low' => 3.0,
                 'upper' => 8.0,
                 'main_test_id' => 22,
-                'id' => 123,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '3-8',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            93 =>
+            93 => 
             array (
+                'id' => 124,
                 'child_test_name' => 'Esinophils',
                 'low' => 2.0,
                 'upper' => 4.0,
                 'main_test_id' => 22,
-                'id' => 124,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '2-4',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            94 =>
+            94 => 
             array (
+                'id' => 125,
                 'child_test_name' => 'Basophil',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 22,
-                'id' => 125,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            95 =>
+            95 => 
             array (
+                'id' => 128,
                 'child_test_name' => 'PSA',
                 'low' => 0.0,
                 'upper' => 4.0,
                 'main_test_id' => 76,
-                'id' => 128,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0-4',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            96 =>
+            96 => 
             array (
+                'id' => 130,
                 'child_test_name' => 'ANA',
                 'low' => 0.0,
                 'upper' => 40.0,
                 'main_test_id' => 77,
-                'id' => 130,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0-40',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            97 =>
+            97 => 
             array (
+                'id' => 132,
                 'child_test_name' => 'Reticulocytes count',
                 'low' => 25.0,
                 'upper' => 150.0,
                 'main_test_id' => 78,
-                'id' => 132,
                 'defval' => '',
                 'unit_id' => 84,
                 'normalRange' => '0.5 - 3.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            98 =>
+            98 => 
             array (
+                'id' => 133,
                 'child_test_name' => 'Platelets count',
                 'low' => 150.0,
                 'upper' => 450.0,
                 'main_test_id' => 80,
-                'id' => 133,
                 'defval' => '',
                 'unit_id' => 15,
                 'normalRange' => '150-450',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            99 =>
+            99 => 
             array (
+                'id' => 135,
                 'child_test_name' => 'Serum iron',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 82,
-                'id' => 135,
                 'defval' => '',
                 'unit_id' => 45,
                 'normalRange' => 'Male :59 - 158
 Female 37 - 145',
-                'mulit_range' => 1,
                 'max' => '250.00',
                 'lowest' => '5.00',
             ),
-            100 =>
+            100 => 
             array (
+                'id' => 140,
                 'child_test_name' => 'vit B12',
                 'low' => 180.0,
                 'upper' => 916.0,
                 'main_test_id' => 85,
-                'id' => 140,
                 'defval' => '',
                 'unit_id' => 24,
                 'normalRange' => '200 - 1100',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            101 =>
+            101 => 
             array (
+                'id' => 157,
                 'child_test_name' => '*B-HCG.',
                 'low' => 0.0,
                 'upper' => 10.0,
                 'main_test_id' => 88,
-                'id' => 157,
                 'defval' => '',
                 'unit_id' => 6,
                 'normalRange' => '3-7 days-[5-50]
@@ -1487,162 +1386,151 @@ Female 37 - 145',
 16-18 weeks-[7924-56552]
 -----------------------------
 Male: < 2.0',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            102 =>
+            102 => 
             array (
+                'id' => 159,
                 'child_test_name' => 'CA 19-9',
                 'low' => 0.0,
                 'upper' => 37.0,
                 'main_test_id' => 89,
-                'id' => 159,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 37',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            103 =>
+            103 => 
             array (
+                'id' => 160,
                 'child_test_name' => 'vitamin _D',
                 'low' => 30.0,
                 'upper' => 100.0,
                 'main_test_id' => 90,
-                'id' => 160,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '-Deficifncy: <10ng/ml            -Insufficiency 10-29 ng/ml
 -sufficiency 30-100ng/ml
 -  toxicity >100 ng/ml
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            104 =>
+            104 => 
             array (
+                'id' => 161,
                 'child_test_name' => 'CRP',
                 'low' => 0.0,
                 'upper' => 10.0,
                 'main_test_id' => 25,
-                'id' => 161,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0 - 10',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            105 =>
+            105 => 
             array (
+                'id' => 162,
                 'child_test_name' => 'CA 125',
                 'low' => 0.0,
                 'upper' => 35.0,
                 'main_test_id' => 91,
-                'id' => 162,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 35',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            106 =>
+            106 => 
             array (
+                'id' => 163,
                 'child_test_name' => 'CA 15-3',
                 'low' => 0.0,
                 'upper' => 23.0,
                 'main_test_id' => 92,
-                'id' => 163,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0-25',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            107 =>
+            107 => 
             array (
+                'id' => 164,
                 'child_test_name' => 'ds.DNA',
                 'low' => 0.0,
                 'upper' => 30.0,
                 'main_test_id' => 93,
-                'id' => 164,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0-30',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            108 =>
+            108 => 
             array (
+                'id' => 165,
                 'child_test_name' => 'Anti CCP-G',
                 'low' => 0.0,
                 'upper' => 20.0,
                 'main_test_id' => 94,
-                'id' => 165,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 5   Negative
 > 5.0  postive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            109 =>
+            109 => 
             array (
+                'id' => 166,
                 'child_test_name' => 'PTT',
                 'low' => 25.0,
                 'upper' => 45.0,
                 'main_test_id' => 20,
-                'id' => 166,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '25-45',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            110 =>
+            110 => 
             array (
+                'id' => 167,
                 'child_test_name' => 'Ferritin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 110,
-                'id' => 167,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => ' Men:25 - 280
 Women: 10  -   73.3',
-                'mulit_range' => 1,
                 'max' => '500.00',
                 'lowest' => '1.00',
             ),
-            111 =>
+            111 => 
             array (
+                'id' => 169,
                 'child_test_name' => 'TIBC',
                 'low' => 42.96,
                 'upper' => 80.55,
                 'main_test_id' => 112,
-                'id' => 169,
                 'defval' => '',
                 'unit_id' => 45,
                 'normalRange' => '228- 428',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            112 =>
+            112 => 
             array (
+                'id' => 170,
                 'child_test_name' => 'AMH',
                 'low' => 0.02,
                 'upper' => 25.0,
                 'main_test_id' => 113,
-                'id' => 170,
                 'defval' => '',
                 'unit_id' => 54,
                 'normalRange' => '20-24 Yrs:  1.13 - 11.4
@@ -1653,951 +1541,884 @@ Women: 10  -   73.3',
 45-50 Yrs 0.01-3.5
 > 50 Yrs 0.01-0.26
 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            113 =>
+            113 => 
             array (
+                'id' => 171,
                 'child_test_name' => 'CEA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 108,
-                'id' => 171,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '< 5.093',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            114 =>
+            114 => 
             array (
+                'id' => 172,
                 'child_test_name' => 'AFP ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 106,
-                'id' => 172,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 10',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            115 =>
+            115 => 
             array (
+                'id' => 173,
                 'child_test_name' => 'C0rtisol',
                 'low' => 2.5,
                 'upper' => 600.0,
                 'main_test_id' => 100,
-                'id' => 173,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            116 =>
+            116 => 
             array (
+                'id' => 176,
                 'child_test_name' => 'PTH',
                 'low' => 12.0,
                 'upper' => 88.0,
                 'main_test_id' => 107,
-                'id' => 176,
                 'defval' => '',
                 'unit_id' => 24,
                 'normalRange' => '15 - 75',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            117 =>
+            117 => 
             array (
+                'id' => 178,
                 'child_test_name' => 'Syphilis-Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 79,
-                'id' => 178,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => 'Negative',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            118 =>
+            118 => 
             array (
+                'id' => 179,
                 'child_test_name' => 'TOXO IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 114,
-                'id' => 179,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 2.0',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            119 =>
+            119 => 
             array (
+                'id' => 180,
                 'child_test_name' => 'TOXO IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 115,
-                'id' => 180,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 2.6',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            120 =>
+            120 => 
             array (
+                'id' => 181,
                 'child_test_name' => 'Rubella IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 116,
-                'id' => 181,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 2.0  Non reactive
 > 2.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            121 =>
+            121 => 
             array (
+                'id' => 182,
                 'child_test_name' => 'Rubella IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 117,
-                'id' => 182,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '  0 - 2.0  Non reactive
 2 - 3.0  Equivocal
 > 3.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            122 =>
+            122 => 
             array (
+                'id' => 183,
                 'child_test_name' => 'CMV IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 118,
-                'id' => 183,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 2.0  Non reactive
 > 2.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            123 =>
+            123 => 
             array (
+                'id' => 184,
                 'child_test_name' => 'CMV IgM',
                 'low' => 2.0,
                 'upper' => 4.2,
                 'main_test_id' => 119,
-                'id' => 184,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 2.0  Non reactive
 2.0 - 4.2   Equivocal
 > 4.2    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            124 =>
+            124 => 
             array (
+                'id' => 185,
                 'child_test_name' => 'HSV-1/2IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 120,
-                'id' => 185,
                 'defval' => '',
                 'unit_id' => 35,
                 'normalRange' => '0 - 2.0  Non reactive
 > 2.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            125 =>
+            125 => 
             array (
+                'id' => 186,
                 'child_test_name' => 'HSV-2 IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 121,
-                'id' => 186,
                 'defval' => '',
                 'unit_id' => 35,
                 'normalRange' => '0 - 2.0  Non reactive
 2.0 - 4.0   Equivocal
 > 4.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            126 =>
+            126 => 
             array (
+                'id' => 187,
                 'child_test_name' => 'HSV-1/2 IgM',
                 'low' => 2.0,
                 'upper' => 4.0,
                 'main_test_id' => 122,
-                'id' => 187,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '2.0 - 4.0   Equivocal
 > 4.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            127 =>
+            127 => 
             array (
+                'id' => 191,
                 'child_test_name' => 'LDH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 124,
-                'id' => 191,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '207 - 414',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            128 =>
+            128 => 
             array (
+                'id' => 193,
                 'child_test_name' => 'lymph#',
                 'low' => 0.8,
                 'upper' => 4.0,
                 'main_test_id' => 1,
-                'id' => 193,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            129 =>
+            129 => 
             array (
+                'id' => 194,
                 'child_test_name' => 'mxd#',
                 'low' => 0.1,
                 'upper' => 0.9,
                 'main_test_id' => 1,
-                'id' => 194,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '0.1-0.9',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            130 =>
+            130 => 
             array (
+                'id' => 195,
                 'child_test_name' => 'Rdw-Sd',
                 'low' => 35.0,
                 'upper' => 56.0,
                 'main_test_id' => 1,
-                'id' => 195,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '35-56',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            131 =>
+            131 => 
             array (
+                'id' => 196,
                 'child_test_name' => 'Rdw-CV',
                 'low' => 11.5,
                 'upper' => 14.5,
                 'main_test_id' => 1,
-                'id' => 196,
                 'defval' => '',
                 'unit_id' => 85,
                 'normalRange' => '11.5-14.5',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            132 =>
+            132 => 
             array (
+                'id' => 197,
                 'child_test_name' => 'Pdw',
                 'low' => 15.0,
                 'upper' => 17.0,
                 'main_test_id' => 1,
-                'id' => 197,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '15-17',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            133 =>
+            133 => 
             array (
+                'id' => 198,
                 'child_test_name' => 'P-Lcr',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 1,
-                'id' => 198,
                 'defval' => '',
                 'unit_id' => 84,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            134 =>
+            134 => 
             array (
+                'id' => 200,
                 'child_test_name' => 'neut#',
                 'low' => 2.0,
                 'upper' => 7.0,
                 'main_test_id' => 1,
-                'id' => 200,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            135 =>
+            135 => 
             array (
+                'id' => 201,
                 'child_test_name' => 'MPV',
                 'low' => 7.0,
                 'upper' => 11.0,
                 'main_test_id' => 1,
-                'id' => 201,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '7-11',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            136 =>
+            136 => 
             array (
+                'id' => 203,
                 'child_test_name' => 'pus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 203,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            137 =>
+            137 => 
             array (
+                'id' => 208,
                 'child_test_name' => 'TPHA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 131,
-                'id' => 208,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => 'Negative',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            138 =>
+            138 => 
             array (
-                'child_test_name' => 'TPHA',
-                'low' => 0.0,
-                'upper' => 0.0,
-                'main_test_id' => 131,
                 'id' => 209,
-                'defval' => 'Negative',
-                'unit_id' => 32,
-                'normalRange' => 'Negative',
-                'mulit_range' => 1,
-                'max' => '0.00',
-                'lowest' => '0.00',
-            ),
-            139 =>
-            array (
                 'child_test_name' => 'TPHA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 131,
-                'id' => 210,
                 'defval' => 'Negative',
                 'unit_id' => 32,
                 'normalRange' => 'Negative',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            140 =>
+            139 => 
             array (
+                'id' => 210,
+                'child_test_name' => 'TPHA',
+                'low' => 0.0,
+                'upper' => 0.0,
+                'main_test_id' => 131,
+                'defval' => 'Negative',
+                'unit_id' => 32,
+                'normalRange' => 'Negative',
+                'max' => '0.00',
+                'lowest' => '0.00',
+            ),
+            140 => 
+            array (
+                'id' => 211,
                 'child_test_name' => 'TWBCs',
                 'low' => 4.0,
                 'upper' => 11.0,
                 'main_test_id' => 3000,
-                'id' => 211,
                 'defval' => '',
                 'unit_id' => 10,
                 'normalRange' => '4-8.3',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            141 =>
+            141 => 
             array (
+                'id' => 212,
                 'child_test_name' => 'RBCs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 212,
                 'defval' => '',
                 'unit_id' => 11,
                 'normalRange' => 'Male: 4.3-5.5 Female: 3.5-4.5 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            142 =>
+            142 => 
             array (
+                'id' => 213,
                 'child_test_name' => 'Hb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 213,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => 'Male:12-16Female:11-14.5',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            143 =>
+            143 => 
             array (
+                'id' => 214,
                 'child_test_name' => 'PCV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 214,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'Male:35%-48?male:30%-45%',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            144 =>
+            144 => 
             array (
+                'id' => 215,
                 'child_test_name' => 'MCV',
                 'low' => 80.0,
                 'upper' => 98.0,
                 'main_test_id' => 3000,
-                'id' => 215,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '75-100',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            145 =>
+            145 => 
             array (
+                'id' => 216,
                 'child_test_name' => 'MCH',
                 'low' => 28.0,
                 'upper' => 32.0,
                 'main_test_id' => 3000,
-                'id' => 216,
                 'defval' => '',
                 'unit_id' => 14,
                 'normalRange' => '25-35',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            146 =>
+            146 => 
             array (
+                'id' => 217,
                 'child_test_name' => 'MCHC',
                 'low' => 31.0,
                 'upper' => 33.0,
                 'main_test_id' => 3000,
-                'id' => 217,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '31-37',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            147 =>
+            147 => 
             array (
+                'id' => 218,
                 'child_test_name' => 'Platelet',
                 'low' => 150.0,
                 'upper' => 450.0,
                 'main_test_id' => 3000,
-                'id' => 218,
                 'defval' => '',
                 'unit_id' => 10,
                 'normalRange' => '150-450',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            148 =>
+            148 => 
             array (
+                'id' => 219,
                 'child_test_name' => 'Lympho',
                 'low' => 20.0,
                 'upper' => 45.0,
                 'main_test_id' => 3000,
-                'id' => 219,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '20-45',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            149 =>
+            149 => 
             array (
+                'id' => 220,
                 'child_test_name' => 'Neutro',
                 'low' => 40.0,
                 'upper' => 70.0,
                 'main_test_id' => 3000,
-                'id' => 220,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '40-70',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            150 =>
+            150 => 
             array (
+                'id' => 221,
                 'child_test_name' => 'Mono',
                 'low' => 2.0,
                 'upper' => 10.0,
                 'main_test_id' => 3000,
-                'id' => 221,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '2-12',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            151 =>
+            151 => 
             array (
+                'id' => 222,
                 'child_test_name' => 'Eosino',
                 'low' => 1.0,
                 'upper' => 6.0,
                 'main_test_id' => 3000,
-                'id' => 222,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '1-6',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            152 =>
+            152 => 
             array (
+                'id' => 223,
                 'child_test_name' => 'Baso',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 3000,
-                'id' => 223,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            153 =>
+            153 => 
             array (
+                'id' => 224,
                 'child_test_name' => 'Lymph#',
                 'low' => 0.8,
                 'upper' => 4.0,
                 'main_test_id' => 3000,
-                'id' => 224,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => 'adult: 1.0 - 4.3Child: 6.0 - 8.3',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            154 =>
+            154 => 
             array (
+                'id' => 225,
                 'child_test_name' => 'Neut#',
                 'low' => 2.0,
                 'upper' => 7.0,
                 'main_test_id' => 3000,
-                'id' => 225,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '1.3  -  6.8',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            155 =>
+            155 => 
             array (
+                'id' => 226,
                 'child_test_name' => 'Mono#',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 226,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '0.1 - 1.2',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            156 =>
+            156 => 
             array (
+                'id' => 227,
                 'child_test_name' => 'Eosino#',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 227,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '0.02  -  0.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            157 =>
+            157 => 
             array (
+                'id' => 228,
                 'child_test_name' => 'baso#',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 228,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '0  -  1.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            158 =>
+            158 => 
             array (
+                'id' => 229,
                 'child_test_name' => 'RDW-SD',
                 'low' => 35.0,
                 'upper' => 56.0,
                 'main_test_id' => 3000,
-                'id' => 229,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '35-56',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            159 =>
+            159 => 
             array (
+                'id' => 230,
                 'child_test_name' => 'RDW-CV',
                 'low' => 11.5,
                 'upper' => 14.5,
                 'main_test_id' => 3000,
-                'id' => 230,
                 'defval' => '',
                 'unit_id' => 85,
                 'normalRange' => '11.0 - 16.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            160 =>
+            160 => 
             array (
+                'id' => 231,
                 'child_test_name' => 'PDW',
                 'low' => 15.0,
                 'upper' => 17.0,
                 'main_test_id' => 3000,
-                'id' => 231,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '13 - 17',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            161 =>
+            161 => 
             array (
+                'id' => 232,
                 'child_test_name' => 'MPV',
                 'low' => 7.0,
                 'upper' => 11.0,
                 'main_test_id' => 3000,
-                'id' => 232,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '9 - 13',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            162 =>
+            162 => 
             array (
+                'id' => 233,
                 'child_test_name' => 'Na',
                 'low' => 135.0,
                 'upper' => 145.0,
                 'main_test_id' => 133,
-                'id' => 233,
                 'defval' => '',
                 'unit_id' => 37,
                 'normalRange' => '135-145',
-                'mulit_range' => 0,
                 'max' => '160.00',
                 'lowest' => '120.00',
             ),
-            163 =>
+            163 => 
             array (
+                'id' => 234,
                 'child_test_name' => 'K',
                 'low' => 3.5,
                 'upper' => 5.0,
                 'main_test_id' => 133,
-                'id' => 234,
                 'defval' => '',
                 'unit_id' => 37,
                 'normalRange' => '3.5-5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            164 =>
+            164 => 
             array (
+                'id' => 235,
                 'child_test_name' => 'chloride ',
                 'low' => 96.0,
                 'upper' => 105.0,
                 'main_test_id' => 133,
-                'id' => 235,
                 'defval' => '',
                 'unit_id' => 37,
                 'normalRange' => '96-105',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            165 =>
+            165 => 
             array (
+                'id' => 236,
                 'child_test_name' => 'RBCs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 236,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            166 =>
+            166 => 
             array (
+                'id' => 237,
                 'child_test_name' => 'Yeast-Cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 237,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            167 =>
+            167 => 
             array (
+                'id' => 238,
                 'child_test_name' => 'Gram-stain',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 238,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            168 =>
+            168 => 
             array (
+                'id' => 239,
                 'child_test_name' => 'Culture',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 239,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            169 =>
+            169 => 
             array (
+                'id' => 240,
                 'child_test_name' => 'Organism1',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 240,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            170 =>
+            170 => 
             array (
+                'id' => 241,
                 'child_test_name' => 'Organism 2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 241,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            171 =>
+            171 => 
             array (
+                'id' => 242,
                 'child_test_name' => 'Sensitive',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 242,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            172 =>
+            172 => 
             array (
+                'id' => 243,
                 'child_test_name' => 'Resistance',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 126,
-                'id' => 243,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            173 =>
+            173 => 
             array (
+                'id' => 244,
                 'child_test_name' => 'HBsAg',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 15,
-                'id' => 244,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            174 =>
+            174 => 
             array (
+                'id' => 245,
                 'child_test_name' => 'HIV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 17,
-                'id' => 245,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            175 =>
+            175 => 
             array (
+                'id' => 246,
                 'child_test_name' => 'HCV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 16,
-                'id' => 246,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            176 =>
+            176 => 
             array (
+                'id' => 247,
                 'child_test_name' => 'HBsAg',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 18,
-                'id' => 247,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            177 =>
+            177 => 
             array (
+                'id' => 248,
                 'child_test_name' => 'HCV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 18,
-                'id' => 248,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            178 =>
+            178 => 
             array (
+                'id' => 249,
                 'child_test_name' => 'HIV',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 18,
-                'id' => 249,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            179 =>
+            179 => 
             array (
+                'id' => 259,
             'child_test_name' => '25-(OH) vitamin D',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 147,
-                'id' => 259,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Deficient :0 - 10
@@ -2605,59 +2426,55 @@ Insufficient: 10 - 30
 Sufficient : 30 - 100
 Sufficient :30-100
 Potential toxicity:> 100',
-                'mulit_range' => 1,
                 'max' => '126.00',
                 'lowest' => '8.10',
             ),
-            180 =>
+            180 => 
             array (
+                'id' => 261,
                 'child_test_name' => 'TSH',
                 'low' => 0.25,
                 'upper' => 5.0,
                 'main_test_id' => 149,
-                'id' => 261,
                 'defval' => '',
                 'unit_id' => 39,
                 'normalRange' => '0.38 - 4.31',
-                'mulit_range' => 0,
                 'max' => '100.00',
                 'lowest' => '0.05',
             ),
-            181 =>
+            181 => 
             array (
+                'id' => 264,
                 'child_test_name' => 'Na+',
                 'low' => 135.0,
                 'upper' => 145.0,
                 'main_test_id' => 12,
-                'id' => 264,
                 'defval' => '',
                 'unit_id' => 5,
                 'normalRange' => '135-145',
-                'mulit_range' => 0,
                 'max' => '160.00',
                 'lowest' => '120.00',
             ),
-            182 =>
+            182 => 
             array (
+                'id' => 265,
                 'child_test_name' => 'K+',
                 'low' => 3.5,
                 'upper' => 5.0,
                 'main_test_id' => 12,
-                'id' => 265,
                 'defval' => '',
                 'unit_id' => 5,
                 'normalRange' => '3.5-5',
-                'mulit_range' => 0,
                 'max' => '7.00',
                 'lowest' => '2.00',
             ),
-            183 =>
+            183 => 
             array (
+                'id' => 267,
                 'child_test_name' => 'LH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 153,
-                'id' => 267,
                 'defval' => '',
                 'unit_id' => 40,
                 'normalRange' => 'Male: 1.1-25
@@ -2667,34 +2484,32 @@ Follicular phase : 1.2-12.5
 Ovulation : 12-82
 Luteal : 0.4-19
 menopause: 14-48',
-                'mulit_range' => 1,
                 'max' => '200.00',
                 'lowest' => '0.20',
             ),
-            184 =>
+            184 => 
             array (
+                'id' => 268,
                 'child_test_name' => 'PRL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 153,
-                'id' => 268,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Male : 2.5 - 16.0
 Female :
 Menstrucal cycle : 3.1 - 23.1
 Menopausal phase : 2.9 - 19.3',
-                'mulit_range' => 1,
                 'max' => '700.00',
                 'lowest' => '1.00',
             ),
-            185 =>
+            185 => 
             array (
+                'id' => 269,
                 'child_test_name' => 'FSH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 153,
-                'id' => 269,
                 'defval' => '',
                 'unit_id' => 40,
             'normalRange' => 'Male (adult): 1.0 -13.5
@@ -2704,171 +2519,159 @@ follicular phase:2.45 - 15.5
 Midcycle :(6.0 - 21)
 Luteal phase :(1.6 - 10.25)
 postmenopause :(14-135.7)',
-                'mulit_range' => 1,
                 'max' => '200.00',
                 'lowest' => '1.00',
             ),
-            186 =>
+            186 => 
             array (
+                'id' => 270,
                 'child_test_name' => 'Mg',
                 'low' => 1.7,
                 'upper' => 2.4,
                 'main_test_id' => 156,
-                'id' => 270,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '1.6 - 2.5',
-                'mulit_range' => 0,
                 'max' => '4.00',
                 'lowest' => '0.10',
             ),
-            187 =>
+            187 => 
             array (
+                'id' => 271,
                 'child_test_name' => 'Cholesterol',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 14,
-                'id' => 271,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 200      ',
-                'mulit_range' => 1,
                 'max' => '600.00',
                 'lowest' => '30.00',
             ),
-            188 =>
+            188 => 
             array (
+                'id' => 272,
                 'child_test_name' => 'Triglyceride',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 14,
-                'id' => 272,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 200  ',
-                'mulit_range' => 1,
                 'max' => '600.00',
                 'lowest' => '20.00',
             ),
-            189 =>
+            189 => 
             array (
+                'id' => 273,
                 'child_test_name' => 'HDL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 14,
-                'id' => 273,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '55 - 100',
-                'mulit_range' => 1,
                 'max' => '300.00',
                 'lowest' => '10.00',
             ),
-            190 =>
+            190 => 
             array (
+                'id' => 274,
                 'child_test_name' => 'LDL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 14,
-                'id' => 274,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 155',
-                'mulit_range' => 1,
                 'max' => '400.00',
                 'lowest' => '10.00',
             ),
-            191 =>
+            191 => 
             array (
+                'id' => 276,
                 'child_test_name' => 'Sickling test',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 181,
-                'id' => 276,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            192 =>
+            192 => 
             array (
+                'id' => 277,
                 'child_test_name' => 'VDRL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 182,
-                'id' => 277,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            193 =>
+            193 => 
             array (
+                'id' => 278,
                 'child_test_name' => 'reducinge substance',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 183,
-                'id' => 278,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            194 =>
+            194 => 
             array (
+                'id' => 279,
                 'child_test_name' => 'IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 155,
-                'id' => 279,
                 'defval' => 'Serum is Not Reactive',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            195 =>
+            195 => 
             array (
+                'id' => 280,
                 'child_test_name' => 'IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 155,
-                'id' => 280,
                 'defval' => 'Serum is Not Reactive',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            196 =>
+            196 => 
             array (
+                'id' => 281,
                 'child_test_name' => 'TSH',
                 'low' => 0.3,
                 'upper' => 4.3,
                 'main_test_id' => 184,
-                'id' => 281,
                 'defval' => '',
                 'unit_id' => 39,
                 'normalRange' => '0.38 - 4.31',
-                'mulit_range' => 0,
                 'max' => '100.00',
                 'lowest' => '0.05',
             ),
-            197 =>
+            197 => 
             array (
+                'id' => 284,
                 'child_test_name' => 'progesterone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 185,
-                'id' => 284,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Follicular phase : 0.3.6 - 1.21
@@ -2876,354 +2679,330 @@ luteal phase : 2.1 - 25.6
 postmenopuasal: 0.0 - 0.8
 Ovulation phase : 0.39 - 22.8
 male : 0.2 - 1.5',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            198 =>
+            198 => 
             array (
+                'id' => 285,
                 'child_test_name' => 'ACTH',
                 'low' => 7.4,
                 'upper' => 64.3,
                 'main_test_id' => 186,
-                'id' => 285,
                 'defval' => '',
                 'unit_id' => 43,
                 'normalRange' => '6 -48',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            199 =>
+            199 => 
             array (
+                'id' => 287,
                 'child_test_name' => 'control',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 19,
-                'id' => 287,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '10.0-16.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            200 =>
+            200 => 
             array (
+                'id' => 288,
                 'child_test_name' => 'control',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 20,
-                'id' => 288,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '33',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            201 =>
+            201 => 
             array (
+                'id' => 289,
                 'child_test_name' => 'amylase',
                 'low' => 28.0,
                 'upper' => 100.0,
                 'main_test_id' => 188,
-                'id' => 289,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '28-100',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            202 =>
+            202 => 
             array (
+                'id' => 290,
                 'child_test_name' => 'lipase',
                 'low' => 13.0,
                 'upper' => 60.0,
                 'main_test_id' => 189,
-                'id' => 290,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => 'Up to 60
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            203 =>
+            203 => 
             array (
+                'id' => 296,
                 'child_test_name' => 'Serum iron',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 193,
-                'id' => 296,
                 'defval' => '',
                 'unit_id' => 45,
                 'normalRange' => 'Male : 59 - 158
 Female :37 - 145',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            204 =>
+            204 => 
             array (
+                'id' => 297,
                 'child_test_name' => 'Ferritin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 193,
-                'id' => 297,
                 'defval' => '',
                 'unit_id' => 53,
                 'normalRange' => 'Male : 25 - 280
 Female : up to 73.3',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            205 =>
+            205 => 
             array (
+                'id' => 298,
                 'child_test_name' => 'TIBC',
                 'low' => 42.96,
                 'upper' => 80.55,
                 'main_test_id' => 193,
-                'id' => 298,
                 'defval' => '',
                 'unit_id' => 45,
                 'normalRange' => '228 - 428',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            206 =>
+            206 => 
             array (
+                'id' => 299,
                 'child_test_name' => 'site of infection',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 194,
-                'id' => 299,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            207 =>
+            207 => 
             array (
+                'id' => 300,
                 'child_test_name' => 'direct examination',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 194,
-                'id' => 300,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            208 =>
+            208 => 
             array (
+                'id' => 301,
                 'child_test_name' => 'U11-SmRNP',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 301,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Sharp syndrome  95% - 100%
 SLE  15 % - 40 %
 Systemic sclerosis  2% - 12%
 Poly-/dermatophytosis 12 % - 16%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            209 =>
+            209 => 
             array (
+                'id' => 302,
                 'child_test_name' => 'SM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 302,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => 'SLE 15% - 40%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            210 =>
+            210 => 
             array (
+                'id' => 303,
                 'child_test_name' => 'SS-A',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 303,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Sjogren\'s syndrome 40 % - 95 %
 SLE 10% - 20%
 Neonatal lupus erythematous 75 %',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            211 =>
+            211 => 
             array (
+                'id' => 304,
                 'child_test_name' => 'RO-52',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 304,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'SSc 70 % - 90 % or SLE 40%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            212 =>
+            212 => 
             array (
+                'id' => 305,
                 'child_test_name' => 'SS-B',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 305,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Sjogren\'s syndrome 40 % - 95 %
 SLE 10% - 20%
 Neonatal lupus erythematous 75 %',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            213 =>
+            213 => 
             array (
+                'id' => 306,
                 'child_test_name' => 'Scl 70',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 306,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Sjogren\'s syndrome 25%- 75%
 Diffuse form 40% - 65 %
 Limited form 5% - 15%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            214 =>
+            214 => 
             array (
+                'id' => 307,
                 'child_test_name' => 'JO-1',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 307,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => 'Polymytosis / Dermatomytosis 25% - 30%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            215 =>
+            215 => 
             array (
+                'id' => 308,
                 'child_test_name' => 'ds DNA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 308,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'SLE  40% - 95%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            216 =>
+            216 => 
             array (
+                'id' => 309,
                 'child_test_name' => 'Nucleosomes',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 309,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'SLE  40% - 70%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            217 =>
+            217 => 
             array (
+                'id' => 310,
                 'child_test_name' => 'Histones',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 310,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Drug induced lupus erythrmatous 40% - 70%
 SLE 50%
 Rheumatoid arthritis 15% - 50% ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            218 =>
+            218 => 
             array (
+                'id' => 311,
                 'child_test_name' => 'Rib p-protein',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 311,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => 'SLE  10%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            219 =>
+            219 => 
             array (
+                'id' => 312,
                 'child_test_name' => 'AMA M2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 312,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Primary biliary cholangitis or other chronic liver disease 30 - 96%
 Systemic sclerosis 7%-25% ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            220 =>
+            220 => 
             array (
+                'id' => 313,
                 'child_test_name' => 'PCNA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 313,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'SLE  5%- 40 %',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            221 =>
+            221 => 
             array (
+                'id' => 314,
                 'child_test_name' => 'PM-SCL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 314,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '
@@ -3232,731 +3011,680 @@ polymytosis  /
 Systemic sclerosis overlap syndrome 18%
 
 Systemic sclerosis 10%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            222 =>
+            222 => 
             array (
+                'id' => 315,
                 'child_test_name' => 'CENPB',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 315,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '
 Systemic sclerosis limited form 80%-95%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            223 =>
+            223 => 
             array (
+                'id' => 316,
                 'child_test_name' => 'MI-2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 316,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            224 =>
+            224 => 
             array (
+                'id' => 317,
                 'child_test_name' => 'urea breath test',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 196,
-                'id' => 317,
                 'defval' => 'Negative []',
                 'unit_id' => 34,
                 'normalRange' => '<50 Negative
 >=50 Positive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            225 =>
+            225 => 
             array (
+                'id' => 318,
                 'child_test_name' => 'Colour',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 318,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            226 =>
+            226 => 
             array (
+                'id' => 319,
                 'child_test_name' => 'Reaction',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 319,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            227 =>
+            227 => 
             array (
+                'id' => 320,
                 'child_test_name' => 'volume',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 320,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            228 =>
+            228 => 
             array (
+                'id' => 321,
                 'child_test_name' => 'viscosity',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 321,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            229 =>
+            229 => 
             array (
+                'id' => 322,
                 'child_test_name' => 'Other',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 322,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            230 =>
+            230 => 
             array (
+                'id' => 323,
                 'child_test_name' => 'Period of abstinance',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 323,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            231 =>
+            231 => 
             array (
+                'id' => 324,
                 'child_test_name' => 'Time of collection',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 324,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            232 =>
+            232 => 
             array (
+                'id' => 325,
                 'child_test_name' => 'method of collection',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 325,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            233 =>
+            233 => 
             array (
+                'id' => 326,
                 'child_test_name' => 'Active',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 326,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            234 =>
+            234 => 
             array (
+                'id' => 327,
                 'child_test_name' => 'sluggish',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 327,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            235 =>
+            235 => 
             array (
+                'id' => 328,
                 'child_test_name' => 'non motile',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 328,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            236 =>
+            236 => 
             array (
+                'id' => 329,
             'child_test_name' => 'active(60 min)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 329,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            237 =>
+            237 => 
             array (
+                'id' => 330,
             'child_test_name' => 'sluggish(60 min)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 330,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            238 =>
+            238 => 
             array (
+                'id' => 331,
             'child_test_name' => 'non motile(60 min)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 331,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            239 =>
+            239 => 
             array (
+                'id' => 332,
             'child_test_name' => 'active(90 min)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 332,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            240 =>
+            240 => 
             array (
+                'id' => 334,
             'child_test_name' => 'sluggish(120 min)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 334,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            241 =>
+            241 => 
             array (
+                'id' => 335,
             'child_test_name' => 'non motile(120 min)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 335,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            242 =>
+            242 => 
             array (
+                'id' => 336,
                 'child_test_name' => 'sperm count',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 336,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            243 =>
+            243 => 
             array (
+                'id' => 337,
                 'child_test_name' => 'pus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 337,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            244 =>
+            244 => 
             array (
+                'id' => 338,
                 'child_test_name' => 'rbcs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 338,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            245 =>
+            245 => 
             array (
+                'id' => 339,
                 'child_test_name' => 'epith cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 339,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            246 =>
+            246 => 
             array (
+                'id' => 340,
                 'child_test_name' => 'morphology',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 340,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            247 =>
+            247 => 
             array (
+                'id' => 341,
                 'child_test_name' => 'comment',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 197,
-                'id' => 341,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            248 =>
+            248 => 
             array (
+                'id' => 342,
                 'child_test_name' => 'cortisol A.M',
                 'low' => 6.4,
                 'upper' => 22.8,
                 'main_test_id' => 198,
-                'id' => 342,
                 'defval' => '',
                 'unit_id' => 41,
                 'normalRange' => '57.2 - 194.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            249 =>
+            249 => 
             array (
+                'id' => 343,
                 'child_test_name' => 'cortisol P.M',
                 'low' => 0.0,
                 'upper' => 10.0,
                 'main_test_id' => 199,
-                'id' => 343,
                 'defval' => '',
                 'unit_id' => 7,
                 'normalRange' => '20.2 - 131 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            250 =>
+            250 => 
             array (
+                'id' => 344,
                 'child_test_name' => 'HAV IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 200,
-                'id' => 344,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Negative',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            251 =>
+            251 => 
             array (
+                'id' => 345,
                 'child_test_name' => 'site of infection',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 194,
-                'id' => 345,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            252 =>
+            252 => 
             array (
+                'id' => 346,
                 'child_test_name' => 'direct examination',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 194,
-                'id' => 346,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            253 =>
+            253 => 
             array (
+                'id' => 348,
                 'child_test_name' => 'HBeAg',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 202,
-                'id' => 348,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '0 - 15  Non reactive
 > 15  Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            254 =>
+            254 => 
             array (
+                'id' => 349,
                 'child_test_name' => 'Specimen',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 349,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            255 =>
+            255 => 
             array (
+                'id' => 350,
                 'child_test_name' => 'pus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 350,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            256 =>
+            256 => 
             array (
+                'id' => 351,
                 'child_test_name' => 'RBCs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 351,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            257 =>
+            257 => 
             array (
+                'id' => 352,
                 'child_test_name' => 'Gram stain',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 352,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            258 =>
+            258 => 
             array (
+                'id' => 353,
                 'child_test_name' => 'culture',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 353,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            259 =>
+            259 => 
             array (
+                'id' => 354,
                 'child_test_name' => 'organism1',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 354,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            260 =>
+            260 => 
             array (
+                'id' => 355,
                 'child_test_name' => 'sensitive',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 355,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            261 =>
+            261 => 
             array (
+                'id' => 356,
                 'child_test_name' => 'resistance',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 203,
-                'id' => 356,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            262 =>
+            262 => 
             array (
+                'id' => 360,
                 'child_test_name' => 'Anti-Cardiolipin IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 204,
-                'id' => 360,
                 'defval' => '',
                 'unit_id' => 46,
                 'normalRange' => 'l0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            263 =>
+            263 => 
             array (
+                'id' => 361,
                 'child_test_name' => 'Anti-Cardiolipin IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 205,
-                'id' => 361,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            264 =>
+            264 => 
             array (
+                'id' => 363,
                 'child_test_name' => 'TOXO IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 363,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 2.0',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            265 =>
+            265 => 
             array (
+                'id' => 364,
                 'child_test_name' => 'TOXO IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 364,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 2.6',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            266 =>
+            266 => 
             array (
+                'id' => 365,
                 'child_test_name' => 'Rubella IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 365,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => ' 0 - 2.0  Non reactive
 > 2.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            267 =>
+            267 => 
             array (
+                'id' => 366,
                 'child_test_name' => 'Rubella IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 366,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => ' 0 - 2.0  Non reactive
 2 - 3.0  Equivocal
 > 3.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            268 =>
+            268 => 
             array (
+                'id' => 367,
                 'child_test_name' => 'HSV-1/2 IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 367,
                 'defval' => '',
                 'unit_id' => 35,
                 'normalRange' => 'up to 5.5 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            269 =>
+            269 => 
             array (
+                'id' => 368,
                 'child_test_name' => 'HSV-1/2 IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 368,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 1.1',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            270 =>
+            270 => 
             array (
+                'id' => 369,
                 'child_test_name' => 'CMV IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 369,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '0 - 2.0  Non reactive
 > 2.0    Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            271 =>
+            271 => 
             array (
+                'id' => 370,
                 'child_test_name' => 'CMV IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 206,
-                'id' => 370,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '<1 Negative
 > 1 Positive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            272 =>
+            272 => 
             array (
+                'id' => 371,
                 'child_test_name' => 'PCR',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 207,
-                'id' => 371,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'very low: less than 2000
@@ -3964,216 +3692,201 @@ low : 2000 - 100000
 intermediate :100000 -1000000
 High : 1000000 -10000000
 very high: more than 10000000',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            273 =>
+            273 => 
             array (
+                'id' => 372,
                 'child_test_name' => 'HAV IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 200,
-                'id' => 372,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            274 =>
+            274 => 
             array (
+                'id' => 374,
                 'child_test_name' => 'IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 211,
-                'id' => 374,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            275 =>
+            275 => 
             array (
+                'id' => 375,
                 'child_test_name' => 'IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 211,
-                'id' => 375,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            276 =>
+            276 => 
             array (
+                'id' => 380,
                 'child_test_name' => 'D-dimer',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 216,
-                'id' => 380,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Up to 500',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            277 =>
+            277 => 
             array (
+                'id' => 381,
                 'child_test_name' => ' Swab for COVID Ag test ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 217,
-                'id' => 381,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            278 =>
+            278 => 
             array (
+                'id' => 382,
                 'child_test_name' => 'CRP',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 218,
-                'id' => 382,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            279 =>
+            279 => 
             array (
+                'id' => 383,
                 'child_test_name' => 'RF',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 219,
-                'id' => 383,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            280 =>
+            280 => 
             array (
+                'id' => 384,
                 'child_test_name' => 'ASO ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 220,
-                'id' => 384,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            281 =>
+            281 => 
             array (
+                'id' => 385,
                 'child_test_name' => 'IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 221,
-                'id' => 385,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Indeterminate
 > 1.0   Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            282 =>
+            282 => 
             array (
+                'id' => 386,
                 'child_test_name' => 'IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 221,
-                'id' => 386,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => 'Indeterminate
 > 1.0   Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            283 =>
+            283 => 
             array (
+                'id' => 391,
                 'child_test_name' => 'FT4 ',
                 'low' => 0.5,
                 'upper' => 1.4,
                 'main_test_id' => 226,
-                'id' => 391,
                 'defval' => '',
                 'unit_id' => 24,
                 'normalRange' => '8.9 - 17.2',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            284 =>
+            284 => 
             array (
+                'id' => 396,
                 'child_test_name' => 'Testosterone ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 230,
-                'id' => 396,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Male: 2.27-- 10.5
 female:0--1.0',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            285 =>
+            285 => 
             array (
+                'id' => 397,
                 'child_test_name' => 'CK',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 231,
-                'id' => 397,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '39 - 308',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            286 =>
+            286 => 
             array (
+                'id' => 399,
                 'child_test_name' => 't4',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 233,
-                'id' => 399,
                 'defval' => '',
                 'unit_id' => 54,
                 'normalRange' => '4.4 - 11.7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            287 =>
+            287 => 
             array (
+                'id' => 400,
                 'child_test_name' => 'FSH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 234,
-                'id' => 400,
                 'defval' => '',
                 'unit_id' => 8,
             'normalRange' => 'Male (adult): 1.0 -13.5
@@ -4183,17 +3896,16 @@ follicular phase:2.45 - 15.5
 Midcycle :(6.0 - 21)
 Luteal phase :(1.6 - 10.25)
 postmenopause :(14-135.7)',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            288 =>
+            288 => 
             array (
+                'id' => 401,
                 'child_test_name' => 'LH ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 236,
-                'id' => 401,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Male: 1.1-25
@@ -4203,721 +3915,670 @@ Follicular phase : 1.2-12.5
 Ovulation : 12-82
 Luteal : 0.4-19
 menopause: 14-48',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            289 =>
+            289 => 
             array (
+                'id' => 402,
                 'child_test_name' => 'PRL ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 237,
-                'id' => 402,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => 'Male : 2.5 - 16.0
 Female :
 Menstrucal cycle : 3.1 - 23.1
 Menopausal phase : 2.9 - 19.3',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            290 =>
+            290 => 
             array (
+                'id' => 403,
                 'child_test_name' => 'indirect',
                 'low' => 0.2,
                 'upper' => 0.8,
                 'main_test_id' => 238,
-                'id' => 403,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0.2-0.8',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            291 =>
+            291 => 
             array (
+                'id' => 405,
                 'child_test_name' => 'Hb A',
                 'low' => 96.8,
                 'upper' => 97.8,
                 'main_test_id' => 239,
-                'id' => 405,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '96.1-98.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            292 =>
+            292 => 
             array (
+                'id' => 406,
                 'child_test_name' => 'Hb A2',
                 'low' => 2.2,
                 'upper' => 3.2,
                 'main_test_id' => 239,
-                'id' => 406,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '1.5 -3.9',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            293 =>
+            293 => 
             array (
+                'id' => 407,
                 'child_test_name' => 'comment',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 239,
-                'id' => 407,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            294 =>
+            294 => 
             array (
+                'id' => 409,
                 'child_test_name' => 'CK MB',
                 'low' => 1.0,
                 'upper' => 24.0,
                 'main_test_id' => 240,
-                'id' => 409,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => 'Less than 5.0',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            295 =>
+            295 => 
             array (
+                'id' => 410,
                 'child_test_name' => 'RNP/Sm',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 410,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            296 =>
+            296 => 
             array (
+                'id' => 411,
                 'child_test_name' => 'ICT for TB',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 241,
-                'id' => 411,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            297 =>
+            297 => 
             array (
+                'id' => 417,
                 'child_test_name' => 'Autoimmune liver diseases',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 242,
-                'id' => 417,
                 'defval' => '',
                 'unit_id' => 7,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            298 =>
+            298 => 
             array (
+                'id' => 418,
                 'child_test_name' => 'T.O.R.C.H profile ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 243,
-                'id' => 418,
                 'defval' => '',
                 'unit_id' => 7,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            299 =>
+            299 => 
             array (
+                'id' => 431,
                 'child_test_name' => 'pus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 431,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            300 =>
+            300 => 
             array (
+                'id' => 432,
                 'child_test_name' => 'RBCs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 432,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            301 =>
+            301 => 
             array (
+                'id' => 433,
                 'child_test_name' => 'Yeast-Cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 433,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            302 =>
+            302 => 
             array (
+                'id' => 434,
                 'child_test_name' => 'Gram-stain',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 434,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            303 =>
+            303 => 
             array (
+                'id' => 435,
                 'child_test_name' => 'Culture',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 435,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            304 =>
+            304 => 
             array (
+                'id' => 436,
                 'child_test_name' => 'Organism1',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 436,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            305 =>
+            305 => 
             array (
+                'id' => 437,
                 'child_test_name' => 'Organism 2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 437,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            306 =>
+            306 => 
             array (
+                'id' => 438,
                 'child_test_name' => 'Sensitive',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 438,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            307 =>
+            307 => 
             array (
+                'id' => 439,
                 'child_test_name' => 'Resistance',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 246,
-                'id' => 439,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            308 =>
+            308 => 
             array (
+                'id' => 440,
                 'child_test_name' => 'Hair scraping',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 247,
-                'id' => 440,
                 'defval' => 'No fungal element seen',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            309 =>
+            309 => 
             array (
+                'id' => 441,
                 'child_test_name' => 'Nail scraping ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 248,
-                'id' => 441,
                 'defval' => 'No Fungal Element seen',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            310 =>
+            310 => 
             array (
+                'id' => 442,
                 'child_test_name' => 'Skin scraping',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 249,
-                'id' => 442,
                 'defval' => 'No Fungal Element Seen',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            311 =>
+            311 => 
             array (
+                'id' => 460,
                 'child_test_name' => 'alblumin creatinine ratio',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 265,
-                'id' => 460,
                 'defval' => '',
                 'unit_id' => 71,
                 'normalRange' => 'less than 30.0',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            312 =>
+            312 => 
             array (
+                'id' => 461,
                 'child_test_name' => '24 H urine protien',
                 'low' => 50.0,
                 'upper' => 150.0,
                 'main_test_id' => 266,
-                'id' => 461,
                 'defval' => '',
                 'unit_id' => 62,
                 'normalRange' => '50-150',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            313 =>
+            313 => 
             array (
+                'id' => 462,
             'child_test_name' => 'Protein creatinine ration (PCR)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 267,
-                'id' => 462,
                 'defval' => '',
                 'unit_id' => 71,
                 'normalRange' => '0.2',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            314 =>
+            314 => 
             array (
+                'id' => 463,
             'child_test_name' => 'Random Creatinine (urine)',
                 'low' => 500.0,
                 'upper' => 2000.0,
                 'main_test_id' => 268,
-                'id' => 463,
                 'defval' => '',
                 'unit_id' => 62,
                 'normalRange' => '500-2000',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            315 =>
+            315 => 
             array (
+                'id' => 464,
                 'child_test_name' => 'AMPHETAMINE',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 464,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            316 =>
+            316 => 
             array (
+                'id' => 465,
                 'child_test_name' => 'THC MARIJUANA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 465,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            317 =>
+            317 => 
             array (
+                'id' => 466,
             'child_test_name' => 'MDMA(AMPHITAMINE)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 466,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 54,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            318 =>
+            318 => 
             array (
+                'id' => 467,
                 'child_test_name' => 'MORPHINE',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 467,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 55,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            319 =>
+            319 => 
             array (
+                'id' => 468,
                 'child_test_name' => 'OPOIDS',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 468,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 54,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            320 =>
+            320 => 
             array (
+                'id' => 469,
                 'child_test_name' => 'TRAMADOL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 469,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 53,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            321 =>
+            321 => 
             array (
+                'id' => 470,
                 'child_test_name' => 'BARBITURATE',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 470,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 54,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            322 =>
+            322 => 
             array (
+                'id' => 471,
                 'child_test_name' => 'BENZODIAZEPINE',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 471,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 55,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            323 =>
+            323 => 
             array (
+                'id' => 472,
                 'child_test_name' => 'TRICYCLIC ANTIDEPRESANT',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 472,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 54,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            324 =>
+            324 => 
             array (
+                'id' => 473,
                 'child_test_name' => 'BUPRENORPHINE',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 269,
-                'id' => 473,
                 'defval' => 'NEGATIVE',
                 'unit_id' => 54,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            325 =>
+            325 => 
             array (
+                'id' => 474,
                 'child_test_name' => 'ANA screeing',
                 'low' => 0.0,
                 'upper' => 40.0,
                 'main_test_id' => 270,
-                'id' => 474,
                 'defval' => '',
                 'unit_id' => 35,
                 'normalRange' => '0-40',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            326 =>
+            326 => 
             array (
+                'id' => 475,
                 'child_test_name' => 'C.peptide',
                 'low' => 0.929,
                 'upper' => 3.73,
                 'main_test_id' => 271,
-                'id' => 475,
                 'defval' => '',
                 'unit_id' => 54,
                 'normalRange' => '0.92 -3.73',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            327 =>
+            327 => 
             array (
+                'id' => 476,
                 'child_test_name' => 'Anti-ccp Snibe ',
                 'low' => 0.0,
                 'upper' => 17.0,
                 'main_test_id' => 272,
-                'id' => 476,
                 'defval' => '',
                 'unit_id' => 65,
                 'normalRange' => '0-17',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            328 =>
+            328 => 
             array (
+                'id' => 477,
                 'child_test_name' => 'Insuline Level',
                 'low' => 4.03,
                 'upper' => 23.46,
                 'main_test_id' => 273,
-                'id' => 477,
                 'defval' => '',
                 'unit_id' => 65,
                 'normalRange' => '4.03-23.46',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            329 =>
+            329 => 
             array (
+                'id' => 478,
                 'child_test_name' => 'RBC Allo',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 349,
-                'id' => 478,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            330 =>
+            330 => 
             array (
+                'id' => 479,
                 'child_test_name' => 's iron',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 350,
-                'id' => 479,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            331 =>
+            331 => 
             array (
+                'id' => 480,
                 'child_test_name' => 'rbc a',
                 'low' => 1.0,
                 'upper' => 0.0,
                 'main_test_id' => 349,
-                'id' => 480,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '1-0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            332 =>
+            332 => 
             array (
+                'id' => 481,
                 'child_test_name' => 'hbae',
                 'low' => 1.0,
                 'upper' => 0.0,
                 'main_test_id' => 348,
-                'id' => 481,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '1-0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            333 =>
+            333 => 
             array (
+                'id' => 482,
                 'child_test_name' => 'vp',
                 'low' => 2.0,
                 'upper' => 1.0,
                 'main_test_id' => 347,
-                'id' => 482,
                 'defval' => '',
                 'unit_id' => 14,
                 'normalRange' => '2-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            334 =>
+            334 => 
             array (
+                'id' => 483,
                 'child_test_name' => 'cyc',
                 'low' => 2.0,
                 'upper' => 1.0,
                 'main_test_id' => 346,
-                'id' => 483,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0 - 5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            335 =>
+            335 => 
             array (
+                'id' => 484,
                 'child_test_name' => 'tb',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 343,
-                'id' => 484,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            336 =>
+            336 => 
             array (
+                'id' => 485,
                 'child_test_name' => 'cyc',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 345,
-                'id' => 485,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            337 =>
+            337 => 
             array (
+                'id' => 486,
                 'child_test_name' => 'cyto',
                 'low' => 2.0,
                 'upper' => 1.0,
                 'main_test_id' => 344,
-                'id' => 486,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '2-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            338 =>
+            338 => 
             array (
+                'id' => 487,
                 'child_test_name' => 'hbe',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 342,
-                'id' => 487,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '<1.0 non-Reactive
 >= 1.0 Reactive',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            339 =>
+            339 => 
             array (
+                'id' => 488,
                 'child_test_name' => 'HBV DNA LEVEL',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 341,
-                'id' => 488,
                 'defval' => '',
                 'unit_id' => 34,
             'normalRange' => '1. HBV DNA viral load undetected indicates that hepatitis B virus (HBV) DNA was absent in the specimen .
@@ -4929,1049 +4590,976 @@ Menopausal phase : 2.9 - 19.3',
 ( approximately 10000 copies/ml ) .
 
 4. International unit_id (IU) /ml of HBV DNA is equivalent to 5.82  copies/ml .',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            340 =>
+            340 => 
             array (
+                'id' => 489,
                 'child_test_name' => 'anti',
                 'low' => 2.0,
                 'upper' => 1.0,
                 'main_test_id' => 340,
-                'id' => 489,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '2-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            341 =>
+            341 => 
             array (
+                'id' => 490,
                 'child_test_name' => 'anti',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 340,
-                'id' => 490,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            342 =>
+            342 => 
             array (
+                'id' => 491,
                 'child_test_name' => 'anti',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 339,
-                'id' => 491,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0 - 20  Non reactive
 >20    Reactive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            343 =>
+            343 => 
             array (
+                'id' => 493,
                 'child_test_name' => 'lact',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 337,
-                'id' => 493,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            344 =>
+            344 => 
             array (
+                'id' => 494,
                 'child_test_name' => 'cy',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 346,
-                'id' => 494,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            345 =>
+            345 => 
             array (
+                'id' => 495,
                 'child_test_name' => 'Growth hormone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 336,
-                'id' => 495,
                 'defval' => '',
                 'unit_id' => 54,
                 'normalRange' => '',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            346 =>
+            346 => 
             array (
+                'id' => 496,
                 'child_test_name' => 'uma',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 335,
-                'id' => 496,
                 'defval' => '',
                 'unit_id' => 61,
                 'normalRange' => '0 - 18',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            347 =>
+            347 => 
             array (
+                'id' => 497,
                 'child_test_name' => 'ru',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 268,
-                'id' => 497,
                 'defval' => '',
                 'unit_id' => 14,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            348 =>
+            348 => 
             array (
+                'id' => 498,
                 'child_test_name' => 'cc',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 334,
-                'id' => 498,
                 'defval' => '',
                 'unit_id' => 14,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            349 =>
+            349 => 
             array (
+                'id' => 499,
                 'child_test_name' => 'bun',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 333,
-                'id' => 499,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '7 - 18',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            350 =>
+            350 => 
             array (
+                'id' => 501,
                 'child_test_name' => 'upo',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 331,
-                'id' => 501,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            351 =>
+            351 => 
             array (
+                'id' => 502,
                 'child_test_name' => 'uc',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 330,
-                'id' => 502,
                 'defval' => '',
                 'unit_id' => 21,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            352 =>
+            352 => 
             array (
+                'id' => 503,
                 'child_test_name' => 'g6',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 329,
-                'id' => 503,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => '7.9 -  16.3',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            353 =>
+            353 => 
             array (
+                'id' => 504,
                 'child_test_name' => 'gfr',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 328,
-                'id' => 504,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            354 =>
+            354 => 
             array (
+                'id' => 505,
                 'child_test_name' => 'ur',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 327,
-                'id' => 505,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            355 =>
+            355 => 
             array (
+                'id' => 506,
                 'child_test_name' => 'uc',
                 'low' => 1.0,
                 'upper' => 14.0,
                 'main_test_id' => 326,
-                'id' => 506,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            356 =>
+            356 => 
             array (
+                'id' => 507,
                 'child_test_name' => 'un',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 325,
-                'id' => 507,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            357 =>
+            357 => 
             array (
+                'id' => 508,
                 'child_test_name' => 'ua',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 324,
-                'id' => 508,
                 'defval' => '',
                 'unit_id' => 14,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            358 =>
+            358 => 
             array (
+                'id' => 509,
                 'child_test_name' => 'uc',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 323,
-                'id' => 509,
                 'defval' => '',
                 'unit_id' => 13,
                 'normalRange' => 'Female :28 - 217
 Male : 39 - 259',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            359 =>
+            359 => 
             array (
+                'id' => 510,
                 'child_test_name' => 'hb',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 322,
-                'id' => 510,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            360 =>
+            360 => 
             array (
+                'id' => 511,
                 'child_test_name' => 'pe',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 321,
-                'id' => 511,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            361 =>
+            361 => 
             array (
+                'id' => 512,
                 'child_test_name' => 'le',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 320,
-                'id' => 512,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            362 =>
+            362 => 
             array (
+                'id' => 513,
                 'child_test_name' => 'fib',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 319,
-                'id' => 513,
                 'defval' => '',
                 'unit_id' => 21,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            363 =>
+            363 => 
             array (
+                'id' => 514,
                 'child_test_name' => 'ti',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 310,
-                'id' => 514,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '0-1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            364 =>
+            364 => 
             array (
+                'id' => 515,
                 'child_test_name' => 'Anti Tissue Transglutaminase IgG',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 277,
-                'id' => 515,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => 'l0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            365 =>
+            365 => 
             array (
-                'child_test_name' => 'ant',
-                'low' => 0.0,
-                'upper' => 1.0,
-                'main_test_id' => 278,
                 'id' => 516,
-                'defval' => '',
-                'unit_id' => 66,
-                'normalRange' => 'l0 -   12    Negative
-12 - 18    Equivocal
-> 18      Positive
-',
-                'mulit_range' => 0,
-                'max' => '0.00',
-                'lowest' => '0.00',
-            ),
-            366 =>
-            array (
                 'child_test_name' => 'ant',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 278,
-                'id' => 517,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => 'l0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            367 =>
+            366 => 
             array (
+                'id' => 517,
+                'child_test_name' => 'ant',
+                'low' => 0.0,
+                'upper' => 1.0,
+                'main_test_id' => 278,
+                'defval' => '',
+                'unit_id' => 66,
+                'normalRange' => 'l0 -   12    Negative
+12 - 18    Equivocal
+> 18      Positive
+',
+                'max' => '0.00',
+                'lowest' => '0.00',
+            ),
+            367 => 
+            array (
+                'id' => 518,
                 'child_test_name' => 'ant',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 280,
-                'id' => 518,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => 'l0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            368 =>
+            368 => 
             array (
+                'id' => 519,
                 'child_test_name' => 'k;',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 275,
-                'id' => 519,
                 'defval' => '',
                 'unit_id' => 20,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            369 =>
+            369 => 
             array (
+                'id' => 520,
                 'child_test_name' => 'ld',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 276,
-                'id' => 520,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '28 - 47',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            370 =>
+            370 => 
             array (
+                'id' => 522,
                 'child_test_name' => 'hfd',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 311,
-                'id' => 522,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            371 =>
+            371 => 
             array (
+                'id' => 523,
                 'child_test_name' => 'Pus cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 352,
-                'id' => 523,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            372 =>
+            372 => 
             array (
+                'id' => 524,
                 'child_test_name' => 'Rbcs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 352,
-                'id' => 524,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            373 =>
+            373 => 
             array (
+                'id' => 525,
                 'child_test_name' => 'Fungal Element',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 352,
-                'id' => 525,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            374 =>
+            374 => 
             array (
+                'id' => 526,
                 'child_test_name' => 'Interpretation',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 352,
-                'id' => 526,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            375 =>
+            375 => 
             array (
+                'id' => 527,
                 'child_test_name' => 'Macroscopic Examination',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 353,
-                'id' => 527,
                 'defval' => '',
                 'unit_id' => 20,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            376 =>
+            376 => 
             array (
+                'id' => 528,
                 'child_test_name' => 'PUS',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 528,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            377 =>
+            377 => 
             array (
+                'id' => 529,
                 'child_test_name' => 'RBS',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 529,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            378 =>
+            378 => 
             array (
+                'id' => 530,
                 'child_test_name' => 'Yeast-Cell',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 530,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            379 =>
+            379 => 
             array (
+                'id' => 531,
                 'child_test_name' => 'Gram-Stain',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 531,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            380 =>
+            380 => 
             array (
+                'id' => 532,
                 'child_test_name' => 'Culture',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 532,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            381 =>
+            381 => 
             array (
+                'id' => 533,
                 'child_test_name' => 'Organism 1',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 533,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            382 =>
+            382 => 
             array (
+                'id' => 534,
                 'child_test_name' => 'Organism 2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 534,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            383 =>
+            383 => 
             array (
+                'id' => 535,
                 'child_test_name' => 'Sensitive',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 535,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            384 =>
+            384 => 
             array (
+                'id' => 536,
                 'child_test_name' => 'Resistance',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 353,
-                'id' => 536,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            385 =>
+            385 => 
             array (
+                'id' => 538,
                 'child_test_name' => 'anti',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 205,
-                'id' => 538,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            386 =>
+            386 => 
             array (
+                'id' => 539,
                 'child_test_name' => 'Urine For K',
                 'low' => 51.0,
                 'upper' => 100.0,
                 'main_test_id' => 332,
-                'id' => 539,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '51-100',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            387 =>
+            387 => 
             array (
+                'id' => 541,
                 'child_test_name' => 'Pleural Fluid Protien',
                 'low' => 0.0,
                 'upper' => 2.5,
                 'main_test_id' => 354,
-                'id' => 541,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '0-25',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            388 =>
+            388 => 
             array (
+                'id' => 542,
                 'child_test_name' => 'Pleural Fluid Glucose ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 354,
-                'id' => 542,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            389 =>
+            389 => 
             array (
+                'id' => 543,
                 'child_test_name' => 'Pleural Fluid  for LDH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 355,
-                'id' => 543,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => '3.5 - 12.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            390 =>
+            390 => 
             array (
+                'id' => 544,
                 'child_test_name' => 'Direct Gram Stain',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 356,
-                'id' => 544,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            391 =>
+            391 => 
             array (
+                'id' => 545,
                 'child_test_name' => 'Zn  Stain for AFB',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 357,
-                'id' => 545,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            392 =>
+            392 => 
             array (
+                'id' => 547,
                 'child_test_name' => 'PCR for TB',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 358,
-                'id' => 547,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            393 =>
+            393 => 
             array (
+                'id' => 548,
                 'child_test_name' => 'Plural Fluid for ADA',
                 'low' => 0.0,
                 'upper' => 47.0,
                 'main_test_id' => 359,
-                'id' => 548,
                 'defval' => '',
                 'unit_id' => 19,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            394 =>
+            394 => 
             array (
+                'id' => 549,
                 'child_test_name' => 'Anti tissue Transglutaminase Iga',
                 'low' => 0.0,
                 'upper' => 20.0,
                 'main_test_id' => 360,
-                'id' => 549,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => 'l0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            395 =>
+            395 => 
             array (
+                'id' => 550,
                 'child_test_name' => 'Anti tissue Transglutaminase IgG',
                 'low' => 0.0,
                 'upper' => 20.0,
                 'main_test_id' => 360,
-                'id' => 550,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => 'l0 -   12    Negative
 12 - 18    Equivocal
 > 18      Positive
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            396 =>
+            396 => 
             array (
+                'id' => 551,
                 'child_test_name' => 'WBC-BF',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 551,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            397 =>
+            397 => 
             array (
+                'id' => 552,
                 'child_test_name' => 'RBCs-BF',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 552,
                 'defval' => '',
                 'unit_id' => 68,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            398 =>
+            398 => 
             array (
+                'id' => 553,
                 'child_test_name' => 'MN#',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 553,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            399 =>
+            399 => 
             array (
+                'id' => 554,
                 'child_test_name' => 'MN%',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 554,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            400 =>
+            400 => 
             array (
+                'id' => 555,
                 'child_test_name' => 'PMN#',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 555,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            401 =>
+            401 => 
             array (
+                'id' => 556,
                 'child_test_name' => 'PMN%',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 556,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            402 =>
+            402 => 
             array (
+                'id' => 557,
                 'child_test_name' => 'TC-BF#',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 361,
-                'id' => 557,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            403 =>
+            403 => 
             array (
+                'id' => 558,
                 'child_test_name' => 'sample',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 358,
-                'id' => 558,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            404 =>
+            404 => 
             array (
+                'id' => 561,
                 'child_test_name' => 'T3',
                 'low' => 0.6,
                 'upper' => 2.1,
                 'main_test_id' => 232,
-                'id' => 561,
                 'defval' => '',
                 'unit_id' => 56,
                 'normalRange' => '0.69 - 2.1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            405 =>
+            405 => 
             array (
+                'id' => 563,
                 'child_test_name' => 'FNA Histopathology',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 363,
-                'id' => 563,
                 'defval' => '0',
                 'unit_id' => 70,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            406 =>
+            406 => 
             array (
+                'id' => 564,
                 'child_test_name' => 'Estradiol E2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 364,
-                'id' => 564,
                 'defval' => '',
                 'unit_id' => 43,
                 'normalRange' => 'Folicular phase 20-138
 Ovulation phase 100-440
 Luteal phase 31-371
 Postmenopause 25 -84',
-                'mulit_range' => 1,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            407 =>
+            407 => 
             array (
+                'id' => 565,
                 'child_test_name' => 'TSH',
                 'low' => 0.3,
                 'upper' => 4.5,
                 'main_test_id' => 365,
-                'id' => 565,
                 'defval' => '',
                 'unit_id' => 39,
                 'normalRange' => '0.3 - 4.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            408 =>
+            408 => 
             array (
+                'id' => 567,
                 'child_test_name' => 'Anti T.P.O',
                 'low' => 0.0,
                 'upper' => 1.0,
                 'main_test_id' => 366,
-                'id' => 567,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => 'up to 30
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            409 =>
+            409 => 
             array (
+                'id' => 568,
                 'child_test_name' => 'Abortus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 46,
-                'id' => 568,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            410 =>
+            410 => 
             array (
+                'id' => 569,
                 'child_test_name' => 'melitensis',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 46,
-                'id' => 569,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            411 =>
+            411 => 
             array (
+                'id' => 570,
                 'child_test_name' => 'comment',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 46,
-                'id' => 570,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            412 =>
+            412 => 
             array (
+                'id' => 571,
                 'child_test_name' => 'Hcv',
                 'low' => 1.0,
                 'upper' => 0.0,
                 'main_test_id' => 291,
-                'id' => 571,
                 'defval' => '',
                 'unit_id' => 77,
                 'normalRange' => 'very low: ;less than 10000
@@ -5979,1409 +5567,1311 @@ Low: 10000 - 100000
 Intermediate : 100000 - 1000000
 High: 1000000 - 10000000
 Very high : more than 10000000',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            413 =>
+            413 => 
             array (
+                'id' => 572,
                 'child_test_name' => 'S.typhi Bo',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 45,
-                'id' => 572,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            414 =>
+            414 => 
             array (
+                'id' => 573,
                 'child_test_name' => 'comment',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 45,
-                'id' => 573,
                 'defval' => 'titer is insignificant for enterica',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            415 =>
+            415 => 
             array (
+                'id' => 574,
                 'child_test_name' => 'Pro-BNP',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 367,
-                'id' => 574,
                 'defval' => '',
                 'unit_id' => 69,
                 'normalRange' => '< 75 years: 0 - 300',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            416 =>
+            416 => 
             array (
+                'id' => 576,
                 'child_test_name' => 'Serum Ceuroplasmin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 369,
-                'id' => 576,
                 'defval' => '5000',
                 'unit_id' => 1,
                 'normalRange' => '15 - 60',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            417 =>
+            417 => 
             array (
+                'id' => 577,
                 'child_test_name' => 'Hbs Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 370,
-                'id' => 577,
                 'defval' => '7000',
                 'unit_id' => 1,
                 'normalRange' => '0 - 10',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            418 =>
+            418 => 
             array (
+                'id' => 578,
                 'child_test_name' => 'Hbc IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 371,
-                'id' => 578,
                 'defval' => '6000',
                 'unit_id' => 24,
                 'normalRange' => '0 - 100   Non reactive
 > 100   Reactive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            419 =>
+            419 => 
             array (
+                'id' => 579,
                 'child_test_name' => 'HE4',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 372,
-                'id' => 579,
                 'defval' => '18000',
                 'unit_id' => 69,
                 'normalRange' => 'UP to 140',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            420 =>
+            420 => 
             array (
+                'id' => 580,
                 'child_test_name' => 'IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 373,
-                'id' => 580,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            421 =>
+            421 => 
             array (
+                'id' => 581,
                 'child_test_name' => 'IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 373,
-                'id' => 581,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            422 =>
+            422 => 
             array (
+                'id' => 582,
                 'child_test_name' => 'HbsAg',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 374,
-                'id' => 582,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            423 =>
+            423 => 
             array (
+                'id' => 583,
                 'child_test_name' => 'HbsAb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 374,
-                'id' => 583,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            424 =>
+            424 => 
             array (
+                'id' => 584,
                 'child_test_name' => 'Hbc Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 374,
-                'id' => 584,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            425 =>
+            425 => 
             array (
+                'id' => 585,
                 'child_test_name' => 'HBeAg',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 374,
-                'id' => 585,
                 'defval' => 'Negative',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            426 =>
+            426 => 
             array (
+                'id' => 586,
                 'child_test_name' => 'HbeAb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 374,
-                'id' => 586,
                 'defval' => 'Negative',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            427 =>
+            427 => 
             array (
+                'id' => 587,
                 'child_test_name' => 'C4',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 282,
-                'id' => 587,
                 'defval' => '',
                 'unit_id' => 79,
                 'normalRange' => ' 0.1-0.4',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            428 =>
+            428 => 
             array (
+                'id' => 588,
                 'child_test_name' => 'C3',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 283,
-                'id' => 588,
                 'defval' => '',
                 'unit_id' => 79,
                 'normalRange' => '   0.9-1.8        ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            429 =>
+            429 => 
             array (
+                'id' => 589,
                 'child_test_name' => 'Direct-Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 164,
-                'id' => 589,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0-0.2',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            430 =>
+            430 => 
             array (
+                'id' => 590,
                 'child_test_name' => 'Indirect-Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 164,
-                'id' => 590,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0.4-0.8',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            431 =>
+            431 => 
             array (
+                'id' => 593,
                 'child_test_name' => 'Albumin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 375,
-                'id' => 593,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '3.8-5.4',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            432 =>
+            432 => 
             array (
+                'id' => 594,
                 'child_test_name' => 'Alpha 1 Globulin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 375,
-                'id' => 594,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '0.1 - 0.3',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            433 =>
+            433 => 
             array (
+                'id' => 595,
                 'child_test_name' => 'Alpha 2 Globulin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 375,
-                'id' => 595,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '0.6 - 1.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            434 =>
+            434 => 
             array (
+                'id' => 596,
                 'child_test_name' => 'B.Globulin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 375,
-                'id' => 596,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '0.7 - 1.1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            435 =>
+            435 => 
             array (
+                'id' => 597,
                 'child_test_name' => 'Gamma Globulin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 375,
-                'id' => 597,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '0.8 - 1.6',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            436 =>
+            436 => 
             array (
+                'id' => 598,
                 'child_test_name' => 'glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 376,
-                'id' => 598,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 60',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            437 =>
+            437 => 
             array (
+                'id' => 599,
                 'child_test_name' => 'Protein',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 376,
-                'id' => 599,
                 'defval' => '',
                 'unit_id' => 61,
                 'normalRange' => '150 - 450',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            438 =>
+            438 => 
             array (
+                'id' => 600,
                 'child_test_name' => 'Urine For microalbuminurea',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 377,
-                'id' => 600,
                 'defval' => '',
                 'unit_id' => 61,
                 'normalRange' => '0 - 18',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            439 =>
+            439 => 
             array (
+                'id' => 601,
                 'child_test_name' => 'Urine creatinine',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 377,
-                'id' => 601,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Male : 40 - 278
 Female : 29 - 226',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            440 =>
+            440 => 
             array (
+                'id' => 602,
                 'child_test_name' => 'Total Protein',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 602,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '6.6 - 8.7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            441 =>
+            441 => 
             array (
+                'id' => 603,
                 'child_test_name' => 'Albumin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 603,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '1 - 20 years old :3.6 - 5.1
 adult : 3.5 - 5.3
 > 60 years old : 3.4 - 4.8',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            442 =>
+            442 => 
             array (
+                'id' => 604,
                 'child_test_name' => 'Globulin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 604,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '2.0-3.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            443 =>
+            443 => 
             array (
+                'id' => 605,
                 'child_test_name' => 'T. Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 605,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 1.3 newborn: up to 12.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            444 =>
+            444 => 
             array (
+                'id' => 606,
                 'child_test_name' => 'D.Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 606,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 0.50',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            445 =>
+            445 => 
             array (
+                'id' => 607,
                 'child_test_name' => 'ID. Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 607,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 0.75',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            446 =>
+            446 => 
             array (
+                'id' => 608,
                 'child_test_name' => 'ALP',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 608,
                 'defval' => '',
                 'unit_id' => 4,
                 'normalRange' => ' Adult: Up to 115Childs: Up to 350 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            447 =>
+            447 => 
             array (
+                'id' => 609,
                 'child_test_name' => 'AST',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 609,
                 'defval' => '',
                 'unit_id' => 4,
                 'normalRange' => 'male : up to 38
 female : up to 31',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            448 =>
+            448 => 
             array (
+                'id' => 610,
                 'child_test_name' => 'ALT',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 378,
-                'id' => 610,
                 'defval' => '',
                 'unit_id' => 4,
                 'normalRange' => 'male : up to 45
 female : up to 34',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            449 =>
+            449 => 
             array (
+                'id' => 611,
                 'child_test_name' => 'ACR',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 379,
-                'id' => 611,
                 'defval' => '',
                 'unit_id' => 63,
                 'normalRange' => 'less than 3      normal
 3 - 30           microalbuminurea
 > 30           macroalbuminurea',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            450 =>
+            450 => 
             array (
+                'id' => 612,
                 'child_test_name' => 'urine for microalbuminurea',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 379,
-                'id' => 612,
                 'defval' => '',
                 'unit_id' => 61,
                 'normalRange' => 'up to 18',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            451 =>
+            451 => 
             array (
+                'id' => 613,
                 'child_test_name' => 'urine Creatinine',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 379,
-                'id' => 613,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => 'male 40-278
 female 29-226',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            452 =>
+            452 => 
             array (
+                'id' => 614,
                 'child_test_name' => 'Ionized Ca',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 380,
-                'id' => 614,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '4.4-5.2',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            453 =>
+            453 => 
             array (
+                'id' => 620,
                 'child_test_name' => 'Total Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 382,
-                'id' => 620,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up To 1.1
 New born : Up to 12',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            454 =>
+            454 => 
             array (
+                'id' => 621,
                 'child_test_name' => 'Direct Bilrubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 382,
-                'id' => 621,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 0.25',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            455 =>
+            455 => 
             array (
+                'id' => 622,
                 'child_test_name' => 'Indirect Bilirubin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 382,
-                'id' => 622,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '0.2 - 0.8',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            456 =>
+            456 => 
             array (
+                'id' => 624,
                 'child_test_name' => 'PCR For T.B  Sample type : Blood',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 384,
-                'id' => 624,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            457 =>
+            457 => 
             array (
+                'id' => 625,
                 'child_test_name' => 'Sample Type : Ascetic Fluid ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 384,
-                'id' => 625,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            458 =>
+            458 => 
             array (
+                'id' => 626,
                 'child_test_name' => 'Sample Type : CSF fluid',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 384,
-                'id' => 626,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            459 =>
+            459 => 
             array (
+                'id' => 627,
                 'child_test_name' => 'Sample Type : Blood',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 384,
-                'id' => 627,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            460 =>
+            460 => 
             array (
+                'id' => 628,
                 'child_test_name' => 'Sample Type :Pleural Fluid',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 384,
-                'id' => 628,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            461 =>
+            461 => 
             array (
+                'id' => 629,
                 'child_test_name' => 'PH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 385,
-                'id' => 629,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '7.35 - 7.45',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            462 =>
+            462 => 
             array (
+                'id' => 630,
                 'child_test_name' => 'Protein C activity',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 386,
-                'id' => 630,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '70 - 196',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            463 =>
+            463 => 
             array (
+                'id' => 631,
                 'child_test_name' => 'Protein S activity',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 387,
-                'id' => 631,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '90 - 180',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            464 =>
+            464 => 
             array (
+                'id' => 632,
                 'child_test_name' => '1 Hour blood Glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 632,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '< 180',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            465 =>
+            465 => 
             array (
+                'id' => 633,
                 'child_test_name' => '1 hour Sugar',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 633,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            466 =>
+            466 => 
             array (
+                'id' => 634,
                 'child_test_name' => '1 hour Acetone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 634,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            467 =>
+            467 => 
             array (
+                'id' => 635,
                 'child_test_name' => '2 hour blood Glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 635,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '90 - 145',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            468 =>
+            468 => 
             array (
+                'id' => 636,
                 'child_test_name' => '2 hour Urine Glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 636,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            469 =>
+            469 => 
             array (
+                'id' => 637,
                 'child_test_name' => '2 hour Urine acetone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 637,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            470 =>
+            470 => 
             array (
+                'id' => 638,
                 'child_test_name' => '24 H Urine Calcium',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3002,
-                'id' => 638,
                 'defval' => '',
                 'unit_id' => 74,
                 'normalRange' => 'male : up to 250
 female : up to 300',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            471 =>
+            471 => 
             array (
+                'id' => 639,
                 'child_test_name' => '24Hrs Urine Copper',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3003,
-                'id' => 639,
                 'defval' => '',
                 'unit_id' => 75,
                 'normalRange' => '10 - 50',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            472 =>
+            472 => 
             array (
+                'id' => 640,
                 'child_test_name' => 'Ascetic Fluid Glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3004,
-                'id' => 640,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'up to 180',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            473 =>
+            473 => 
             array (
+                'id' => 641,
                 'child_test_name' => 'Ascetic Fluid Albumin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3004,
-                'id' => 641,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Up to 1.1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            474 =>
+            474 => 
             array (
+                'id' => 642,
                 'child_test_name' => 'Cell Count ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3004,
-                'id' => 642,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            475 =>
+            475 => 
             array (
+                'id' => 643,
                 'child_test_name' => 'Acetylcholine Receptor Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3005,
-                'id' => 643,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 1.0   Negative
 > 1.0    Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            476 =>
+            476 => 
             array (
+                'id' => 644,
                 'child_test_name' => 'Anti-diuertic Hormone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3006,
-                'id' => 644,
                 'defval' => '',
                 'unit_id' => 43,
                 'normalRange' => '1.3 - 4.1',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            477 =>
+            477 => 
             array (
+                'id' => 645,
                 'child_test_name' => 'AMA-M2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3007,
-                'id' => 645,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0 - 20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            478 =>
+            478 => 
             array (
+                'id' => 646,
             'child_test_name' => 'ANA (IIFA)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3008,
-                'id' => 646,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => 'Less than 1/20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            479 =>
+            479 => 
             array (
+                'id' => 647,
                 'child_test_name' => 'ANCA-P',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3009,
-                'id' => 647,
                 'defval' => '',
                 'unit_id' => 76,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            480 =>
+            480 => 
             array (
+                'id' => 648,
                 'child_test_name' => 'ANCA-C',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3010,
-                'id' => 648,
                 'defval' => '',
                 'unit_id' => 76,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            481 =>
+            481 => 
             array (
+                'id' => 649,
                 'child_test_name' => 'Anti-Endomysial  Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3011,
-                'id' => 649,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => 'Less than 1/5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            482 =>
+            482 => 
             array (
+                'id' => 650,
                 'child_test_name' => 'Anti-thrombin III',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3012,
-                'id' => 650,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '17 - 30',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            483 =>
+            483 => 
             array (
+                'id' => 651,
                 'child_test_name' => 'Transferrin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 193,
-                'id' => 651,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            484 =>
+            484 => 
             array (
+                'id' => 652,
                 'child_test_name' => 'Anti-gliadin IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3013,
-                'id' => 652,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            485 =>
+            485 => 
             array (
+                'id' => 653,
                 'child_test_name' => 'Anti-gliadin IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3014,
-                'id' => 653,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            486 =>
+            486 => 
             array (
+                'id' => 654,
                 'child_test_name' => 'Anti-phospholipid IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3015,
-                'id' => 654,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            487 =>
+            487 => 
             array (
+                'id' => 655,
                 'child_test_name' => 'Anti-phospholipid IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3016,
-                'id' => 655,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            488 =>
+            488 => 
             array (
+                'id' => 656,
                 'child_test_name' => 'Anti-TPO',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3017,
-                'id' => 656,
                 'defval' => '',
                 'unit_id' => 77,
                 'normalRange' => '0 - 30',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            489 =>
+            489 => 
             array (
+                'id' => 657,
                 'child_test_name' => 'Anti-GBM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3018,
-                'id' => 657,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 >18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            490 =>
+            490 => 
             array (
+                'id' => 658,
                 'child_test_name' => 'Anti-TSH Receptor Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3019,
-                'id' => 658,
                 'defval' => '',
                 'unit_id' => 78,
                 'normalRange' => '< 1.0   Negative
 >1.0    Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            491 =>
+            491 => 
             array (
+                'id' => 659,
             'child_test_name' => 'ASMA (IIFA)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3020,
-                'id' => 659,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => 'Less than 1/20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            492 =>
+            492 => 
             array (
+                'id' => 660,
                 'child_test_name' => 'Gamma GT',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3021,
-                'id' => 660,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => '8  -  61',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            493 =>
+            493 => 
             array (
+                'id' => 661,
                 'child_test_name' => 'ICT for COVID-19 IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3022,
-                'id' => 661,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            494 =>
+            494 => 
             array (
+                'id' => 662,
                 'child_test_name' => 'ICT for COVID-19 IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3023,
-                'id' => 662,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            495 =>
+            495 => 
             array (
+                'id' => 663,
                 'child_test_name' => 'Hb F',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 322,
-                'id' => 663,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0 - 1.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            496 =>
+            496 => 
             array (
+                'id' => 664,
                 'child_test_name' => 'Hb S',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 239,
-                'id' => 664,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0 - 1.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            497 =>
+            497 => 
             array (
+                'id' => 665,
                 'child_test_name' => 'Factor V',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3024,
-                'id' => 665,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '70 - 140',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            498 =>
+            498 => 
             array (
+                'id' => 666,
                 'child_test_name' => 'Folic acid',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3025,
-                'id' => 666,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '5.21 - 20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            499 =>
+            499 => 
             array (
+                'id' => 667,
             'child_test_name' => 'Anti-HBe (HBe Ab)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3026,
-                'id' => 667,
                 'defval' => '',
                 'unit_id' => 72,
                 'normalRange' => '0 - 100   Non reactive
 > 100    Reactive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
         ));
         \DB::table('child_tests')->insert(array (
-            0 =>
+            0 => 
             array (
+                'id' => 668,
             'child_test_name' => 'SS-A Native (RO) (60kDa)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 668,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => 'Sjogren\'s syndrome 40% - 95%
 Neonatal lupus erythematous 75%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            1 =>
+            1 => 
             array (
+                'id' => 669,
                 'child_test_name' => 'SS-B',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 195,
-                'id' => 669,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => 'Sjogren\'s syndrome 40% - 95%
 Neonatal lupus erythematous 75%',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            2 =>
+            2 => 
             array (
+                'id' => 670,
                 'child_test_name' => 'Fasting Blood Glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 670,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '70 - 120',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            3 =>
+            3 => 
             array (
+                'id' => 671,
                 'child_test_name' => 'Fasting Urine Sugar',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 671,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            4 =>
+            4 => 
             array (
+                'id' => 672,
                 'child_test_name' => 'Fasting Urine acetone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3001,
-                'id' => 672,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            5 =>
+            5 => 
             array (
+                'id' => 679,
                 'child_test_name' => 'ASCA-IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3028,
-                'id' => 679,
                 'defval' => '',
                 'unit_id' => 80,
                 'normalRange' => '0 - 20   Negative
 > 20    Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            6 =>
+            6 => 
             array (
+                'id' => 680,
                 'child_test_name' => 'ASCA-IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3029,
-                'id' => 680,
                 'defval' => '',
                 'unit_id' => 80,
                 'normalRange' => '0 - 20   Negative
 > 20    Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            7 =>
+            7 => 
             array (
+                'id' => 681,
                 'child_test_name' => 'IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 281,
-                'id' => 681,
                 'defval' => '',
                 'unit_id' => 20,
                 'normalRange' => '400 - 2500',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            8 =>
+            8 => 
             array (
+                'id' => 682,
                 'child_test_name' => 'C1 Esterase inhibitor',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3030,
-                'id' => 682,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '23 - 41',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            9 =>
+            9 => 
             array (
+                'id' => 683,
                 'child_test_name' => 'cell count',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 376,
-                'id' => 683,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            10 =>
+            10 => 
             array (
+                'id' => 684,
                 'child_test_name' => 'Serum Copper',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3031,
-                'id' => 684,
                 'defval' => '',
                 'unit_id' => 41,
                 'normalRange' => 'Adult Male: 70 - 140
@@ -7389,736 +6879,685 @@ Adult Female: 80 - 155
 Female in Pregnancy : 120 - 300
 Children (6 - 12 ) Yrs old: 8 0 - 190
 Infant : 20 - 70',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            11 =>
+            11 => 
             array (
+                'id' => 685,
                 'child_test_name' => 'Direct Coomb\'s',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3032,
-                'id' => 685,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            12 =>
+            12 => 
             array (
+                'id' => 686,
                 'child_test_name' => 'Indirect coomb\'s Test',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3033,
-                'id' => 686,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            13 =>
+            13 => 
             array (
+                'id' => 693,
                 'child_test_name' => 'Body fluid Amylase',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3035,
-                'id' => 693,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => 'Up to 475',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            14 =>
+            14 => 
             array (
+                'id' => 694,
                 'child_test_name' => 'Urine for Bence Johns Protein',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3036,
-                'id' => 694,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            15 =>
+            15 => 
             array (
+                'id' => 695,
                 'child_test_name' => 'T3',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 149,
-                'id' => 695,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0.79 - 1.58',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            16 =>
+            16 => 
             array (
+                'id' => 696,
                 'child_test_name' => 'T4',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 149,
-                'id' => 696,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '4.9 - 11.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            17 =>
+            17 => 
             array (
+                'id' => 697,
                 'child_test_name' => 'Transferrin saturation',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 193,
-                'id' => 697,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'male : 20 - 50
 female : 15 - 50',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            18 =>
+            18 => 
             array (
+                'id' => 698,
                 'child_test_name' => 'Anti-tissue transglutaminase IgA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3037,
-                'id' => 698,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12    Negative
 12 - 18  Equivocal
 > 18    Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            19 =>
+            19 => 
             array (
+                'id' => 699,
             'child_test_name' => 'Immunoglobulin A (IgA)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3038,
-                'id' => 699,
                 'defval' => '',
                 'unit_id' => 20,
                 'normalRange' => '200 - 3000',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            20 =>
+            20 => 
             array (
+                'id' => 700,
                 'child_test_name' => 'Comment :Hb Electrophoresis show',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 239,
-                'id' => 700,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            21 =>
+            21 => 
             array (
+                'id' => 701,
                 'child_test_name' => 'Comment: Protein Electrophoresis show',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 375,
-                'id' => 701,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            22 =>
+            22 => 
             array (
+                'id' => 702,
             'child_test_name' => 'f75 (Egg yolk)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 702,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            23 =>
+            23 => 
             array (
+                'id' => 703,
             'child_test_name' => 'f 105 (Chocolate)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 703,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            24 =>
+            24 => 
             array (
+                'id' => 704,
             'child_test_name' => 'f13 (Peanut)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 704,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            25 =>
+            25 => 
             array (
+                'id' => 705,
             'child_test_name' => 'f44 (Strawberry)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 705,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            26 =>
+            26 => 
             array (
+                'id' => 706,
             'child_test_name' => 'f88 (Mutton/Lamb)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 706,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            27 =>
+            27 => 
             array (
+                'id' => 707,
             'child_test_name' => 'f24 (Shrimp/ Prawn)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 707,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            28 =>
+            28 => 
             array (
+                'id' => 708,
             'child_test_name' => 'f1 (Egg white)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 708,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            29 =>
+            29 => 
             array (
+                'id' => 709,
             'child_test_name' => 'f2 (Cow\'s milk)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 709,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            30 =>
+            30 => 
             array (
+                'id' => 710,
             'child_test_name' => 'f33 (Orange)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 710,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            31 =>
+            31 => 
             array (
+                'id' => 711,
             'child_test_name' => 'f92 (Banana)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 711,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            32 =>
+            32 => 
             array (
+                'id' => 712,
             'child_test_name' => 'f83 (Chicken meat)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 712,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            33 =>
+            33 => 
             array (
+                'id' => 713,
             'child_test_name' => 'f3 (Codfish)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 713,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            34 =>
+            34 => 
             array (
+                'id' => 714,
             'child_test_name' => 'f23 (Crab)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 714,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            35 =>
+            35 => 
             array (
+                'id' => 715,
             'child_test_name' => 'f93 (Mango)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 715,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            36 =>
+            36 => 
             array (
+                'id' => 716,
             'child_test_name' => 'f25 (Tomato)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 716,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            37 =>
+            37 => 
             array (
+                'id' => 717,
             'child_test_name' => 'f31 (Carrot)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 717,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            38 =>
+            38 => 
             array (
+                'id' => 718,
             'child_test_name' => 'f48 (Onion)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 718,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            39 =>
+            39 => 
             array (
+                'id' => 719,
             'child_test_name' => 'f49 (Apple)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 719,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            40 =>
+            40 => 
             array (
+                'id' => 720,
             'child_test_name' => 'f9 (Rice)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 720,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            41 =>
+            41 => 
             array (
+                'id' => 721,
             'child_test_name' => 'f4 (Wheat flour)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 721,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            42 =>
+            42 => 
             array (
+                'id' => 722,
             'child_test_name' => 'f14 (Soya bean)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3039,
-                'id' => 722,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            43 =>
+            43 => 
             array (
+                'id' => 723,
                 'child_test_name' => 'Hb A',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3040,
-                'id' => 723,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '96 - 98.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            44 =>
+            44 => 
             array (
+                'id' => 724,
                 'child_test_name' => 'Hb A2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3040,
-                'id' => 724,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '1.5 - 3.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            45 =>
+            45 => 
             array (
+                'id' => 725,
                 'child_test_name' => 'Hb F',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3040,
-                'id' => 725,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0 - 1.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            46 =>
+            46 => 
             array (
+                'id' => 726,
                 'child_test_name' => 'Hb S',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3040,
-                'id' => 726,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '0 - 1.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            47 =>
+            47 => 
             array (
+                'id' => 727,
                 'child_test_name' => 'Hb Electrophoresis show  ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3040,
-                'id' => 727,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            48 =>
+            48 => 
             array (
+                'id' => 729,
                 'child_test_name' => 'Procalcitonin PCT',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3042,
-                'id' => 729,
                 'defval' => '',
                 'unit_id' => 53,
                 'normalRange' => '<0.5 Local bacterial infection is possible
 0.5 - 2 Infection is possible
 2 -10 Infection (sepsis) is likely.unless other cause are known
 >10 Sever bacterial sepsis or Septic shock',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            49 =>
+            49 => 
             array (
+                'id' => 730,
                 'child_test_name' => 'Anti-TG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3043,
-                'id' => 730,
                 'defval' => '',
                 'unit_id' => 82,
                 'normalRange' => '0 - 58.5       Negative
 58.5 - 71.5  Equivocal
 > 71.5       Positive
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            50 =>
+            50 => 
             array (
+                'id' => 731,
                 'child_test_name' => 'HBc Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3044,
-                'id' => 731,
                 'defval' => '',
                 'unit_id' => 72,
                 'normalRange' => '0 - 100 Non reactive
 > 100 reactive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            51 =>
+            51 => 
             array (
+                'id' => 732,
                 'child_test_name' => 'ICT for Toxoplasma',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3045,
-                'id' => 732,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            52 =>
+            52 => 
             array (
+                'id' => 733,
                 'child_test_name' => 'IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3045,
-                'id' => 733,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            53 =>
+            53 => 
             array (
+                'id' => 734,
                 'child_test_name' => 'IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3045,
-                'id' => 734,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            54 =>
+            54 => 
             array (
+                'id' => 735,
                 'child_test_name' => 'Lupus anticoagulent',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3046,
-                'id' => 735,
                 'defval' => '',
                 'unit_id' => 9,
                 'normalRange' => '28 - 47',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            55 =>
+            55 => 
             array (
+                'id' => 736,
                 'child_test_name' => 'Anti-tissue transglutaminase IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3047,
-                'id' => 736,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12     Negative
 12 - 18   Equivocal
 >18      Positive
 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            56 =>
+            56 => 
             array (
+                'id' => 737,
                 'child_test_name' => 'Total IgE',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3048,
-                'id' => 737,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '1 - 190',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            57 =>
+            57 => 
             array (
+                'id' => 738,
                 'child_test_name' => 'Anti-gliadin IgA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3049,
-                'id' => 738,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12      Negative
 12 - 18    Equivocal
 >18       Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            58 =>
+            58 => 
             array (
+                'id' => 739,
             'child_test_name' => 'Immunoglobulin G (IgG) Level',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3050,
-                'id' => 739,
                 'defval' => '',
                 'unit_id' => 83,
                 'normalRange' => '5 - 17',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            59 =>
+            59 => 
             array (
+                'id' => 740,
                 'child_test_name' => 'B2-Glycoprotein IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3051,
-                'id' => 740,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12     Negative
 12 - 18   Equivocal
 > 18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            60 =>
+            60 => 
             array (
+                'id' => 741,
                 'child_test_name' => 'B2-Glycoprotein IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3052,
-                'id' => 741,
                 'defval' => '',
                 'unit_id' => 66,
                 'normalRange' => '0 - 12     Negative
 12 - 18   Equivocal
 > 18     Positive',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            61 =>
+            61 => 
             array (
+                'id' => 742,
                 'child_test_name' => 'Serum ZINC',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3053,
-                'id' => 742,
                 'defval' => '',
                 'unit_id' => 41,
                 'normalRange' => 'Male:     72.6 - 127
@@ -8127,1711 +7566,1590 @@ Female: 70.6 - 114
 Children: 63.8 - 110
 New born: 49.5 - 99.7
 Urine : 300 - 800 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            62 =>
+            62 => 
             array (
+                'id' => 743,
                 'child_test_name' => 'peripheral blood picture',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3054,
-                'id' => 743,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            63 =>
+            63 => 
             array (
+                'id' => 744,
                 'child_test_name' => 'Anti-TG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3043,
-                'id' => 744,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            64 =>
+            64 => 
             array (
+                'id' => 745,
                 'child_test_name' => 'Factor Vlll',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3055,
-                'id' => 745,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '55  -  170',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            65 =>
+            65 => 
             array (
+                'id' => 746,
                 'child_test_name' => 'Factor lX',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3056,
-                'id' => 746,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '70  -  142',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            66 =>
+            66 => 
             array (
+                'id' => 747,
                 'child_test_name' => 'Factor VII',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3057,
-                'id' => 747,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '68  -  130',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            67 =>
+            67 => 
             array (
+                'id' => 748,
                 'child_test_name' => 'Factor ll',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3058,
-                'id' => 748,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '70  -  125',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            68 =>
+            68 => 
             array (
+                'id' => 749,
                 'child_test_name' => 'Factor XI',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3059,
-                'id' => 749,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '70  -  135',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            69 =>
+            69 => 
             array (
+                'id' => 750,
                 'child_test_name' => 'Factor Xll',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3060,
-                'id' => 750,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '65  -  144',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            70 =>
+            70 => 
             array (
+                'id' => 751,
                 'child_test_name' => 'Serum iron',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3061,
-                'id' => 751,
                 'defval' => '',
                 'unit_id' => 29,
                 'normalRange' => 'Male     : 60 - 175
 Female : 50 - 175',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            71 =>
+            71 => 
             array (
+                'id' => 752,
                 'child_test_name' => 'Ferritin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3061,
-                'id' => 752,
                 'defval' => '',
                 'unit_id' => 44,
                 'normalRange' => 'Male     : 30 - 350
 Female : 20 - 250 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            72 =>
+            72 => 
             array (
+                'id' => 753,
                 'child_test_name' => 'TIBC',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3061,
-                'id' => 753,
                 'defval' => '',
                 'unit_id' => 29,
                 'normalRange' => '228  -  428',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            73 =>
+            73 => 
             array (
+                'id' => 754,
                 'child_test_name' => 'Transferrin Saturation ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3061,
-                'id' => 754,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => 'Men      : 20 - 50 %
 Women : 15 - 50 %',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            74 =>
+            74 => 
             array (
+                'id' => 759,
                 'child_test_name' => 'Urine for Sugar ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3063,
-                'id' => 759,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            75 =>
+            75 => 
             array (
+                'id' => 760,
                 'child_test_name' => 'Urine acetone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3063,
-                'id' => 760,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            76 =>
+            76 => 
             array (
+                'id' => 772,
                 'child_test_name' => 'Urine for Hb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3064,
-                'id' => 772,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            77 =>
+            77 => 
             array (
+                'id' => 773,
                 'child_test_name' => 'colour',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 773,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            78 =>
+            78 => 
             array (
+                'id' => 774,
                 'child_test_name' => 'PH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 774,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            79 =>
+            79 => 
             array (
+                'id' => 775,
                 'child_test_name' => 'SG',
                 'low' => 1.005,
                 'upper' => 1.03,
                 'main_test_id' => 3065,
-                'id' => 775,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '1.005  -  1.030',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            80 =>
+            80 => 
             array (
+                'id' => 776,
                 'child_test_name' => 'Albumin',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 776,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            81 =>
+            81 => 
             array (
+                'id' => 777,
                 'child_test_name' => 'Sugar',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 777,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            82 =>
+            82 => 
             array (
+                'id' => 778,
                 'child_test_name' => 'Acetone',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 778,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            83 =>
+            83 => 
             array (
+                'id' => 779,
                 'child_test_name' => 'Bile',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 779,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            84 =>
+            84 => 
             array (
+                'id' => 780,
                 'child_test_name' => 'Urobilinogen',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 780,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            85 =>
+            85 => 
             array (
+                'id' => 781,
                 'child_test_name' => 'Blood',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 781,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            86 =>
+            86 => 
             array (
+                'id' => 782,
                 'child_test_name' => 'Hb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 782,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            87 =>
+            87 => 
             array (
+                'id' => 783,
                 'child_test_name' => 'Leukocyte',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 783,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            88 =>
+            88 => 
             array (
+                'id' => 784,
                 'child_test_name' => 'Nitrate',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 784,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            89 =>
+            89 => 
             array (
+                'id' => 785,
                 'child_test_name' => 'pus cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 785,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            90 =>
+            90 => 
             array (
+                'id' => 786,
                 'child_test_name' => 'RBCs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 786,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            91 =>
+            91 => 
             array (
+                'id' => 787,
                 'child_test_name' => 'Epith',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 787,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            92 =>
+            92 => 
             array (
+                'id' => 788,
                 'child_test_name' => 'Casts',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 788,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            93 =>
+            93 => 
             array (
+                'id' => 789,
                 'child_test_name' => 'Crystals',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 789,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            94 =>
+            94 => 
             array (
+                'id' => 790,
                 'child_test_name' => 'yeast cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 790,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            95 =>
+            95 => 
             array (
+                'id' => 791,
                 'child_test_name' => 'Amorphus',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 791,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            96 =>
+            96 => 
             array (
+                'id' => 792,
                 'child_test_name' => 'Ova',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 792,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            97 =>
+            97 => 
             array (
+                'id' => 793,
                 'child_test_name' => 'Bacteria',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 793,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            98 =>
+            98 => 
             array (
+                'id' => 794,
                 'child_test_name' => 'others',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3065,
-                'id' => 794,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            99 =>
+            99 => 
             array (
+                'id' => 795,
                 'child_test_name' => 'Gastrin-17',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3066,
-                'id' => 795,
                 'defval' => '',
                 'unit_id' => 51,
                 'normalRange' => '1.7 - 7.6',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            100 =>
+            100 => 
             array (
+                'id' => 801,
                 'child_test_name' => 'Marijuana',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 801,
                 'defval' => 'Negative ',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            101 =>
+            101 => 
             array (
+                'id' => 802,
                 'child_test_name' => 'Cocaine',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 802,
                 'defval' => 'Negative ',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            102 =>
+            102 => 
             array (
+                'id' => 803,
                 'child_test_name' => 'Benzodiazepine',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 803,
                 'defval' => 'Negative ',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            103 =>
+            103 => 
             array (
+                'id' => 804,
                 'child_test_name' => 'Barbiturates',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 804,
                 'defval' => 'Negative ',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            104 =>
+            104 => 
             array (
+                'id' => 805,
                 'child_test_name' => 'Amphetamine',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 805,
                 'defval' => 'Negative ',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            105 =>
+            105 => 
             array (
+                'id' => 806,
                 'child_test_name' => 'Morphine',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 806,
                 'defval' => 'Negative ',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            106 =>
+            106 => 
             array (
+                'id' => 807,
                 'child_test_name' => 'LKM -1',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3069,
-                'id' => 807,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => 'Less than 1/20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            107 =>
+            107 => 
             array (
+                'id' => 808,
                 'child_test_name' => 'Anti-HbC IgM Ab',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3070,
-                'id' => 808,
                 'defval' => '',
                 'unit_id' => 72,
                 'normalRange' => '0 - 100',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            108 =>
+            108 => 
             array (
+                'id' => 809,
                 'child_test_name' => 'worm',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3,
-                'id' => 809,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            109 =>
+            109 => 
             array (
+                'id' => 810,
                 'child_test_name' => 'ICT for Dengue virus IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3073,
-                'id' => 810,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            110 =>
+            110 => 
             array (
+                'id' => 811,
                 'child_test_name' => 'ICT for Dengue virus  IgM ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3073,
-                'id' => 811,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            111 =>
+            111 => 
             array (
+                'id' => 812,
                 'child_test_name' => 'Urine Volume',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3074,
-                'id' => 812,
                 'defval' => '',
                 'unit_id' => 87,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            112 =>
+            112 => 
             array (
+                'id' => 813,
                 'child_test_name' => '24h Urine Cortisol',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3074,
-                'id' => 813,
                 'defval' => '',
                 'unit_id' => 27,
                 'normalRange' => '30 - 350',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            113 =>
+            113 => 
             array (
+                'id' => 814,
                 'child_test_name' => 'Urine for Urea',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3075,
-                'id' => 814,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '1.7 - 3.57',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            114 =>
+            114 => 
             array (
+                'id' => 815,
                 'child_test_name' => 'Urine for Eosinophil',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3076,
-                'id' => 815,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            115 =>
+            115 => 
             array (
+                'id' => 816,
                 'child_test_name' => 'PH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 816,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '7.35  -  7.45',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            116 =>
+            116 => 
             array (
+                'id' => 817,
                 'child_test_name' => 'PCO2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 817,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '32.0  -  45.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            117 =>
+            117 => 
             array (
+                'id' => 818,
                 'child_test_name' => 'PO2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 818,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '75.0  -  100',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            118 =>
+            118 => 
             array (
+                'id' => 819,
                 'child_test_name' => 'Na',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 819,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '134  -  146',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            119 =>
+            119 => 
             array (
+                'id' => 820,
                 'child_test_name' => 'k',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 820,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '3.4  -  4.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            120 =>
+            120 => 
             array (
+                'id' => 821,
                 'child_test_name' => 'Ca',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 821,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '1.15  -  1.32',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            121 =>
+            121 => 
             array (
+                'id' => 822,
                 'child_test_name' => 'Hct',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 822,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '34  -  52',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            122 =>
+            122 => 
             array (
+                'id' => 823,
                 'child_test_name' => 'HCO3 ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 823,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            123 =>
+            123 => 
             array (
+                'id' => 824,
             'child_test_name' => 'HCO3 (act)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 824,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            124 =>
+            124 => 
             array (
+                'id' => 825,
             'child_test_name' => 'HCO3(std)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 825,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            125 =>
+            125 => 
             array (
+                'id' => 826,
             'child_test_name' => 'BE(ecf)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 826,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            126 =>
+            126 => 
             array (
+                'id' => 827,
             'child_test_name' => 'B(B)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 827,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            127 =>
+            127 => 
             array (
+                'id' => 828,
                 'child_test_name' => 'CtCO3',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 828,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            128 =>
+            128 => 
             array (
+                'id' => 829,
             'child_test_name' => 'Ca++(7.4)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 829,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            129 =>
+            129 => 
             array (
+                'id' => 830,
                 'child_test_name' => 'O2 SAT',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 830,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            130 =>
+            130 => 
             array (
+                'id' => 831,
                 'child_test_name' => 'O2 CT',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 831,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            131 =>
+            131 => 
             array (
+                'id' => 832,
                 'child_test_name' => 'Ct Hb',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 832,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            132 =>
+            132 => 
             array (
+                'id' => 833,
                 'child_test_name' => ' Acute Respiratory acidosis  PH <7.35',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3077,
-                'id' => 833,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            133 =>
+            133 => 
             array (
+                'id' => 834,
                 'child_test_name' => 'Spot Urine Protein',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3078,
-                'id' => 834,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => 'Adult      : Up to 100
 Pregnant : Up to 150',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            134 =>
+            134 => 
             array (
+                'id' => 835,
                 'child_test_name' => 'Anti-T.G',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3079,
-                'id' => 835,
                 'defval' => '',
                 'unit_id' => 28,
                 'normalRange' => '> 71.5        Positive
 58.8 - 71.5   Equivocal
 < 58.5         Negative',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            135 =>
+            135 => 
             array (
+                'id' => 836,
                 'child_test_name' => 'T.G Level',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3080,
-                'id' => 836,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0.5 - 53',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            136 =>
+            136 => 
             array (
+                'id' => 837,
             'child_test_name' => 'S.Aldesterone   (standing upright position)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3081,
-                'id' => 837,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '70 - 300',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            137 =>
+            137 => 
             array (
+                'id' => 838,
             'child_test_name' => 'S.Aldesterone (lying down position)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3082,
-                'id' => 838,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '30 - 160',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            138 =>
+            138 => 
             array (
+                'id' => 839,
                 'child_test_name' => 'S.typhi O',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3083,
-                'id' => 839,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            139 =>
+            139 => 
             array (
+                'id' => 840,
                 'child_test_name' => 'S.Pra typhi BO',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3083,
-                'id' => 840,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            140 =>
+            140 => 
             array (
+                'id' => 841,
                 'child_test_name' => 'UIBC',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3084,
-                'id' => 841,
                 'defval' => '',
                 'unit_id' => 45,
                 'normalRange' => '112 -  346',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            141 =>
+            141 => 
             array (
+                'id' => 842,
             'child_test_name' => 'Immunoglobulin M (IgM)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3085,
-                'id' => 842,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '45  -  281',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            142 =>
+            142 => 
             array (
+                'id' => 843,
                 'child_test_name' => 'Urine Ca+2',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3086,
-                'id' => 843,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '5 - 15',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            143 =>
+            143 => 
             array (
+                'id' => 844,
                 'child_test_name' => 'Urine Na',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3087,
-                'id' => 844,
                 'defval' => '',
                 'unit_id' => 7,
                 'normalRange' => '20 - 110 ',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            144 =>
+            144 => 
             array (
+                'id' => 845,
                 'child_test_name' => 'Urine K',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3088,
-                'id' => 845,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '12.5 - 62.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            145 =>
+            145 => 
             array (
+                'id' => 846,
                 'child_test_name' => 'Urine Cl',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3089,
-                'id' => 846,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '55 - 125',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            146 =>
+            146 => 
             array (
+                'id' => 848,
                 'child_test_name' => 'Microalbuminuria',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3090,
-                'id' => 848,
                 'defval' => '',
                 'unit_id' => 61,
                 'normalRange' => ' 5 - 20',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            147 =>
+            147 => 
             array (
+                'id' => 850,
                 'child_test_name' => 'freePSA',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3092,
-                'id' => 850,
                 'defval' => '',
                 'unit_id' => 54,
                 'normalRange' => 'Up to 0.4',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            148 =>
+            148 => 
             array (
+                'id' => 851,
                 'child_test_name' => 'blast cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 851,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            149 =>
+            149 => 
             array (
+                'id' => 852,
                 'child_test_name' => 'Promyelocytes',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 852,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            150 =>
+            150 => 
             array (
+                'id' => 853,
                 'child_test_name' => 'Myelocytes',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 853,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            151 =>
+            151 => 
             array (
+                'id' => 854,
                 'child_test_name' => 'Metamyelocytes',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 854,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            152 =>
+            152 => 
             array (
+                'id' => 856,
                 'child_test_name' => 'band',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 856,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            153 =>
+            153 => 
             array (
+                'id' => 857,
                 'child_test_name' => 'Prolymphocyte',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 857,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            154 =>
+            154 => 
             array (
+                'id' => 858,
                 'child_test_name' => 'NRBCs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 858,
                 'defval' => '',
                 'unit_id' => 12,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            155 =>
+            155 => 
             array (
+                'id' => 859,
                 'child_test_name' => 'Serum CL-',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3093,
-                'id' => 859,
                 'defval' => '',
                 'unit_id' => 3,
                 'normalRange' => '96 - 106',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            156 =>
+            156 => 
             array (
+                'id' => 860,
             'child_test_name' => 'Tacrolimus  (prograf,FK506)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3095,
-                'id' => 860,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0 - 14 days after kidney tarnsplant : 15 - 20
 15-28 days after kidney transplant : 10 - 15
 4 weeks after kidney transplant    : 7 - 10
 > 6 month after kidney transplant  : 5 - 7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            157 =>
+            157 => 
             array (
+                'id' => 861,
             'child_test_name' => 'Tacrolimus (prograf , FK506)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3095,
-                'id' => 861,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            158 =>
+            158 => 
             array (
+                'id' => 862,
             'child_test_name' => 'Tacrolimus ( prograf, FK506)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3095,
-                'id' => 862,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0 - 14 days after kidney transplant:15 - 20
 15-28 days after kidney transplant: 10 - 15
 4 weeks after kidney transplant    : 7 - 10
 >6 month after kidney transplant : 5 - 7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            159 =>
+            159 => 
             array (
+                'id' => 863,
             'child_test_name' => 'Tacrolimus (prograf , FK506)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3096,
-                'id' => 863,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0 - 14 days after kidney transplant: 15-20
 15-28 days after kidney transplant: 10-15
 4 weeks after kidney transplant    : 7 - 10
 > 6 month after kidney transplant:5 - 7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            160 =>
+            160 => 
             array (
+                'id' => 864,
             'child_test_name' => 'Tacrolimus (prograf , FK506)',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3097,
-                'id' => 864,
                 'defval' => '',
                 'unit_id' => 8,
                 'normalRange' => '0 - 14 days after kidney transplant:15 - 20
 15-28 days after kidney transplant:10 - 15
 4 weeks  after kidney transplant   : 7 - 10
 > 6 month after kidney transplant: 5 - 7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            161 =>
+            161 => 
             array (
+                'id' => 865,
                 'child_test_name' => 'Cannabinoid',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3068,
-                'id' => 865,
                 'defval' => 'Negative ',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            162 =>
+            162 => 
             array (
+                'id' => 866,
                 'child_test_name' => 'calcium corrected',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3098,
-                'id' => 866,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => '8.6  -  10.2',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            163 =>
+            163 => 
             array (
+                'id' => 867,
                 'child_test_name' => 'Glucose',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3100,
-                'id' => 867,
                 'defval' => '',
                 'unit_id' => 1,
                 'normalRange' => ' up to 10',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            164 =>
+            164 => 
             array (
+                'id' => 868,
                 'child_test_name' => 'Cells',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3100,
-                'id' => 868,
                 'defval' => '',
                 'unit_id' => 21,
                 'normalRange' => 'up to  200',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            165 =>
+            165 => 
             array (
+                'id' => 869,
                 'child_test_name' => 'protein',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3100,
-                'id' => 869,
                 'defval' => '',
                 'unit_id' => 2,
                 'normalRange' => '1  -  3',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            166 =>
+            166 => 
             array (
+                'id' => 870,
                 'child_test_name' => 'LDH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3100,
-                'id' => 870,
                 'defval' => '',
                 'unit_id' => 16,
                 'normalRange' => 'Up to 460',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            167 =>
+            167 => 
             array (
+                'id' => 871,
                 'child_test_name' => 'Pleural fluid for LDH',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3101,
-                'id' => 871,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '< 200  Transudate
 > 200   Exudate',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            168 =>
+            168 => 
             array (
+                'id' => 872,
                 'child_test_name' => 'ICT for Brucella IgG',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3102,
-                'id' => 872,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            169 =>
+            169 => 
             array (
+                'id' => 873,
                 'child_test_name' => 'ICT for Brucella IgM',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3102,
-                'id' => 873,
                 'defval' => '',
                 'unit_id' => 38,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            170 =>
+            170 => 
             array (
+                'id' => 874,
                 'child_test_name' => 'ARC',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 78,
-                'id' => 874,
                 'defval' => '',
                 'unit_id' => 68,
                 'normalRange' => '25 - 150',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            171 =>
+            171 => 
             array (
+                'id' => 875,
                 'child_test_name' => 'CRC',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 78,
-                'id' => 875,
                 'defval' => '',
                 'unit_id' => 84,
                 'normalRange' => '0.5 - 3.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            172 =>
+            172 => 
             array (
+                'id' => 876,
                 'child_test_name' => 'RPI',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 78,
-                'id' => 876,
                 'defval' => ' ',
                 'unit_id' => 12,
                 'normalRange' => '> 2d',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            173 =>
+            173 => 
             array (
+                'id' => 877,
                 'child_test_name' => 'FVIII',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3103,
-                'id' => 877,
                 'defval' => '',
                 'unit_id' => 85,
                 'normalRange' => '50-180',
-                'mulit_range' => 0,
                 'max' => '250.00',
                 'lowest' => '5.00',
             ),
-            174 =>
+            174 => 
             array (
+                'id' => 878,
                 'child_test_name' => 'BUN',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 12,
-                'id' => 878,
                 'defval' => '',
                 'unit_id' => 59,
                 'normalRange' => '7 - 21',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            175 =>
+            175 => 
             array (
+                'id' => 879,
                 'child_test_name' => 'Uric acid ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 12,
-                'id' => 879,
                 'defval' => '',
                 'unit_id' => 59,
                 'normalRange' => 'Male: 3.4 - 7.0, Female: 2.0 - 6.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            176 =>
+            176 => 
             array (
+                'id' => 880,
                 'child_test_name' => 'Calcium',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 12,
-                'id' => 880,
                 'defval' => '',
                 'unit_id' => 60,
                 'normalRange' => '8.1 - 10.5',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            177 =>
+            177 => 
             array (
+                'id' => 881,
                 'child_test_name' => 'Phosphorous ',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 12,
-                'id' => 881,
                 'defval' => '',
                 'unit_id' => 60,
                 'normalRange' => 'Adult: 2.5 - 5.0Child: Up to 7.0',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            178 =>
+            178 => 
             array (
+                'id' => 882,
                 'child_test_name' => 'Magnesium',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 12,
-                'id' => 882,
                 'defval' => '',
                 'unit_id' => 59,
                 'normalRange' => '1.5 - 2.7',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            179 =>
+            179 => 
             array (
+                'id' => 885,
                 'child_test_name' => 'Mixed %',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 885,
                 'defval' => '',
                 'unit_id' => 85,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            180 =>
+            180 => 
             array (
+                'id' => 886,
                 'child_test_name' => 'Mixed_Abs',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 886,
                 'defval' => '',
                 'unit_id' => 67,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
-            181 =>
+            181 => 
             array (
+                'id' => 887,
                 'child_test_name' => 'Plcr',
                 'low' => 0.0,
                 'upper' => 0.0,
                 'main_test_id' => 3000,
-                'id' => 887,
                 'defval' => '',
                 'unit_id' => 34,
                 'normalRange' => '',
-                'mulit_range' => 0,
                 'max' => '0.00',
                 'lowest' => '0.00',
             ),
         ));
-
-
+        
+        
     }
 }

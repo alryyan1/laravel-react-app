@@ -20,12 +20,13 @@ return new class extends Migration
             $table->double('upper', null, 0)->nullable();
             $table->foreignIdFor(\App\Models\MainTest::class);
 //            $table->integer('child_test_id', true);
-            $table->string('defval', 80);
+            $table->text('defval')->default('');
             $table->foreignIdFor(\App\Models\Unit::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text('normalRange');
-            $table->boolean('mulit_range')->default(false);
-            $table->decimal('max', 10);
-            $table->decimal('lowest', 10);
+            $table->text('normalRange')->default('');
+            $table->decimal('max')->nullable();
+            $table->decimal('lowest')->nullable();
+            $table->integer('test_order')->nullable();
+            $table->foreignIdFor(\App\Models\childGroup::class)->nullable()->constrained();
         });
     }
 

@@ -57,40 +57,7 @@ Route::get('/home', function () {
 
 
 Route::get('test',function (){
-    $date_f = Carbon::now()->addDay()->format('Y-m-d');
-    $now =  Carbon::now();
-    $now2 =  Carbon::now();
-    $start_date =  $now->setMonth(5)->setDay(1);
-    $end_date = $now2->setMonth(5)->setDay(1)->addMonth();
-    $dates = [];
-    while ($start_date <= $end_date) {
-        $first_day_last_month =   $start_date->format('Y-m-d');
-
-//         dd($first_day_last_month);
-
-        $deposit_items =  Deposit:: where('bill_date',$first_day_last_month)->get();
-        $total = 0;
-        /** @var Deposit $deposit */
-        foreach ($deposit_items as $deposit) {
-            $deposit->load(['items'=>function ($query) {
-                $query->where('deposit_items.item_id',106);
-            }]);
-            $total+= $deposit->items->sum('pivot.quantity');
-        }
-        $deducts =  \App\Models\Deduct:: whereDate('created_at',$first_day_last_month)->get();
-        $total_deducts = 0;
-        /** @var \App\Models\Deduct $deduct */
-        foreach ($deducts as $deduct) {
-            $deduct->load(['items'=>function ($query)  {
-                $query->where('deducted_items.item_id',106);
-            }]);
-            $total_deducts+= $deduct->items->sum('pivot.quantity');
-        }
-        $dates [] = ['date'=>$first_day_last_month,'income'=>$total,'deducts'=>$total_deducts];
-        $start_date->addDay();
-    }
-//    dd($first_day_last_month);
-    return $dates;
+   return \App\Models\ChildTestOption::first();
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);

@@ -38,10 +38,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ChildTest extends Model
 {
+
     use HasFactory;
+    protected $guarded = ['id'];
 //    protected $primaryKey = 'child_test_id';
     public $timestamps =false;
-    protected $with = ['unit'];
+    protected $with = ['unit','childGroup'];
     public function mainTest(){
         return $this->belongsTo(MainTest::class);
     }
@@ -52,5 +54,9 @@ class ChildTest extends Model
     public function options()
     {
         return $this->hasMany(ChildTestOption::class);
+    }
+
+    public function childGroup(){
+        return $this->belongsTo(childGroup::class);
     }
 }

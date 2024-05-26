@@ -36,9 +36,18 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::patch('editChildTestGroup/{child_test}',[\App\Http\Controllers\childTestController::class,'editChildGroup']);
+Route::get('childGroup',[\App\Http\Controllers\ChildGroupController::class,'all']);
+Route::post('childGroup',[\App\Http\Controllers\ChildGroupController::class,'store']);
 Route::get('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'all']);
+Route::patch('childTestOption/{childTestOption}',[\App\Http\Controllers\ChildOptionController::class,'update']);
+Route::delete('childTestOption/{childTestOption}',[\App\Http\Controllers\ChildOptionController::class,'destroy']);
 Route::post('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'store']);
 Route::patch('child_tests/{main_test}',[MainTestController::class,'updateChildTest']);
+Route::patch('mainTest/{main_test}',[MainTestController::class,'update']);
+Route::delete('childTest/{childTest}',[\App\Http\Controllers\childTestController::class,'destroy']);
+Route::post('childTest/create/{main_test}',[\App\Http\Controllers\childTestController::class,'store']);
 Route::get('containers/all',[\App\Http\Controllers\ContainerController::class,'all']);
 Route::get('units/all',[\App\Http\Controllers\UnitController::class,'all']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
