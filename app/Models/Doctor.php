@@ -45,7 +45,7 @@ class Doctor extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'phone','specialist_id','lab_percentage','company_percentage','static_wage','cash_percentage'];
-
+    protected $with = ['services'];
     public function specialist()
     {
        return $this->belongsTo(Specialist::class);
@@ -61,5 +61,29 @@ class Doctor extends Model
         return $this->hasMany(DoctorShift::class)->orderByDesc('id');
     }
 
+    public function services()
+    {
+        return $this->belongsToMany(Service::class,'doctor_services','doctor_id','service_id');
+    }
+
+    public function doctor_credit(Patient $patient)
+    {
+        //filter only paid_services
+        $patient =  $patient->load(['services'=>function ($query) {
+            return  $query->where('is_paid',1);
+        }]);
+        $array_1 =                $this->services()->pluck('services.id')->toArray();
+        $total =  0 ;
+        foreach ($patient->services as $service) {
+            if (in_array($service->id, $array_1)) {
+                $doctor_credit = $service->pivot->amount_paid * $this->cash_percentage / 100;
+                $total += $doctor_credit;
+            }
+
+
+
+        }
+        return $total;
+    }
 
 }

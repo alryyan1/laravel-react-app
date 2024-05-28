@@ -57,7 +57,11 @@ Route::get('/home', function () {
 
 
 Route::get('test',function (){
-   return \App\Models\ChildTestOption::first();
+// $array_1 =                Doctor::first()->services()->pluck('services.id')->toArray();
+return  Patient::with(['services'=>function ($query) {
+    return  $query->where('is_paid',1);
+}])->find(1)->services ;
+// return  array_intersect($array_1,$array_3);
 });
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);

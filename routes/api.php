@@ -67,6 +67,8 @@ Route::get('patients', function (Request $request) {
 
 //doctors
 Route::patch('doctor/{doctor}', [DoctorController::class, 'update']);
+Route::post('doctors/{doctor}/services', [DoctorController::class, 'addDoctorService']);
+Route::delete('doctors/{doctor}/service', [DoctorController::class, 'deleteDoctorService']);
 
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
 Route::middleware('auth:sanctum')->get('doctor/shift/close/{doctor}',[DoctorShiftController::class,'close']);
@@ -123,6 +125,7 @@ Route::middleware('auth:sanctum')->patch('patient/service/count/{patient}',[Serv
 Route::patch('patient/service/discount/{patient}',[ServiceController::class,'discount']);
 Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
+Route::patch('patient/copy/{patient}', [PatientController::class, 'copy']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{patient}', [PatientController::class, 'edit']);
 Route::post('labRequest/add/{patient}', [LabRequestController::class, 'store']);

@@ -193,9 +193,6 @@ class Patient extends Model
         return $this->belongsToMany(File::class);
     }
 
-    public function doctor_credit()
-    {
-       return  $this->doctor->cash_percentage * $this->total_paid_services() / 100;
-    }
+
 
 }

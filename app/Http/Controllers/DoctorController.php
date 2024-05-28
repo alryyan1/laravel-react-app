@@ -10,6 +10,22 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
+    public function addDoctorService(Request $request , Doctor $doctor)
+    {
+        $data  =  $request->all();
+        foreach ($data['services'] as $service) {
+            $doctor->services()->attach($service,touch: false);
+        }
+        return ['status'=>true,'doctor'=>$doctor->fresh()];
+
+    }
+    public function deleteDoctorService(Request $request , Doctor $doctor)
+    {
+        $service_id  =  $request->query('service_id');
+       $result =  $doctor->services()->detach($service_id,touch: false);
+       return ['status'=>$result,'doctor'=>$doctor->fresh()];
+
+    }
     public function all(){
         $doctors =  Doctor::with(['specialist','shifts'=>function(HasMany  $query){
             return $query->orderByDesc('id');

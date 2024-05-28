@@ -59,7 +59,7 @@ class LabRequestController extends Controller
                 /** @var ChildTest $childTest */
                 foreach ($main->childTests as $childTest)
                 {
-                    $id =  $childTest->child_test_id;
+                    $id =  $childTest->id;
                     $normal_range = $childTest->normalRange;
                     $patient->requestedResults()->attach($d,['child_test_id'=>$id,'normal_range'=>$normal_range]);
                 }
@@ -84,9 +84,10 @@ class LabRequestController extends Controller
 
     public function destroy(Request $request, Patient $patient)
     {
-        $data = $request->all();
-        $patient->labrequests()->detach($data['id']);
-        $patient->requestedResults()->detach($data['id']);
+        $id = $request->query('id');
+
+        $patient->labrequests()->detach($id);
+        $patient->requestedResults()->detach($id);
         return ['status' => true];
     }
 

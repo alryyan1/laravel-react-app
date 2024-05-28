@@ -16,6 +16,15 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
+    public function copy(Request $request ,Patient $patient)
+    {
+        $data = $request->all();
+        $doctor = Doctor::find($data['doctor_id']);
+        /** @var DoctorShift $current_shift */
+        $current_shift =   $doctor->shiftsByOrder[0];
+        $current_shift->visits()->attach($patient->id);
+        return ['status' => true];
+    }
     public  function book(PatientAddRequest $request ,Doctor $doctor){
         $data = $request->all();
         /** @var DoctorShift $current_shift */
@@ -36,13 +45,14 @@ class PatientController extends Controller
         return $patient;
     }
     public function edit(PatientAddRequest  $request,Patient $patient){
-          $result =  $patient->update($request->validated());
+         $result =  $patient->update($request->validated());
+
         if ($result){
             return ['status'=>true];
         }
 
     }
-    public function store(PatientAddRequest $request,$doc_id){
+    public function store(PatientAddRequest $request,$doc_id=null){
 
 //        return $request->validated();
         $patient = new Patient($request->validated());
