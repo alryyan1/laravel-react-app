@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Deposit;
 use App\Models\DepositItems;
 use App\Models\Doctor;
+use App\Models\DoctorShift;
 use App\Models\Item;
 use App\Models\MainTest;
 use App\Models\Patient;
@@ -57,10 +58,13 @@ Route::get('/home', function () {
 
 
 Route::get('test',function (){
-// $array_1 =                Doctor::first()->services()->pluck('services.id')->toArray();
-return  Patient::with(['services'=>function ($query) {
-    return  $query->where('is_paid',1);
-}])->find(1)->services ;
+    $shifts =  DoctorShift::all()->where('status',1)->all();
+    /** @var DoctorShift $shift */
+    foreach ($shifts as $shift){
+        $shift->status = 0;
+        $shift->save();
+    }
+    return $shifts;
 // return  array_intersect($array_1,$array_3);
 });
 //inventory

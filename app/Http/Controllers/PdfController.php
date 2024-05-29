@@ -630,7 +630,7 @@ class PdfController extends Controller
             $pdf->Cell($table_col_widht,5,'المدفوع',1,0,'C',fill: 1);
             $pdf->Cell($table_col_widht,5,'نصيب الطبيب',1,0,'C',fill: 1);
             $pdf->Cell($table_col_widht,5,'نصيب المركز',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'الخدمات',1,1,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,'الخدمات *',1,1,'C',fill: 1);
             $pdf->Ln();
             $pdf->setFont($fontname, 'b', 12);
 
@@ -641,10 +641,10 @@ class PdfController extends Controller
 
                 $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C',fill: 0);
                 $pdf->Cell($table_col_widht,5,$patient->name,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services($doctorShift->doctor),1),0,0,'C',fill: 0);
                 $pdf->Cell($table_col_widht,5 ,number_format( $doctorShift->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services() -$doctorShift->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated(),0,'R',false,stretch: 1);
+                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services($doctorShift->doctor) -$doctorShift->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
+                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated_specfic($doctorShift->doctor),0,'R',false,stretch: 1);
                 $y =  $pdf->GetY();
 
                 $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);

@@ -143,6 +143,11 @@ class Patient extends Model
     public function services_concatinated(){
         return join(' - ',$this::services()->pluck('name')->all());
     }
+    public function services_concatinated_specfic(Doctor $doctor){
+       return  join('-', $this->services->filter(function ($service) use ($doctor){
+            return $service->pivot->doctor_id == $doctor->id;
+        })->pluck('name')->all());
+    }
     public function bankak(){
 
         $total = 0;
@@ -162,9 +167,15 @@ class Patient extends Model
         return $total;
 
     }
-    public function total_paid_services(){
+    public function total_paid_services(Doctor|null $doctor  = null){
         $total = 0;
             foreach ($this->services as $service){
+                if (!is_null($doctor)){
+                    if ($doctor->id != $service->pivot->doctor_id ){
+                        continue;
+                    }
+
+                }
 
                 $total += $service->pivot->amount_paid;
         }

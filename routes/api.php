@@ -87,6 +87,8 @@ Route::patch('specialists/{specialist}', [SpecialistController::class, 'update']
 Route::get('lab/money', [ShiftController::class, 'total']);
 Route::get('service/money', [ShiftController::class, 'totalService']);
 Route::get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
+Route::get('shift/last', [ShiftController::class, 'last']);
+Route::post('shift/status/{shift}', [ShiftController::class, 'status']);
 
 Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {

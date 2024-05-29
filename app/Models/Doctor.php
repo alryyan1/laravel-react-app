@@ -75,6 +75,7 @@ class Doctor extends Model
         $array_1 =                $this->services()->pluck('services.id')->toArray();
         $total =  0 ;
         foreach ($patient->services as $service) {
+            if ($service->pivot->doctor_id != $this->id) continue;
             if (in_array($service->id, $array_1)) {
                 $doctor_credit = $service->pivot->amount_paid * $this->cash_percentage / 100;
                 $total += $doctor_credit;

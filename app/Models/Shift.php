@@ -58,6 +58,8 @@ class Shift extends Model
             if ($patient->is_lab_paid == 1){
                 $total += $patient->paid();
             }
+            $total+= $patient->total_paid_services();
+
         }
         return $total;
     }
@@ -84,6 +86,11 @@ class Shift extends Model
             }
         }
         return $total;
+    }
+    protected $appends = ['totalPaid'];
+    function getTotalPaidAttribute()
+    {
+        return $this->totalPaid();
     }
 
     public function totalBank(){
