@@ -58,13 +58,10 @@ Route::get('/home', function () {
 
 
 Route::get('test',function (){
-    $shifts =  DoctorShift::all()->where('status',1)->all();
-    /** @var DoctorShift $shift */
-    foreach ($shifts as $shift){
-        $shift->status = 0;
-        $shift->save();
-    }
-    return $shifts;
+    return Doctor::with(['shifts','shifts.visits'=>function(\Illuminate\Database\Eloquent\Relations\BelongsToMany $query){
+        return $query->orderByDesc('doctor_visit.id');
+    }])->find(4);
+
 // return  array_intersect($array_1,$array_3);
 });
 //inventory

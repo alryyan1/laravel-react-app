@@ -45,7 +45,9 @@ class DoctorShiftController extends Controller
        if ($last){
            $shift_id =  Shift::latest()->first()->id;
        }
-      $shifts =  DoctorShift::with(['doctor','visits'])->where('user_id',$user_id)->where('status',$open)->where('shift_id',$shift_id)->get();
+      $shifts =  DoctorShift::with(['doctor','visits'=>function(\Illuminate\Database\Eloquent\Relations\BelongsToMany $query){
+            return $query->orderByDesc('doctor_visit.id');
+        }])->where('user_id',$user_id)->where('status',$open)->where('shift_id',$shift_id)->get();
       return  $shifts;
     }
 }

@@ -16,10 +16,9 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
-    public function copy(Request $request ,Patient $patient)
+
+    public function registerVisit(Request $request ,Patient $patient , Doctor $doctor)
     {
-        $data = $request->all();
-        $doctor = Doctor::find($data['doctor_id']);
         /** @var DoctorShift $current_shift */
         $current_shift =   $doctor->shiftsByOrder[0];
         $current_shift->visits()->attach($patient->id);

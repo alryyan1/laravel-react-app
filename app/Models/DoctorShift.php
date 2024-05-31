@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DoctorShift extends Model
 {
+
     protected $fillable = ['user_id','doctor_id','status','shift_id'];
 
     public function user(){
@@ -42,7 +43,7 @@ class DoctorShift extends Model
         return $this->belongsTo(Doctor::class);
     }
     public function visits(){
-        return $this->belongsToMany(Patient::class,'doctor_visit','doctor_shift_id','patient_id');
+        return $this->belongsToMany(Patient::class,'doctor_visit','doctor_shift_id','patient_id')->withPivot(['id'])->withTimestamps();
     }
     use HasFactory;
 }

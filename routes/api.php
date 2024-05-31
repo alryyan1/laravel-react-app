@@ -95,6 +95,7 @@ Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
 Route::middleware('auth:sanctum')->post('patients/add', [PatientController::class, 'store']);
+Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [PatientController::class, 'book']);
 
 
@@ -127,7 +128,7 @@ Route::middleware('auth:sanctum')->patch('patient/service/count/{patient}',[Serv
 Route::patch('patient/service/discount/{patient}',[ServiceController::class,'discount']);
 Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
-Route::patch('patient/copy/{patient}', [PatientController::class, 'copy']);
+Route::post('patient/copy/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{patient}', [PatientController::class, 'edit']);
 Route::post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
