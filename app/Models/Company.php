@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereServiceRoof($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcompany> $sub_companies
+ * @property-read int|null $sub_companies_count
  * @mixin \Eloquent
  */
 class Company extends Model
@@ -70,5 +72,7 @@ class Company extends Model
     public function services(){
         return $this->belongsToMany(Service::class,'company_service','company_id','service_id')->withPivot(['price','static_endurance','percentage_endurance','static_wage','percentage_wage']);
     }
-
+    public function sub_companies(){
+        return $this->hasMany(Subcompany::class);
+    }
 }

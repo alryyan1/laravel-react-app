@@ -447,6 +447,7 @@ class PdfController extends Controller
 
 
 
+
         $shift =  Shift::latest()->first();
         $user_id =  $request->get('user');
         $doctor_shifts =  DoctorShift::with(['doctor','visits'])->where('user_id',$user_id)->where('status',1)->where('shift_id',$shift->id)->get();
@@ -484,32 +485,21 @@ class PdfController extends Controller
 
         $pdf->setFillColor(200,200,200);
         $table_col_widht = $page_width / 6;
-        $pdf->Cell($table_col_widht,5,'التاريخ ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,$shift->created_at->format('Y/m/d'),1,1,'C');
-
         $table_col_widht = ($page_width - 20) / 7;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
         /** @var DoctorShift $doctor_shift */
         $doc_count = 0;
         foreach ($doctor_shifts as $doctor_shift){
-            $doc_count++;
-            if ($pdf->getPage() == 1){
-                if ($doc_count == 2){
-                    $pdf->AddPage();
-                }
-            }else{
-                $pdf->AddPage();
 
-            }
             $table_col_widht = ($page_width ) / 6;
 
             $pdf->Cell($table_col_widht,5,$doctor_shift->doctor->specialist->name,1,0,'C',fill: 1);
             $pdf->Cell($table_col_widht,5,$doctor_shift->doctor->name,1,0,'C',fill: 0,stretch: 1);
-            $pdf->Cell($table_col_widht,5,'',0,0,'C',fill: 0);
-            $pdf->Cell($table_col_widht,5,'',0,0,'C',fill: 0);
-            $pdf->Cell($table_col_widht,5,'زمن فتح العياده',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,$doctor_shift->created_at->format('h:i:s'),1,1,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->total(),1,0,'C',fill: 0,stretch: 1);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor_credit_cash(),1,0,'C',fill: 0,stretch: 1);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor_credit_company(),1,0,'C',fill: 0,stretch: 1);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->hospital_credit(),1,0,'C',fill: 0,stretch: 1);
             $pdf->Ln();
             $pdf->Cell('30',5,'المرضي',1,1,'C',fill: 0);
             $pdf->Ln();

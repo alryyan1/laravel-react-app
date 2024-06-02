@@ -34,6 +34,20 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereUpper($value)
  * @property-read \App\Models\MainTest $mainTest
+ * @property int $id
+ * @property int $main_test_id
+ * @property int|null $unit_id
+ * @property int|null $test_order
+ * @property int|null $child_group_id
+ * @property-read \App\Models\childGroup|null $childGroup
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChildTestOption> $options
+ * @property-read int|null $options_count
+ * @property-read \App\Models\Unit|null $unit
+ * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereChildGroupId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereMainTestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereTestOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChildTest whereUnitId($value)
  * @mixin \Eloquent
  */
 class ChildTest extends Model

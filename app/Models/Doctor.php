@@ -39,6 +39,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Doctor whereLabPercentage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctor wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctor whereStaticWage($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Service> $services
+ * @property-read int|null $services_count
  * @mixin \Eloquent
  */
 class Doctor extends Model

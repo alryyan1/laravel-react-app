@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_visit', function (Blueprint $table) {
+        Schema::create('sub_companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Patient::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\DoctorShift::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('name');
+            $table->float('lab_endurance');
+            $table->float('service_endurance');
+            $table->foreignIdFor(\App\Models\Company::class);
             $table->timestamps();
-            $table->unique(['patient_id','doctor_shift_id']);
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctor_visit');
+        Schema::dropIfExists('sub_companies');
     }
 };

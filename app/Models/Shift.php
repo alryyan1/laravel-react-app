@@ -30,6 +30,7 @@ use phpDocumentor\Reflection\Types\This;
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereIsClosed($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereUpdatedAt($value)
+ * @property-read mixed $total_paid
  * @mixin \Eloquent
  */
 class Shift extends Model

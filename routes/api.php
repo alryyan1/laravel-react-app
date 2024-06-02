@@ -101,6 +101,9 @@ Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [Pati
 
 //companies
 
+Route::post('subcompany/create/{company}', [\App\Http\Controllers\SubCompanyController::class, 'store']);
+Route::get('subcompany/all', [\App\Http\Controllers\SubCompanyController::class, 'all']);
+Route::patch('subcompany/{company}', [\App\Http\Controllers\SubCompanyController::class, 'update']);
 Route::post('company/create', [CompanyController::class, 'create']);
 Route::get('company/all', [CompanyController::class, 'all']);
 Route::get('company/all/pagination/{company}', [CompanyController::class, 'pagination']);
