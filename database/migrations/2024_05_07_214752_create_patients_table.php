@@ -23,8 +23,8 @@ return new class extends Migration
             $table->integer('age_month')->nullable();
             $table->integer('age_year')->nullable();
             $table->integer('company_id')->nullable();
-            $table->integer('sub_company_id')->nullable();
-            $table->string('family_member')->nullable();
+            $table->foreignIdFor(\App\Models\Subcompany::class)->nullable()->constrained();
+            $table->foreignIdFor(\App\Models\CompanyRelation::class)->nullable()->constrained();
             $table->integer('paper_fees')->nullable();
             $table->string('guarantor')->nullable();
             $table->date('expire_date')->nullable();

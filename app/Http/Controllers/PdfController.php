@@ -690,30 +690,33 @@ class PdfController extends Controller
         $pdf->setFillColor(200,200,200);
         $table_col_widht = $page_width / 2;
 
-        $table_col_widht = ($page_width ) / 5;
+        $table_col_widht = ($page_width ) / 6;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
+        $pdf->Ln();
 
-        $pdf->Cell($table_col_widht,5,'الرقم',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,'السعر ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,'التحمل نسبه ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,"التحمل ثابت ",1,1,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'السعر ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'السعر ',1,1,'C',fill: 1);
         $pdf->setFont($fontname, 'b', 12);
         $pdf->Ln();
 
+        $pdf->setEqualColumns(3,$page_width / 3 );
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
         $index = 1;
+        $table_col_widht = ($page_width ) / 6;
 
         /** @var MainTest $test */
         foreach ($company->tests as $test){
             $y = $pdf->GetY();
 //            dd($test);
             $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
-            $pdf->Cell($table_col_widht,5,$test->id,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$test->main_test_name,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$test->pivot->price,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$test->pivot->endurance_static,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$test->pivot->endurance_percentage,0,1,'C');
+            $pdf->Cell($table_col_widht,5,$test->main_test_name,0,0,'C',fill: true,stretch: true);
+            $pdf->Cell($table_col_widht,5,number_format($test->pivot->price,1) ,0,1,'C');
             $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
 
             $index++;
@@ -763,17 +766,22 @@ class PdfController extends Controller
         $pdf->setFillColor(200,200,200);
         $table_col_widht = $page_width / 2;
 
-        $table_col_widht = ($page_width ) / 7;
-        $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 14);
-
-        $pdf->Cell($table_col_widht,5,'الرقم',1,0,'C',fill: 1);
+        $table_col_widht = ($page_width ) / 6;
         $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,'السعر ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,'التحمل نسبه',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,'التحمل ثابت ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,' نصيب الطبيب ثابت ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,"نصيب الطبيب نسبه",1,1,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'السعر ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'السعر ',1,1,'C',fill: 1);
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+
+        $pdf->setEqualColumns(3,$page_width / 3 );
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        $index = 1;
+
+
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 12);
 
@@ -784,13 +792,9 @@ class PdfController extends Controller
             $y = $pdf->GetY();
 //            dd($service);
             $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT ,$y);
-            $pdf->Cell($table_col_widht,5,$service->id,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$service->name,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$service->pivot->price,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$service->pivot->percentage_endurance,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$service->pivot->static_endurance,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$service->pivot->static_wage,0,0,'C');
-            $pdf->Cell($table_col_widht,5,$service->pivot->percentage_wage,0,1,'C');
+            $pdf->Cell($table_col_widht,5,$service->name,0,0,'C',fill: true,stretch: true);
+            $pdf->Cell($table_col_widht,5,$service->pivot->price,0,1,'C');
+
             $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT ,$y);
 
             $index++;

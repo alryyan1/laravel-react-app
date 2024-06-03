@@ -10,7 +10,7 @@ class CompanyController extends Controller
 {
 
     public function all(){
-        return Company::with(['tests','services'])->get();
+        return Company::with(['tests','services','sub_companies','relations'])->get();
     }
     public function update(Request $request, Company $company)
     {

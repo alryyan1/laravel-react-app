@@ -10,10 +10,11 @@ class SubCompanyController extends Controller
 {
     public function update(Request $request , Subcompany $subcompany){
         $data = $request->all();
+//        return  $subcompany;
         return ['status' => $subcompany->update([$data['colName'] => $data['val']])];
     }
     public function all(){
-        return Subcompany::all();
+        return Subcompany::with('company')->get();
     }
     public function store(Request $request,Company $company){
         $subcombany = new Subcompany();

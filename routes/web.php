@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebHookController;
 use App\Models\ChildTest;
 use App\Models\Company;
 use App\Models\Deposit;
@@ -55,12 +56,11 @@ Route::get('/home', function () {
     return "h";
 });
 
+Route::post('webhook',[WebhookController::class,'webhook']);
 
 
 Route::get('test',function (){
-    return Doctor::with(['shifts','shifts.visits'=>function(\Illuminate\Database\Eloquent\Relations\BelongsToMany $query){
-        return $query->orderByDesc('doctor_visit.id');
-    }])->find(4);
+    return Company::with('sub_companies','relations')->find(1);
 
 // return  array_intersect($array_1,$array_3);
 });

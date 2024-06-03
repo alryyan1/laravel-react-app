@@ -37,6 +37,17 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+
+
+//shipping-items
+Route::post('addShippingState',[\App\Http\Controllers\ShippingStateController::class, 'addShippingState']);
+Route::get('shippingState/all',[\App\Http\Controllers\ShippingStateController::class, 'all']);
+Route::post('addShipItem',[\App\Http\Controllers\ShippingItemController::class, 'addShipItem']);
+Route::post('addShipping',[\App\Http\Controllers\ShippingController::class, 'addShipping']);
+Route::patch('shipping/{shipping}',[\App\Http\Controllers\ShippingController::class, 'update']);
+Route::get('shipping/paginate/{page?}',[\App\Http\Controllers\ShippingController::class, 'pagination']);
+Route::get('shipItems/all',[\App\Http\Controllers\ShippingItemController::class, 'all']);
+
 Route::patch('editChildTestGroup/{child_test}',[\App\Http\Controllers\childTestController::class,'editChildGroup']);
 Route::get('childGroup',[\App\Http\Controllers\ChildGroupController::class,'all']);
 Route::post('childGroup',[\App\Http\Controllers\ChildGroupController::class,'store']);
@@ -101,9 +112,12 @@ Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [Pati
 
 //companies
 
+Route::post('relation/create/{company}', [\App\Http\Controllers\CompanyRelationController::class, 'store']);
 Route::post('subcompany/create/{company}', [\App\Http\Controllers\SubCompanyController::class, 'store']);
 Route::get('subcompany/all', [\App\Http\Controllers\SubCompanyController::class, 'all']);
-Route::patch('subcompany/{company}', [\App\Http\Controllers\SubCompanyController::class, 'update']);
+Route::get('relation/all', [\App\Http\Controllers\CompanyRelationController::class, 'all']);
+Route::patch('subcompany/{subcompany}', [\App\Http\Controllers\SubCompanyController::class, 'update']);
+Route::patch('relation/{companyRelation}', [\App\Http\Controllers\CompanyRelationController::class, 'update']);
 Route::post('company/create', [CompanyController::class, 'create']);
 Route::get('company/all', [CompanyController::class, 'all']);
 Route::get('company/all/pagination/{company}', [CompanyController::class, 'pagination']);

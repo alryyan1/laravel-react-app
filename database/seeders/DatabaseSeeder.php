@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Shift;
 use App\Models\Specialist;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
         //Doctor::truncate();
 
         Shift::create();
+        User::create(['username'=>'starsIntaj','password'=>bcrypt('starsIntaj')]);
        $specialist =  Specialist::create(['name'=>'الباطنيه']);
        $doctor = Doctor::factory(10)->create();
 //       Patient::factory(10)->create();

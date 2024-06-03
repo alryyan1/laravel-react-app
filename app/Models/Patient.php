@@ -70,6 +70,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAgeYear($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereGender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereVisitNumber($value)
+ * @property int|null $subcompany_id
+ * @property int|null $company_relation_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereCompanyRelationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

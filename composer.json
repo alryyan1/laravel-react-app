@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.8",
         "mike42/escpos-php": "^2.2",
         "orangehill/iseed": "^3.0",
-        "tecnickcom/tcpdf": "^6.7"
+        "tecnickcom/tcpdf": "^6.7",
+        "ext-curl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.10",

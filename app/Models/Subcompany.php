@@ -25,12 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Subcompany whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcompany whereServiceEndurance($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcompany whereUpdatedAt($value)
+ * @property-read \App\Models\Company|null $company
  * @mixin \Eloquent
  */
 class Subcompany extends Model
 {
     protected $fillable = ['name','service_endurance','lab_endurance','company_id'];
-    protected $table = 'sub_companies';
     public function company(){
         return $this->belongsTo(Company::class);
     }
