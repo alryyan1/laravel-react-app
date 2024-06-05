@@ -27,7 +27,12 @@ class PatientAddRequest extends FormRequest
             'age_day' => '',
             'age_month' => '',
             'gender' => '',
-            'age_year' => 'required|numeric',
+            'company_id' => 'numeric',
+            'subcompany_id' => 'numeric',
+            'company_relation_id' => 'numeric',
+            'age_year' => 'numeric',
+            'guarantor' => '',
+            'insurance_no'=>''
         ];
     }
 }

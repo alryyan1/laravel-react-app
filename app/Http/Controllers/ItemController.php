@@ -156,7 +156,7 @@ class ItemController extends Controller
     {
         $data = $request->all();
 //        return $data;
-        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests']
+        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
             , 'initial_price' => $data['initial_price']]);
         return ['status' => $result];
     }

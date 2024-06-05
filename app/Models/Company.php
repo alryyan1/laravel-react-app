@@ -48,7 +48,7 @@ class Company extends Model
     use HasFactory;
     protected $fillable = ['name','phone','email','service_endurance','service_roof','lab_endurance','service_cover','lab_roof'];
 
-//    protected $with = ['tests'];
+    protected $with = ['relations','sub_companies'];
 
     public function define_tests(){
        $tests =  MainTest::all();

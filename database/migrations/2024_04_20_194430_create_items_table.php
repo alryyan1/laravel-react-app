@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('initial_balance')->default(0);
             $table->integer('initial_price')->default(0);
             $table->integer('tests')->default(0);
+
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('age_day')->nullable();
             $table->integer('age_month')->nullable();
             $table->integer('age_year')->nullable();
-            $table->integer('company_id')->nullable();
+            $table->foreignIdFor(\App\Models\Company::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\Subcompany::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\CompanyRelation::class)->nullable()->constrained();
             $table->integer('paper_fees')->nullable();

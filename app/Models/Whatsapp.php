@@ -45,10 +45,46 @@ class Whatsapp extends Model
         curl_close($curl);
 
         if ($err) {
-            return "cURL Error #:" . $err;
+            return ["cURL Error" => $err];
         } else {
-            return  $response;
+            return  ['response'=> $response];
         }
     }
+    public static function  sendPdf($document, $phone)
+    {
 
+        $to = $phone;
+        $instance = self::$instance;
+        $token = self::$token;
+        //Encodes data base64
+        $img_base64 = base64_encode($document);
+        //urlencode — URL-encodes string
+        $img_base64 = urlencode($img_base64);
+        ////////////
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.ultramsg.com/$instance/messages/document",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "token=$token&to=$to&document=$img_base64&filename=report.pdf",
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+    }
 }

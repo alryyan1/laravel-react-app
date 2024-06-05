@@ -73,19 +73,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $subcompany_id
  * @property int|null $company_relation_id
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereCompanyRelationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender','visit_number'];
+    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender','visit_number','company_id','subcompany_id','company_relation_id','insurance_no','guarantor'];
     protected function name() : Attribute {
         return Attribute::make(
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests','doctor','services','services.pivot.user'];
+    protected  $with = ['labrequests','doctor','services','services.pivot.user','company','subcompany','relation'];
+
 
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -207,7 +207,19 @@ class Patient extends Model
     public function file(){
         return $this->belongsToMany(File::class);
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 
+    public function subcompany()
+    {
+        return $this->belongsTo(Subcompany::class);
+    }
+    public function relation()
+    {
+        return $this->belongsTo(CompanyRelation::class,'company_relation_id');
+    }
 
 
 }

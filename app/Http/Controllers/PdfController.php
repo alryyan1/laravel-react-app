@@ -10,6 +10,8 @@ use App\Models\MainTest;
 use App\Models\Patient;
 use App\Models\Service;
 use App\Models\Shift;
+use App\Models\Shipping;
+use App\Models\Whatsapp;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mypdf\Pdf;
@@ -83,12 +85,12 @@ class PdfController extends Controller
             $item->remaining = $total_deposit - $total_deduct;
             $pdf->Cell($table_col_widht,5, $item->id,1,0,'C');
             $pdf->Cell($table_col_widht,5,$item->name,1,0,'C',stretch: 1);
-            $pdf->Cell($table_col_widht,5,$item->initial_balance,1,0,'C',stretch: 1);
             $pdf->Cell($table_col_widht,5,$item->initial_price,1,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,$item->initial_balance,1,0,'C',stretch: 1);
             $pdf->Cell($table_col_widht,5,$item->initial_price * $item->initial_balance,1,0,'C',stretch: 1);
             $pdf->Cell($table_col_widht,5,  $total_deposit,1,0,'C');
             $pdf->Cell($table_col_widht,5,  $total_deduct,1,0,'C');
-            $pdf->Cell($table_col_widht,5,  $item->remaining + $item->initial_balance,1,1,'C');
+            $pdf->Cell($table_col_widht,5,  $item->remaining ,1,1,'C');
         }
 
         $pdf->Ln();
@@ -804,4 +806,96 @@ class PdfController extends Controller
         $pdf->Output('example_003.pdf', 'I');
 
     }
+    public function shipping(Request $request,$phone=null,$wb = true )
+    {
+//        dd($company);
+
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('shippings');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200,200,200);
+        $shippings = Shipping::all();
+        $table_col_widht = ($page_width ) / 9;
+        $pdf->Cell($table_col_widht ,5,'  الاسم',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'رقم الهاتف ',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'الصنف ',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht ,5,'  اكسبرس',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'CTN',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'CBM',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'KG',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'التاريخ',1,0,'C',fill: 0);
+        $pdf->Cell($table_col_widht,5,'الحاله',1,1,'C',fill: 0);
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        $index = 1;
+
+
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 12);
+
+        $index = 1;
+
+            /** @var Shipping $shipping */
+        foreach ($shippings as $shipping){
+            $y = $pdf->GetY();
+//            dd($service);
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT ,$y);
+            $pdf->Cell($table_col_widht ,5,$shipping->name,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$shipping->phone,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5, $shipping->item->name,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht ,5,$shipping->express,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$shipping->ctn,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$shipping->cbm,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$shipping->kg,1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$shipping->created_at->format('Y/m/d'),1,0,'C',fill: 0);
+            $pdf->Cell($table_col_widht,5,$shipping?->state?->name ?? '',1,1,'C',fill: 0);
+
+            $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT ,$y);
+
+            $index++;
+        }
+        $pdf->Ln();
+
+        if ($wb){
+            $result_as_bs64 =  $pdf->output('name.pdf', 'S');
+            Whatsapp::sendPdf($result_as_bs64,$phone);
+        }else{
+            $pdf->Output('example_003.pdf', 'I');
+
+        }
+
+
+    }
+
 }

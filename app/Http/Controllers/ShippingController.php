@@ -13,6 +13,7 @@ class ShippingController extends Controller
     {
          $shipping =  Shipping::create($request->all());
          if ($shipping){
+             //owner phone
              Whatsapp::sendMsgWb('96878622990','thank you for your order');
          }
          return ['status' => 'success', 'data' => $shipping];
@@ -35,7 +36,10 @@ class ShippingController extends Controller
            $state  =  ShippingState::find($data['val']);
             $msg =   "*Shipping State has changed* \n \n".
                 "Customer name *".$shipping->name."*\n\n State *".$state->name."*";
+            //owner phone
             Whatsapp::sendMsgWb('96878622990',  $msg);
+            //client phone
+            Whatsapp::sendMsgWb('968'.$shipping->phone,  $msg);
         }
 
         return ['status' => $shipping->update([$data['colName'] => $data['val']])];

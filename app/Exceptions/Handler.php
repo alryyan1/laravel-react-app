@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Models\Whatsapp;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
@@ -30,6 +31,8 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (AuthenticationException $e, $request) {
             if ($request->is('api/*')) {
+
+                Whatsapp::sendMsgWb('96878622990',$e->getMessage());
                 return response()->json([
                     'status_code' => 401,
                     'success' => false,

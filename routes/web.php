@@ -60,7 +60,24 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 
 
 Route::get('test',function (){
-    return Company::with('sub_companies','relations')->find(1);
+
+    $deposit =  Deposit::latest()->first();
+
+    $items =  Item::all();
+    /** @var Item $item */
+    foreach ($items as $item){
+        $deposit->items()->attach($item->id,[
+            'price'=>0,
+            'quantity'=>$item->initial_balance,
+            'notes'=>'',
+            'expire'=>null,
+            'barcode'=>'',
+            'batch'=>'',
+            'user_id'=>1,
+            'created_at'=>now()
+        ],touch:true);
+    }
+
 
 // return  array_intersect($array_1,$array_3);
 });
@@ -68,6 +85,7 @@ Route::get('test',function (){
 Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
 Route::get('deduct/report',[\App\Http\Controllers\PdfController::class,'deductReport']);
 Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
+Route::get('shippings',[\App\Http\Controllers\PdfController::class,'shipping']);
 
 //lab
 Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);

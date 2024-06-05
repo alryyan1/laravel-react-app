@@ -43,7 +43,7 @@ class Item extends Model
 {
     use HasFactory;
     use EagerLoadPivotTrait;
-    protected $fillable =['name','section_id','initial_balance','initial_price','require_amount','tests'];
+    protected $fillable =['name','section_id','initial_balance','initial_price','require_amount','tests','unit'];
     protected $with = ['section'];
     public function section(){
         return $this->belongsTo(Section::class);
