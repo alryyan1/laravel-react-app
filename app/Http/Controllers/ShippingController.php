@@ -14,7 +14,31 @@ class ShippingController extends Controller
          $shipping =  Shipping::create($request->all());
          if ($shipping){
              //owner phone
-             Whatsapp::sendMsgWb('96878622990','thank you for your order');
+
+         //    Whatsapp::sendMsgWb('968'.$shipping->phone,'*شكرا لثقتك بنا  \\n اختيار مجان للشحن هو اختيارك الأفضل*');
+           //  Whatsapp::sendMsgWb('968'.$shipping->phone,"*".$shipping->id."*".'للاستعلام عن حاله شحنتك يرجي ارسال هذا الكود');
+             $doc = <<<TXT
+*شكرا لثقتك بنا*
+
+               💛💛
+
+مجان للشحن هو اختيارك الأفضل
+
+TXT;
+
+             $doc2 = <<<TXT
+ للاستعلام عن حاله شحنتك
+
+      ارسل  الكود 👇
+
+          $shipping->id
+
+TXT;
+             //customer phone
+             Whatsapp::sendMsgWb('968'.$shipping->phone, $doc);
+             Whatsapp::sendMsgWb('968'.$shipping->phone,$doc2);
+
+
          }
          return ['status' => 'success', 'data' => $shipping];
     }

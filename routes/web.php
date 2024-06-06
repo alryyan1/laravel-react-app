@@ -58,44 +58,36 @@ Route::get('/home', function () {
 
 Route::post('webhook',[WebhookController::class,'webhook']);
 
-
-Route::get('test',function (){
-
-    $deposit =  Deposit::latest()->first();
-
-    $items =  Item::all();
-    /** @var Item $item */
-    foreach ($items as $item){
-        $deposit->items()->attach($item->id,[
-            'price'=>0,
-            'quantity'=>$item->initial_balance,
-            'notes'=>'',
-            'expire'=>null,
-            'barcode'=>'',
-            'batch'=>'',
-            'user_id'=>1,
-            'created_at'=>now()
-        ],touch:true);
-    }
-
+Route::group(['middleware' => ['can:add items']], function () {
+    Route::get('test',function (){
+        $user =   \App\Models\User::find(1);
+        return $user->hasPermissionTo('add items') ? 'yes' : 'no';
+//$role = \Spatie\Permission\Models\Role::findById(3);
+//  return    \Spatie\Permission\Models\Role::create(['name' => 'items add']);
+//
+// $user=    \App\Models\User::find(1);
+//
+// $user->assignRole(\Spatie\Permission\Models\Role::findById(3));
 
 // return  array_intersect($array_1,$array_3);
+    });
 });
+
 //inventory
-Route::get('pdf',[\App\Http\Controllers\PdfController::class,'invnetoryIncome']);
-Route::get('deduct/report',[\App\Http\Controllers\PdfController::class,'deductReport']);
-Route::get('balance',[\App\Http\Controllers\PdfController::class,'balance']);
-Route::get('shippings',[\App\Http\Controllers\PdfController::class,'shipping']);
+Route::get('pdf',[\App\Http\Controllers\PDFController::class,'invnetoryIncome']);
+Route::get('deduct/report',[\App\Http\Controllers\PDFController::class,'deductReport']);
+Route::get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
+Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
 
 //lab
-Route::get('lab/report',[\App\Http\Controllers\PdfController::class,'labreport']);
+Route::get('lab/report',[\App\Http\Controllers\PDFController::class,'labreport']);
 //clinics
-Route::get('clinics/report',[\App\Http\Controllers\PdfController::class,'clinicsReport']);
-Route::get('clinics/doctor/report',[\App\Http\Controllers\PdfController::class,'clinicReport']);
+Route::get('clinics/report',[\App\Http\Controllers\PDFController::class,'clinicsReport']);
+Route::get('clinics/doctor/report',[\App\Http\Controllers\PDFController::class,'clinicReport']);
 
 //company
-Route::get('company/test/{company}',[\App\Http\Controllers\PdfController::class,'companyTest']);
-Route::get('company/service/{company}',[\App\Http\Controllers\PdfController::class,'companyService']);
+Route::get('company/test/{company}',[\App\Http\Controllers\PDFController::class,'companyTest']);
+Route::get('company/service/{company}',[\App\Http\Controllers\PDFController::class,'companyService']);
 
 
 require __DIR__.'/auth.php';

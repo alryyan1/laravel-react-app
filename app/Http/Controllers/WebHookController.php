@@ -31,10 +31,25 @@ class WebHookController extends Controller
             if (is_numeric($msg)){
 
                $shipping = Shipping::find($msg);
+               if ($shipping){
+                   $date =  $shipping->created_at->format('Y-m-d');
+                   $item_name = $shipping?->item?->name ?? '';
+                   $state_name = $shipping?->state?->name ?? '';
+                   $doc = <<<TXT
+Customer name  $shipping->name
+Express        $shipping->express
+Item           $item_name
+CTN            $shipping->ctn
+CBM            $shipping->cbm
+KG             $shipping->kg
+Date           $date
+State          $state_name
+TXT;
+//               $shipping_details =" {$shipping->name}";
 
-               $shipping_details = $shipping->name;
+                   Whatsapp::sendMsgWb($from_sms,$doc);
+               }
 
-               Whatsapp::sendMsgWb($from_sms,$shipping_details);
 
             }
 

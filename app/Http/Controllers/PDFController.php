@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 use TCPDF_FONTS;
 
 
-class PdfController extends Controller
+class PDFController extends Controller
 {
     public function balance(){
 

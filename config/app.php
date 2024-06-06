@@ -171,6 +171,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // ...
         Orangehill\Iseed\IseedServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ])->toArray(),
 
     /*
