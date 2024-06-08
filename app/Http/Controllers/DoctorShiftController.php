@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\DoctorShift;
 use App\Models\Shift;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Comment\Doc;
@@ -23,8 +24,11 @@ class DoctorShiftController extends Controller
                 return  ['status'=>false,'msg'=>'يجب قفل الورديه'];
             }
         }
-        $shift_id  = Shift::max('id');
-        $doctor_shift =  DoctorShift::create(['user_id'=>$user,'shift_id'=>$shift_id,'status'=>1,'doctor_id'=>$doctor->id]);
+        $shift  = Shift::latest()->first();
+        if ($shift->is_closed){
+            return  response(['msg'=> 'يجب فتح ورديه ماليه','status'=>false],400);
+        }
+        $doctor_shift =  DoctorShift::create(['user_id'=>$user,'shift_id'=>$shift->id,'status'=>1,'doctor_id'=>$doctor->id]);
         return ['status'=>true,'shift'=>$doctor_shift->load('visits','doctor')];
     }
     public function close(Request $request , Doctor $doctor){
@@ -45,7 +49,7 @@ class DoctorShiftController extends Controller
        if ($last){
            $shift_id =  Shift::latest()->first()->id;
        }
-      $shifts =  DoctorShift::with(['doctor','visits'=>function(\Illuminate\Database\Eloquent\Relations\BelongsToMany $query){
+      $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
             return $query->orderByDesc('doctor_visit.id');
         }])->where('user_id',$user_id)->where('status',$open)->where('shift_id',$shift_id)->get();
       return  $shifts;

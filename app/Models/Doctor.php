@@ -68,19 +68,33 @@ class Doctor extends Model
         return $this->belongsToMany(Service::class,'doctor_services','doctor_id','service_id');
     }
 
-    public function doctor_credit(Patient $patient)
+    public function doctor_credit(Doctorvisit $doctorvisit)
     {
         //filter only paid_services
-        $patient =  $patient->load(['services'=>function ($query) {
+        $doctorvisit =  $doctorvisit->load(['services'=>function ($query) {
             return  $query->where('is_paid',1);
         }]);
         $array_1 =                $this->services()->pluck('services.id')->toArray();
         $total =  0 ;
-        foreach ($patient->services as $service) {
+        foreach ($doctorvisit->services as $service) {
             if ($service->pivot->doctor_id != $this->id) continue;
             if (in_array($service->id, $array_1)) {
-                $doctor_credit = $service->pivot->amount_paid * $this->cash_percentage / 100;
-                $total += $doctor_credit;
+                if ($doctorvisit->patient->company_id !=null){
+                    $patient_company =  $doctorvisit->patient->company;
+                    $patient_company->load('services');
+                    $company_service =  $patient_company->services->filter(function($item) use($service){
+                        return $item->id == $service->id;
+                    })->first();
+
+                    $doctor_credit =   ($company_service->pivot->price * $service->pivot->count) * $this->company_percentage /100;
+                    $total += $doctor_credit;
+                }else{
+                    $doctor_credit = $service->pivot->amount_paid * $this->cash_percentage / 100;
+//                    echo $doctor_credit;
+
+                    $total += $doctor_credit;
+                }
+
             }
 
 

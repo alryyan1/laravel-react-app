@@ -73,6 +73,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $subcompany_id
  * @property int|null $company_relation_id
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereCompanyRelationId($value)
+ * @property-read \App\Models\Company|null $company
+ * @property-read \App\Models\CompanyRelation|null $relation
+ * @property-read \App\Models\Subcompany|null $subcompany
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -84,7 +88,7 @@ class Patient extends Model
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests','doctor','services','services.pivot.user','company','subcompany','relation'];
+    protected  $with = ['labrequests','doctor','company','subcompany','relation'];
 
 
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -100,14 +104,8 @@ class Patient extends Model
     public function tests(){
         return $this->hasMany(LabRequest::class,'pid');
     }
-    public function services(){
-        return $this->belongsToMany(Service::class,'requested_service','patient_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid','count'])->using(UserPivot::class);
-    }
-    public function getTotalServiceBankAttribute()
-    {
-        return $this->bankak_service();
-    }
-    protected $appends = ['totalservicebank'];
+
+
     public function paid(){
 
         $total = 0;
@@ -144,14 +142,7 @@ class Patient extends Model
      public function tests_concatinated(){
         return join('-',$this::labrequests()->pluck('main_test_name')->all());
      }
-    public function services_concatinated(){
-        return join(' - ',$this::services()->pluck('name')->all());
-    }
-    public function services_concatinated_specfic(Doctor $doctor){
-       return  join('-', $this->services->filter(function ($service) use ($doctor){
-            return $service->pivot->doctor_id == $doctor->id;
-        })->pluck('name')->all());
-    }
+
     public function bankak(){
 
         $total = 0;
@@ -171,38 +162,7 @@ class Patient extends Model
         return $total;
 
     }
-    public function total_paid_services(Doctor|null $doctor  = null){
-        $total = 0;
-            foreach ($this->services as $service){
-                if (!is_null($doctor)){
-                    if ($doctor->id != $service->pivot->doctor_id ){
-                        continue;
-                    }
 
-                }
-
-                $total += $service->pivot->amount_paid;
-        }
-        return $total;
-    }
-    public function bankak_service(){
-
-        $total = 0;
-        foreach ($this->services as $service){
-            if ($service->pivot->is_paid && $service->pivot->bank == 1){
-
-                    $price = $service->price ;
-                    $discount = $service->pivot->discount;
-                    $discounted_money = ($price * $discount ) / 100;
-                    $patient_paid =   $price - $discounted_money ;
-                    $total+=$patient_paid;
-
-            }
-
-        }
-        return $total;
-
-    }
 
     public function file(){
         return $this->belongsToMany(File::class);

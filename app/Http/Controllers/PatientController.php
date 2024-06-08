@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatientAddRequest;
 use App\Models\Doctor;
 use App\Models\DoctorShift;
+use App\Models\Doctorvisit;
 use App\Models\File;
 use App\Models\Patient;
 use App\Models\Shift;
@@ -21,7 +22,10 @@ class PatientController extends Controller
     {
         /** @var DoctorShift $current_shift */
         $current_shift =   $doctor->shiftsByOrder[0];
-        $current_shift->visits()->attach($patient->id);
+        $doctor_visit = new Doctorvisit();
+        $doctor_visit->patient_id = $patient->id;
+        $doctor_visit->doctor_shift_id = $current_shift->id;
+        $current_shift->visits()->save($doctor_visit);
         return ['status' => true];
     }
     public  function book(PatientAddRequest $request ,Doctor $doctor){
@@ -29,7 +33,12 @@ class PatientController extends Controller
         /** @var DoctorShift $current_shift */
         $current_shift =   $doctor->shiftsByOrder[0];
         $patient_data =  $this->store($request,$doctor->id);
-        $current_shift->visits()->attach($patient_data['patient']->id);
+
+        $doctor_visit = new Doctorvisit();
+        $doctor_visit->patient_id = $patient_data['patient']->id;
+        $doctor_visit->doctor_shift_id = $current_shift->id;
+
+        $current_shift->visits()->save($doctor_visit);
 
 
 
@@ -43,11 +52,14 @@ class PatientController extends Controller
     public function get(Request $request , Patient $patient){
         return $patient;
     }
-    public function edit(PatientAddRequest  $request,Patient $patient){
-         $result =  $patient->update($request->validated());
+    public function edit(PatientAddRequest  $request,Doctorvisit $doctorvisit){
+//        return $doctorvisit;
+//        return $request->validated();
+        //اذا عايز تعدل علي الشركه امسح الفحوصات والخدمات والغي الجهات والعلاقات
+         $result =  $doctorvisit->patient->update($request->validated());
 
         if ($result){
-            return ['status'=>true];
+            return ['status'=>true,'patient'=>$doctorvisit->refresh()];
         }
 
     }
@@ -68,8 +80,6 @@ class PatientController extends Controller
             $max_lab_no =  Patient::where('shift_id',$shift->id)->max('visit_number');
             $max_lab_no++;
             $patient->visit_number = $max_lab_no;
-
-
         }
 
         $patient->shift_id = $shift->id;

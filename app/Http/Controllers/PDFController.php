@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Deduct;
 use App\Models\Deposit;
 use App\Models\DoctorShift;
+use App\Models\Doctorvisit;
 use App\Models\MainTest;
 use App\Models\Patient;
 use App\Models\Service;
@@ -408,19 +409,19 @@ class PDFController extends Controller
             $total_doctor = 0;
             $total_paid = 0;
 
-            /** @var Patient $patient */
-            foreach ($doctor_shift->visits as $patient){
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctor_shift->visits as $doctorvisit){
                 $y =  $pdf->GetY();
                 $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
-                $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5,$patient->name,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
-                $total_paid+= $patient->total_paid_services();
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $total_doctor +=  $patient->doctor->doctor_credit($patient);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services() - $patient->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $total_hospital += $patient->total_paid_services() - $patient->doctor->doctor_credit($patient);
-                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated(),0,'R',false,stretch: 1);
+                $pdf->Cell($table_col_widht,5,$doctorvisit->patient->id,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5,$doctorvisit->patient->name,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $doctorvisit->total_paid_services(),1),0,0,'C',fill: 0);
+                $total_paid+= $doctorvisit->total_paid_services();
+                $pdf->Cell($table_col_widht,5 ,number_format( $doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit),1),0,0,'C',fill: 0);
+                $total_doctor +=  $doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit);
+                $pdf->Cell($table_col_widht,5 ,number_format( $doctorvisit->total_paid_services() - $doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit),1),0,0,'C',fill: 0);
+                $total_hospital += $doctorvisit->total_paid_services() - $doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit);
+                $pdf->MultiCell($table_col_widht,5,$doctorvisit->services_concatinated(),0,'R',false,stretch: 1);
                 $y =  $pdf->GetY();
 
                 $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
@@ -481,76 +482,62 @@ class PDFController extends Controller
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
 
-        $pdf->Cell($page_width,5,'العيادات',0,1,'C');
+        $pdf->Cell($page_width,5,'تقرير العيادات العام',0,1,'C');
+        $pdf->setFont($fontname, 'b', 14);
+        $table_col_widht = ($page_width ) / 6;
+
+        $pdf->Cell($table_col_widht,5,"التاريخ",0,0,'L');
+        $pdf->Cell($table_col_widht,5,"".$shift->created_at->format('Y/m/d'),0,0,'R');
+        $pdf->Cell($table_col_widht* 2,5,"رقم الورديه المالي ".$shift->id,0,1,'C');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 16);
 
         $pdf->setFillColor(200,200,200);
-        $table_col_widht = $page_width / 6;
-        $table_col_widht = ($page_width - 20) / 7;
+        $table_col_widht = ($page_width ) / 6;
+
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
         /** @var DoctorShift $doctor_shift */
         $doc_count = 0;
+        $pdf->Cell($table_col_widht,5,'التخصص',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'الطبيب',1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,'اجمالي المدفوع',1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,'نصيب الطبيب النقدي',1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,'نصيب الطيب من التامين',1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,'صافي المركز',1,1,'C',fill: 0,stretch: 1);
+        $pdf->Ln();
+        $total_total = 0;
+        $total_doctor_cash = 0;
+        $total_doctor_isnu = 0;
+        $total_hosptal = 0;
         foreach ($doctor_shifts as $doctor_shift){
 
-            $table_col_widht = ($page_width ) / 6;
 
-            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor->specialist->name,1,0,'C',fill: 1);
+            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor->specialist->name,1,0,'C',fill: 1,stretch: true);
             $pdf->Cell($table_col_widht,5,$doctor_shift->doctor->name,1,0,'C',fill: 0,stretch: 1);
-            $pdf->Cell($table_col_widht,5,$doctor_shift->total(),1,0,'C',fill: 0,stretch: 1);
-            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor_credit_cash(),1,0,'C',fill: 0,stretch: 1);
-            $pdf->Cell($table_col_widht,5,$doctor_shift->doctor_credit_company(),1,0,'C',fill: 0,stretch: 1);
-            $pdf->Cell($table_col_widht,5,$doctor_shift->hospital_credit(),1,0,'C',fill: 0,stretch: 1);
+            $total = $doctor_shift->total();
+            $total_total+= $total;
+            $pdf->Cell($table_col_widht,5,number_format($total,1),1,0,'C',fill: 0,stretch: 1);
+            $doctor_cash =   $doctor_shift->doctor_credit_cash();
+            $total_doctor_cash+= $doctor_cash;
+            $pdf->Cell($table_col_widht,5,number_format($doctor_cash,1),1,0,'C',fill: 0,stretch: 1);
+            $doctor_isnu =  $doctor_shift->doctor_credit_company();
+            $total_doctor_isnu += $doctor_isnu;
+            $pdf->Cell($table_col_widht,5,number_format($doctor_isnu,1),1,0,'C',fill: 0,stretch: 1);
+            $hospital = $doctor_shift->hospital_credit();
+            $total_hosptal+= $hospital;
+            $pdf->Cell($table_col_widht,5,number_format($hospital,1),1,0,'C',fill: 0,stretch: 1);
             $pdf->Ln();
-            $pdf->Cell('30',5,'المرضي',1,1,'C',fill: 0);
-            $pdf->Ln();
-            $table_col_widht = ($page_width ) / 6;
-
-            $pdf->Cell($table_col_widht,5,'الكود',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'اسم',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'المدفوع',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'نصيب الطبيب',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'نصيب المركز',1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'الخدمات',1,1,'C',fill: 1);
-            $pdf->Ln();
-            $pdf->setFont($fontname, 'b', 12);
-            $total_hospital = 0;
-            $total_doctor = 0;
-            $total_paid = 0;
-
-            /** @var Patient $patient */
-            foreach ($doctor_shift->visits as $patient){
-                $y =  $pdf->GetY();
-                $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
-                $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5,$patient->name,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services(),1),0,0,'C',fill: 0);
-                $total_paid+= $patient->total_paid_services();
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $total_doctor +=  $patient->doctor->doctor_credit($patient);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services() - $patient->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $total_hospital += $patient->total_paid_services() - $patient->doctor->doctor_credit($patient);
-                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated(),0,'R',false,stretch: 1);
-                $y =  $pdf->GetY();
-
-                $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
-
-
-            }
-            $pdf->Ln();
-            $pdf->Ln();
-            $table_col_widht = ($page_width ) / 6;
-
-            $pdf->Cell($table_col_widht,5,'',1,0,'C',fill: 0);
-            $pdf->Cell($table_col_widht,5,'',1,0,'C',fill: 0);
-            $pdf->Cell($table_col_widht,5 , number_format($total_paid,1) ,1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5, number_format( $total_doctor,1),1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,number_format($total_hospital,1),1,0,'C',fill: 1);
-            $pdf->Cell($table_col_widht,5,'',1,1,'C',fill: 0);
 
         }
+        $pdf->Ln();
 
+        $pdf->Cell($table_col_widht,5,'',1,0,'C',fill: 1,stretch: true);
+        $pdf->Cell($table_col_widht,5,'',1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,number_format($total_total,1),1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,number_format($total_doctor_cash,1),1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,number_format($total_doctor_isnu,1),1,0,'C',fill: 0,stretch: 1);
+        $pdf->Cell($table_col_widht,5,number_format($total_hosptal,1),1,0,'C',fill: 0,stretch: 1);
 
         $pdf->Output('example_003.pdf', 'I');
 
@@ -626,17 +613,17 @@ class PDFController extends Controller
             $pdf->Ln();
             $pdf->setFont($fontname, 'b', 12);
 
-            /** @var Patient $patient */
-            foreach ($doctorShift->visits as $patient){
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
                 $y =  $pdf->GetY();
                 $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);
 
-                $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5,$patient->name,0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services($doctorShift->doctor),1),0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $doctorShift->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $pdf->Cell($table_col_widht,5 ,number_format( $patient->total_paid_services($doctorShift->doctor) -$doctorShift->doctor->doctor_credit($patient),1),0,0,'C',fill: 0);
-                $pdf->MultiCell($table_col_widht,5,$patient->services_concatinated_specfic($doctorShift->doctor),0,'R',false,stretch: 1);
+                $pdf->Cell($table_col_widht,5,$doctorvisit->id,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5,$doctorvisit->patient->name,0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $doctorvisit->total_paid_services($doctorShift->doctor),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit),1),0,0,'C',fill: 0);
+                $pdf->Cell($table_col_widht,5 ,number_format( $doctorvisit->total_paid_services($doctorShift->doctor) -$doctorShift->doctor->doctor_credit($doctorvisit),1),0,0,'C',fill: 0);
+                $pdf->MultiCell($table_col_widht,5,$doctorvisit->services_concatinated_specfic($doctorShift->doctor),0,'R',false,stretch: 1);
                 $y =  $pdf->GetY();
 
                 $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width +PDF_MARGIN_RIGHT,$y);

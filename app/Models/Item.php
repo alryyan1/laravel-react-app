@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereInitialPrice($value)
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereRequireAmount($value)
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereTests($value)
+ * @property string $unit
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereUnit($value)
  * @mixin \Eloquent
  */
 class Item extends Model

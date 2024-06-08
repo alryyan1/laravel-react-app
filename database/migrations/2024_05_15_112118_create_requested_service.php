@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('requested_service', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Patient::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
+            $table->foreignId('doctor_visit_id')->constrained()->references('id')->on('doctor_visit');
             $table->foreignIdFor(\App\Models\Service::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Doctor::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('bank');
             $table->integer('count');
             $table->timestamps();
-            $table->unique(['patient_id','service_id']);
+            $table->unique(['doctor_visit_id','service_id']);
         });
     }
 

@@ -31,14 +31,20 @@ use phpDocumentor\Reflection\Types\This;
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereUpdatedAt($value)
  * @property-read mixed $total_paid
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DoctorShift> $doctorShifts
+ * @property-read int|null $doctor_shifts_count
  * @mixin \Eloquent
  */
 class Shift extends Model
 {
     use HasFactory;
+
     protected $fillable = ['total',	'bank'	,'expenses'	,'closed_at','is_closed'];
     public function patients(){
         return $this->hasMany(Patient::class);
+    }
+    public function doctorShifts(){
+        return $this->hasMany(DoctorShift::class);
     }
 
     protected $with = ['patients'];
@@ -54,38 +60,57 @@ class Shift extends Model
     public function totalPaid(): mixed
     {
         $total = 0;
-        /** @var Patient $patient */
-        foreach ($this->patients as $patient){
-            if ($patient->is_lab_paid == 1){
-                $total += $patient->paid();
-            }
-            $total+= $patient->total_paid_services();
 
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
+
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
+
+                if ($doctorvisit->patient->is_lab_paid == 1){
+                    $total += $doctorvisit->patient->paid();
+                }
+                $total+= $doctorvisit->total_paid_services();
+            }
         }
+
         return $total;
     }
 
     public function totalPaidService(): mixed
     {
         $total = 0;
-        /** @var Patient $patient */
-        foreach ($this->patients as $patient){
-            $total+= $patient->total_paid_services();
+//        return  $this->doctorShifts;
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
+
+
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
+//               return   $doctorvisit;
+                $total+= $doctorvisit->total_paid_services();
+            }
         }
+
         return $total;
     }
     public function totalPaidServiceBank(): mixed
     {
         $total = 0;
-        /** @var Patient $patient */
-        foreach ($this->patients as $patient){
-            foreach ($patient->services as $service){
-                if ($service->pivot->bank == 1){
-                    $total += $service->pivot->amount_paid;
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
 
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
+                foreach ($doctorvisit->services as $service){
+                    if ($service->pivot->bank == 1){
+                        $total += $service->pivot->amount_paid;
+
+                    }
                 }
             }
         }
+
         return $total;
     }
     protected $appends = ['totalPaid'];

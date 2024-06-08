@@ -35,6 +35,7 @@ class DoctorShift extends Model
 {
 
     protected $fillable = ['user_id','doctor_id','status','shift_id'];
+    protected $with = ['visits'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -43,7 +44,38 @@ class DoctorShift extends Model
         return $this->belongsTo(Doctor::class);
     }
     public function visits(){
-        return $this->belongsToMany(Patient::class,'doctor_visit','doctor_shift_id','patient_id')->withPivot(['id'])->withTimestamps();
+        return $this->hasMany(Doctorvisit::class);
+    }
+    public function total(){
+        $total_paid = 0;
+        /** @var Doctorvisit $doctorvisit */
+        foreach ($this->visits as $doctorvisit){
+            $total_paid+= $doctorvisit->total_paid_services($this->doctor);
+        }
+        return $total_paid;
+    }
+    public function doctor_credit_cash(){
+        $total_credit = 0;
+        /** @var Doctorvisit $doctorvisit */
+        foreach ($this->visits as $doctorvisit){
+            if ($doctorvisit->patient->company_id == null){
+                $total_credit += $this->doctor->doctor_credit($doctorvisit);
+            }
+        }
+        return $total_credit;
+    }
+    public function doctor_credit_company(){
+        $total_credit = 0;
+        /** @var Doctorvisit $doctorvisit */
+        foreach ($this->visits as $doctorvisit){
+            if ($doctorvisit->patient->company_id != null){
+                $total_credit += $this->doctor->doctor_credit($doctorvisit);
+            }
+        }
+        return $total_credit;
+    }
+    public function hospital_credit(){
+        return $this->total() -( $this->doctor_credit_cash() + $this->doctor_credit_company());
     }
     use HasFactory;
 }
