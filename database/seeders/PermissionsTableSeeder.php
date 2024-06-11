@@ -22,34 +22,34 @@ class PermissionsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 3,
-                'name' => 'add items',
+                'name' => 'اضافه صنف',
                 'guard_name' => 'web',
                 'created_at' => '2024-06-09 23:28:03',
-                'updated_at' => '2024-06-09 23:55:27',
+                'updated_at' => '2024-06-11 14:42:35',
             ),
             1 => 
             array (
                 'id' => 4,
-                'name' => 'edit items',
+                'name' => 'تعديل صنف',
                 'guard_name' => 'web',
                 'created_at' => '2024-06-10 12:22:08',
-                'updated_at' => '2024-06-10 12:22:08',
+                'updated_at' => '2024-06-11 14:42:35',
             ),
             2 => 
             array (
                 'id' => 5,
-                'name' => 'view items',
+                'name' => 'عرض الاصناف',
                 'guard_name' => 'web',
                 'created_at' => '2024-06-10 12:23:04',
-                'updated_at' => '2024-06-10 12:23:04',
+                'updated_at' => '2024-06-11 14:43:01',
             ),
             3 => 
             array (
                 'id' => 6,
-                'name' => 'delete items',
+                'name' => 'حذف الاصناف',
                 'guard_name' => 'web',
                 'created_at' => '2024-06-10 12:26:02',
-                'updated_at' => '2024-06-10 12:26:02',
+                'updated_at' => '2024-06-11 14:43:01',
             ),
             4 => 
             array (
@@ -61,21 +61,13 @@ class PermissionsTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 8,
-                'name' => 'التقارير',
-                'guard_name' => 'web',
-                'created_at' => '2024-06-10 18:19:52',
-                'updated_at' => '2024-06-10 18:19:52',
-            ),
-            6 => 
-            array (
                 'id' => 9,
                 'name' => 'اذن طلب',
                 'guard_name' => 'web',
                 'created_at' => '2024-06-10 18:20:35',
                 'updated_at' => '2024-06-10 18:20:35',
             ),
-            7 => 
+            6 => 
             array (
                 'id' => 10,
                 'name' => 'اذن صرف',
@@ -83,7 +75,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-10 18:22:09',
                 'updated_at' => '2024-06-10 18:22:09',
             ),
-            8 => 
+            7 => 
             array (
                 'id' => 11,
                 'name' => 'اضافه مورد',
@@ -91,7 +83,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-10 18:25:32',
                 'updated_at' => '2024-06-10 18:25:32',
             ),
-            9 => 
+            8 => 
             array (
                 'id' => 12,
                 'name' => 'حذف مورد',
@@ -99,7 +91,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-10 18:25:39',
                 'updated_at' => '2024-06-10 18:25:39',
             ),
-            10 => 
+            9 => 
             array (
                 'id' => 13,
                 'name' => 'تعديل مورد',
@@ -107,7 +99,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-10 18:25:56',
                 'updated_at' => '2024-06-10 18:25:56',
             ),
-            11 => 
+            10 => 
             array (
                 'id' => 14,
                 'name' => 'اضافه للمخزون',
@@ -115,7 +107,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-10 18:30:00',
                 'updated_at' => '2024-06-10 18:30:00',
             ),
-            12 => 
+            11 => 
             array (
                 'id' => 15,
                 'name' => 'حذف فاتوره',
@@ -123,13 +115,21 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-10 22:13:56',
                 'updated_at' => '2024-06-10 22:13:56',
             ),
-            13 => 
+            12 => 
             array (
                 'id' => 16,
                 'name' => 'حذف اذن طلب',
                 'guard_name' => 'web',
                 'created_at' => '2024-06-10 22:49:46',
                 'updated_at' => '2024-06-10 22:56:35',
+            ),
+            13 => 
+            array (
+                'id' => 17,
+                'name' => 'reports',
+                'guard_name' => 'web',
+                'created_at' => '2024-06-11 14:00:28',
+                'updated_at' => '2024-06-11 14:39:33',
             ),
         ));
         

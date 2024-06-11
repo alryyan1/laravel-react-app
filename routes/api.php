@@ -216,6 +216,7 @@ Route::controller(DepositController::class)->group(function () {
     });
 
 });
+Route::middleware('auth:sanctum')->get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
 
 
 //

@@ -18,7 +18,7 @@ class AuthController extends Controller
         return ['status'=>true,'user'=>$user , 'token'=>$token];
 
     }
-    public function login(LoginRequest $request){
+    public function login(\App\Http\Requests\Auth\LoginRequest $request){
 //        return $request->all();
         $data=  $request->validated();
         if (!\Auth::attempt($data)){
@@ -28,6 +28,10 @@ class AuthController extends Controller
         $token =$user->createToken('main');
 //        DB::table('personal_access_tokens')->where('tokenable_id',$user->id)
 //            ->update(['expires_at'=>Carbon::now()->addHour()]);
+
+//        $request->authenticate();
+//
+//        $request->session()->regenerate();
         return  ['status'=>true,'user'=>$user,'token'=>$token->plainTextToken];
     }
     public function logout(Request $request){

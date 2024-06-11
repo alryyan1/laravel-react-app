@@ -66,7 +66,8 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 //      $role =     Role::create(['name' => 'admin']);
 //         $role =        Role::findById(1);
 //         return $role->permissions;
-         \Spatie\Permission\Models\Permission::findById(8)->update(['guard_name'=>'api']);
+        \Spatie\Permission\Models\Permission::find(8)->delete();
+
 
 //         $role->revokePermissionTo($p);
 //        Role::create(['name' => 'deductor']);
@@ -87,8 +88,10 @@ Route::get('pdf',[\App\Http\Controllers\PDFController::class,'invnetoryIncome'])
 Route::get('deduct/report',[\App\Http\Controllers\PDFController::class,'deductReport']);
 Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
 
-    Route::middleware('auth:api')->get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
 
+Route::group(['middleware' => ['can:reports']], function () {
+    Route::middleware('auth:sanctum')->get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
+});
 
 //lab
 Route::get('lab/report',[\App\Http\Controllers\PDFController::class,'labreport']);

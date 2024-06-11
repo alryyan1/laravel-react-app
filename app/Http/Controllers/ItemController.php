@@ -156,7 +156,7 @@ class ItemController extends Controller
     public function create(Request $request)
     {
         $user =  auth()->user();
-        if ($user->can('add items')) {
+        if ($user->can('اضافه صنف')) {
             $data = $request->all();
 //        return $data;
             $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
@@ -177,7 +177,7 @@ class ItemController extends Controller
         $user =  auth()->user();
 
 
-        if ($user->can('view items')) {
+        if ($user->can('عرض الاصناف')) {
         $item =  $request->item;
 
         if ( $request->has('word')){
@@ -198,7 +198,7 @@ class ItemController extends Controller
         $user =  auth()->user();
 
 
-        if ($user->can('delete items')) {
+        if ($user->can('حذف الاصناف')) {
             return ['status' => $item->delete()];
         }else{
             return \response(['status' => false,'msg'=>'صلاحيه حذف الاصناف غير مفعله'],400);
@@ -209,7 +209,7 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
        $user =  auth()->user();
-       if ($user->can('edit items')){
+       if ($user->can('تعديل صنف')){
            $data = $request->all();
 //        return $data;
 
