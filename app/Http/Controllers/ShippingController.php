@@ -9,9 +9,17 @@ use Illuminate\Http\Request;
 
 class ShippingController extends Controller
 {
+    public function find( Request $request , Shipping $shipping )
+    {
+        return $shipping;
+    }
     public function addShipping(Request $request)
     {
-         $shipping =  Shipping::create($request->all());
+        $id =  Shipping::max('id');
+        $array = $request->all();
+        $id = $id + 1;
+        $array['prefix'] = 'MJN-'.$id;
+         $shipping =  Shipping::create($array);
          if ($shipping){
              //owner phone
 
@@ -47,10 +55,22 @@ TXT;
 
         if ( $request->has('word')){
             $word = $request->query('word');
+            if (is_numeric($word)){
+                return collect( Shipping::orderByDesc('id')->with('item')->where('phone','like',"%$word%")->paginate($page));
 
-            return collect( Shipping::orderByDesc('id')->with('item')->where('name','like',"%$word%")->paginate($page));
+            }else{
+                return collect( Shipping::orderByDesc('id')->with('item')->where('name','like',"%$word%")->paginate($page));
+
+            }
         }
-        return collect( Shipping::orderByDesc('id')->with('item')->paginate($page));
+        if ($request->has('state_id') && $request->query('state_id') != 'undefined'){
+            $state_id = $request->query('state_id');
+            return collect( Shipping::orderByDesc('id')->with('item')->where('shipping_state_id',$state_id)->paginate($page));
+
+        }else{
+            return collect( Shipping::orderByDesc('id')->with('item')->paginate($page));
+
+        }
     }
     public function update(Request $request , Shipping $shipping)
     {

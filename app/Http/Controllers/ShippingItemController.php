@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class ShippingItemController extends Controller
 {
 
+
+
     public function addShipItem(Request $request)
     {
         $item =  ShippingItem::create($request->all());

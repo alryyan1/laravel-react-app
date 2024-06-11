@@ -36,14 +36,18 @@ class WebHookController extends Controller
                    $item_name = $shipping?->item?->name ?? '';
                    $state_name = $shipping?->state?->name ?? '';
                    $doc = <<<TXT
-Customer name  $shipping->name
-Express        $shipping->express
-Item           $item_name
-CTN            $shipping->ctn
-CBM            $shipping->cbm
-KG             $shipping->kg
-Date           $date
-State          $state_name
+مجان للشحن ترحب بكم
+
+اسم الزبون : ( $shipping->name )
+ رقم الشحنه  : ( $shipping->express )
+الصنف : (   $item_name )
+عدد الكراتين : ($shipping->ctn )
+الحجم : ( $shipping->cbm )
+الوزن : (  $shipping->kg)
+الحالة :($state_name)
+شكراً لثقتكم بنا
+
+Majan Express
 TXT;
 //               $shipping_details =" {$shipping->name}";
 

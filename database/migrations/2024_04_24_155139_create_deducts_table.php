@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('deducts', function (Blueprint $table) {
             $table->id();
+            $table->boolean('complete')->default(false);
             $table->timestamps();
         });
     }

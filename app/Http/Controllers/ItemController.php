@@ -6,6 +6,7 @@ use App\Models\Deposit;
 use App\Models\DepositItems;
 use App\Models\Item;
 use DB;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use PDF;
@@ -154,11 +155,17 @@ class ItemController extends Controller
 
     public function create(Request $request)
     {
-        $data = $request->all();
+        $user =  auth()->user();
+        if ($user->can('add items')) {
+            $data = $request->all();
 //        return $data;
-        $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
-            , 'initial_price' => $data['initial_price']]);
-        return ['status' => $result];
+            $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
+                , 'initial_price' => $data['initial_price']]);
+            return ['status' => $result];
+        }else{
+            return response(['status' => false,'msg'=>'صلاحيه اضافه الاصناف غير مفعله'],400);
+
+        }
     }
 
     public function all(Request $request)
@@ -167,6 +174,10 @@ class ItemController extends Controller
     }
     public function pagination(Request $request)
     {
+        $user =  auth()->user();
+
+
+        if ($user->can('view items')) {
         $item =  $request->item;
 
         if ( $request->has('word')){
@@ -175,19 +186,38 @@ class ItemController extends Controller
             return collect( Item::orderByDesc('id')->with('section')->where('name','like',"%$word%")->paginate($item));
         }
         return collect( Item::orderByDesc('id')->with('section')->paginate($item));
+
+        }else{
+            return \response(['status' => false,'msg'=>'صلاحيه عرض الاصناف غير مفعله'],400);
+
+        }
     }
 
     public function destroy(Request $request, Item $item)
     {
-        return ['status' => $item->delete()];
+        $user =  auth()->user();
+
+
+        if ($user->can('delete items')) {
+            return ['status' => $item->delete()];
+        }else{
+            return \response(['status' => false,'msg'=>'صلاحيه حذف الاصناف غير مفعله'],400);
+
+        }
     }
 
     public function update(Request $request, Item $item)
     {
-        $data = $request->all();
+       $user =  auth()->user();
+       if ($user->can('edit items')){
+           $data = $request->all();
 //        return $data;
 
-        return ['status' => $item->update([$data['colName'] => $data['val']])];
+           return ['status' => $item->update([$data['colName'] => $data['val']])];
+       }else{
+           return \response(['status' => false,'msg'=>'صلاحيه تعديل الاصناف غير مفعله'],400);
+       }
+
 
     }
 

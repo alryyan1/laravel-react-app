@@ -11,8 +11,9 @@ class DepositController extends Controller
 {
     public function getDepositsByDate(Request $request){
         $data = $request->all();
-        $date = Carbon::parse($data['date']);
-        $data =  Deposit::WhereDate('bill_date','=',$date)->get();
+//        $date = Carbon::parse($data['date']);
+//        return $date;
+        $data =  Deposit::WhereDate('bill_date','=',$data['date'])->get();
         return ['data'=>$data , 'status'=>true];
     }
     public function getDepositBySupplier(Request $request){
@@ -33,8 +34,15 @@ class DepositController extends Controller
     }
     public function complete(Request $request){
         $data = $request->all();
+        $user =  auth()->user();
+
+
+        if ($user->can('انشاء فاتوره')) {
 //        return $data;
         return ['status' => Deposit::create(['bill_number'=>$data['bill_number'],'bill_date'=>$data['bill_date'],'supplier_id'=>$data['supplier_id'] ,'complete'=>false])] ;
+        }else{
+            return \response(['status' => false,'message'=>'صلاحيه انشاء فاتوره  غير مفعله'],400);
+        }
     }
     public function finish(Request $request,Deposit $deposit){
         $deposit->complete = true;
@@ -47,8 +55,14 @@ class DepositController extends Controller
     }
     public function deposit(Request $request ){
         $data = $request->all();
+        $user =  auth()->user();
+
+
+        if ($user->can('اضافه للمخزون')) {
+        $data = $request->all();
         $item_id = $data['item_id'];
-        $expire_date =  Carbon::parse($data['expire']);
+//        return $data['expire'];
+        $expire_date =  $data['expire'];
         $deposit =  Deposit::latest()->first();
         $deposit->items()->attach($item_id,[
             'price'=>$data['price'],
@@ -61,6 +75,9 @@ class DepositController extends Controller
             'created_at'=>now()
         ],touch:true);
         return ['status'=>true];
+        }else{
+            return \response(['status' => false,'message'=>'صلاحيه اضافه للمخزون  غير مفعله'],400);
+        }
     }
     public function destroy(Request $request){
         $data = $request->all();
@@ -68,5 +85,17 @@ class DepositController extends Controller
         $deposit = Deposit::latest()->first();
         $deposit->items()->detach($item_id);
         return ['status'=>true];
+    }
+    public function destroyDeposit(Request $request,Deposit $deposit){
+        $user =  auth()->user();
+
+
+        if ($user->can('حذف فاتوره')) {
+        $deposit->delete();
+        return ['status'=>true];
+        }else{
+            return \response(['status' => false,'message'=>'صلاحيه حذف فاتوره  غير مفعله'],400);
+        }
+
     }
 }

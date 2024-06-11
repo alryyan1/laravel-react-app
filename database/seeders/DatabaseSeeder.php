@@ -11,6 +11,7 @@ use App\Models\Shift;
 use App\Models\Specialist;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         //Specialist::truncate();
         //Doctor::truncate();
+
+        Permission::create(['name' => 'اضافه منتج']);
+        Permission::create(['name' => 'تعديل منتج']);
+        Permission::create(['name' => 'عرض منتج']);
 
         Shift::create();
         User::create(['username'=>'starsIntaj','password'=>bcrypt('starsIntaj')]);
@@ -42,5 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
         $this->call(DepositItemsTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
     }
 }

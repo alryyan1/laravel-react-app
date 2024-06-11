@@ -18,10 +18,17 @@ use Illuminate\Http\Request;
 use App\Mypdf\Pdf;
 use Illuminate\Support\Facades\DB;
 use TCPDF_FONTS;
-
+use Spatie\Permission\Models\Permission;
 
 class PDFController extends Controller
 {
+
+    public function __construct()
+    {
+//        $this->middleware(['permission:add items']);
+
+    }
+
     public function balance(){
 
 
@@ -793,7 +800,7 @@ class PDFController extends Controller
         $pdf->Output('example_003.pdf', 'I');
 
     }
-    public function shipping(Request $request,$phone=null,$wb = true )
+    public function shipping(Request $request,$phone=null,$wb = false )
     {
 //        dd($company);
 

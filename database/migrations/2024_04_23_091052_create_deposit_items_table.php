@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity')->default(0);
             $table->float('price')->default(0);
             $table->string('batch')->nullable();
-            $table->dateTime('expire')->nullable();
+            $table->date('expire')->nullable();
             $table->string('notes')->nullable();
             $table->string('barcode')->nullable();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();

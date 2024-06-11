@@ -37,6 +37,19 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::get("users",[\App\Http\Controllers\UserController::class,'all']);
+Route::patch("user/roles/{user}",[\App\Http\Controllers\UserController::class,'editRole']);
+
+
+//roles
+Route::post("roles",[\App\Http\Controllers\RoleController::class,'store']);
+Route::delete("roles/{role}",[\App\Http\Controllers\RoleController::class,'destroy']);
+Route::get("roles",[\App\Http\Controllers\RoleController::class,'all']);
+Route::patch("roles/{role}",[\App\Http\Controllers\RoleController::class,'edit']);
+
+Route::get("permissions",[\App\Http\Controllers\PermissionController::class,'all']);
+Route::post("permissions",[\App\Http\Controllers\PermissionController::class,'store']);
+
 
 
 //shipping-items
@@ -47,6 +60,7 @@ Route::post('addShipping',[\App\Http\Controllers\ShippingController::class, 'add
 Route::patch('shipping/{shipping}',[\App\Http\Controllers\ShippingController::class, 'update']);
 Route::get('shipping/paginate/{page?}',[\App\Http\Controllers\ShippingController::class, 'pagination']);
 Route::get('shipItems/all',[\App\Http\Controllers\ShippingItemController::class, 'all']);
+Route::get('shipping/find/{shipping}',[\App\Http\Controllers\ShippingController::class, 'find']);
 
 Route::patch('editChildTestGroup/{child_test}',[\App\Http\Controllers\childTestController::class,'editChildGroup']);
 Route::get('childGroup',[\App\Http\Controllers\ChildGroupController::class,'all']);
@@ -162,19 +176,19 @@ Route::middleware('auth:sanctum')->post('client/create', [ClientController::clas
 Route::delete('client/{client}', [ClientController::class, 'destroy']);
 Route::get('client/all', [ClientController::class, 'index']);
 
-Route::post('suppliers/create', [SupplierController::class, 'create']);
+Route::middleware('auth:sanctum')->post('suppliers/create', [SupplierController::class, 'create']);
 Route::get('suppliers/all', [SupplierController::class, 'index']);
-Route::delete('suppliers/{supplier}', [SupplierController::class, 'destroy']);
-Route::patch('suppliers/{supplier}', [SupplierController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('suppliers/{supplier}', [SupplierController::class, 'destroy']);
+Route::middleware('auth:sanctum')->patch('suppliers/{supplier}', [SupplierController::class, 'update']);
 
 
-Route::post('items/create', [ItemController::class, 'create']);
+Route::middleware('auth:sanctum')->post('items/create', [ItemController::class, 'create']);
 Route::post('item/state/{item_id}', [ItemController::class, 'state']);
 Route::post('item/stateByMonth/{item_id}', [ItemController::class, 'stateByMonth']);
-Route::delete('items/{item}', [ItemController::class, 'destroy']);
-Route::patch('items/{item}', [ItemController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('items/{item}', [ItemController::class, 'destroy']);
+Route::middleware('auth:sanctum')->patch('items/{item}', [ItemController::class, 'update']);
 Route::get('items/all', [ItemController::class, 'all']);
-Route::get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
+Route::middleware('auth:sanctum')->get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
 Route::get('items/balance', [ItemController::class, 'balance']);
 Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);
 Route::get('items/all/pie/{section}', [ItemController::class, 'pie']);
@@ -187,10 +201,11 @@ Route::delete('sections/{section}', [SectionController::class, 'destroy']);
 Route::patch('sections/{section}', [SectionController::class, 'update']);
 
 Route::middleware('auth:sanctum')->post('inventory/deposit', [DepositController::class, 'deposit']);
+Route::middleware('auth:sanctum')->delete('inventory/{deposit}', [DepositController::class, 'destroyDeposit']);
 Route::controller(DepositController::class)->group(function () {
     Route::prefix('inventory/deposit')->group(function () {
 
-        Route::post('/complete', 'complete');
+        Route::middleware('auth:sanctum')->post('/complete', 'complete');
         Route::get('/last', 'last');
         Route::delete('/', 'destroy');
         Route::post('getDepositsByDate', 'getDepositsByDate');
@@ -204,9 +219,9 @@ Route::controller(DepositController::class)->group(function () {
 
 
 //
-Route::delete('inventory/deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
-Route::post('inventory/deduct', [DeductController::class, 'deduct']);
-Route::get('inventory/deduct/complete', [DeductController::class, 'complete']);
+Route::middleware('auth:sanctum')->delete('inventory/deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
+Route::middleware('auth:sanctum')->post('inventory/deduct', [DeductController::class, 'deduct']);
+Route::middleware('auth:sanctum')->get('inventory/deduct/complete', [DeductController::class, 'complete']);
 Route::get('inventory/deduct/last', [DeductController::class, 'last']);
 Route::delete('inventory/deduct', [DeductController::class, 'destroy']);
 Route::post('inventory/deduct/getDeductsByDate', [DeductController::class, 'getDeductsByDate']);

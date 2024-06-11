@@ -20,6 +20,7 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,23 +62,33 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
 //     return         $shift = Shift::latest()->first();
-return \App\Models\Doctorvisit::find(1);
 
-//$role = \Spatie\Permission\Models\Role::findById(3);
-//  return    \Spatie\Permission\Models\Role::create(['name' => 'items add']);
-//
-// $user=    \App\Models\User::find(1);
-//
-// $user->assignRole(\Spatie\Permission\Models\Role::findById(3));
+//      $role =     Role::create(['name' => 'admin']);
+//         $role =        Role::findById(1);
+//         return $role->permissions;
+         \Spatie\Permission\Models\Permission::findById(8)->update(['guard_name'=>'api']);
 
-// return  array_intersect($array_1,$array_3);
+//         $role->revokePermissionTo($p);
+//        Role::create(['name' => 'deductor']);
+//        Role::create(['name' => 'depositor']);
+//        Role::create(['name' => 'viewer']);
+//       $p =  \Spatie\Permission\Models\Permission::create(['name' => 'التقارير','guard_name' => 'api']);
+
+//        $p->update(['name'=>'add items']);
+//        $user = \App\Models\User::find(1);
+//        $role->givePermissionTo($p);
+//        $user->assignRole($role);
+//       return  $user->can('add items') ? 'yes' :'no';
+
     });
 
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PDFController::class,'invnetoryIncome']);
 Route::get('deduct/report',[\App\Http\Controllers\PDFController::class,'deductReport']);
-Route::get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
 Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
+
+    Route::middleware('auth:api')->get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
+
 
 //lab
 Route::get('lab/report',[\App\Http\Controllers\PDFController::class,'labreport']);
