@@ -77,13 +77,21 @@ TXT;
         $data = $request->all();
 
         if ($data['colName'] === 'shipping_state_id'){
+
+
+
            $state  =  ShippingState::find($data['val']);
-            $msg =   "*Shipping State has changed* \n \n".
-                "Customer name *".$shipping->name."*\n\n State *".$state->name."*";
+//            $msg =   "*Shipping State has changed* \n \n".
+//                "Customer name *".$shipping->name."*\n\n State *".$state->name."*";
+            $doc = <<<TXT
+Dear valued client($shipping->name)
+Your shipment number ($shipping->express)
+is($state->name)
+TXT;
             //owner phone
-            Whatsapp::sendMsgWb('96878622990',  $msg);
+            Whatsapp::sendMsgWb('96878622990',  $doc);
             //client phone
-            Whatsapp::sendMsgWb('968'.$shipping->phone,  $msg);
+            Whatsapp::sendMsgWb('968'.$shipping->phone,  $doc);
         }
 
         return ['status' => $shipping->update([$data['colName'] => $data['val']])];

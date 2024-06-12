@@ -35,7 +35,7 @@ class DoctorShift extends Model
 {
 
     protected $fillable = ['user_id','doctor_id','status','shift_id'];
-    protected $with = ['visits'];
+    protected $with = ['visits','cost'];
     protected $appends  = ['total','doctor_credit_cash','doctor_credit_company'];
     public function getTotalAttribute()
     {
@@ -88,6 +88,11 @@ class DoctorShift extends Model
     }
     public function hospital_credit(){
         return $this->total() -( $this->doctor_credit_cash() + $this->doctor_credit_company());
+    }
+
+    public function cost()
+    {
+        return $this->hasOne(Cost::class);
     }
     use HasFactory;
 }

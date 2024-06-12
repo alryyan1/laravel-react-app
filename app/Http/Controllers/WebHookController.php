@@ -30,7 +30,7 @@ class WebHookController extends Controller
 
             if (is_numeric($msg)){
 
-               $shipping = Shipping::find($msg);
+               $shipping = Shipping::where('id',$msg)->where('phone',substr($from_sms,3))->get();
                if ($shipping){
                    $date =  $shipping->created_at->format('Y-m-d');
                    $item_name = $shipping?->item?->name ?? '';
@@ -38,13 +38,13 @@ class WebHookController extends Controller
                    $doc = <<<TXT
 مجان للشحن ترحب بكم
 
-اسم الزبون : ( $shipping->name )
- رقم الشحنه  : ( $shipping->express )
-الصنف : (   $item_name )
-عدد الكراتين : ($shipping->ctn )
-الحجم : ( $shipping->cbm )
-الوزن : (  $shipping->kg)
-الحالة :($state_name)
+اسم الزبون :  *$shipping->name*
+ رقم الشحنه  :  *$shipping->express*
+الصنف :    *$item_name*
+*عدد الكراتين : $shipping->ctn*
+*الحجم :  $shipping->cbm*
+الوزن :   *$shipping->kg*
+*الحالة :$state_name*
 شكراً لثقتكم بنا
 
 

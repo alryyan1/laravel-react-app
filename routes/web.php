@@ -13,6 +13,7 @@ use App\Models\Item;
 use App\Models\MainTest;
 use App\Models\Patient;
 use App\Models\Shift;
+use App\Models\Shipping;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use DebugBar\DebugBar;
 use Elibyy\TCPDF\Facades\TCPDF;
@@ -62,6 +63,7 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
 //     return         $shift = Shift::latest()->first();
+        return  Shipping::where('id','=',1)->where('phone',substr('96878622990',3))->get();
 
 //      $role =     Role::create(['name' => 'admin']);
 //         $role =        Role::findById(1);
