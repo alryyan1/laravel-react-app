@@ -36,6 +36,8 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+//cost
+Route::post("cost",[\App\Http\Controllers\CostController::class,'store']);
 
 Route::get("users",[\App\Http\Controllers\UserController::class,'all']);
 Route::patch("user/roles/{user}",[\App\Http\Controllers\UserController::class,'editRole']);
@@ -98,6 +100,7 @@ Route::delete('doctors/{doctor}/service', [DoctorController::class, 'deleteDocto
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
 Route::middleware('auth:sanctum')->get('doctor/shift/close/{doctor}',[DoctorShiftController::class,'close']);
 Route::middleware('auth:sanctum')->get('doctor/openShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'DoctorShifts']);
+Route::middleware('auth:sanctum')->get('doctor/byLastUnifiedShift',[DoctorShiftController::class, 'LastShift']);
 Route::get('doctors', [DoctorController::class, 'all']);
 Route::patch('doctors/{doctor}', [DoctorController::class, 'update']);
 Route::post('doctors/add', [DoctorController::class, 'create']);
@@ -159,6 +162,7 @@ Route::middleware('auth:sanctum')->patch('patient/service/count/{doctorvisit}',[
 Route::patch('patient/service/discount/{doctorvisit}',[ServiceController::class,'discount']);
 Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
+Route::post('patient/search/phone', [PatientController::class, 'searchByphone']);
 Route::post('patient/copy/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);

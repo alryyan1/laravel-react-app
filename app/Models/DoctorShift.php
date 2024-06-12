@@ -36,9 +36,21 @@ class DoctorShift extends Model
 
     protected $fillable = ['user_id','doctor_id','status','shift_id'];
     protected $with = ['visits'];
-
+    protected $appends  = ['total','doctor_credit_cash','doctor_credit_company'];
+    public function getTotalAttribute()
+    {
+        return $this->total();
+    }
+    public function getDoctorCreditCashAttribute()
+    {
+        return $this->doctor_credit_cash();
+    }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function getDoctorCreditCompanyAttribute()
+    {
+        return $this->doctor_credit_company();
     }
     public function doctor(){
         return $this->belongsTo(Doctor::class);

@@ -43,7 +43,7 @@ class DoctorShiftController extends Controller
 
         return ['status'=> true, 'shift'=>$shift];
     }
-    public function DoctorShifts(Request $request, $shift_id, $last = true ,$open = 1){
+    public function  DoctorShifts(Request $request, $shift_id, $last = true ,$open = 1){
        $user_id =  Auth::user()->id;
 
        if ($last){
@@ -53,5 +53,13 @@ class DoctorShiftController extends Controller
             return $query->orderByDesc('doctor_visit.id');
         }])->where('user_id',$user_id)->where('status',$open)->where('shift_id',$shift_id)->get();
       return  $shifts;
+    }
+    public function  LastShift(Request $request){
+        $user_id =  Auth::user()->id;
+        $shift_id =  Shift::latest()->first()->id;
+        $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
+            return $query->orderByDesc('doctor_visit.id');
+        }])->where('user_id',$user_id)->where('shift_id',$shift_id)->get();
+        return  $shifts;
     }
 }

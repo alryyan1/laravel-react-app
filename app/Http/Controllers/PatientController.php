@@ -49,6 +49,11 @@ class PatientController extends Controller
        if ($data['name'] =='') return  [];
        return Patient::where('name','like',"%".$data['name']."%")->get();
     }
+    public function searchByphone(Request $request){
+        $data =  $request->all();
+        if ($data['phone'] =='') return  [];
+        return Patient::where('phone','like',"%".$data['phone']."%")->get();
+    }
     public function get(Request $request , Patient $patient){
         return $patient;
     }

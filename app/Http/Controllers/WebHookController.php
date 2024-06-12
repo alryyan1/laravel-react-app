@@ -47,6 +47,7 @@ class WebHookController extends Controller
 الحالة :($state_name)
 شكراً لثقتكم بنا
 
+
 Majan Express
 TXT;
 //               $shipping_details =" {$shipping->name}";
