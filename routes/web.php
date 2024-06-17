@@ -62,13 +62,24 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
+
+      return   Shift::latest()->first();
+
+        return  Patient::find(31);
+//       return Patient::with('labrequests')->find(31);
+        return Company::with('tests')->first();
+
 //     return         $shift = Shift::latest()->first();
-        return  Shipping::where('id','=',1)->where('phone',substr('96878622990',3))->get();
+
+
+
+//        return  Shipping::where('id','=',1)->where('phone',substr('96878622990',3))->get();
 
 //      $role =     Role::create(['name' => 'admin']);
 //         $role =        Role::findById(1);
 //         return $role->permissions;
-        \Spatie\Permission\Models\Permission::find(8)->delete();
+//        \Spatie\Permission\Models\Permission::find(8)->delete();
+
 
 
 //         $role->revokePermissionTo($p);

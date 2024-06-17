@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereUpdatedAt($value)
+ * @property int $complete
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereComplete($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model

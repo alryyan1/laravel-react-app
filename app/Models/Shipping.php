@@ -35,6 +35,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereShippingItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereShippingStateId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereUpdatedAt($value)
+ * @property string $prefix
+ * @method static \Illuminate\Database\Eloquent\Builder|Shipping wherePrefix($value)
  * @mixin \Eloquent
  */
 class Shipping extends Model

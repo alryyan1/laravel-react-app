@@ -29,6 +29,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DoctorShift whereUserId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Patient> $visits
  * @property-read int|null $visits_count
+ * @property-read \App\Models\Cost|null $cost
+ * @property-read mixed $doctor_credit_cash
+ * @property-read mixed $doctor_credit_company
+ * @property-read mixed $total
  * @mixin \Eloquent
  */
 class DoctorShift extends Model

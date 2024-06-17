@@ -76,6 +76,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Company|null $company
  * @property-read \App\Models\CompanyRelation|null $relation
  * @property-read \App\Models\Subcompany|null $subcompany
+ * @property-read mixed $paid
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
@@ -90,14 +91,20 @@ class Patient extends Model
     }
     protected  $with = ['labrequests','doctor','company','subcompany','relation'];
 
-
+    protected $appends = ['paid'];
+    public function getPaidAttribute(){
+        return $this->paid_lab();
+    }
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Doctor::class);
     }
-    public function labrequests(){
-      return  $this->belongsToMany(MainTest::class,'labrequests','pid','main_test_id')->withPivot(['discount_per','is_bankak']);
-    }
+//    public function labrequests(){
+//      return  $this->belongsToMany(MainTest::class,'labrequests','pid','main_test_id')->withPivot(['amount_paid','discount_per','is_bankak']);
+//    }
+   public function labrequests(){
+        return $this->hasMany(LabRequest::class,'pid');
+   }
     public function requestedResults(){
         return $this->belongsToMany(MainTest::class,'requested_results','patient_id','main_test_id');
     }
@@ -106,33 +113,26 @@ class Patient extends Model
     }
 
 
-    public function paid(){
-
+    public function paid_lab(){
         $total = 0;
         foreach ($this->labrequests as $labrequest){
             if ($this->is_lab_paid){
-                $price = $labrequest->price ;
-                $discount = $labrequest->pivot->discount_per;
-                $discounted_money = ($price * $discount ) / 100;
-                $patient_paid =   $price - $discounted_money ;
-                $total+=$patient_paid;
+                $total+=$labrequest->amount_paid;
             }
-
         }
         return $total;
-
     }
     public function total(){
 
 
-      return $this->labrequests()->sum('main_tests.price');
+      return $this->labrequests()->sum('labrequests.price');
 
     }
     public function discountAmount(){
         $total = 0;
         foreach ($this->labrequests as $labrequest){
             $price = $labrequest->price ;
-            $discount = $labrequest->pivot->discount_per;
+            $discount = $labrequest->discount_per;
             $discounted_money = ($price * $discount ) / 100;
             $total += $discounted_money;
         }
@@ -148,12 +148,9 @@ class Patient extends Model
         $total = 0;
         foreach ($this->labrequests as $labrequest){
             if ($this->is_lab_paid){
-                if ($labrequest->pivot->is_bankak == 1){
-                    $price = $labrequest->price ;
-                    $discount = $labrequest->pivot->discount_per;
-                    $discounted_money = ($price * $discount ) / 100;
-                    $patient_paid =   $price - $discounted_money ;
-                    $total+=$patient_paid;
+                if ($labrequest->is_bankak == 1){
+
+                    $total+=$labrequest->amount_paid;
                 }
 
             }

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('labrequests', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('main_test_id')->index('mantest_fk_id')->unsigned();
             $table->unsignedBigInteger('pid')->index('pid_patients_id_fk');
             $table->integer('hidden')->default(0);

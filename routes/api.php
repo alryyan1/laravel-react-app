@@ -36,6 +36,9 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::patch('requestedResult/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'save']);
+Route::post('requestedResult/default/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'default']);
 //cost
 Route::post("cost",[\App\Http\Controllers\CostController::class,'store']);
 
@@ -83,14 +86,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('patients', function (Request $request) {
-
-
-    return Patient::query()
-        ->with('doctor')
-        ->orderBy('id', 'desc')
-        ->get();
-});
 
 //doctors
 Route::patch('doctor/{doctor}', [DoctorController::class, 'update']);
@@ -112,7 +107,7 @@ Route::get('specialists/all', [SpecialistController::class, 'all']);
 Route::post('specialists/add', [SpecialistController::class, 'store']);
 Route::patch('specialists/{specialist}', [SpecialistController::class, 'update']);
 
-Route::get('lab/money', [ShiftController::class, 'total']);
+//Route::get('lab/money', [ShiftController::class, 'total']);
 Route::get('service/money', [ShiftController::class, 'totalService']);
 Route::get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
 Route::get('shift/last', [ShiftController::class, 'last']);
@@ -122,8 +117,9 @@ Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
-Route::middleware('auth:sanctum')->post('patients/add', [PatientController::class, 'store']);
+Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
+Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor}', [PatientController::class, 'saveByHistoryLab']);
 Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [PatientController::class, 'book']);
 
 
@@ -170,10 +166,10 @@ Route::post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
 Route::patch('labRequest/{patient}', [LabRequestController::class, 'edit']);
 Route::patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
 Route::patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
-Route::patch('labRequest/bankak/{patient}', [LabRequestController::class, 'bankak']);
+Route::patch('labRequest/bankak/{labRequest}', [LabRequestController::class, 'bankak']);
 
 Route::get('labRequest/{patient}', [LabRequestController::class, 'all']);
-Route::delete('labRequest/{patient}', [LabRequestController::class, 'destroy']);
+Route::delete('labRequest/{labRequest}', [LabRequestController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->post('client/create', [ClientController::class, 'create']);

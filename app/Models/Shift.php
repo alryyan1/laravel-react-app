@@ -33,13 +33,17 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read mixed $total_paid
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DoctorShift> $doctorShifts
  * @property-read int|null $doctor_shifts_count
+ * @property int $touched
+ * @property-read mixed $bankak
+ * @property-read mixed $paid_lab
+ * @method static \Illuminate\Database\Eloquent\Builder|Shift whereTouched($value)
  * @mixin \Eloquent
  */
 class Shift extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['total',	'bank'	,'expenses'	,'closed_at','is_closed'];
+    protected $fillable = ['total',	'bank'	,'expenses'	,'closed_at','is_closed','touched'];
     public function patients(){
         return $this->hasMany(Patient::class);
     }
@@ -49,8 +53,32 @@ class Shift extends Model
 
     protected $with = ['patients'];
 
-    public function total(){
-        $this::patients();
+    /**
+     * cash + insurance test prices values only paid
+     * @return int
+     */
+    public function totalLab(){
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            if ($patient->is_lab_paid){
+                $total += $patient->total();
+
+            }
+        }
+        return $total;
+    }
+
+    public function totalLabDiscount(){
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            if ($patient->is_lab_paid){
+                $total += $patient->discountAmount();
+
+            }
+        }
+        return $total;
     }
 
     /**
@@ -67,9 +95,9 @@ class Shift extends Model
             /** @var Doctorvisit $doctorvisit */
             foreach ($doctorShift->visits as $doctorvisit){
 
-                if ($doctorvisit->patient->is_lab_paid == 1){
-                    $total += $doctorvisit->patient->paid();
-                }
+//                if ($doctorvisit->patient->is_lab_paid == 1){
+//                    $total += $doctorvisit->patient->paid();
+//                }
                 $total+= $doctorvisit->total_paid_services();
             }
         }
@@ -113,19 +141,31 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid'];
+    protected $appends = ['totalPaid','paidLab','bankak'];
     function getTotalPaidAttribute()
     {
         return $this->totalPaid();
     }
+    public function getPaidLabAttribute(){
+        return $this->paidLab();
+    }
+    public function getBankakAttribute(){
+        return $this->bankakLab();
+    }
 
-    public function totalBank(){
+    public function paidLab(){
         $total = 0;
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
-            if ($patient->is_lab_paid == 1){
-                $total += $patient->paid();
-            }
+                $total += $patient->paid_lab();
+        }
+        return $total;
+    }
+    public function bankakLab(){
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+                $total += $patient->bankak();
         }
         return $total;
     }

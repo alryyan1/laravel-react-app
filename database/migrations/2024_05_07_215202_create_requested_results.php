@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('requested_results', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\LabRequest::class)->constrained('labrequests')->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Patient::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\MainTest::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\ChildTest::class);

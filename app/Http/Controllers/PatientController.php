@@ -17,6 +17,11 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
+    public function saveByHistoryLab(Patient $patient , Doctor $doctor){
+        $patient->doctor_id = $doctor->id;
+//        return ['status'=>$patient];
+        $this->store(null,false,$patient);
+    }
 
     public function registerVisit(Request $request ,Patient $patient , Doctor $doctor)
     {
@@ -68,18 +73,30 @@ class PatientController extends Controller
         }
 
     }
-    public function store(PatientAddRequest $request,$doc_id=null){
+    public function store(PatientAddRequest|null $request,$isLab=false,$patient_from_history = null){
+
+        $shift = Shift::latest()->first();
+        if ($shift->is_closed){
+            return  response(['message'=>'لم يتم فتح الورديه الماليه'],400);
+        }
 
 //        return $request->validated();
-        $patient = new Patient($request->validated());
-        if ($doc_id){
-            $patient->doctor_id = $doc_id;
+        if ($patient_from_history){
+            $patient = new Patient($patient_from_history->toArray()) ;
+
+
+//            return  ['patient' => $patient];
+        }else{
+            $patient = new Patient($request->validated());
+            if ($isLab){
+                $patient->doctor_id = $request->doctor_id;
+            }
         }
+
         $patient->user_id = \Auth::user()->id;
-        $shift = Shift::latest()->first();
-        if ($shift->is_closed == 0){
+        if ($shift->touched == 0){
             $patient->visit_number = 1;
-            $shift->is_closed = 1;
+            $shift->touched = 1;
             $shift->save();
         }else{
             $max_lab_no =  Patient::where('shift_id',$shift->id)->max('visit_number');
@@ -112,6 +129,7 @@ class PatientController extends Controller
 
         try {
             $result = $patient->save();
+
             if($result){
                 $patient = $patient->refresh();
                 $file =  \App\Models\File::whereHas('patients', function ($query) use($patient){

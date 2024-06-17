@@ -31,15 +31,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereUpdatedAt($value)
  * @property string $result
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereResult($value)
+ * @property int $lab_request_id
+ * @property-read \App\Models\ChildTest|null $childTest
+ * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereLabRequestId($value)
  * @mixin \Eloquent
  */
 class RequestedResult extends Model
 {
+    protected $table = 'requested_results';
+    protected $guarded = [];
+    protected $with = ['childTest'];
+    public function childTest(){
+        return $this->belongsTo(ChildTest::class);
+    }
+
     use HasFactory;
-    public function Patients(){
-        return $this->belongsToMany(Patient::class);
-    }
-    public function childTests(){
-        return $this->belongsToMany(ChildTest::class,'requested_results');
-    }
+
+//    public function childTests(){
+//        return $this->belongsToMany(ChildTest::class,'requested_results');
+//    }
 }

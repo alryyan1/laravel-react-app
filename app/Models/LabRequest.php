@@ -35,6 +35,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereValid($value)
  * @property-read \App\Models\MainTest $mainTest
  * @property-read \App\Models\Patient $patient
+ * @property int $id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedResult> $requested_results
+ * @property-read int|null $requested_results_count
+ * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereId($value)
  * @mixin \Eloquent
  */
 class LabRequest extends Model
@@ -42,11 +46,15 @@ class LabRequest extends Model
     use HasFactory;
     protected $table='labRequests';
     public $timestamps = false;
+    protected $with = ['requested_results','mainTest'];
     protected $guarded = [];
     public  function patient(){
         return $this->belongsTo(Patient::class,'pid');
     }
     public function mainTest(){
         return  $this->belongsTo(MainTest::class,'main_test_id');
+    }
+    public function requested_results(){
+        return $this->hasMany(RequestedResult::class);
     }
 }

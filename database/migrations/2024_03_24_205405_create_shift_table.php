@@ -16,6 +16,7 @@ return new class extends Migration
             $table->float('total')->nullable(0);
             $table->float('bank')->nullable(0);
             $table->float('expenses')->nullable(0);
+            $table->boolean('touched')->nullable(0);
             $table->dateTime('closed_at')->nullable();
             $table->boolean('is_closed')->default(false);
             $table->timestamps();

@@ -300,13 +300,15 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht,5,'الرقم',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht/2,5,'الرقم',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht + 20,5,'  الاسم',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,'القيمه ',1,0,'C',fill: 1);
         $pdf->Cell($table_col_widht,5,'المدفوع ',1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,"قيمه التخفيض",1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,"بنكك",1,0,'C',fill: 1);
-        $pdf->Cell($table_col_widht,5,"الفحوصات",1,1,'C',fill: 1);
+        $pdf->Cell($table_col_widht/2,5," التخفيض",1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht/2,5,"بنكك",1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht/2,5,"الشركه",1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht *2,5,"  الفحوصات",1,1,'C',fill: 1);
+
         $pdf->setFont($fontname, 'b', 12);
         $pdf->Ln();
 
@@ -315,18 +317,32 @@ class PDFController extends Controller
         foreach ($shift->patients as $patient){
             $y = $pdf->GetY();
             $pdf->Line(PDF_MARGIN_LEFT,$y,$page_width + PDF_MARGIN_RIGHT,$y);
-            $pdf->Cell($table_col_widht,5,$patient->id,0,0,'C');
+            $pdf->Cell($table_col_widht/2,5,$patient->visit_number,0,0,'C');
             $pdf->Cell($table_col_widht + 20,5,$patient->name,0,0,'C',stretch: 1);
-            $pdf->Cell($table_col_widht,5,$patient->paid(),0,0,'C',stretch: 1);
-            $pdf->Cell($table_col_widht,5,$patient->total(),0,0,'C',stretch: 1);
-            $pdf->Cell($table_col_widht,5,$patient->discountAmount(),0,0,'C',stretch: 1);
-            $pdf->Cell($table_col_widht,5,$patient->bankak(),0,0,'C',stretch: 1);
-            $pdf->MultiCell($table_col_widht,5,$patient->tests_concatinated(),0,'L',false,stretch: 1);
+            $pdf->Cell($table_col_widht,5, number_format($patient->total(),1),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht,5,number_format($patient->paid_lab(),1),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht/2,5,$patient->discountAmount(),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht/2,5,$patient->bankak(),0,0,'C',stretch: 1);
+            $pdf->Cell($table_col_widht/2,5,$patient?->company->name ?? 'cash',0,0,'C',stretch: 1);
+            $pdf->MultiCell($table_col_widht*2,5,$patient->tests_concatinated(),0,'L',false,stretch: 1);
             $pdf->Line(PDF_MARGIN_LEFT,$y,PDF_MARGIN_RIGHT,$y);
 
             $index++;
         }
         $pdf->Ln();
+        $table_col_widht = ($page_width ) / 5;
+
+        $pdf->Cell($table_col_widht,5,'الاجمالي',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,'  المدفوع',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'التخفيض ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,'بنكك ',1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5," النقدي",1,1,'C',fill: 1);
+
+        $pdf->Cell($table_col_widht,5,number_format($shift->totalLab(),1),1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht ,5,$shift->paidLab(),1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,$shift->totalLabDiscount(),1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,$shift->bankakLab(),1,0,'C',fill: 1);
+        $pdf->Cell($table_col_widht,5,$shift->paidLab() -$shift->bankakLab() ,1,1,'C',fill: 1);
 
         $pdf->Output('example_003.pdf', 'I');
 

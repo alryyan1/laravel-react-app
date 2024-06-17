@@ -49,5 +49,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DepositItemsTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
+        $this->call(ChildTestOptionsTableSeeder::class);
     }
 }
