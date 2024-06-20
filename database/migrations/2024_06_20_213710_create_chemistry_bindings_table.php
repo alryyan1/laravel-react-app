@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cbc_bindings', function (Blueprint $table) {
+        Schema::create('chemistry_bindings', function (Blueprint $table) {
             $table->id();
             $table->string('child_id_array');
-            $table->string('name_in_sysmex_table');
+            $table->string('name_in_mindray_table');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cbc_bindings');
+        Schema::dropIfExists('chemistry_bindings');
     }
 };

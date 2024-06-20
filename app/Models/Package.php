@@ -27,6 +27,8 @@ class Package extends Model
 {
     use HasFactory;
 
+
+    protected $primaryKey = 'package_id';
     public function tests(){
         return $this->hasMany(MainTest::class,'pack_id','package_id');
     }

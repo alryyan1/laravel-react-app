@@ -16,6 +16,13 @@ use PHPUnit\Exception;
 
 class PatientController extends Controller
 {
+    public function ByName(Request $request){
+        $name = $request->query('name');
+        if (is_numeric($name)){
+            return  ['status'=>true,'data'=>Patient::find($name)];
+        }
+       return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
+    }
 
     public function saveByHistoryLab(Patient $patient , Doctor $doctor){
         $patient->doctor_id = $doctor->id;

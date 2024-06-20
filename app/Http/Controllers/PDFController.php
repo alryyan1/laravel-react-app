@@ -368,38 +368,47 @@ class PDFController extends Controller
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
 
         $pdf->head = function ($pdf) use($patient,$page_width,$arial){
-            $pdf->SetFont('aealarabiya', '', 18, '', true);
+            $pdf->SetFont($arial, '', 18, '', true);
 
 
         $pdf->Cell($page_width, 5, 'اسم المستشفي', 0, 1, 'C');  //LAB NAME
         $pdf->Cell($page_width, 5, "قسم المختبر", 0, 1, 'C');  //LAB NAME
-        $pdf->Ln(25);
+        $pdf->Ln(15);
             $y = $pdf->GetY();
-            $pdf->SetFont($arial, '', 18, '', true);
+            $pdf->SetFont($arial, '', 13, '', true);
             $table_col_widht = ($page_width ) / 4;
             $pdf->cell($table_col_widht/2, 5, "Date", 0, 0, 'C');
         $pdf->cell($table_col_widht, 5, $patient->created_at->format('Y-m-d') , 0, 0, 'C');
-        $pdf->cell($table_col_widht *2, 5, $patient->name, 0, 0, 'R'); //patient name
-        $pdf->cell($table_col_widht/2, 5, "الاسم/ ", 0, 1, 'R'); //
-            $pdf->SetFont($arial, '', 15, '', true);
+            $pdf->SetFont($arial, '', 18, '', true);
+        $pdf->cell($table_col_widht *2 + 10, 5, $patient->name, 0, 0, 'R'); //patient name
+        $pdf->cell($table_col_widht/2 - 10, 5, "الاسم/ ", 0, 1, 'R'); //
 
         $pdf->cell($table_col_widht/2, 5, "SN", 0, 0, 'C');
         $pdf->cell($table_col_widht, 5, $patient->id, 0, 0, 'C'); //age
+            $pdf->SetFont($arial, '', 15, '', true);
 
-        $pdf->cell($table_col_widht*2, 5, $patient->doctor->name, 0, 0, 'R'); // doctor name
-        $pdf->cell($table_col_widht/2, 5, "د/ ", 0, 1, 'C');
+        $pdf->cell($table_col_widht*2 + 10, 5, $patient->doctor->name, 0, 0, 'R'); // doctor name
+        $pdf->cell($table_col_widht/2 - 10, 5, "د/ ", 0, 1, 'C');
         $requestedTests = $patient->tests_concatinated();
-        $pdf->Line(6, 43, 205, 43); //THIRD [H]
         if ($pdf->PageNo() == 1) {
             $pdf->Line(6, 5, 205, 5); //TOP LINE [H]
-            $pdf->Line(6, 42, 205, 42); //SECOND [H]
-            $pdf->Line(6, 68, 205, 68); //THIRD [H]
-            $pdf->Line(6, 42, 6, 280); //line between 2 points
-            $pdf->Line(205, 42, 205, 280); //line between 2 points
+//            $pdf->Line(6, 35, 205, 35); //SECOND [H]
+            $pdf->Line(6, 55, 205, 55); //SECOND [H]
+            $pdf->Line(6, 65, 205, 65); //SECOND [H]
+            $pdf->RoundedRect(6, 35, 199, 18, 6.50, '0101');
+
+
+//            $pdf->Line(6, 68, 205, 68); //THIRD [H]
+            $pdf->Line(6, 55, 6, 280); //line between 2 points
+            $pdf->Line(205, 55, 205, 280); //line between 2 points
             $pdf->SetFont($arial, '', 10, '', true);
             // $pdf->cell(25, 5, "", 0, 1, 'L');
+            $pdf->SetFont($arial, '', 9, '', true);
+            $pdf->Ln();
             $pdf->cell(25, 5, "Requested: ", 0, 0, 'L');
             $pdf->MultiCell(170, 5, "$requestedTests", 0, 'L', 0, 1, '', '', true);
+            $pdf->SetFont($arial, '', 15, '', true);
+
 //            $pdf->Ln(50);
         } else {
             $pdf->Line(6, 43, 6, 280); //line between 2 points
@@ -544,7 +553,7 @@ class PDFController extends Controller
 
 
                     }
-                    $pdf->cell(1, 5, "", 0, 1, 'C'); // bcforh
+//                    $pdf->cell(1, 5, "", 0, 1, 'C'); // bcforh
                     $comment = '';
 
                     if (str_word_count($comment) > 0) {

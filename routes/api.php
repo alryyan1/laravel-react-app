@@ -37,11 +37,22 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+
+Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
+Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateMindrayMatchingTable']);
+Route::get('getChemistryBindings',[\App\Http\Controllers\RequestedResultController::class,'getChemistryBindings']);
+Route::patch('updateChemistryBindings/{chemistryBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateChemistryBindings']);
+Route::post('populatePatientChemistryData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientChemistryData']);
+
+
+
 Route::post('populatePatientCbcData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientCbcData']);
 Route::get('getSysmexColumnNames',[\App\Http\Controllers\RequestedResultController::class,'sysmexColumnNames']);
 Route::post('populateCBCMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populate']);
 Route::get('getCbcBindings',[\App\Http\Controllers\RequestedResultController::class,'getCbcBindings']);
 Route::patch('updateCbcBindings/{cbcBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateCbcBindings']);
+
+
 Route::patch('requestedResult/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'save']);
 Route::patch('requestedResult/normalRange/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'edit']);
 Route::post('requestedResult/default/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'default']);
@@ -83,6 +94,7 @@ Route::post('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionCont
 Route::patch('child_tests/{main_test}',[MainTestController::class,'updateChildTest']);
 Route::patch('mainTest/{main_test}',[MainTestController::class,'update']);
 Route::get('mainTestById/{id}',[\App\Http\Controllers\MainTestController::class,'getbyid']);
+Route::get('chemistry',[\App\Http\Controllers\MainTestController::class,'chemistry']);
 
 Route::delete('childTest/{childTest}',[\App\Http\Controllers\childTestController::class,'destroy']);
 Route::post('childTest/create/{main_test}',[\App\Http\Controllers\childTestController::class,'store']);
@@ -127,6 +139,7 @@ Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
+Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'byName']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor}', [PatientController::class, 'saveByHistoryLab']);

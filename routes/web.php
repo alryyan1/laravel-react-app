@@ -11,7 +11,9 @@ use App\Models\Doctor;
 use App\Models\DoctorShift;
 use App\Models\Item;
 use App\Models\MainTest;
+use App\Models\Package;
 use App\Models\Patient;
+use App\Models\RequestedResult;
 use App\Models\Shift;
 use App\Models\Shipping;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
@@ -62,21 +64,38 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
+        return Package::with(['tests','tests.oneChild'])->find(2);
 
         $sysmex =   \App\Models\Sysmex::first();
+//        return $sysmex;
        $bindings =   \App\Models\CbcBinder::all();
 //       return $bindings;
        /** @var \App\Models\CbcBinder $binding */
         $object = null;
         $updatedRescored = 0;
         foreach ($bindings as $binding){
-           $object[$binding->name_in_sysmex_table] = $sysmex[$binding->name_in_cbc_child_table];
-           $child = ChildTest::whereChildTestName($binding->name_in_sysmex_table)->first();
-           echo  $child->child_test_name .'<br>';
-           $updatedRescored+=\App\Models\RequestedResult::whereChildTestId($child->id)->where('main_test_id','=',1)->update(['result'=>$sysmex[$binding->name_in_cbc_child_table]]);
+            $object[$binding->name_in_sysmex_table] =[
+                'child_id'=>[$binding->child_id_array],
+                'result'=> $sysmex[$binding->name_in_sysmex_table]
+            ];
+            $child_array =  explode(',',$binding->child_id_array);
+            foreach ($child_array as $child_id){
+                $requested_result = RequestedResult::whereChildTestId($child_id)->where('main_test_id','=',1)->where('patient_id','=',3)->first();
+                $requested_result->update(['result'=>$sysmex[$binding->name_in_sysmex_table]]);
+
+            }
+
+//            $child = ChildTest::whereChildTestName($binding->name_in_sysmex_table)->first();
+//           echo  $child->child_test_name
+//           $updatedRescored+=\App\Models\RequestedResult::whereId($child->id)->where('main_test_id','=',1)->update(['result'=>$sysmex[$binding->name_in_cbc_child_table]]);
         }
-        echo $updatedRescored;
+//        echo $updatedRescored;
         return  $object;
+//        $requested_results = RequestedResult::where('main_test_id','=',1)->where('patient_id','=',3)->get();
+//        foreach ($requested_results as  $result){
+//
+//
+//        }
 
 //      return   Shift::latest()->first();
       return  DB::connection()->getSchemaBuilder()->getColumnListing('sysmex');

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\MainTest;
+use App\Models\Package;
 use Illuminate\Http\Request;
 
 class MainTestController extends Controller
 {
+    public function chemistry(){
+       return Package::with('tests')->find(2);
+    }
     public function show(){
        return MainTest::with('childTests','childTests.unit')->get();
     }

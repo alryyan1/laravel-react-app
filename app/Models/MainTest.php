@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChildTest> $childTests
  * @property-read int|null $child_tests_count
  * @method static \Illuminate\Database\Eloquent\Builder|MainTest wherePrice($value)
+ * @property-read mixed $first_child_id
+ * @property-read \App\Models\ChildTest|null $oneChild
  * @mixin \Eloquent
  */
 class MainTest extends Model
@@ -40,5 +42,12 @@ class MainTest extends Model
     }
     public function childTests(){
         return $this->hasMany(ChildTest::class,'main_test_id');
+    }
+    public function oneChild(){
+        return $this->hasOne(ChildTest::class,'main_test_id');
+    }
+    protected $appends =['firstChildId'];
+    public function getFirstChildIdAttribute(){
+        return  $this->oneChild->id ?? 0;
     }
 }

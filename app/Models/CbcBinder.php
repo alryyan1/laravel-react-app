@@ -18,6 +18,8 @@ use mysql_xdevapi\Table;
  * @method static \Illuminate\Database\Eloquent\Builder|CbcBinder whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CbcBinder whereNameInCbcChildTable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CbcBinder whereNameInSysmexTable($value)
+ * @property string $child_id_array
+ * @method static \Illuminate\Database\Eloquent\Builder|CbcBinder whereChildIdArray($value)
  * @mixin \Eloquent
  */
 class CbcBinder extends Model
