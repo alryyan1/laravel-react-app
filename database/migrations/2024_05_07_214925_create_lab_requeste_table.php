@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('main_test_id')->index('mantest_fk_id')->unsigned();
             $table->unsignedBigInteger('pid')->index('pid_patients_id_fk');
-            $table->integer('hidden')->default(0);
+            $table->integer('hidden')->default(1);
             $table->integer('is_lab2lab')->default(0);
             $table->integer('valid')->default(1);
             $table->integer('no_sample')->default(0);

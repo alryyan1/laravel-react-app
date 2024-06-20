@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $lab_request_id
  * @property-read \App\Models\ChildTest|null $childTest
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedResult whereLabRequestId($value)
+ * @property-read \App\Models\Patient $patient
  * @mixin \Eloquent
  */
 class RequestedResult extends Model
@@ -44,7 +45,9 @@ class RequestedResult extends Model
     public function childTest(){
         return $this->belongsTo(ChildTest::class);
     }
-
+    public function patient(){
+        return $this->belongsTo(Patient::class);
+    }
     use HasFactory;
 
 //    public function childTests(){

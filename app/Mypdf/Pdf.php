@@ -39,6 +39,7 @@ $path = base_path()."\\vender\\tecnickcom\\tcpdf\\tcpdf.php";
 // Extend the TCPDF class to create custom Header and Footer
 class Pdf extends \TCPDF {
 
+    public $head ;
     //Page header
     public function Header() {
         // Logo
@@ -48,6 +49,8 @@ class Pdf extends \TCPDF {
 //        $this->setFont('helvetica', 'B', 20);
 //        // Title
 //        $this->Cell(0, 15, '<< TCPDF Example 003 >>', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+       $func = $this->head;
+       $func($this);
     }
 
     // Page footer

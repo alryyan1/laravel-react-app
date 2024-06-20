@@ -140,7 +140,7 @@ class Patient extends Model
 
     }
      public function tests_concatinated(){
-        return join('-',$this::labrequests()->pluck('main_test_name')->all());
+        return join('-',$this->labrequests->pluck('name')->all());
      }
 
     public function bankak(){

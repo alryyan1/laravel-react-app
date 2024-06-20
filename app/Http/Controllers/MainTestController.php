@@ -10,6 +10,9 @@ class MainTestController extends Controller
     public function show(){
        return MainTest::with('childTests','childTests.unit')->get();
     }
+    public function getbyid(Request $request , $id){
+        return MainTest::with('childTests','childTests.unit')->find($id);
+    }
 
     public function update(Request $request , MainTest $mainTest){
         $data = $request->all();

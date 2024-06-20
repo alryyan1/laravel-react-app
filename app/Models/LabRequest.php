@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedResult> $requested_results
  * @property-read int|null $requested_results_count
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereId($value)
+ * @property-read mixed $name
  * @mixin \Eloquent
  */
 class LabRequest extends Model
@@ -48,6 +49,11 @@ class LabRequest extends Model
     public $timestamps = false;
     protected $with = ['requested_results','mainTest'];
     protected $guarded = [];
+    protected $appends = ['name'];
+
+    public function getNameAttribute(){
+        return $this->mainTest->main_test_name;
+    }
     public  function patient(){
         return $this->belongsTo(Patient::class,'pid');
     }

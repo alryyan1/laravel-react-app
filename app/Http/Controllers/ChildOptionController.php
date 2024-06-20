@@ -13,8 +13,9 @@ class ChildOptionController extends Controller
         return ['status'=>true];
     }
     public function store(Request $request,ChildTest $childTest){
-          $childTest->options()->create(['name'=>'NEW!']);
-          return ['status'=>true];
+        $data = $request->all();
+          $childTest->options()->create(['name'=>$data['name']]);
+          return ['status'=>true,'options'=>$childTest->options];
 
     }
     public function update(Request $request , ChildTestOption $childTestOption){

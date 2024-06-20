@@ -33,7 +33,7 @@ use Spatie\Permission\Models\Role;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 
 Route::get('/', function () {
     FacadesDebugbar::info('hi');
@@ -63,11 +63,35 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
 
-      return   Shift::latest()->first();
+        $sysmex =   \App\Models\Sysmex::first();
+       $bindings =   \App\Models\CbcBinder::all();
+//       return $bindings;
+       /** @var \App\Models\CbcBinder $binding */
+        $object = null;
+        $updatedRescored = 0;
+        foreach ($bindings as $binding){
+           $object[$binding->name_in_sysmex_table] = $sysmex[$binding->name_in_cbc_child_table];
+           $child = ChildTest::whereChildTestName($binding->name_in_sysmex_table)->first();
+           echo  $child->child_test_name .'<br>';
+           $updatedRescored+=\App\Models\RequestedResult::whereChildTestId($child->id)->where('main_test_id','=',1)->update(['result'=>$sysmex[$binding->name_in_cbc_child_table]]);
+        }
+        echo $updatedRescored;
+        return  $object;
 
-        return  Patient::find(31);
-//       return Patient::with('labrequests')->find(31);
-        return Company::with('tests')->first();
+//      return   Shift::latest()->first();
+      return  DB::connection()->getSchemaBuilder()->getColumnListing('sysmex');
+
+
+       $patient = Patient::first();
+     return  $patient->labrequests->pluck('name');
+   return      $patient->labrequests->filter(function ($item){
+//       dd($item);
+       return  $item->mainTest->pack_id == 1;
+   });
+
+
+
+//        return Company::with('tests')->first();
 
 //     return         $shift = Shift::latest()->first();
 

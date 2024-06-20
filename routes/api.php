@@ -37,7 +37,13 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::post('populatePatientCbcData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientCbcData']);
+Route::get('getSysmexColumnNames',[\App\Http\Controllers\RequestedResultController::class,'sysmexColumnNames']);
+Route::post('populateCBCMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populate']);
+Route::get('getCbcBindings',[\App\Http\Controllers\RequestedResultController::class,'getCbcBindings']);
+Route::patch('updateCbcBindings/{cbcBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateCbcBindings']);
 Route::patch('requestedResult/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'save']);
+Route::patch('requestedResult/normalRange/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'edit']);
 Route::post('requestedResult/default/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'default']);
 //cost
 Route::post("cost",[\App\Http\Controllers\CostController::class,'store']);
@@ -76,10 +82,13 @@ Route::delete('childTestOption/{childTestOption}',[\App\Http\Controllers\ChildOp
 Route::post('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'store']);
 Route::patch('child_tests/{main_test}',[MainTestController::class,'updateChildTest']);
 Route::patch('mainTest/{main_test}',[MainTestController::class,'update']);
+Route::get('mainTestById/{id}',[\App\Http\Controllers\MainTestController::class,'getbyid']);
+
 Route::delete('childTest/{childTest}',[\App\Http\Controllers\childTestController::class,'destroy']);
 Route::post('childTest/create/{main_test}',[\App\Http\Controllers\childTestController::class,'store']);
 Route::get('containers/all',[\App\Http\Controllers\ContainerController::class,'all']);
 Route::get('units/all',[\App\Http\Controllers\UnitController::class,'all']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     return $request->user();
@@ -111,6 +120,7 @@ Route::patch('specialists/{specialist}', [SpecialistController::class, 'update']
 Route::get('service/money', [ShiftController::class, 'totalService']);
 Route::get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
 Route::get('shift/last', [ShiftController::class, 'last']);
+Route::get('shiftById/{shift}', [ShiftController::class, 'shiftById']);
 Route::post('shift/status/{shift}', [ShiftController::class, 'status']);
 
 Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
@@ -167,6 +177,7 @@ Route::patch('labRequest/{patient}', [LabRequestController::class, 'edit']);
 Route::patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
 Route::patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
 Route::patch('labRequest/bankak/{labRequest}', [LabRequestController::class, 'bankak']);
+Route::patch('labRequest/hidetest/{labRequest}', [LabRequestController::class, 'hide']);
 
 Route::get('labRequest/{patient}', [LabRequestController::class, 'all']);
 Route::delete('labRequest/{labRequest}', [LabRequestController::class, 'destroy']);

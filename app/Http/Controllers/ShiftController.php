@@ -29,6 +29,11 @@ class ShiftController extends Controller
         $shift = Shift::latest()->first();
         return ['status' => true, 'data' => $shift];
 
+    }public function shiftById(Request $request , Shift $shift)
+    {
+
+        return ['status' => true, 'data' => $shift];
+
     }
     public function test(Request $request,$age,$name){
         return [$age,$name];

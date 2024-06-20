@@ -7,13 +7,17 @@ use App\Models\Deduct;
 use App\Models\Deposit;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
+use App\Models\LabRequest;
 use App\Models\MainTest;
+use App\Models\Package;
 use App\Models\Patient;
+use App\Models\RequestedResult;
 use App\Models\Service;
 use App\Models\Shift;
 use App\Models\Shipping;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
+use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Request;
 use App\Mypdf\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -282,8 +286,9 @@ class PDFController extends Controller
         $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setFont('times', 'BI', 12);
+
         $pdf->AddPage();
-        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
 
@@ -346,6 +351,214 @@ class PDFController extends Controller
 
         $pdf->Output('example_003.pdf', 'I');
 
+    }
+    public function result(Request $request){
+         /** @var Patient $patient */
+        $patient =  Patient::find($request->get('pid'));
+        $pdf = new Pdf('portrait', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('النتيحه');
+        $pdf->setSubject('patient lab result');
+        $pdf->setMargins(PDF_MARGIN_LEFT, 70, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+
+        $pdf->head = function ($pdf) use($patient,$page_width,$arial){
+            $pdf->SetFont('aealarabiya', '', 18, '', true);
+
+
+        $pdf->Cell($page_width, 5, 'اسم المستشفي', 0, 1, 'C');  //LAB NAME
+        $pdf->Cell($page_width, 5, "قسم المختبر", 0, 1, 'C');  //LAB NAME
+        $pdf->Ln(25);
+            $y = $pdf->GetY();
+            $pdf->SetFont($arial, '', 18, '', true);
+            $table_col_widht = ($page_width ) / 4;
+            $pdf->cell($table_col_widht/2, 5, "Date", 0, 0, 'C');
+        $pdf->cell($table_col_widht, 5, $patient->created_at->format('Y-m-d') , 0, 0, 'C');
+        $pdf->cell($table_col_widht *2, 5, $patient->name, 0, 0, 'R'); //patient name
+        $pdf->cell($table_col_widht/2, 5, "الاسم/ ", 0, 1, 'R'); //
+            $pdf->SetFont($arial, '', 15, '', true);
+
+        $pdf->cell($table_col_widht/2, 5, "SN", 0, 0, 'C');
+        $pdf->cell($table_col_widht, 5, $patient->id, 0, 0, 'C'); //age
+
+        $pdf->cell($table_col_widht*2, 5, $patient->doctor->name, 0, 0, 'R'); // doctor name
+        $pdf->cell($table_col_widht/2, 5, "د/ ", 0, 1, 'C');
+        $requestedTests = $patient->tests_concatinated();
+        $pdf->Line(6, 43, 205, 43); //THIRD [H]
+        if ($pdf->PageNo() == 1) {
+            $pdf->Line(6, 5, 205, 5); //TOP LINE [H]
+            $pdf->Line(6, 42, 205, 42); //SECOND [H]
+            $pdf->Line(6, 68, 205, 68); //THIRD [H]
+            $pdf->Line(6, 42, 6, 280); //line between 2 points
+            $pdf->Line(205, 42, 205, 280); //line between 2 points
+            $pdf->SetFont($arial, '', 10, '', true);
+            // $pdf->cell(25, 5, "", 0, 1, 'L');
+            $pdf->cell(25, 5, "Requested: ", 0, 0, 'L');
+            $pdf->MultiCell(170, 5, "$requestedTests", 0, 'L', 0, 1, '', '', true);
+//            $pdf->Ln(50);
+        } else {
+            $pdf->Line(6, 43, 6, 280); //line between 2 points
+
+            $pdf->Line(205, 43, 205, 280); //line between 2 points
+        }
+        };
+        $pdf->AddPage();
+        //$pdf->Ln(25);
+        $pdf->SetFillColor(240, 240, 240);
+        $page_height = $pdf->getPageHeight() - PDF_MARGIN_TOP  ;
+        $pdf->SetFont('aealarabiya', '', 10, '', true);
+        $mypakages  = Package::all();
+
+        foreach ($mypakages as $package) {
+            $show_headers = true;
+            $main_test_array =  $patient->labrequests->filter(function ($item) use ($package){
+                return  $item->mainTest->pack_id == $package->package_id;
+            });
+            /** @var LabRequest $m_test */
+            foreach ($main_test_array as $m_test) {
+                if ($m_test->hidden == 0) continue;
+                $children_count = count($m_test->requested_results);
+                $number_of_lines_in_normal_range = 0;
+                $total_lines = 0;
+                /** @var RequestedResult $requested_result */
+                foreach ($m_test->requested_results as $requested_result) {
+                    $nr = $requested_result->normal_range;
+                    $number_of_lines_in_normal_range =  substr_count($nr, "\n");
+                    $lines_in_result =  substr_count($requested_result->result, "\n");
+                    $total_lines+= max($lines_in_result,$number_of_lines_in_normal_range);
+                }
+                $number_of_lines_in_normal_range = $number_of_lines_in_normal_range / 2;
+                $number_of_lines_in_normal_range = $total_lines * 5;
+                $requared_height = ($children_count * 5)  + $number_of_lines_in_normal_range;
+                $y = $pdf->GetY();
+
+                $remaing_height = $page_height - $y - 15;
+//                $pdf->cell(40, 5, "requared_height $requared_height  ------------    remaing_height $remaing_height", 0, 1); //blank cell for heighht
+
+                if ($remaing_height <= $requared_height) {
+                    $pdf->addpage();
+
+
+                }
+
+
+                $has_more_than1_child = false;
+                if ($children_count > 1) {
+                    $has_more_than1_child = true;
+                }
+                if ($has_more_than1_child == false) {
+
+                    $table_col_widht = ($page_width ) / 4;
+
+                    if ($show_headers){
+                        $pdf->cell($table_col_widht, 5, "Test", 1, 0, 'C', 1);
+                        $pdf->cell($table_col_widht*1.5, 5, "Result", 1, 0, 'C', 1);
+                        $pdf->cell($table_col_widht/2, 5, "Unit", 1, 0, 'C', 1);
+                        $pdf->cell($table_col_widht, 5, "R.Values", 1, 1, 'C', 1);
+                    }
+
+
+                    $show_headers = false;
+                }
+                if ($has_more_than1_child) //only show main test name if has more than 1 child test
+                {
+                    $table_col_widht = ($page_width ) / 4;
+
+                    $pdf->SetFont($arial, 'u', 17, '', true);
+                    $pdf->cell(40, 5, $m_test->mainTest->main_test_name, 0, 1, 'L'); // main
+                    $pdf->Ln();
+
+                    $pdf->SetFont($arial, '', 11, '', true);
+                    $y = $pdf->GetY();
+
+                    $pdf->cell($table_col_widht, 5, "Test", 1, 0, 'C', 1);
+                    $pdf->cell($table_col_widht*1.5, 5, "Result", 1, 0, 'C', 1);
+                    $pdf->cell($table_col_widht/2, 5, "Unit", 1, 0, 'C', 1);
+                    $pdf->cell($table_col_widht, 5, "R.Values", 1, 1, 'C', 1);
+                }
+                $old = '';
+
+                /** @var RequestedResult $result */
+                foreach ($m_test->requested_results as $result) {
+                        $child_test = $result->childTest;
+                        $y = $pdf->GetY();
+                    if ($result->childTest->childGroup?->name != null){
+                        $new = $result->childTest->childGroup?->name;
+                        if ($old != $new){
+                            $old = $result->childTest->childGroup?->name;
+                            $pdf->SetFont($arial, 'u', 14, '', true);
+
+                            $pdf->cell(40, 5, $old, 0, 1);
+                            $pdf->SetFont($arial, '', 12, '', true);
+
+
+                        }
+
+                        if ($old !=''){
+                            if ($old != $new) {
+                            }
+
+                        }
+
+                    }
+                        $unit = $child_test->unit->name;
+                        $normal_range = $result->normal_range;
+                        $child_id = $child_test->id;
+                    $table_col_widht = ($page_width ) / 4;
+                    $resultCellHeight = 5;
+                    $pdf->cell($table_col_widht, 5, $child_test->child_test_name, 0, 0, 'C'); // test name
+                        $report_result = $result->result;
+                    $pdf->SetFont('dejavusans', 'b', 11, '', true);
+
+                    if (($child_id == 46 || $child_id == 70 || $child_id == 213) && $report_result != '' && is_numeric($report_result)) {
+                                $percent =  ($report_result / 15) * 100;
+                                $percent = ceil($percent);
+
+                                $resultCellHeight =     $pdf->MultiCell($table_col_widht * 1.5 , 5, "$report_result         $percent % ", 0, 'C', 0, 0, '', '', true);
+                            } else {
+
+                                $resultCellHeight =     $pdf->MultiCell($table_col_widht * 1.5 , 5, "$report_result", 0, 'C', 0, 0, '', '', true);
+
+                            }
+                    $pdf->SetFont($arial, '', 10, '', true);
+
+                        $pdf->cell($table_col_widht/2, 5, "$unit", 0, 0, 'C', 0, '', 1); // unit
+                        $normalRangeCellHeight =   $pdf->MultiCell($table_col_widht, 5, "$normal_range", 0, 'C', 0, 1, '', '', true);
+                        $y = $pdf->GetY();
+                        $highestValue =   max([$normalRangeCellHeight,$resultCellHeight]);
+
+                      if($resultCellHeight > $normalRangeCellHeight){
+                            //caclulate additional height
+                           $additional_height =   $resultCellHeight  * 5  - ($normalRangeCellHeight * 5);
+                            $pdf->Line(PDF_MARGIN_LEFT,$y+$additional_height ,$page_width + PDF_MARGIN_RIGHT,$y+$additional_height);
+
+                        }else{
+                        $pdf->Line(PDF_MARGIN_LEFT,$y ,$page_width + PDF_MARGIN_RIGHT,$y);
+
+                    }
+
+
+                    }
+                    $pdf->cell(1, 5, "", 0, 1, 'C'); // bcforh
+                    $comment = '';
+
+                    if (str_word_count($comment) > 0) {
+
+                        $pdf->cell(20, 5, "Comment", 0, 1, 'C'); // bcforh
+                        $y = $pdf->GetY();
+                        $pdf->Line(10, $y, 30, $y); //line between 2 points
+                        $pdf->cell(20, 5, "", 0, 1, 'C'); // bcforh
+                        $pdf->MultiCell(189, 5, $comment, 1, "", 1);
+                    }
+
+            }
+        }
+            $pdf->output();
     }
     public function clinicsReport(Request $request)
     {
