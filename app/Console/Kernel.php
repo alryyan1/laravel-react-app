@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\Whatsapp;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,6 +14,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('backup:clean')->daily()->at('03:42');
+        $schedule->command('backup:run')->daily()->at('03:42')->onSuccess(function (){
+            Whatsapp::sendMsgWb('249991961111','backup had completed');
+        });
     }
 
     /**
