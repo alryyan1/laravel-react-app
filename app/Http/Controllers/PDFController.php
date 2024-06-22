@@ -371,8 +371,8 @@ class PDFController extends Controller
             $pdf->SetFont($arial, '', 18, '', true);
 
 
-        $pdf->Cell($page_width, 5, 'اسم المستشفي', 0, 1, 'C');  //LAB NAME
-        $pdf->Cell($page_width, 5, "قسم المختبر", 0, 1, 'C');  //LAB NAME
+        $pdf->Cell($page_width, 5, ' ', 0, 1, 'C');  //LAB NAME
+        $pdf->Cell($page_width, 5, " ", 0, 1, 'C');  //LAB NAME
         $pdf->Ln(15);
             $y = $pdf->GetY();
             $pdf->SetFont($arial, '', 13, '', true);
