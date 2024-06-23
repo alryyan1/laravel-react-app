@@ -355,6 +355,10 @@ class PDFController extends Controller
     public function result(Request $request){
          /** @var Patient $patient */
         $patient =  Patient::find($request->get('pid'));
+        if ($patient->result_print_date != null){
+            $patient->update(['result_print_date'=>now()]);
+
+        }
         $pdf = new Pdf('portrait', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setCreator(PDF_CREATOR);
         $pdf->setAuthor('alryyan mahjoob');
@@ -465,6 +469,7 @@ class PDFController extends Controller
                     $table_col_widht = ($page_width ) / 4;
 
                     if ($show_headers){
+
                         $pdf->cell($table_col_widht, 5, "Test", 1, 0, 'C', 1);
                         $pdf->cell($table_col_widht*1.5, 5, "Result", 1, 0, 'C', 1);
                         $pdf->cell($table_col_widht/2, 5, "Unit", 1, 0, 'C', 1);
@@ -489,6 +494,8 @@ class PDFController extends Controller
                     $pdf->cell($table_col_widht*1.5, 5, "Result", 1, 0, 'C', 1);
                     $pdf->cell($table_col_widht/2, 5, "Unit", 1, 0, 'C', 1);
                     $pdf->cell($table_col_widht, 5, "R.Values", 1, 1, 'C', 1);
+                    $pdf->Ln();
+
                 }
                 $old = '';
 
@@ -530,15 +537,26 @@ class PDFController extends Controller
 
                                 $resultCellHeight =     $pdf->MultiCell($table_col_widht * 1.5 , 5, "$report_result         $percent % ", 0, 'C', 0, 0, '', '', true);
                             } else {
+                                $lines_in_result =  $pdf->getNumLines($report_result);
+//                                echo $lines_in_result;
+                                if ($lines_in_result > 0){
 
-                                $resultCellHeight =     $pdf->MultiCell($table_col_widht * 1.5 , 5, "$report_result", 0, 'C', 0, 0, '', '', true);
+                                    $resultCellHeight =     $pdf->MultiCell($table_col_widht * 1.5 , 5, "$report_result", 0, 'C', 0, 0, '', '', true);
+
+
+                                }else{
+                                    $resultCellHeight =     $pdf->MultiCell($table_col_widht * 1.5 , 5, "$report_result", 0, 'C', 0, 0, '', '', true);
+
+                                }
+
 
                             }
                     $pdf->SetFont($arial, '', 10, '', true);
-
-                        $pdf->cell($table_col_widht/2, 5, "$unit", 0, 0, 'C', 0, '', 1); // unit
+                    $pdf->MultiCell($table_col_widht/2 , 5, "$unit", 0, 'C', 0, 0, '', '', true);
+//                        $pdf->cell($table_col_widht/2, 5, "$unit", 0, 0, 'C', 0, '', 1); // unit
                         $normalRangeCellHeight =   $pdf->MultiCell($table_col_widht, 5, "$normal_range", 0, 'C', 0, 1, '', '', true);
                         $y = $pdf->GetY();
+                        $x = $pdf->GetX();
                         $highestValue =   max([$normalRangeCellHeight,$resultCellHeight]);
 
                       if($resultCellHeight > $normalRangeCellHeight){
@@ -553,17 +571,47 @@ class PDFController extends Controller
 
 
                     }
-//                    $pdf->cell(1, 5, "", 0, 1, 'C'); // bcforh
-                    $comment = '';
 
-                    if (str_word_count($comment) > 0) {
+
+                if ($lines_in_result > 0){
+
+                    $y = $pdf->GetY();
+                    $pdf->setY($y +  $resultCellHeight  * 5);
+                    if (str_word_count($m_test->comment) > 0) {
+                        $pdf->Ln();
+                        $pdf->SetFont($arial, 'u', 14, '', true);
 
                         $pdf->cell(20, 5, "Comment", 0, 1, 'C'); // bcforh
+                        $pdf->Ln();
+
                         $y = $pdf->GetY();
-                        $pdf->Line(10, $y, 30, $y); //line between 2 points
-                        $pdf->cell(20, 5, "", 0, 1, 'C'); // bcforh
-                        $pdf->MultiCell(189, 5, $comment, 1, "", 1);
+                        $pdf->SetFont($arial, 'b', 12, '', true);
+
+                        $pdf->MultiCell($page_width, 5, "♠ ".$m_test->comment, 0, "", 0);
+                        $pdf->SetFont($arial, '', 12, '', true);
+
+                        $pdf->Ln();
+
                     }
+
+                }else{
+                    if (str_word_count($m_test->comment) > 0) {
+                        $pdf->Ln();
+                        $pdf->SetFont($arial, 'u', 14, '', true);
+
+                        $pdf->cell(20, 5, "Comment", 0, 1, 'C'); // bcforh
+                        $pdf->Ln();
+
+                        $y = $pdf->GetY();
+                        $pdf->SetFont($arial, 'b', 12, '', true);
+
+                        $pdf->MultiCell($page_width, 5, "♠ ".$m_test->comment, 0, "", 0);
+                        $pdf->SetFont($arial, '', 12, '', true);
+
+                        $pdf->Ln();
+
+                    }
+                }
 
             }
         }
@@ -783,6 +831,7 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht,5,number_format($total_doctor_cash,1),1,0,'C',fill: 0,stretch: 1);
         $pdf->Cell($table_col_widht,5,number_format($total_doctor_isnu,1),1,0,'C',fill: 0,stretch: 1);
         $pdf->Cell($table_col_widht,5,number_format($total_hosptal,1),1,0,'C',fill: 0,stretch: 1);
+
 
         $pdf->Output('example_003.pdf', 'I');
 

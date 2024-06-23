@@ -26,6 +26,8 @@ return new class extends Migration
             $table->integer('discount_per')->default(0);
             $table->integer('is_bankak')->default(0);
             $table->text('comment')->nullable();
+            $table->foreignIdFor(\App\Models\User::class,'user_requested')->nullable()->constrained()->references('id')->on('users');
+            $table->foreignIdFor(\App\Models\User::class,'user_deposited')->nullable()->constrained()->references('id')->on('users');
 
             $table->unique(['main_test_id', 'pid'], 'uniqe_pid_maintest_requests');
         });

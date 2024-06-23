@@ -23,6 +23,11 @@ class PatientController extends Controller
         }
        return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
     }
+  public function printLock(Request $request , Patient $patient){
+        $lock = $patient->result_is_locked == 0 ? 1 : 0;
+        $patient->update(['result_is_locked'=> $lock]);
+        return ['status'=>true,'patient'=>$patient,'lock'=>$lock];
+    }
 
     public function saveByHistoryLab(Patient $patient , Doctor $doctor){
         $patient->doctor_id = $doctor->id;

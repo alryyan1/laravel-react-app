@@ -32,12 +32,10 @@ class DeductController extends Controller
     }
     public function destroy(Request $request){
 
-        $data = $request->all();
-//        return $data;
-        $item_id =  $data['item_id'];
+        $item_id =  $request->query('item_id');
         $deduct = Deduct::latest()->first();
         $deduct->items()->detach($item_id);
-        return ['status'=>true];
+        return ['status'=>true,'deduct'=>$deduct->refresh()];
 
     }
     public function deduct(Request $request){

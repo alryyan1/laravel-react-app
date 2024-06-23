@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LabRequest extends Model
 {
+
     use HasFactory;
     protected $table='labRequests';
     public $timestamps = false;

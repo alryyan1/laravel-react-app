@@ -24,6 +24,9 @@ class RequestedResultController extends Controller
                 CbcBinder::create(['name_in_sysmex_table'=>$childTest->child_test_name,'name_in_cbc_child_table'=>$childTest->child_test_name]);
         }
     }
+    public function comment(Request $request,LabRequest $labRequest){
+      return ['status'=>$labRequest->update(['comment'=>$request->get('val')])];
+    }
     public function populateMindrayMatchingTable(Request $request){
         $names =   DB::connection()->getSchemaBuilder()->getColumnListing('mindray2');
 

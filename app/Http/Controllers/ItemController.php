@@ -180,7 +180,7 @@ class ItemController extends Controller
         if ($user->can('عرض الاصناف')) {
         $item =  $request->item;
 
-        if ( $request->has('word')){
+        if ( $request->query('word') && $request->query('word') != ''){
             $word = $request->query('word');
 
             return collect( Item::orderByDesc('id')->with('section')->where('name','like',"%$word%")->paginate($item));

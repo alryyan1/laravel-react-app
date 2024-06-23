@@ -7,8 +7,9 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    public function all(){
-        return Permission::all();
+    public function all(Request $request){
+        $guard_name = $request->query('guard_name');
+        return Permission::where('guard_name','=',$guard_name)->get();
     }
     public function store(Request $request)
     {

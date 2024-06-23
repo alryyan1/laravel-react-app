@@ -141,10 +141,14 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak'];
+    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId'];
     function getTotalPaidAttribute()
     {
         return $this->totalPaid();
+    }
+    function getMaxShiftIdAttribute()
+    {
+        return self::max('id');
     }
     public function getPaidLabAttribute(){
         return $this->paidLab();

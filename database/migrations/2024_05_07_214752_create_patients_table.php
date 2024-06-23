@@ -31,6 +31,9 @@ return new class extends Migration
             $table->string('insurance_no')->nullable();
             $table->boolean('is_lab_paid')->default(0);
             $table->integer('lab_paid')->default(0);
+            $table->boolean('result_is_locked')->default(0);
+            $table->boolean('sample_collected')->default(0);
+            $table->dateTime('result_print_date')->nullable()->default(null);
             $table->integer('visit_number');
 
             $table->timestamps();

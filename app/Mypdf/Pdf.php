@@ -50,7 +50,10 @@ class Pdf extends \TCPDF {
 //        // Title
 //        $this->Cell(0, 15, '<< TCPDF Example 003 >>', 0, false, 'C', 0, '', 0, false, 'M', 'M');
        $func = $this->head;
-       $func($this);
+       if ($func != null){
+           $func($this);
+
+       }
     }
 
     // Page footer

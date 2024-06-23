@@ -55,6 +55,7 @@ Route::patch('updateCbcBindings/{cbcBinder}',[\App\Http\Controllers\RequestedRes
 
 Route::patch('requestedResult/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'save']);
 Route::patch('requestedResult/normalRange/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'edit']);
+Route::patch('comment/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'comment']);
 Route::post('requestedResult/default/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'default']);
 //cost
 Route::post("cost",[\App\Http\Controllers\CostController::class,'store']);
@@ -139,6 +140,7 @@ Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
+Route::middleware('auth:sanctum')->get('printLock/{patient}', [PatientController::class, 'printLock']);
 Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'byName']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
@@ -185,9 +187,9 @@ Route::post('patient/search/phone', [PatientController::class, 'searchByphone'])
 Route::post('patient/copy/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
-Route::post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
+Route::middleware('auth:sanctum')->post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
 Route::patch('labRequest/{patient}', [LabRequestController::class, 'edit']);
-Route::patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
+Route::middleware('auth:sanctum')->patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
 Route::patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
 Route::patch('labRequest/bankak/{labRequest}', [LabRequestController::class, 'bankak']);
 Route::patch('labRequest/hidetest/{labRequest}', [LabRequestController::class, 'hide']);
@@ -197,7 +199,7 @@ Route::delete('labRequest/{labRequest}', [LabRequestController::class, 'destroy'
 
 
 Route::middleware('auth:sanctum')->post('client/create', [ClientController::class, 'create']);
-Route::delete('client/{client}', [ClientController::class, 'destroy']);
+Route::middleware('auth:sanctum')->delete('client/{client}', [ClientController::class, 'destroy']);
 Route::get('client/all', [ClientController::class, 'index']);
 
 Route::middleware('auth:sanctum')->post('suppliers/create', [SupplierController::class, 'create']);
@@ -248,7 +250,7 @@ Route::middleware('auth:sanctum')->delete('inventory/deduct/{deduct}', [DeductCo
 Route::middleware('auth:sanctum')->post('inventory/deduct', [DeductController::class, 'deduct']);
 Route::middleware('auth:sanctum')->get('inventory/deduct/complete', [DeductController::class, 'complete']);
 Route::get('inventory/deduct/last', [DeductController::class, 'last']);
-Route::delete('inventory/deduct', [DeductController::class, 'destroy']);
+Route::post('inventory/deduct/item', [DeductController::class, 'destroy']);
 Route::post('inventory/deduct/getDeductsByDate', [DeductController::class, 'getDeductsByDate']);
 Route::post('inventory/deduct/getDeductsByDate', [DeductController::class, 'getDeductsByDate']);
 Route::get('inventory/deduct/showDeductById/{deduct}', [DeductController::class, 'showDeductById']);
