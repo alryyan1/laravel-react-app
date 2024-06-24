@@ -82,7 +82,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender','visit_number','company_id','subcompany_id','company_relation_id','insurance_no','guarantor','result_is_locked','result_print_date'];
+    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender','visit_number','company_id','subcompany_id','company_relation_id','insurance_no','guarantor','result_is_locked','result_print_date','sample_print_date'];
     protected function name() : Attribute {
         return Attribute::make(
             set:fn($value)=> trim($value),
@@ -94,6 +94,7 @@ class Patient extends Model
     public function getPaidAttribute(){
         return $this->paid_lab();
     }
+
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Doctor::class);

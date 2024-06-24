@@ -25,12 +25,10 @@ class LabRequestController extends Controller
         $data = $request->all();
         return ['status'=>$labRequest->update(['hidden'=>$data['val']]),'data'=>$labRequest->patient->refresh()];
     }
-    public function edit(Request $request,Patient $patient){
+    public function edit(Request $request,LabRequest $labRequest){
         $data = $request->all();
-        $test_id =  $data['test_id'];
-        $patient->labrequests()->updateExistingPivot($test_id,['discount_per'=>$data['discount']],touch:false);
-       return $data;
 
+        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$labRequest->patient->refresh()];
     }
     public function payment(Request $request,Patient $patient){
 
@@ -132,7 +130,7 @@ class LabRequestController extends Controller
                 }
             });
         } catch (\Throwable $e) {
-            return ['status' => true, 'message' => $e->getMessage()];
+            return ['status' => false, 'message' => $e->getMessage()];
 
         }
 

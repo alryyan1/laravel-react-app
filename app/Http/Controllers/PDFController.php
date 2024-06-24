@@ -355,7 +355,7 @@ class PDFController extends Controller
     public function result(Request $request){
          /** @var Patient $patient */
         $patient =  Patient::find($request->get('pid'));
-        if ($patient->result_print_date != null){
+        if ($patient->result_print_date == null){
             $patient->update(['result_print_date'=>now()]);
 
         }
@@ -522,7 +522,7 @@ class PDFController extends Controller
                         }
 
                     }
-                        $unit = $child_test->unit->name;
+                        $unit = $child_test?->unit?->name;
                         $normal_range = $result->normal_range;
                         $child_id = $child_test->id;
                     $table_col_widht = ($page_width ) / 4;

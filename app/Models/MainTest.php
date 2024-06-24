@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 class MainTest extends Model
 {
     use HasFactory;
+    protected $with =['container'];
     public $timestamps = false;
     protected $fillable = ['main_test_name','price'];
     public function Package(){
@@ -42,6 +43,10 @@ class MainTest extends Model
     }
     public function childTests(){
         return $this->hasMany(ChildTest::class,'main_test_id');
+    }
+    public function container()
+    {
+        return $this->belongsTo(Container::class);
     }
     public function oneChild(){
         return $this->hasOne(ChildTest::class,'main_test_id');

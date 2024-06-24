@@ -7,8 +7,11 @@ use App\Models\Doctor;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
 use App\Models\File;
+use App\Models\LabRequest;
+use App\Models\MainTest;
 use App\Models\Patient;
 use App\Models\Shift;
+use App\Zebra;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +85,59 @@ class PatientController extends Controller
 
         if ($result){
             return ['status'=>true,'patient'=>$doctorvisit->refresh()];
+        }
+
+    }
+    public function printBarcode(Request $request , Patient $patient)
+    {
+
+        $patient->update(['sample_print_date'=>now()]);
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $hostPrinter = "\\$ip_address\zebra";
+        $speedPrinter = 3;
+        $darknessPrint = 20;
+        $labelSize = array(300,10);
+        $referencePoint = array(223,30);
+        $z = new Zebra($hostPrinter, $speedPrinter, $darknessPrint, $labelSize, $referencePoint);
+        $containers = $patient->labrequests->map(function(LabRequest $req){
+            return $req->mainTest->container;
+        });
+
+        foreach($containers as $container )
+        {
+           $tests_accoriding_to_container =  $patient->labrequests->filter(function (LabRequest $labrequest) use ($container){
+                return $labrequest->mainTest->container->id == $container->id;
+            })->map(function (LabRequest $labRequest){
+                return $labRequest->mainTest;
+           });
+            $tests ="";
+            /** @var MainTest $maintest */
+            foreach($tests_accoriding_to_container as $maintest)
+            {
+                $main_test_name =  $maintest->main_test_name;
+                $tests.=$main_test_name;
+
+            }
+                $z->setBarcode(1, 270, 120, $patient->id); #1 -> cod128//barcode
+                $z->writeLabel("------------",340,165,4);//patient id
+                $z->writeLabel($patient->id,340,155,4);//patient id
+                $z->writeLabel("$tests",330,10,1);
+                //$z->writeLabel("-",200,20,1);
+                $z->setLabelCopies(1);
+
+        }//end of foreach
+
+        $z->print2zebra();
+        return ['status'=>true];
+    }
+    public function update(PatientAddRequest  $request,Patient $patient){
+//        return $doctorvisit;
+//        return $request->validated();
+        //اذا عايز تعدل علي الشركه امسح الفحوصات والخدمات والغي الجهات والعلاقات
+        $result =  $patient->update($request->validated());
+
+        if ($result){
+            return ['status'=>true,'patient'=>$patient->refresh()];
         }
 
     }

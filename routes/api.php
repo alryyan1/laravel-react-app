@@ -187,8 +187,10 @@ Route::post('patient/search/phone', [PatientController::class, 'searchByphone'])
 Route::post('patient/copy/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
+Route::patch('patients/{patient}', [PatientController::class, 'update']);
+Route::get('patient/barcode/{patient}', [PatientController::class, 'printBarcode']);
 Route::middleware('auth:sanctum')->post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
-Route::patch('labRequest/{patient}', [LabRequestController::class, 'edit']);
+Route::patch('labRequest/{labRequest}', [LabRequestController::class, 'edit']);
 Route::middleware('auth:sanctum')->patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
 Route::patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
 Route::patch('labRequest/bankak/{labRequest}', [LabRequestController::class, 'bankak']);

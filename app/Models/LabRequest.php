@@ -48,7 +48,7 @@ class LabRequest extends Model
     use HasFactory;
     protected $table='labRequests';
     public $timestamps = false;
-    protected $with = ['requested_results','mainTest'];
+    protected $with = ['requested_results','mainTest','unfinished_results_count'];
     protected $guarded = [];
     protected $appends = ['name'];
 
@@ -64,4 +64,11 @@ class LabRequest extends Model
     public function requested_results(){
         return $this->hasMany(RequestedResult::class);
     }
+    public function unfinished_results_count()
+    {
+        return  $this->requested_results()->where('result','=','');
+
+    }
+
+
 }
