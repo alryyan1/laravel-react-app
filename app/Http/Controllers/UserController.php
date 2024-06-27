@@ -2,12 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deno;
+use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function updateDenoUser(Request $request)
+    {
+        $data = $request->all();
+        $max_shift_id = Shift::max('id');
+        /** @var User $user */
+        $user =  auth()->user();
+//        $user->denos()->updateExistingPivot($data['deno_id'], ['amount' => $data['val']]);
+         $pdo=        DB::connection()->getPdo();
+         $pdo->prepare('update denos_users set amount = amount + ? where shift_id = ? and deno_id = ?')->execute([$data['val'],  $max_shift_id,$data['deno_id']]);
+         return ['status'=>true,'data'=>$user->user_denos_by_shift];
+
+    }
     public function all()
     {
         return User::with('roles')->get();
@@ -22,5 +37,27 @@ class UserController extends Controller
             return ['status' => true, 'msg' => 'role removed successfully'];
 
         }
+    }
+    public function populateDenos(Request $request)
+    {
+        $max_shift_id = Shift::max('id');
+        /** @var User $user */
+       $user =  auth()->user();
+        $denos =  Deno::all();
+        $pdo = DB::connection()->getPdo();
+        $rows =  $pdo->query("select * from denos_users where shift_id = $max_shift_id and user_id = $user->id")->rowCount();
+        if ($rows == 0) {
+            foreach ($denos as $deno) {
+                $user->denos()->attach($deno->id,['shift_id' => $max_shift_id]);
+
+            }
+        }
+
+    }
+    public function denosByLastShift(Request $request)
+    {
+        /** @var User $user */
+        $user =  auth()->user();
+        return ['status'=> true, 'data'=> $user->user_denos_by_shift];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorFormRequest;
 use App\Models\Doctor;
+use App\Models\DoctorService;
 use App\Models\DoctorShift;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
@@ -14,16 +15,24 @@ class DoctorController extends Controller
     {
         $data  =  $request->all();
         foreach ($data['services'] as $service) {
-            $doctor->services()->attach($service,touch: false);
+            $doctor_service = new DoctorService();
+            $doctor_service->service_id = $service;
+            $doctor->services()->save($doctor_service);
         }
         return ['status'=>true,'doctor'=>$doctor->fresh()];
 
-    }
-    public function deleteDoctorService(Request $request , Doctor $doctor)
+    }  public function updateDoctorService(Request $request , DoctorService $doctorService)
     {
-        $service_id  =  $request->query('service_id');
-       $result =  $doctor->services()->detach($service_id,touch: false);
-       return ['status'=>$result,'doctor'=>$doctor->fresh()];
+        $data = $request->all();
+//        return $data;
+
+    return ['status' => $doctorService->update([$data['colName'] => $data['val']])];
+
+    }
+    public function deleteDoctorService(Request $request , DoctorService $doctor_service)
+    {
+       $result =  $doctor_service->delete();
+       return ['status'=>$result,'doctor'=>$doctor_service->doctor];
 
     }
     public function all(){

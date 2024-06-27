@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
+    public function destroy(Request $request   , Service $service)
+    {
+        return ['status'=>$service->delete()];
+    }
     public function pay(Request $request , Doctorvisit $doctorvisit)
     {
         $id =  $request->get('service_id');
@@ -121,16 +125,15 @@ class ServiceController extends Controller
 
     }
 
-    public function pagination(Request $request)
+    public function pagination(Request $request ,$page = 15)
     {
-        $item =  $request->item;
 
         if ( $request->has('word')){
             $word = $request->query('word');
 
-            return collect( Service::orderByDesc('id')->where('name','like',"%$word%")->paginate($item));
+            return collect( Service::with('service_group')->orderByDesc('id')->where('name','like',"%$word%")->paginate($page));
         }
-        return collect( Service::orderByDesc('id')->paginate($item));
+        return collect( Service::with('service_group')->orderByDesc('id')->paginate($page));
     }
     public function all (){
         return Service::all();

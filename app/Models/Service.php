@@ -35,6 +35,7 @@ class Service extends Model
 {
     use HasFactory;
     use EagerLoadPivotTrait;
+//    protected $fillable =['activate'];
     protected $guarded = ['id'];
 //    protected $with = ['service_group'];
 

@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignIdFor(\App\Models\ServiceGroup::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->float('price');
-            $table->float('static_wage');
-            $table->float('percentage_wage');
+            $table->boolean('activate')->default(false);
             $table->timestamps();
         });
     }

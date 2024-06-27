@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Shift::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class,'user_cost')->nullable()->constrained()->references('id')->on('users');
             $table->foreignIdFor(\App\Models\DoctorShift::class)->nullable()->constrained();
             $table->string('description')->nullable();
             $table->string('comment')->nullable();

@@ -131,6 +131,7 @@ class PatientController extends Controller
         return ['status'=>true];
     }
     public function update(PatientAddRequest  $request,Patient $patient){
+//        return $request->all();
 //        return $doctorvisit;
 //        return $request->validated();
         //اذا عايز تعدل علي الشركه امسح الفحوصات والخدمات والغي الجهات والعلاقات
@@ -151,6 +152,12 @@ class PatientController extends Controller
 //        return $request->validated();
         if ($patient_from_history){
             $patient = new Patient($patient_from_history->toArray()) ;
+            $patient->paper_fees = 0 ;
+            $patient->is_lab_paid = 0 ;
+            $patient->sample_collected = 0 ;
+            $patient->result_is_locked = 0 ;
+            $patient->result_print_date = null ;
+            $patient->result_print_date = null ;
 
 
 //            return  ['patient' => $patient];

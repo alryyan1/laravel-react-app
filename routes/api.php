@@ -37,6 +37,9 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::middleware('auth:sanctum')->post('populate/denos',[\App\Http\Controllers\UserController::class,'populateDenos']);
+Route::middleware('auth:sanctum')->patch('deno/user',[\App\Http\Controllers\UserController::class,'updateDenoUser']);
+Route::middleware('auth:sanctum')->post('user/denos',[\App\Http\Controllers\UserController::class,'denosByLastShift']);
 
 Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
 Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateMindrayMatchingTable']);
@@ -58,7 +61,9 @@ Route::patch('requestedResult/normalRange/{requestedResult}',[\App\Http\Controll
 Route::patch('comment/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'comment']);
 Route::post('requestedResult/default/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'default']);
 //cost
-Route::post("cost",[\App\Http\Controllers\CostController::class,'store']);
+Route::middleware('auth:sanctum')->post("cost",[\App\Http\Controllers\CostController::class,'store']);
+Route::middleware('auth:sanctum')->delete("cost/{cost}",[\App\Http\Controllers\CostController::class,'destroy']);
+Route::middleware('auth:sanctum')->post("cost/general",[\App\Http\Controllers\CostController::class,'addGeneralCost']);
 
 Route::get("users",[\App\Http\Controllers\UserController::class,'all']);
 Route::patch("user/roles/{user}",[\App\Http\Controllers\UserController::class,'editRole']);
@@ -112,7 +117,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //doctors
 Route::patch('doctor/{doctor}', [DoctorController::class, 'update']);
 Route::post('doctors/{doctor}/services', [DoctorController::class, 'addDoctorService']);
-Route::delete('doctors/{doctor}/service', [DoctorController::class, 'deleteDoctorService']);
+Route::patch('doctor/service/{doctorService}', [DoctorController::class, 'updateDoctorService']);
+Route::delete('doctors/doctor/{doctor_service}', [DoctorController::class, 'deleteDoctorService']);
 
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
 Route::middleware('auth:sanctum')->get('doctor/shift/close/{doctor}',[DoctorShiftController::class,'close']);
@@ -165,8 +171,9 @@ Route::patch('company/service/{company}', [CompanyController::class, 'updatePivo
 
 
 Route::post('service/create', [ServiceController::class, 'create']);
+Route::delete('service/{service}', [ServiceController::class, 'destroy']);
 Route::get('service/all', [ServiceController::class, 'all']);
-Route::get('service/all/pagination/{service}', [ServiceController::class, 'pagination']);
+Route::get('service/all/pagination/{page}', [ServiceController::class, 'pagination']);
 Route::patch('service/{service}', [ServiceController::class, 'update']);
 Route::patch('service/test/{service}', [ServiceController::class, 'updatePivot']);
 Route::middleware('auth:sanctum')->post('patient/service/add/{doctorvisit}', [ServiceController::class, 'addService']);

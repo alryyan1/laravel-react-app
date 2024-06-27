@@ -24,8 +24,6 @@ class ServiceFormRequest extends FormRequest
         return [
             'name'=>'string|required',
             'price'=>'numeric|required',
-            'static_wage'=>'numeric',
-            'percentage_wage'=>'numeric',
             'service_group_id'=>'required|numeric'
         ];
     }

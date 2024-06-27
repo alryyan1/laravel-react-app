@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('doctor_visit_id')->constrained()->references('id')->on('doctor_visit');
             $table->foreignIdFor(\App\Models\Service::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\User::class,'user_deposited')->nullable()->constrained()->references('id')->on('users');
             $table->foreignIdFor(\App\Models\Doctor::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
             $table->float('price');
             $table->float('amount_paid');

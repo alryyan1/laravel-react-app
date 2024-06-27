@@ -291,6 +291,7 @@ class PDFController extends Controller
 
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT -PDF_MARGIN_RIGHT ;
 
         $pdf->Cell($page_width,5,'ورديه المعمل',0,1,'C');
         $pdf->Ln();
@@ -364,7 +365,7 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('النتيحه');
         $pdf->setSubject('patient lab result');
-        $pdf->setMargins(PDF_MARGIN_LEFT, 70, PDF_MARGIN_RIGHT);
+        $pdf->setMargins(PDF_MARGIN_LEFT, 80, PDF_MARGIN_RIGHT);
         $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
         $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -377,7 +378,7 @@ class PDFController extends Controller
 
         $pdf->Cell($page_width, 5, ' ', 0, 1, 'C');  //LAB NAME
         $pdf->Cell($page_width, 5, " ", 0, 1, 'C');  //LAB NAME
-        $pdf->Ln(15);
+        $pdf->Ln(25);
             $y = $pdf->GetY();
             $pdf->SetFont($arial, '', 13, '', true);
             $table_col_widht = ($page_width ) / 4;
@@ -391,20 +392,20 @@ class PDFController extends Controller
         $pdf->cell($table_col_widht, 5, $patient->id, 0, 0, 'C'); //age
             $pdf->SetFont($arial, '', 15, '', true);
 
-        $pdf->cell($table_col_widht*2 + 10, 5, $patient->doctor->name, 0, 0, 'R'); // doctor name
+        $pdf->cell($table_col_widht*2 + 10, 5, $patient?->doctor?->name, 0, 0, 'R'); // doctor name
         $pdf->cell($table_col_widht/2 - 10, 5, "د/ ", 0, 1, 'C');
         $requestedTests = $patient->tests_concatinated();
         if ($pdf->PageNo() == 1) {
             $pdf->Line(6, 5, 205, 5); //TOP LINE [H]
 //            $pdf->Line(6, 35, 205, 35); //SECOND [H]
-            $pdf->Line(6, 55, 205, 55); //SECOND [H]
             $pdf->Line(6, 65, 205, 65); //SECOND [H]
-            $pdf->RoundedRect(6, 35, 199, 18, 6.50, '0101');
+            $pdf->Line(6, 75, 205, 75); //SECOND [H]
+            $pdf->RoundedRect(6, 45, 199, 18, 6.50, '0101');
 
 
 //            $pdf->Line(6, 68, 205, 68); //THIRD [H]
-            $pdf->Line(6, 55, 6, 280); //line between 2 points
-            $pdf->Line(205, 55, 205, 280); //line between 2 points
+            $pdf->Line(6, 65, 6, 280); //line between 2 points
+            $pdf->Line(205, 65, 205, 280); //line between 2 points
             $pdf->SetFont($arial, '', 10, '', true);
             // $pdf->cell(25, 5, "", 0, 1, 'L');
             $pdf->SetFont($arial, '', 9, '', true);

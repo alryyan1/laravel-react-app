@@ -82,4 +82,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function denos()
+    {
+        return $this->belongsToMany(Deno::class,'denos_users','user_id','deno_id');
+    }
+    public function user_denos_by_shift()
+    {
+        $max = Shift::max('id');
+        return $this->belongsToMany(Deno::class,'denos_users','user_id','deno_id')->where('shift_id','=',$max)->withPivot(['amount']);
+    }
 }

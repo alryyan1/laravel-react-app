@@ -51,7 +51,7 @@ class Shift extends Model
         return $this->hasMany(DoctorShift::class);
     }
 
-    protected $with = ['patients'];
+    protected $with = ['patients','cost'];
 
     /**
      * cash + insurance test prices values only paid
@@ -172,5 +172,9 @@ class Shift extends Model
                 $total += $patient->bankak();
         }
         return $total;
+    }
+    public  function cost()
+    {
+        return $this->hasMany(Cost::class);
     }
 }

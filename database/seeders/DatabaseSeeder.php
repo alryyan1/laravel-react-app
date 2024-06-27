@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Deno;
 use App\Models\Deposit;
 use App\Models\Doctor;
 use App\Models\Patient;
@@ -27,6 +28,11 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
         Permission::create(['name' => 'عرض منتج']);
+
+        Deno::create(['name'=>100]);
+        Deno::create(['name'=>200]);
+        Deno::create(['name'=>500]);
+        Deno::create(['name'=>1000]);
 
         Shift::create();
         User::create(['username'=>'starsIntaj','password'=>bcrypt('starsIntaj')]);

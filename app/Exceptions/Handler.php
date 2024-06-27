@@ -47,6 +47,7 @@ class Handler extends ExceptionHandler
                     'message' => $e->getMessage(),
                     'code' => $e->getCode(),
                     'file' => $e->getFile(),
+                    'trace' => $e->getTraceAsString(),
                 ], 404);
             }
         });

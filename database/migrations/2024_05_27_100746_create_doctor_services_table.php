@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Doctor::class)->constrained();
             $table->foreignIdFor(\App\Models\Service::class)->constrained();
+            $table->float('percentage');
+            $table->float('fixed');
             $table->unique(['doctor_id', 'service_id']);
         });
     }

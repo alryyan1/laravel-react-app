@@ -24,6 +24,7 @@ class PatientAddRequest extends FormRequest
         return [
             'name' => 'required|string',
             'phone' => 'numeric',
+             'doctor_id'=>'',
             'age_day' => '',
             'age_month' => '',
             'gender' => '',

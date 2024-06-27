@@ -63,9 +63,10 @@ class Doctor extends Model
         return $this->hasMany(DoctorShift::class)->orderByDesc('id');
     }
 
+
     public function services()
     {
-        return $this->belongsToMany(Service::class,'doctor_services','doctor_id','service_id');
+        return $this->hasMany(DoctorService::class);
     }
 
     public function doctor_credit(Doctorvisit $doctorvisit)
@@ -74,8 +75,10 @@ class Doctor extends Model
         $doctorvisit =  $doctorvisit->load(['services'=>function ($query) {
             return  $query->where('is_paid',1);
         }]);
-        $array_1 =                $this->services()->pluck('services.id')->toArray();
+        $array_1 =                $this->services()->pluck('service_id')->toArray();
         $total =  0 ;
+
+
         foreach ($doctorvisit->services as $service) {
             if ($service->pivot->doctor_id != $this->id) continue;
             if (in_array($service->id, $array_1)) {
@@ -89,8 +92,24 @@ class Doctor extends Model
                     $doctor_credit =   ($company_service->pivot->price * $service->pivot->count) * $this->company_percentage /100;
                     $total += $doctor_credit;
                 }else{
-                    $doctor_credit = $service->pivot->amount_paid * $this->cash_percentage / 100;
-//                    echo $doctor_credit;
+                    $doctor_service =  $this->services->firstWhere(function ($item) use($service){
+                           return $item->service_id == $service->id;
+                    });
+
+
+                     if($doctor_service->percentage > 0){
+                        $doctor_credit = $service->pivot->amount_paid * $doctor_service->percentage/ 100;
+
+                    }
+                    elseif($doctor_service->fixed > 0 && $doctor_service->percentage == 0 ){
+                        $doctor_credit = $doctor_service->fixed;
+
+                    }else{
+                         $doctor_credit = $service->pivot->amount_paid * $this->cash_percentage / 100;
+
+                     }
+
+
 
                     $total += $doctor_credit;
                 }

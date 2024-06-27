@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cash_tally_user', function (Blueprint $table) {
+        Schema::create('denos_users', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Shift::class);
-            $table->string('deno_id');
+            $table->foreignIdFor(\App\Models\Deno::class);
+            $table->integer('amount');
+            $table->unique(['user_id', 'deno_id','shift_id']);
         });
     }
 
