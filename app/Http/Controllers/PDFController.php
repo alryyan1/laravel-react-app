@@ -27,6 +27,7 @@ use Spatie\Permission\Models\Permission;
 class PDFController extends Controller
 {
 
+
     public function __construct()
     {
 //        $this->middleware(['permission:add items']);
@@ -365,7 +366,7 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('النتيحه');
         $pdf->setSubject('patient lab result');
-        $pdf->setMargins(PDF_MARGIN_LEFT, 80, PDF_MARGIN_RIGHT);
+        $pdf->setMargins(PDF_MARGIN_LEFT, 85, PDF_MARGIN_RIGHT);
         $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
         $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -378,7 +379,7 @@ class PDFController extends Controller
 
         $pdf->Cell($page_width, 5, ' ', 0, 1, 'C');  //LAB NAME
         $pdf->Cell($page_width, 5, " ", 0, 1, 'C');  //LAB NAME
-        $pdf->Ln(25);
+        $pdf->Ln(30);
             $y = $pdf->GetY();
             $pdf->SetFont($arial, '', 13, '', true);
             $table_col_widht = ($page_width ) / 4;
@@ -398,14 +399,14 @@ class PDFController extends Controller
         if ($pdf->PageNo() == 1) {
             $pdf->Line(6, 5, 205, 5); //TOP LINE [H]
 //            $pdf->Line(6, 35, 205, 35); //SECOND [H]
-            $pdf->Line(6, 65, 205, 65); //SECOND [H]
-            $pdf->Line(6, 75, 205, 75); //SECOND [H]
-            $pdf->RoundedRect(6, 45, 199, 18, 6.50, '0101');
+            $pdf->Line(6, 70, 205, 70); //SECOND [H]
+            $pdf->Line(6, 80, 205, 80); //SECOND [H]
+            $pdf->RoundedRect(6, 50, 199, 18, 6.50, '0101');
 
 
 //            $pdf->Line(6, 68, 205, 68); //THIRD [H]
-            $pdf->Line(6, 65, 6, 280); //line between 2 points
-            $pdf->Line(205, 65, 205, 280); //line between 2 points
+            $pdf->Line(6, 70, 6, 280); //line between 2 points
+            $pdf->Line(205, 70, 205, 280); //line between 2 points
             $pdf->SetFont($arial, '', 10, '', true);
             // $pdf->cell(25, 5, "", 0, 1, 'L');
             $pdf->SetFont($arial, '', 9, '', true);
@@ -616,7 +617,15 @@ class PDFController extends Controller
 
             }
         }
+        if ($request->has('base64')){
+            $result_as_bs64 =  $pdf->output('name.pdf', 'E');
+            return $result_as_bs64 ;
+
+        }else{
             $pdf->output();
+
+        }
+
     }
     public function clinicsReport(Request $request)
     {

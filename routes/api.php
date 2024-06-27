@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->post('populate/denos',[\App\Http\Controllers\
 Route::middleware('auth:sanctum')->patch('deno/user',[\App\Http\Controllers\UserController::class,'updateDenoUser']);
 Route::middleware('auth:sanctum')->post('user/denos',[\App\Http\Controllers\UserController::class,'denosByLastShift']);
 
+Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
 Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateMindrayMatchingTable']);
 Route::get('getChemistryBindings',[\App\Http\Controllers\RequestedResultController::class,'getChemistryBindings']);
@@ -99,6 +100,7 @@ Route::delete('childTestOption/{childTestOption}',[\App\Http\Controllers\ChildOp
 Route::post('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'store']);
 Route::patch('child_tests/{main_test}',[MainTestController::class,'updateChildTest']);
 Route::patch('mainTest/{main_test}',[MainTestController::class,'update']);
+Route::delete('maintest/{main_test}',[MainTestController::class,'destroy']);
 Route::get('mainTestById/{id}',[\App\Http\Controllers\MainTestController::class,'getbyid']);
 Route::get('chemistry',[\App\Http\Controllers\MainTestController::class,'chemistry']);
 

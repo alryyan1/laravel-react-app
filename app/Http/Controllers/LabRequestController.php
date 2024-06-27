@@ -19,7 +19,7 @@ class LabRequestController extends Controller
         $data = $request->all();
         $test_id =  $data['id'];
 
-        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']])];
+        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh()];
     }
     public function hide(Request $request,LabRequest $labRequest){
         $data = $request->all();

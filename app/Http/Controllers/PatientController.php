@@ -24,7 +24,14 @@ class PatientController extends Controller
         if (is_numeric($name)){
             return  ['status'=>true,'data'=>Patient::find($name)];
         }
-       return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
+     elseif ($request->has('withTests') && $request->withTests == '1'){
+         return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
+
+     }else{
+            return Patient::with('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
+
+        }
+
     }
   public function printLock(Request $request , Patient $patient){
         $lock = $patient->result_is_locked == 0 ? 1 : 0;

@@ -17,7 +17,9 @@ class MainTestController extends Controller
     public function getbyid(Request $request , $id){
         return MainTest::with('childTests','childTests.unit')->find($id);
     }
-
+    public function destroy(Request $request , MainTest $mainTest){
+        return ['status' => $mainTest->delete()];
+    }
     public function update(Request $request , MainTest $mainTest){
         $data = $request->all();
 //        return $data;
