@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|MainTest wherePrice($value)
  * @property-read mixed $first_child_id
  * @property-read \App\Models\ChildTest|null $oneChild
+ * @property-read \App\Models\Container $container
  * @mixin \Eloquent
  */
 class MainTest extends Model

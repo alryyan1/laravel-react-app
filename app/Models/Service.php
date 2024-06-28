@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Service whereServiceGroupId($value)
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Service whereStaticWage($value)
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Service whereUpdatedAt($value)
+ * @property int $activate
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Service whereActivate($value)
  * @mixin \Eloquent
  */
 class Service extends Model

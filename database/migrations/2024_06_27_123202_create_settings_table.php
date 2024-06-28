@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->boolean('header')->nullable();
-            $table->boolean('footer')->nullable();
-            $table->string('header_path')->nullable();
-            $table->string('footer_path')->nullable();
+            $table->boolean('is_header')->default(0);
+            $table->boolean('is_footer')->default(0);
+            $table->boolean('is_logo')->default(0);
+            $table->longText('header_base64')->nullable();
+            $table->longText('footer_base64')->nullable();
             $table->string('header_content')->nullable();
             $table->string('footer_content')->nullable();
-            $table->string('logo_path')->nullable();
+            $table->longText('logo_base64')->nullable();
             $table->string('lab_name')->nullable();
             $table->string('hospital_name')->nullable();
             $table->string('inventory_notification_number')->nullable();

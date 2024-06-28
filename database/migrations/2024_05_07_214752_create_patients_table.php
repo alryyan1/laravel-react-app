@@ -36,6 +36,8 @@ return new class extends Migration
             $table->dateTime('result_print_date')->nullable()->default(null);
             $table->dateTime('sample_print_date')->nullable()->default(null);
             $table->integer('visit_number');
+            $table->boolean('result_auth');
+            $table->dateTime('auth_date');
 
             $table->timestamps();
         });

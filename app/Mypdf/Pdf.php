@@ -40,6 +40,7 @@ $path = base_path()."\\vender\\tecnickcom\\tcpdf\\tcpdf.php";
 class Pdf extends \TCPDF {
 
     public $head ;
+    public $foot ;
     //Page header
     public function Header() {
         // Logo
@@ -59,11 +60,17 @@ class Pdf extends \TCPDF {
     // Page footer
     public function Footer() {
         // Position at 15 mm from bottom
-        $this->setY(-15);
-        // Set font
+        $this->setY(-25);
         $this->setFont('helvetica', 'I', 8);
+
+        $func = $this->foot;
+        if ($func != null){
+            $func($this);
+            $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+
+        }
+        // Set font
 //        // Page number
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 

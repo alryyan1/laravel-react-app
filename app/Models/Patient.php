@@ -77,6 +77,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\CompanyRelation|null $relation
  * @property-read \App\Models\Subcompany|null $subcompany
  * @property-read mixed $paid
+ * @property int $result_is_locked
+ * @property int $sample_collected
+ * @property string|null $result_print_date
+ * @property string|null $sample_print_date
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereResultIsLocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereResultPrintDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSampleCollected($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSamplePrintDate($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

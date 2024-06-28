@@ -37,6 +37,9 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read mixed $bankak
  * @property-read mixed $paid_lab
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereTouched($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cost> $cost
+ * @property-read int|null $cost_count
+ * @property-read mixed $max_shift_id
  * @mixin \Eloquent
  */
 class Shift extends Model

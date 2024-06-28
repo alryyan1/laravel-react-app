@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereShiftId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereUpdatedAt($value)
+ * @property int|null $user_cost
+ * @method static \Illuminate\Database\Eloquent\Builder|Cost whereUserCost($value)
  * @mixin \Eloquent
  */
 class Cost extends Model

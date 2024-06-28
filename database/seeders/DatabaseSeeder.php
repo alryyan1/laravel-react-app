@@ -58,5 +58,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ChildTestOptionsTableSeeder::class);
         $this->call(CbcBindingsTableSeeder::class);
         $this->call(ChemistryBindingsTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
     }
 }

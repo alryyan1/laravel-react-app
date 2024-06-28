@@ -46,6 +46,10 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deno> $denos
+ * @property-read int|null $denos_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deno> $user_denos_by_shift
+ * @property-read int|null $user_denos_by_shift_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable

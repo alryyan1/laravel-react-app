@@ -40,6 +40,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $requested_results_count
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereId($value)
  * @property-read mixed $name
+ * @property int|null $user_requested
+ * @property int|null $user_deposited
+ * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereUserDeposited($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereUserRequested($value)
  * @mixin \Eloquent
  */
 class LabRequest extends Model

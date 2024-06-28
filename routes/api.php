@@ -37,11 +37,17 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::post('settings',[\App\Http\Controllers\SettingController::class,'update']);
+Route::get('settings',[\App\Http\Controllers\SettingController::class,'index']);
+
+
+
 Route::middleware('auth:sanctum')->post('populate/denos',[\App\Http\Controllers\UserController::class,'populateDenos']);
 Route::middleware('auth:sanctum')->patch('deno/user',[\App\Http\Controllers\UserController::class,'updateDenoUser']);
 Route::middleware('auth:sanctum')->post('user/denos',[\App\Http\Controllers\UserController::class,'denosByLastShift']);
 
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
+Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
 Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
 Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateMindrayMatchingTable']);
 Route::get('getChemistryBindings',[\App\Http\Controllers\RequestedResultController::class,'getChemistryBindings']);

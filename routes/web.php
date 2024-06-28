@@ -36,6 +36,7 @@ use Spatie\Permission\Models\Role;
 |
 */
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
+Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
 
 Route::get('/', function () {
     FacadesDebugbar::info('hi');
