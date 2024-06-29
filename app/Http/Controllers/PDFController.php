@@ -708,7 +708,7 @@ class PDFController extends Controller
         $pdf->Cell(15,5,'التاريخ',0,0);
 
         $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
-        $pdf->Cell(80,5,'Lab No  '.$patient->visit_number,0,1,'C');
+        $pdf->Cell($page_width,5,'Lab No  '.$patient->visit_number,1,1,'C');
         $pdf->Ln();
         $pdf->SetFont($arial, 'u', 10, '', true);
 
