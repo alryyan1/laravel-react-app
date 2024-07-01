@@ -38,7 +38,8 @@ class MainTest extends Model
     use HasFactory;
     protected $with =['container'];
     public $timestamps = false;
-    protected $fillable = ['main_test_name','price'];
+//    protected $fillable = ['main_test_name','price'];
+ protected $guarded = ['id'];
     public function Package(){
         return $this->belongsTo(Package::class,'pack_id','package_id');
     }

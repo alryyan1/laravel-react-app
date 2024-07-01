@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChildTest;
 use App\Models\MainTest;
 use App\Models\Package;
 use Illuminate\Http\Request;
 
 class MainTestController extends Controller
 {
+    public function store(Request $request)
+    {
+        $child_test = new ChildTest();
+        $child_test->child_test_name = $request->main_test_name;
+        $main_test =  MainTest::create($request->all());
+        $main_test->load('childTests');
+        $main_test->childTests()->save($child_test);
+        return ['status' => true,'data'=>$main_test->refresh()];
+
+    }
     public function chemistry(){
        return Package::with('tests')->find(2);
     }
@@ -26,10 +37,9 @@ class MainTestController extends Controller
 
         return ['status' => $mainTest->update([$data['colName'] => $data['val']])];
     }
-    public function updateChildTest(Request $request,MainTest $mainTest)
+    public function updateChildTest(Request $request,ChildTest $childTest)
     {
-        $child_id = $request->get('child_id');
         $data = $request->all();
-        $mainTest->childTests()->where('id',$child_id)->update([$data['colName'] => $data['val']]);
+       $childTest->update([$data['colName'] => $data['val']]);
     }
 }

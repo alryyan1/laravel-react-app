@@ -11,4 +11,8 @@ class UnitController extends Controller
     {
         return Unit::all();
     }
+    public function store(Request $request)
+    {
+        return ['status'=>true,'data'=>Unit::create(['name'=>$request->name]) ]  ;
+    }
 }

@@ -454,13 +454,16 @@ class PDFController extends Controller
             $pdf->Image("@".$img, 5, 5, 40, 40);
 
         }
-        if ($settings->is_header ){
-            $pdf->Image("@".$header_img, 10, 10, $page_width+10, 30);
+        if (!$request->has('base64')) {
 
-        }
-        if ($settings->is_footer ){
-            $pdf->Image("@".$footer_img, 10, 280, $page_width+10, 10);
+            if ($settings->is_header) {
+                $pdf->Image("@" . $header_img, 10, 10, $page_width + 10, 30);
 
+            }
+            if ($settings->is_footer) {
+                $pdf->Image("@" . $footer_img, 10, 270, $page_width + 10, 20);
+
+            }
         }
         foreach ($mypakages as $package) {
             $show_headers = true;

@@ -104,8 +104,9 @@ Route::get('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionContr
 Route::patch('childTestOption/{childTestOption}',[\App\Http\Controllers\ChildOptionController::class,'update']);
 Route::delete('childTestOption/{childTestOption}',[\App\Http\Controllers\ChildOptionController::class,'destroy']);
 Route::post('childTestOption/{childTest}',[\App\Http\Controllers\ChildOptionController::class,'store']);
-Route::patch('child_tests/{main_test}',[MainTestController::class,'updateChildTest']);
+Route::patch('child_tests/{childTest}',[MainTestController::class,'updateChildTest']);
 Route::patch('mainTest/{main_test}',[MainTestController::class,'update']);
+Route::post('mainTest',[MainTestController::class,'store']);
 Route::delete('maintest/{main_test}',[MainTestController::class,'destroy']);
 Route::get('mainTestById/{id}',[\App\Http\Controllers\MainTestController::class,'getbyid']);
 Route::get('chemistry',[\App\Http\Controllers\MainTestController::class,'chemistry']);
@@ -114,6 +115,7 @@ Route::delete('childTest/{childTest}',[\App\Http\Controllers\childTestController
 Route::post('childTest/create/{main_test}',[\App\Http\Controllers\childTestController::class,'store']);
 Route::get('containers/all',[\App\Http\Controllers\ContainerController::class,'all']);
 Route::get('units/all',[\App\Http\Controllers\UnitController::class,'all']);
+Route::post('units',[\App\Http\Controllers\UnitController::class,'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
