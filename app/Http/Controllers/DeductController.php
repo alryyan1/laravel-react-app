@@ -93,7 +93,8 @@ class DeductController extends Controller
     {
         $shift_id = Shift::max('id');
          $deduct =  Deduct::create(['shift_id'=>$shift_id]);
-        return ['status' =>true,'data'=>$deduct ,'shift'=>$deduct->shift] ;
+
+        return ['status' =>true,'data'=>$deduct->fresh() ,'shift'=>$deduct->shift] ;
 
     }
 
