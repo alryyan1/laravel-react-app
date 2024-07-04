@@ -37,6 +37,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereLabName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereLogoBase64($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereUpdatedAt($value)
+ * @property int $is_header
+ * @property int $is_footer
+ * @property int $is_logo
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsFooter($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsHeader($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsLogo($value)
  * @mixin \Eloquent
  */
 class Setting extends Model

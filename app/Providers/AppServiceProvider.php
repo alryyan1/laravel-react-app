@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         Sanctum::$accessTokenAuthenticationCallback = function ($accessToken, $isValid){
-            return !$accessToken->last_used_at || !$accessToken->last_used_at->addMinutes(20)->lte(now());
+            return !$accessToken->last_used_at || !$accessToken->last_used_at->addMinutes(60)->lte(now());
         };
     }
 

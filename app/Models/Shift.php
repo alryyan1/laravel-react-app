@@ -40,6 +40,8 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cost> $cost
  * @property-read int|null $cost_count
  * @property-read mixed $max_shift_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deduct> $deducts
+ * @property-read int|null $deducts_count
  * @mixin \Eloquent
  */
 class Shift extends Model
@@ -54,7 +56,7 @@ class Shift extends Model
         return $this->hasMany(DoctorShift::class);
     }
 
-    protected $with = ['patients','cost'];
+    protected $with = ['patients','cost','deducts'];
 
     /**
      * cash + insurance test prices values only paid
@@ -144,7 +146,23 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId'];
+    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank'];
+    public function getTotalDeductsPriceAttribute()
+    {
+        return $this->totalDeductsPrice();
+    }
+    public function getTotalDeductsPriceCashAttribute()
+    {
+        return $this->totalDeductsPriceCash();
+    }
+    public function getTotalDeductsPriceTransferAttribute()
+    {
+        return $this->totalDeductsPriceTransfer();
+    }
+    public function getTotalDeductsPriceBankAttribute()
+    {
+        return $this->totalDeductsPriceBank();
+    }
     function getTotalPaidAttribute()
     {
         return $this->totalPaid();
@@ -179,5 +197,60 @@ class Shift extends Model
     public  function cost()
     {
         return $this->hasMany(Cost::class);
+    }
+    public function deducts()
+    {
+        return $this->hasMany(Deduct::class);
+    }
+
+
+    public function totalDeductsPrice()
+    {
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+           $total += $deduct->total_price();
+        }
+
+        return $total;
+    }
+    public function totalDeductsPriceBank()
+    {
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+            if ($deduct->payment_type_id == 3 ){
+                $total += $deduct->total_price();
+
+            }
+        }
+
+        return $total;
+    }
+    public function totalDeductsPriceTransfer()
+    {
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+            if ($deduct->payment_type_id == 2 ){
+                $total += $deduct->total_price();
+
+            }
+        }
+
+        return $total;
+    }
+    public function totalDeductsPriceCash()
+    {
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+            if ($deduct->payment_type_id == 1 ){
+                $total += $deduct->total_price();
+
+            }
+        }
+
+        return $total;
     }
 }

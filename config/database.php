@@ -63,7 +63,7 @@ return [
             ]) : [],
         ],
 
-        'altohami' => [
+        'sales' => [
             'driver' => 'mysql',
             'host' => env('SECOND_DB_HOST', '127.0.0.1'),
             'port' => env('SECOND_DB_PORT', '3306'),

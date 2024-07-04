@@ -540,6 +540,7 @@ class PDFController extends Controller
                 /** @var RequestedResult $result */
                 foreach ($m_test->requested_results as $result) {
                     $child_test = $result->childTest;
+                    if ($child_test == null) continue;
                     $y = $pdf->GetY();
                     if ($result->childTest->childGroup?->name != null) {
                         $new = $result->childTest->childGroup?->name;

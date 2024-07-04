@@ -39,14 +39,44 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereTests($value)
  * @property string $unit
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereUnit($value)
+ * @property string $expire
+ * @property float $cost_price
+ * @property float $sell_price
+ * @property int|null $drug_category_id
+ * @property int|null $pharmacy_type_id
+ * @property string|null $barcode
+ * @property int $strips
+ * @property string $sc_name
+ * @property string $market_name
+ * @property string|null $batch
+ * @property-read \App\Models\DrugCategory|null $category
+ * @property-read \App\Models\PharmacyType|null $type
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereBarcode($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereBatch($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereCostPrice($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereDrugCategoryId($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereExpire($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereMarketName($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item wherePharmacyTypeId($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereScName($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereSellPrice($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereStrips($value)
  * @mixin \Eloquent
  */
 class Item extends Model
 {
     use HasFactory;
     use EagerLoadPivotTrait;
-    protected $fillable =['name','section_id','initial_balance','initial_price','require_amount','tests','unit'];
-    protected $with = ['section'];
+    protected $guarded = ['id'];
+    protected $with = ['section','category','type'];
+    public function category()
+    {
+        return $this->belongsTo(DrugCategory::class,'drug_category_id');
+    }
+    public function type()
+    {
+        return $this->belongsTo(PharmacyType::class, 'pharmacy_type_id');
+    }
     public function section(){
         return $this->belongsTo(Section::class);
     }

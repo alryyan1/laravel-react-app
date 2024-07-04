@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('deducted_items', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignIdFor(\App\Models\Shift::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\Deduct::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Item::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(\App\Models\Client::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('quantity');
+            $table->foreignIdFor(\App\Models\Client::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('strips');
+            $table->integer('box');
+            $table->float('price');
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class ShiftController extends Controller
     }
     public function last()
     {
-        $shift = Shift::latest()->first();
+        $shift = Shift::latest()->with('deducts')->first();
         return ['status' => true, 'data' => $shift];
 
     }public function shiftById(Request $request , Shift $shift)

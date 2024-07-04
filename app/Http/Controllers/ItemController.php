@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deduct;
+use App\Models\DeductedItem;
 use App\Models\Deposit;
 use App\Models\DepositItems;
 use App\Models\Item;
+use App\Models\Shift;
 use DB;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -12,6 +15,43 @@ use Illuminate\Support\Carbon;
 use PDF;
 class ItemController extends Controller
 {
+    public function addSell(Request $request)
+    {
+            $user = auth()->user();
+            $count =  Deduct::all()->count();
+            $shift_id = Shift::max('id');
+            if ($count == 0){
+                Deduct::create(['shift_id'=>$shift_id]);
+            }
+//            $deduct =  Deduct::latest()->first();
+              $deduct =  Deduct::find($request->deduct_id);
+            $id =  Shift::max('id');
+            if ($request->has('product_id')){
+
+                $product_id = $request->get('product_id');
+                    $deductedItem =  DeductedItem::where('item_id',$product_id)->where('shift_id',$id)->where('deduct_id',$deduct->id)->first();
+                    $item =  Item::find($product_id);
+                    if ($deductedItem){
+                        $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
+                    }else{
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+                }
+            }else{
+                foreach ($request->get('selectedDrugs' ) as $drug_id){
+                    $deductedItem =  DeductedItem::where('item_id',$drug_id)->where('shift_id',$id)->where('deduct_id',$deduct->id)->first();
+                    $item =  Item::find($drug_id);
+                    if ($deductedItem){
+                        $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
+                    }else{
+
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+
+                    }
+                }
+            }
+
+            return ['status'=>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift];
+    }
     public function balance()
     {
         $items = \App\Models\Item::all();
@@ -163,14 +203,14 @@ class ItemController extends Controller
                 , 'initial_price' => $data['initial_price']]);
             return ['status' => $result];
         }else{
-            return response(['status' => false,'msg'=>'صلاحيه اضافه الاصناف غير مفعله'],400);
+            return response(['status' => false,'message'=>'صلاحيه اضافه الاصناف غير مفعله'],400);
 
         }
     }
 
     public function all(Request $request)
     {
-        return Item::with('section')->get();
+        return Item::orderByDesc('id')->with('section')->get();
     }
     public function pagination(Request $request)
     {
@@ -183,12 +223,12 @@ class ItemController extends Controller
         if ( $request->query('word') && $request->query('word') != ''){
             $word = $request->query('word');
 
-            return collect( Item::orderByDesc('id')->with('section')->where('name','like',"%$word%")->paginate($item));
+            return collect( Item::with('section','category','type')->orderByDesc('id')->orWhere('name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('market_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->paginate($item));
         }
-        return collect( Item::orderByDesc('id')->with('section')->paginate($item));
+        return collect( Item::with('section','category','type')->orderByDesc('id')->paginate($item));
 
         }else{
-            return \response(['status' => false,'msg'=>'صلاحيه عرض الاصناف غير مفعله'],400);
+            return \response(['status' => false,'message'=>'صلاحيه عرض الاصناف غير مفعله'],400);
 
         }
     }
@@ -201,7 +241,7 @@ class ItemController extends Controller
         if ($user->can('حذف الاصناف')) {
             return ['status' => $item->delete()];
         }else{
-            return \response(['status' => false,'msg'=>'صلاحيه حذف الاصناف غير مفعله'],400);
+            return \response(['status' => false,'message'=>'صلاحيه حذف الاصناف غير مفعله'],400);
 
         }
     }
@@ -215,7 +255,7 @@ class ItemController extends Controller
 
            return ['status' => $item->update([$data['colName'] => $data['val']])];
        }else{
-           return \response(['status' => false,'msg'=>'صلاحيه تعديل الاصناف غير مفعله'],400);
+           return \response(['status' => false,'message'=>'صلاحيه تعديل الاصناف غير مفعله'],400);
        }
 
 

@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deduct;
+use App\Models\Patient;
+use App\Models\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class DeductController extends Controller
 {
+    public function update(Request $request,Deduct $deduct){
+        $data = $request->all();
+
+
+        return ['status'=>$deduct->update([$data['colName']=>$data['val']]),'data'=>Deduct::latest()->first()];
+    }
     public function deleteDeduct(Request $request ,Deduct $deduct)
     {
         $user =  auth()->user();
@@ -41,14 +49,15 @@ class DeductController extends Controller
     public function deduct(Request $request){
         $user =  auth()->user();
 
-
+        $shift_id = Shift::max('id');
         if ($user->can('اذن طلب')) {
         $data = $request->all();
 //        return $data;
         $item_id = $data['item_id'];
         $count =  Deduct::all()->count();
         if ($count == 0){
-            Deduct::create();
+//            return ['status'=>true];
+            Deduct::create(['shift_id'=>$shift_id]);
 
         }
         $deposit =  Deduct::latest()->first();
@@ -63,17 +72,29 @@ class DeductController extends Controller
         }
     }
     public function last(){
-             return  Deduct::with('items.pivot.client')->latest()->first()    ;
+             return  Deduct::with('deductedItems.client')->latest()->first()    ;
     }
-    public function complete(){
-        $user =  auth()->user();
-
-
-        if ($user->can('اذن صرف')) {
-        return ['status' => Deduct::create()] ;
-        }else{
-            return \response(['status' => false,'message'=>'صلاحيه  اذن صرف  غير مفعله'],400);
-        }
+    public function complete(Request $request ,Deduct $deduct){
+        $deduct->update(['complete'=>1]);
+        return ['status' =>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift->fresh()] ;
 
     }
+    public function payment(Request $request ,Deduct $deduct){
+        $deduct->update(['payment_type_id'=>$request->payment]);
+        return ['status' =>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift->fresh()] ;
+
+    }
+    public function cancel(Request $request ,Deduct $deduct){
+        $deduct->update(['complete'=>0]);
+        return ['status' =>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift->fresh()] ;
+
+    }
+    public function newDeduct(Request $request )
+    {
+        $shift_id = Shift::max('id');
+         $deduct =  Deduct::create(['shift_id'=>$shift_id]);
+        return ['status' =>true,'data'=>$deduct ,'shift'=>$deduct->shift] ;
+
+    }
+
 }

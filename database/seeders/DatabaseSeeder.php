@@ -8,6 +8,7 @@ use App\Models\Deno;
 use App\Models\Deposit;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\PaymentType;
 use App\Models\Shift;
 use App\Models\Specialist;
 use App\Models\User;
@@ -28,6 +29,10 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
         Permission::create(['name' => 'عرض منتج']);
+        Permission::create(['name' => 'admin']);
+        PaymentType::create(['name'=>'Cash']);
+        PaymentType::create(['name'=>'Transfer']);
+        PaymentType::create(['name'=>'Bank']);
 
         Deno::create(['name'=>100]);
         Deno::create(['name'=>200]);

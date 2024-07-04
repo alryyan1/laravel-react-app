@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('deducts', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Shift::class)->constrained();
+            $table->foreignIdFor(\App\Models\PaymentType::class)->default(1)->constrained();
             $table->boolean('complete')->default(false);
+//            $table->boolean('complete')->default(false);
+            $table->float('total_amount_received')->default(false);
             $table->timestamps();
         });
     }

@@ -85,6 +85,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereResultPrintDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSampleCollected($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSamplePrintDate($value)
+ * @property int $result_auth
+ * @property string $auth_date
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAuthDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereResultAuth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

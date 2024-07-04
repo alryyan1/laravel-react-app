@@ -15,12 +15,22 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Section::class)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('name');
-            $table->integer('require_amount')->default(0);
+            $table->integer('require_amount')->nullable()->default(0);
             $table->integer('initial_balance')->default(0);
             $table->integer('initial_price')->default(0);
             $table->integer('tests')->default(0);
-
+            $table->date('expire');
+            $table->float('cost_price');
+            $table->float('sell_price');
+            $table->foreignIdFor(\App\Models\DrugCategory::class)->nullable()->constrained();
+            $table->foreignIdFor(\App\Models\PharmacyType::class)->nullable()->constrained();
+            $table->string('barcode')->nullable();
+            $table->smallInteger('strips');
+            $table->string('sc_name');
+            $table->string('market_name');
+            $table->string('batch')->nullable();
             $table->timestamps();
+            $table->unique(['barcode']);
         });
     }
 

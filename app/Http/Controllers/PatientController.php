@@ -39,10 +39,15 @@ class PatientController extends Controller
         return ['status'=>true,'patient'=>$patient,'lock'=>$lock];
     }
 
-    public function saveByHistoryLab(Patient $patient , Doctor $doctor){
-        $patient->doctor_id = $doctor->id;
+    public function saveByHistoryLab(Patient $patient , Doctor|null $doctor){
+        if ($doctor == null){
+            $patient->doctor_id = $doctor->id;
+
+        }else{
+            $this->store(null,false,$patient);
+
+        }
 //        return ['status'=>$patient];
-        $this->store(null,false,$patient);
     }
 
     public function registerVisit(Request $request ,Patient $patient , Doctor $doctor)

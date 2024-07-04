@@ -65,78 +65,13 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-        return Package::with(['tests','tests.oneChild'])->find(2);
-
-        $sysmex =   \App\Models\Sysmex::first();
-//        return $sysmex;
-       $bindings =   \App\Models\CbcBinder::all();
-//       return $bindings;
-       /** @var \App\Models\CbcBinder $binding */
-        $object = null;
-        $updatedRescored = 0;
-        foreach ($bindings as $binding){
-            $object[$binding->name_in_sysmex_table] =[
-                'child_id'=>[$binding->child_id_array],
-                'result'=> $sysmex[$binding->name_in_sysmex_table]
-            ];
-            $child_array =  explode(',',$binding->child_id_array);
-            foreach ($child_array as $child_id){
-                $requested_result = RequestedResult::whereChildTestId($child_id)->where('main_test_id','=',1)->where('patient_id','=',3)->first();
-                $requested_result->update(['result'=>$sysmex[$binding->name_in_sysmex_table]]);
-
-            }
-
-//            $child = ChildTest::whereChildTestName($binding->name_in_sysmex_table)->first();
-//           echo  $child->child_test_name
-//           $updatedRescored+=\App\Models\RequestedResult::whereId($child->id)->where('main_test_id','=',1)->update(['result'=>$sysmex[$binding->name_in_cbc_child_table]]);
+        $data =  DB::connection('sales')->table('products')->select('*')->get();
+        foreach ($data as $d){
+            Item::create(['sc_name'=>$d->sc_name,'barcode'=>$d->barcode,'market_name'=>$d->market_name,'cost_price'=>$d->cost_price,'sell_price'=>$d->selling_price,'strips'=>$d->strips,'expire'=>$d->expire    ]);
         }
-//        echo $updatedRescored;
-        return  $object;
-//        $requested_results = RequestedResult::where('main_test_id','=',1)->where('patient_id','=',3)->get();
-//        foreach ($requested_results as  $result){
-//
-//
-//        }
-
-//      return   Shift::latest()->first();
-      return  DB::connection()->getSchemaBuilder()->getColumnListing('sysmex');
-
-
-       $patient = Patient::first();
-     return  $patient->labrequests->pluck('name');
-   return      $patient->labrequests->filter(function ($item){
-//       dd($item);
-       return  $item->mainTest->pack_id == 1;
-   });
 
 
 
-//        return Company::with('tests')->first();
-
-//     return         $shift = Shift::latest()->first();
-
-
-
-//        return  Shipping::where('id','=',1)->where('phone',substr('96878622990',3))->get();
-
-//      $role =     Role::create(['name' => 'admin']);
-//         $role =        Role::findById(1);
-//         return $role->permissions;
-//        \Spatie\Permission\Models\Permission::find(8)->delete();
-
-
-
-//         $role->revokePermissionTo($p);
-//        Role::create(['name' => 'deductor']);
-//        Role::create(['name' => 'depositor']);
-//        Role::create(['name' => 'viewer']);
-//       $p =  \Spatie\Permission\Models\Permission::create(['name' => 'التقارير','guard_name' => 'api']);
-
-//        $p->update(['name'=>'add items']);
-//        $user = \App\Models\User::find(1);
-//        $role->givePermissionTo($p);
-//        $user->assignRole($role);
-//       return  $user->can('add items') ? 'yes' :'no';
 
     });
 

@@ -37,7 +37,27 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
-Route::post('settings',[\App\Http\Controllers\SettingController::class,'update']);
+Route::middleware('auth:sanctum')->patch('deduct/payment/{deduct}', [DeductController::class, 'payment']);
+Route::middleware('auth:sanctum')->get('inventory/deduct/complete/{deduct}', [DeductController::class, 'complete']);
+Route::middleware('auth:sanctum')->get('inventory/deduct/cancel/{deduct}', [DeductController::class, 'cancel']);
+Route::middleware('auth:sanctum')->get('inventory/deduct/new', [DeductController::class, 'newDeduct']);
+
+Route::middleware('auth:sanctum')->patch('deduct/{deduct}', [DeductController::class, 'update']);
+
+Route::middleware('auth:sanctum')->post('addDrugForSell',[\App\Http\Controllers\ItemController::class,'addSell']);
+Route::middleware('auth:sanctum')->patch('deductedItem/{deductedItem}',[\App\Http\Controllers\deductedItemController::class,'update']);
+Route::middleware('auth:sanctum')->delete('inventory/deduct/{deductedItem}', [\App\Http\Controllers\deductedItemController::class, 'destroy']);
+
+Route::post('drugs',[\App\Http\Controllers\DrugController::class,'store']);
+
+
+Route::post('pharmacyTypes',[\App\Http\Controllers\PharmacyTypeController::class,'store']);
+Route::get('pharmacyTypes',[\App\Http\Controllers\PharmacyTypeController::class,'index']);
+
+Route::get('drugCategory',[\App\Http\Controllers\DrugCategoryController::class,'index']);
+Route::post('drugCategory',[\App\Http\Controllers\DrugCategoryController::class,'store']);
+
+Route::middleware('auth:sanctum')->post('settings',[\App\Http\Controllers\SettingController::class,'update']);
 Route::get('settings',[\App\Http\Controllers\SettingController::class,'index']);
 
 
@@ -160,7 +180,7 @@ Route::middleware('auth:sanctum')->get('printLock/{patient}', [PatientController
 Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'byName']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
-Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor}', [PatientController::class, 'saveByHistoryLab']);
+Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor?}', [PatientController::class, 'saveByHistoryLab']);
 Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [PatientController::class, 'book']);
 
 
@@ -265,9 +285,7 @@ Route::middleware('auth:sanctum')->get('balance',[\App\Http\Controllers\PDFContr
 
 
 //
-Route::middleware('auth:sanctum')->delete('inventory/deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
 Route::middleware('auth:sanctum')->post('inventory/deduct', [DeductController::class, 'deduct']);
-Route::middleware('auth:sanctum')->get('inventory/deduct/complete', [DeductController::class, 'complete']);
 Route::get('inventory/deduct/last', [DeductController::class, 'last']);
 Route::post('inventory/deduct/item', [DeductController::class, 'destroy']);
 Route::post('inventory/deduct/getDeductsByDate', [DeductController::class, 'getDeductsByDate']);
