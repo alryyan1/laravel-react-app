@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deduct;
+use App\Models\Item;
 use App\Models\Patient;
 use App\Models\Shift;
 use Illuminate\Http\Request;
@@ -10,11 +11,17 @@ use Illuminate\Support\Carbon;
 
 class DeductController extends Controller
 {
+    public function searchDeductsByDate(Request $request){
+        $data = $request->all();
+        $first = Carbon::createFromFormat('Y/m/d', $data['first'])->startOfDay();
+        $second = Carbon::createFromFormat('Y/m/d', $data['second'])->endOfDay();
+        return Deduct::whereBetween('created_at',[$first,$second])->get();
+    }
     public function update(Request $request,Deduct $deduct){
         $data = $request->all();
 
 
-        return ['status'=>$deduct->update([$data['colName']=>$data['val']]),'data'=>Deduct::latest()->first()];
+        return ['status'=>$deduct->update([$data['colName']=>$data['val']]),'data'=>$deduct->fresh()];
     }
     public function deleteDeduct(Request $request ,Deduct $deduct)
     {
@@ -91,8 +98,9 @@ class DeductController extends Controller
     }
     public function newDeduct(Request $request )
     {
+        $user = auth()->user();
         $shift_id = Shift::max('id');
-         $deduct =  Deduct::create(['shift_id'=>$shift_id]);
+         $deduct =  Deduct::create(['shift_id'=>$shift_id,'user_id'=>$user->id,]);
 
         return ['status' =>true,'data'=>$deduct->fresh() ,'shift'=>$deduct->shift] ;
 

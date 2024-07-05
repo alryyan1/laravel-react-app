@@ -65,12 +65,9 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-        $data =  DB::connection('sales')->table('products')->select('*')->get();
-        foreach ($data as $d){
-            Item::create(['sc_name'=>$d->sc_name,'barcode'=>$d->barcode,'market_name'=>$d->market_name,'cost_price'=>$d->cost_price,'sell_price'=>$d->selling_price,'strips'=>$d->strips,'expire'=>$d->expire    ]);
-        }
 
 
+return \App\Models\Deduct::first()->items_concatinated();
 
 
     });
@@ -87,6 +84,8 @@ Route::group(['middleware' => ['can:reports']], function () {
 
 //lab
 Route::get('lab/report',[\App\Http\Controllers\PDFController::class,'labreport']);
+Route::get('pharmacy/sellsReport',[\App\Http\Controllers\PDFController::class,'sellReport']);
+Route::get('searchDeductByDate',[\App\Http\Controllers\PDFController::class,'searchDeductByDate']);
 //clinics
 Route::get('clinics/report',[\App\Http\Controllers\PDFController::class,'clinicsReport']);
 Route::get('clinics/all',[\App\Http\Controllers\PDFController::class,'allclinicsReport']);

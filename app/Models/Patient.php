@@ -89,7 +89,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $auth_date
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAuthDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereResultAuth($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

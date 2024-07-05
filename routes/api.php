@@ -36,6 +36,9 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::middleware('auth:sanctum')->delete('items/{item}', [ItemController::class, 'destroy']);
+Route::middleware('auth:sanctum')->delete('deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
+Route::middleware('auth:sanctum')->post('searchDeductsByDate', [DeductController::class, 'searchDeductsByDate']);
 
 Route::middleware('auth:sanctum')->patch('deduct/payment/{deduct}', [DeductController::class, 'payment']);
 Route::middleware('auth:sanctum')->get('inventory/deduct/complete/{deduct}', [DeductController::class, 'complete']);
@@ -250,7 +253,6 @@ Route::middleware('auth:sanctum')->patch('suppliers/{supplier}', [SupplierContro
 Route::middleware('auth:sanctum')->post('items/create', [ItemController::class, 'create']);
 Route::post('item/state/{item_id}', [ItemController::class, 'state']);
 Route::post('item/stateByMonth/{item_id}', [ItemController::class, 'stateByMonth']);
-Route::middleware('auth:sanctum')->delete('items/{item}', [ItemController::class, 'destroy']);
 Route::middleware('auth:sanctum')->patch('items/{item}', [ItemController::class, 'update']);
 Route::get('items/all', [ItemController::class, 'all']);
 Route::middleware('auth:sanctum')->get('items/all/pagination/{item}', [ItemController::class, 'pagination']);

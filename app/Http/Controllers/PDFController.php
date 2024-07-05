@@ -354,6 +354,193 @@ class PDFController extends Controller
         $pdf->Output('example_003.pdf', 'I');
 
     }
+    public function sellReport(Request $request)
+    {
+
+
+        $shift = Shift::latest()->first();
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+//        $lg['a_meta_charset'] = 'UTF-8';
+//        $lg['a_meta_dir'] = 'rtl';
+//        $lg['a_meta_language'] = 'fa';
+//        $lg['w_page'] = 'page';
+//        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('Sales Report');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+
+        $pdf->AddPage();
+
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+
+        $pdf->Cell($page_width, 5, ' Sales report', 0, 1, 'C');
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($page_width, 5, ' No  '.$shift->id, 0, 1, 'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200, 200, 200);
+        $table_col_widht = $page_width / 4;
+        $pdf->Cell($table_col_widht, 5, 'Date ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');
+        $pdf->Cell($table_col_widht, 5, 'Time ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('H:i A'), 1, 1, 'C');
+
+        $table_col_widht = ($page_width ) / 5;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($table_col_widht , 5, 'Id', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'Total', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht /2, 5, 'Type', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht /2 , 5, "Time", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht * 2 , 5, 'Items', 1, 1, 'C', fill: 1);
+
+
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+        $index = 1;
+        /** @var Deduct $deduct */
+        foreach ($shift->deducts as $deduct) {
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $pdf->Cell($table_col_widht , 5, $deduct->id, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->total_price(), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht/2 , 5, $deduct->created_at->format('H:i A'), $arr, 0, 'C');
+            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), $arr, 0, ln: 1);
+
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $index++;
+        }
+        $pdf->Ln();
+        $pdf->Ln();
+
+        $table_col_widht = ($page_width) / 4;
+        $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPrice(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceBank(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceTransfer(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, 'Cash', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceCash(), 1, 1, 'C', fill: 0);
+
+
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function searchDeductByDate(Request $request)
+    {
+
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('Sales Report');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+
+        $pdf->AddPage();
+
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+
+        $pdf->Cell($page_width, 5, ' Sales report', 0, 1, 'C');
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+        $first = $request->query('first');
+        $second = $request->query('second');
+        $first = \Illuminate\Support\Carbon::createFromFormat('Y/m/d', $first)->startOfDay();
+        $second = Carbon::createFromFormat('Y/m/d', $second)->endOfDay();
+        $deducts =  Deduct::whereBetween('created_at',[$first,$second])->get();
+
+        $pdf->setFillColor(200, 200, 200);
+        $table_col_widht = $page_width / 4;
+        $pdf->Cell($table_col_widht, 5, 'From ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $first ,1, 1, 'C');
+
+        $pdf->Cell($table_col_widht, 5, 'To ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $second, 1, 1, 'C');
+
+
+        $table_col_widht = ($page_width ) / 5;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($table_col_widht , 5, 'Date', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'Price', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'User', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'Payment', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht  , 5, "Items", 1, 1, 'C', fill: 1);
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+        $index = 1;
+        $total = 0;
+        /** @var Deduct $deduct */
+        foreach ($deducts as $deduct) {
+            $y = $pdf->GetY();
+            $total+= $deduct->total_price();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->total_price(), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->user->username, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, $arr, 0, 'C');
+
+            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), $arr, 0, ln: 1);
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $index++;
+        }
+        $pdf->Ln();
+        $pdf->Ln();
+
+        $table_col_widht = ($page_width) / 4;
+        $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, $total, 1, 1, 'C', fill: 0);
+
+
+
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
 
     public function result(Request $request)
     {

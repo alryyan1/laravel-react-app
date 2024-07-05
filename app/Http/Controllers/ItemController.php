@@ -21,7 +21,7 @@ class ItemController extends Controller
             $count =  Deduct::all()->count();
             $shift_id = Shift::max('id');
             if ($count == 0){
-                Deduct::create(['shift_id'=>$shift_id]);
+                Deduct::create(['shift_id'=>$shift_id,'user_id'=>$user->id]);
             }
 //            $deduct =  Deduct::latest()->first();
               $deduct =  Deduct::find($request->deduct_id);

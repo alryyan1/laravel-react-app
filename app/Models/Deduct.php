@@ -38,7 +38,7 @@ class Deduct extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
-    protected $with = ['deductedItems','paymentType'];
+    protected $with = ['deductedItems','paymentType','user'];
     protected $appends = ['total_price'];
     public function getTotalPriceAttribute()
     {
@@ -46,6 +46,9 @@ class Deduct extends Model
     }
     public function items(){
         return $this->belongsToMany(Item::class,'deducted_items','deduct_id','item_id')->withPivot(['client_id','quantity'])->using(ClientDeductPivot::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function deduct()
@@ -76,6 +79,16 @@ class Deduct extends Model
         }
 
         return $total;
+
+    }
+    public function items_concatinated( )
+    {
+
+
+       return $this->deductedItems->reduce(function ($prev,$current){
+           return $prev.'-'.$current->item->market_name;
+        },'');
+
 
     }
 }
