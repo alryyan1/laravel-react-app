@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Item::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\Client::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('strips');
-            $table->integer('box');
+            $table->float('box');
             $table->float('price');
             $table->timestamps();
         });

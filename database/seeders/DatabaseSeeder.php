@@ -7,8 +7,10 @@ namespace Database\Seeders;
 use App\Models\Deno;
 use App\Models\Deposit;
 use App\Models\Doctor;
+use App\Models\DrugCategory;
 use App\Models\Patient;
 use App\Models\PaymentType;
+use App\Models\PharmacyType;
 use App\Models\Shift;
 use App\Models\Specialist;
 use App\Models\User;
@@ -26,6 +28,8 @@ class DatabaseSeeder extends Seeder
         //Specialist::truncate();
         //Doctor::truncate();
 
+        DrugCategory::create(['name'=>'الجهاز التنفسي']);
+        PharmacyType::create(['name'=>'حبوب']);
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
         Permission::create(['name' => 'عرض منتج']);
@@ -34,10 +38,12 @@ class DatabaseSeeder extends Seeder
         PaymentType::create(['name'=>'Transfer']);
         PaymentType::create(['name'=>'Bank']);
 
-        Deno::create(['name'=>100]);
-        Deno::create(['name'=>200]);
-        Deno::create(['name'=>500]);
-        Deno::create(['name'=>1000]);
+        Deno::create(['name'=>0.1]);
+        Deno::create(['name'=>1]);
+        Deno::create(['name'=>5]);
+        Deno::create(['name'=>10]);
+        Deno::create(['name'=>20]);
+        Deno::create(['name'=>50]);
 
         Shift::create();
         User::create(['username'=>'starsIntaj','password'=>bcrypt('starsIntaj')]);

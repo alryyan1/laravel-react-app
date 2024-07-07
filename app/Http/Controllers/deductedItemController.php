@@ -12,9 +12,13 @@ class deductedItemController extends Controller
         $data = $request->all();
         if ($data['colName']==='box'){
             $deductedItem->update(['strips'=> $deductedItem->item->strips * $data['val']]) ;
+        }else{
+//            return ['box'=> $deductedItem->strips / $deductedItem->item->strips];
+            $deductedItem->update(['box'=> $data['val'] / $deductedItem->item->strips]) ;
+
         }
 
-        return ['status'=>$deductedItem->update([$data['colName']=>$data['val']]),'data'=>Deduct::latest()->first()];
+        return ['status'=>$deductedItem->update([$data['colName']=>$data['val']]),'data'=>$deductedItem->deduct,'shift'=>$deductedItem->deduct->shift];
     }
     public function destroy(Request $request , DeductedItem $deductedItem)
     {

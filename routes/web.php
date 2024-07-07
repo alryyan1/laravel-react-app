@@ -37,6 +37,7 @@ use Spatie\Permission\Models\Role;
 */
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
+Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 
 Route::get('/', function () {
     FacadesDebugbar::info('hi');
@@ -67,7 +68,12 @@ Route::post('webhook',[WebhookController::class,'webhook']);
     Route::get('test',function (){
 
 
-return \App\Models\Deduct::first()->items_concatinated();
+  $items = Item::all();
+  /** @var Item $item */
+        foreach ($items as $item){
+      $random = rand(1,9);
+      $item->update(['cost_price'=>$random,'sell_price'=>$random+2]);
+  }
 
 
     });
@@ -86,6 +92,8 @@ Route::group(['middleware' => ['can:reports']], function () {
 Route::get('lab/report',[\App\Http\Controllers\PDFController::class,'labreport']);
 Route::get('pharmacy/sellsReport',[\App\Http\Controllers\PDFController::class,'sellReport']);
 Route::get('searchDeductByDate',[\App\Http\Controllers\PDFController::class,'searchDeductByDate']);
+Route::get('costReport',[\App\Http\Controllers\PDFController::class,'costReport']);
+Route::get('expireReport',[\App\Http\Controllers\PDFController::class,'expiredItems']);
 //clinics
 Route::get('clinics/report',[\App\Http\Controllers\PDFController::class,'clinicsReport']);
 Route::get('clinics/all',[\App\Http\Controllers\PDFController::class,'allclinicsReport']);

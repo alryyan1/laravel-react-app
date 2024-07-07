@@ -71,6 +71,7 @@ Route::middleware('auth:sanctum')->post('user/denos',[\App\Http\Controllers\User
 
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
+Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
 Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateMindrayMatchingTable']);
 Route::get('getChemistryBindings',[\App\Http\Controllers\RequestedResultController::class,'getChemistryBindings']);

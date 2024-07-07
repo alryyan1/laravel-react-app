@@ -83,7 +83,7 @@ class DeductController extends Controller
     }
     public function complete(Request $request ,Deduct $deduct){
         $deduct->update(['complete'=>1]);
-        return ['status' =>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift->fresh()] ;
+        return $this->newDeduct($request);
 
     }
     public function payment(Request $request ,Deduct $deduct){
@@ -100,7 +100,7 @@ class DeductController extends Controller
     {
         $user = auth()->user();
         $shift_id = Shift::max('id');
-         $deduct =  Deduct::create(['shift_id'=>$shift_id,'user_id'=>$user->id,]);
+         $deduct =  Deduct::create(['shift_id'=>$shift_id,'user_id'=>$user->id]);
 
         return ['status' =>true,'data'=>$deduct->fresh() ,'shift'=>$deduct->shift] ;
 

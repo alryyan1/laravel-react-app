@@ -86,7 +86,7 @@ class Deduct extends Model
 
 
        return $this->deductedItems->reduce(function ($prev,$current){
-           return $prev.'-'.$current->item->market_name;
+           return $prev.'-'.$current->item->market_name.'x'.$current->item->strips;
         },'');
 
 

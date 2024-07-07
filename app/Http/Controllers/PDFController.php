@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Cost;
 use App\Models\Deduct;
+use App\Models\DeductedItem;
 use App\Models\Deposit;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
+use App\Models\Item;
 use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Package;
@@ -358,7 +361,7 @@ class PDFController extends Controller
     {
 
 
-        $shift = Shift::latest()->first();
+        $shift = Shift::find($request->query('shift_id'));
 
         $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $lg = array();
@@ -533,6 +536,88 @@ class PDFController extends Controller
         $table_col_widht = ($page_width) / 4;
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, $total, 1, 1, 'C', fill: 0);
+
+
+
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function expiredItems(Request $request)
+    {
+
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('Expired');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+
+        $pdf->AddPage();
+
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+
+        $pdf->Cell($page_width, 5, 'Expired Items', 0, 1, 'C');
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+        $first = $request->query('first');
+        $second = $request->query('second');
+
+        $pdf->setFillColor(200, 200, 200);
+
+        $table_col_widht = ($page_width ) / 4;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($table_col_widht , 5, 'Name', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'Expire date', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'Amount left (Box)', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'Box price', 1, 1, 'C', fill: 1);
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+        $index = 1;
+        $total = 0;
+        $items = Item::all();
+        /** @var Item $item */
+        foreach ($items as $item) {
+            $y = $pdf->GetY();
+            if (   ! Carbon::parse($item->expire)->lte(Carbon::now()))continue;
+
+            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
+            $box_quantity_deducted = $total_deduct / $item->strips;
+
+            $remaining = $total_deposit - $box_quantity_deducted;
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $pdf->Cell($table_col_widht , 5, $item->market_name, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $item->expire, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $box_quantity_deducted, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $item->sell_price, $arr, 1, 'C');
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $index++;
+        }
+        $pdf->Ln();
+        $pdf->Ln();
+
 
 
 
@@ -945,6 +1030,120 @@ class PDFController extends Controller
         }
 
     }
+    public function printSale(Request $request)
+    {
+        /** @var Deduct $deduct */
+        $deduct = Deduct::find($request->get('deduct_id'));
+        $count =  $deduct->deductedItems->count();
+        $custom_layout = array(80, 110 + $count * 5);
+        $settings= Setting::all()->first();
+
+        $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+
+        $lg = array();
+
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('ticket');
+        $pdf->setSubject('ticket');
+        $pdf->setMargins(0, 0, 0);
+//        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+//        $pdf->setFooterMargin(0);
+        $page_width = 70;
+//        echo  $pdf->getPageWidth();
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        /** @var Setting $img_base64_encoded */
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, $page_width / 2 - 5, 5, 20, 20,align: 'C');
+
+        }
+
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(5, 5, 5);
+
+        //$pdf->Ln(25);
+        $pdf->SetFillColor(240, 240, 240);
+
+        $pdf->SetFont($arial, 'u', 10, '', true);
+        $pdf->Ln(15);
+        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->SetFont($arial, '', 10, '', true);
+
+        $pdf->Ln();
+
+        $pdf->Cell(20,5,'Sale No',0,0);
+        $pdf->Cell(60,5,$deduct->id,0,1);
+//        $pdf->Ln();
+        $pdf->Cell(15,5,'Date',0,0);
+
+        $pdf->Cell(60,5,$deduct->created_at->format('Y/m/d H:i A'),0,1);
+        $pdf->Ln();
+        $pdf->SetFont($arial, 'u', 10, '', true);
+
+        $pdf->Cell(25,5,'Requested Items',0,1,'L');
+
+        $pdf->SetFont($arial, '', 8, '', true);
+        $colWidth = $page_width/4;
+        $pdf->Cell($colWidth,5,'Name',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,'Price',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,'Unit',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,'Subtotal',1,1,fill: 1);
+        /** @var DeductedItem $deductedItem */
+        foreach ($deduct->deductedItems as $deductedItem){
+            $pdf->Cell($colWidth,5,$deductedItem->item->market_name,1,0);
+            $pdf->Cell($colWidth,5,$deductedItem->item->sell_price,1,0);
+            $pdf->Cell($colWidth,5,$deductedItem->box,1,0);
+            $pdf->Cell($colWidth,5,$deductedItem->box * $deductedItem->item->sell_price,1,1);
+        }
+
+        $pdf->Ln();
+        $style = array(
+            'position' => 'C',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+
+
+
+        $pdf->Ln();
+        $pdf->write1DBarcode("$deduct->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
+        $pdf->Ln();
+        $pdf->Cell(15,5,'Total',1,0,fill: 1);
+
+        $pdf->Cell(30,5,number_format($deduct->total_price(),1) ,1,1);
+        $pdf->Ln();
+
+        $pdf->Cell(15,5,'User',1,0,fill: 1);
+        $pdf->Cell(15,5,$deduct->user->username,1,0,fill: 0);
+
+        $pdf->Ln();
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
 
     public function clinicsReport(Request $request)
     {
@@ -1102,7 +1301,7 @@ class PDFController extends Controller
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
 
-        $pdf->Cell($page_width, 5, 'تقرير العيادات العام', 0, 1, 'C');
+        $pdf->Cell($page_width, 5, 'تقرير  العام', 0, 1, 'C');
         $pdf->setFont($fontname, 'b', 14);
         $table_col_widht = ($page_width) / 6;
 
@@ -1114,50 +1313,178 @@ class PDFController extends Controller
 
         $pdf->setFillColor(200, 200, 200);
         $table_col_widht = ($page_width) / 6;
+        $pdf->Cell($table_col_widht, 5, 'العيادات ', 1, 1, 'C', fill: 1, stretch: true);
 
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
         /** @var DoctorShift $doctor_shift */
         $doc_count = 0;
-        $pdf->Cell($table_col_widht, 5, 'التخصص', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الطبيب', 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'نصيب الطبيب النقدي', 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'نصيب الطيب من التامين', 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'صافي المركز', 1, 1, 'C', fill: 0, stretch: 1);
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+
+        $pdf->Cell($table_col_widht, 5, 'التخصص', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الطبيب', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'نصيب الطبيب النقدي', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'نصيب الطيب من التامين', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'صافي ', $arr, 1, 'C', fill: 1, stretch: 1);
         $pdf->Ln();
         $total_total = 0;
         $total_doctor_cash = 0;
         $total_doctor_isnu = 0;
         $total_hosptal = 0;
+
         foreach ($doctor_shifts as $doctor_shift) {
 
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
 
             $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->specialist->name, 1, 0, 'C', fill: 1, stretch: true);
-            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->name, 1, 0, 'C', fill: 0, stretch: 1);
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->name, 0, 0, 'C', fill: 0, stretch: 1);
             $total = $doctor_shift->total();
             $total_total += $total;
-            $pdf->Cell($table_col_widht, 5, number_format($total, 1), 1, 0, 'C', fill: 0, stretch: 1);
+            $pdf->Cell($table_col_widht, 5, number_format($total, 1), 0, 0, 'C', fill: 0, stretch: 1);
             $doctor_cash = $doctor_shift->doctor_credit_cash();
             $total_doctor_cash += $doctor_cash;
-            $pdf->Cell($table_col_widht, 5, number_format($doctor_cash, 1), 1, 0, 'C', fill: 0, stretch: 1);
+            $pdf->Cell($table_col_widht, 5, number_format($doctor_cash, 1), 0, 0, 'C', fill: 0, stretch: 1);
             $doctor_isnu = $doctor_shift->doctor_credit_company();
             $total_doctor_isnu += $doctor_isnu;
-            $pdf->Cell($table_col_widht, 5, number_format($doctor_isnu, 1), 1, 0, 'C', fill: 0, stretch: 1);
+            $pdf->Cell($table_col_widht, 5, number_format($doctor_isnu, 1), 0, 0, 'C', fill: 0, stretch: 1);
             $hospital = $doctor_shift->hospital_credit();
             $total_hosptal += $hospital;
-            $pdf->Cell($table_col_widht, 5, number_format($hospital, 1), 1, 0, 'C', fill: 0, stretch: 1);
+            $pdf->Cell($table_col_widht, 5, number_format($hospital, 1), 0, 0, 'C', fill: 0, stretch: 1);
             $pdf->Ln();
+            $y = $pdf->GetY();
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
 
         }
         $pdf->Ln();
 
-        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 1, stretch: true);
-        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, number_format($total_total, 1), 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, number_format($total_doctor_cash, 1), 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, number_format($total_doctor_isnu, 1), 1, 0, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, number_format($total_hosptal, 1), 1, 0, 'C', fill: 0, stretch: 1);
+//        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 1, stretch: true);
+//        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0, stretch: 1);
+//        $pdf->Cell($table_col_widht, 5, number_format($total_total, 1), 1, 0, 'C', fill: 0, stretch: 1);
+//        $pdf->Cell($table_col_widht, 5, number_format($total_doctor_cash, 1), 1, 0, 'C', fill: 0, stretch: 1);
+//        $pdf->Cell($table_col_widht, 5, number_format($total_doctor_isnu, 1), 1, 0, 'C', fill: 0, stretch: 1);
+//        $pdf->Cell($table_col_widht, 5, number_format($total_hosptal, 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->Ln();
+        $pdf->Cell($table_col_widht, 5, 'المصروفات ', 1, 1, 'C', fill: 1, stretch: true);
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht, 5, 'وصف المنصرف', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'القيمه', $arr, 1, 'C', fill: 1, stretch: 1);
+        /** @var Cost  $c */
+        foreach ($shift->cost as $c){
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $pdf->Cell($table_col_widht, 5, $c->description, $arr, 0, 'C', fill: 1, stretch: true);
+            $pdf->Cell($table_col_widht, 5, number_format($c->amount , 1), 1, 1, 'C', fill: 0, stretch: 1);
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+        }
+        $pdf->Ln();
+        $cost_total = $shift->cost->reduce(function ($pev,$curr){
+            return $pev + $curr->amount;
+        },0);
+        $pdf->Ln();
+        $pdf->Cell($table_col_widht, 5, 'الملخص ', 1, 1, 'C', fill: 1, stretch: true);
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المختبر', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, number_format($shift->paid_lab, 1), 1, 1, 'C', fill: 0, stretch: 1);
+
+        $pdf->Cell($table_col_widht, 5, 'اجمالي العيادات', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, number_format($total_total , 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المنصرف', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, number_format( $cost_total, 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'الصاقي', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, ($total_total + $shift->paid_lab )-$cost_total  , 1, 0, 'C', fill: 1, stretch: true);
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function costReport(Request $request)
+    {
+
+
+        $shift_id = $request->query('shift_id');
+        $shift = Shift::find($shift_id);
+        $user_id = $request->get('user');
+        $pdf = new Pdf('portrait', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('المصروفات');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Cell($page_width, 5, 'تقرير  المصروفات', 0, 1, 'C');
+        $pdf->setFont($fontname, 'b', 14);
+        $table_col_widht = ($page_width) / 6;
+
+        $pdf->Cell($table_col_widht, 5, "التاريخ", 0, 0, 'L');
+        $pdf->Cell($table_col_widht, 5, "" . $shift->created_at->format('Y/m/d'), 0, 0, 'R');
+        $pdf->Cell($table_col_widht * 2, 5, "رقم الورديه المالي " . $shift->id, 0, 1, 'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200, 200, 200);
+        $table_col_widht = ($page_width) / 4;
+
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+        $pdf->Ln();
+        $pdf->Cell($table_col_widht, 5, 'المصروفات ', 1, 1, 'C', fill: 1, stretch: true);
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht, 5, 'وصف المنصرف', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'المستخدم', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'التاريخ', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'القيمه', $arr, 1, 'C', fill: 1, stretch: 1);
+        $y = $pdf->GetY();
+        /** @var Cost  $c */
+        foreach ($shift->cost as $c){
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $pdf->Cell($table_col_widht, 5, $c->description, $arr, 0, 'C', fill: 0, stretch: true);
+            $pdf->Cell($table_col_widht, 5, $c->user->username, $arr, 0, 'C', fill: 0, stretch: true);
+            $pdf->Cell($table_col_widht, 5, $c->created_at->format('Y/m/d H:i A'), $arr, 0, 'C', fill: 0, stretch: true);
+            $pdf->Cell($table_col_widht, 5, number_format($c->amount , 1), $arr, 1, 'C', fill: 0, stretch: 1);
+            $y = $pdf->GetY();
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+        }
+        $pdf->Ln();
+        $cost_total = $shift->cost->reduce(function ($pev,$curr){
+            return $pev + $curr->amount;
+        },0);
+        $pdf->Ln();
+        $pdf->Cell($table_col_widht, 5, 'الملخص ', 1, 1, 'C', fill: 1, stretch: true);
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المنصرف', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, number_format( $cost_total, 1), 1, 1, 'C', fill: 0, stretch: 1);
 
 
         $pdf->Output('example_003.pdf', 'I');
