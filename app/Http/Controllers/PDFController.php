@@ -425,7 +425,7 @@ class PDFController extends Controller
             $y = $pdf->GetY();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht , 5, $deduct->id, $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->total_price(), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, intval($deduct->total_price() * 1e1) / 1e1, $arr, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, $arr, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->created_at->format('H:i A'), $arr, 0, 'C');
             $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), $arr, 0, ln: 1);
@@ -438,15 +438,15 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->Ln();
 
-        $table_col_widht = ($page_width) / 4;
+        $table_col_widht = ($page_width) / 5;
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPrice(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPrice() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceBank(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceBank() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceTransfer(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPriceTransfer() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Cash', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceCash(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceCash() * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
 
 
 
@@ -522,7 +522,7 @@ class PDFController extends Controller
             $total+= $deduct->total_price();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->total_price(), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5,intval($deduct->total_price() * 1e1) / 1e1 , $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->user->username, $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, $arr, 0, 'C');
 
@@ -535,7 +535,7 @@ class PDFController extends Controller
 
         $table_col_widht = ($page_width) / 4;
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $total, 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, intval($total * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
 
 
 

@@ -53,7 +53,7 @@ class DepositController extends Controller
         $data  = $request->all();
         return Deposit::where('bill_number',$data['bill_number'])->get();
     }
-    public function deposit(Request $request ){
+    public function deposit(Request $request , Deposit $deposit){
         $data = $request->all();
         $user =  auth()->user();
 

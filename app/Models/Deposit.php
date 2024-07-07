@@ -36,7 +36,8 @@ class Deposit extends Model
 
     protected $fillable =['bill_number','bill_date','complete','supplier_id'];
     public function items(){
-        return $this->belongsToMany(Item::class,'deposit_items','deposit_id','item_id')->withPivot(['price','quantity']);
+//        return $this->belongsToMany(Item::class,'deposit_items','deposit_id','item_id')->withPivot(['price','quantity']);
+        return $this->hasMany(DeductedItem::class);
     }
     public function supplier(){
         return $this->belongsTo(Supplier::class);

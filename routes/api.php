@@ -268,7 +268,7 @@ Route::get('sections/all', [SectionController::class, 'all']);
 Route::delete('sections/{section}', [SectionController::class, 'destroy']);
 Route::patch('sections/{section}', [SectionController::class, 'update']);
 
-Route::middleware('auth:sanctum')->post('inventory/deposit', [DepositController::class, 'deposit']);
+Route::middleware('auth:sanctum')->post('inventory/deposit/{deposit}', [DepositController::class, 'deposit']);
 Route::middleware('auth:sanctum')->delete('inventory/{deposit}', [DepositController::class, 'destroyDeposit']);
 Route::controller(DepositController::class)->group(function () {
     Route::prefix('inventory/deposit')->group(function () {
