@@ -16,6 +16,7 @@ use App\Models\Specialist;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,10 +34,10 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
         Permission::create(['name' => 'عرض منتج']);
-        Permission::create(['name' => 'admin']);
         PaymentType::create(['name'=>'Cash']);
         PaymentType::create(['name'=>'Transfer']);
         PaymentType::create(['name'=>'Bank']);
+        Role::create(['name'=>'admin']);
 
         Deno::create(['name'=>0.1]);
         Deno::create(['name'=>1]);
@@ -65,7 +66,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicesTableSeeder::class);
         $this->call(DepositItemsTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
+//        $this->call(RolesTableSeeder::class);
         $this->call(ChildTestOptionsTableSeeder::class);
         $this->call(CbcBindingsTableSeeder::class);
         $this->call(ChemistryBindingsTableSeeder::class);

@@ -82,8 +82,16 @@ class DeductController extends Controller
              return  Deduct::with('deductedItems.client')->latest()->first()    ;
     }
     public function complete(Request $request ,Deduct $deduct){
+        $id =  Deduct::max('id');
         $deduct->update(['complete'=>1]);
-        return $this->newDeduct($request);
+
+        if ($id == $deduct->id){
+            return $this->newDeduct($request);
+        }else{
+
+            return ['data' => $deduct->fresh(), 'shift' => $deduct->shift];
+
+        }
 
     }
     public function payment(Request $request ,Deduct $deduct){
@@ -100,9 +108,19 @@ class DeductController extends Controller
     {
         $user = auth()->user();
         $shift_id = Shift::max('id');
-         $deduct =  Deduct::create(['shift_id'=>$shift_id,'user_id'=>$user->id]);
+        $deduct = Deduct::create(['shift_id' => $shift_id, 'user_id' => $user->id]);
+        $shift = Shift::latest()->first();
 
-        return ['status' =>true,'data'=>$deduct->fresh() ,'shift'=>$deduct->shift] ;
+        if ($shift->touched == 0) {
+            $deduct->number = 1;
+            $shift->touched = 1;
+            $shift->save();
+        } else {
+            $max_lab_no = Deduct::where('shift_id', $shift->id)->max('number');
+            $max_lab_no++;
+            $deduct->number = $max_lab_no;
+        }
+        return ['status' => true, 'data' => $deduct->fresh(), 'shift' => $deduct->shift];
 
     }
 

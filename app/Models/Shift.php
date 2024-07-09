@@ -209,6 +209,7 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
+            if (!$deduct->complete) continue;
            $total += $deduct->total_price();
         }
 
@@ -219,6 +220,8 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
+            if (!$deduct->complete) continue;
+
             if ($deduct->payment_type_id == 3 ){
                 $total += $deduct->total_price();
 
@@ -232,6 +235,8 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
+            if (!$deduct->complete) continue;
+
             if ($deduct->payment_type_id == 2 ){
                 $total += $deduct->total_price();
 
@@ -245,6 +250,8 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
+            if (!$deduct->complete) continue;
+
             if ($deduct->payment_type_id == 1 ){
                 $total += $deduct->total_price();
 

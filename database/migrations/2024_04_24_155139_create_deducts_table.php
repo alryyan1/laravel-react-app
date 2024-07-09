@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('complete')->default(false);
 //            $table->boolean('complete')->default(false);
             $table->float('total_amount_received')->default(false);
+            $table->integer('number');
             $table->timestamps();
         });
     }

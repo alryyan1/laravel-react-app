@@ -147,17 +147,22 @@ class PDFController extends Controller
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
 
-        $pdf->Cell($page_width, 5, 'اذن وارد', 0, 1, 'C');
+        $pdf->Cell($page_width, 5, 'فاتوره وارد', 0, 1, 'C');
         $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 16);
+        $pdf->setFont($fontname, '', 12);
 
         $pdf->setFillColor(200, 200, 200);
         $table_col_widht = $page_width / 5;
-        $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'تاريخ الانشاء ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, $deposit->created_at->format('Y/m/d'), 1, 0, 'C');
         $pdf->Cell($table_col_widht, 5, '', 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, 'المورد ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, $deposit->supplier->name, 1, 1, 'C', stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'رقم الفاتوره ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $deposit->bill_number, 1, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, '', 0, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, 'تاريخ الفاتوره ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $deposit->bill_date, 1, 1, 'C', stretch: 1);
         $table_col_widht = $page_width / 5;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
@@ -167,28 +172,28 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, 'الكميه ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'السعر ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, "الاجمالي  ", 1, 1, 'C', fill: 1);
-        $pdf->setFont($fontname, 'b', 12);
+        $pdf->setFont($fontname, 'b', 10);
 
         $index = 1;
-        foreach ($deposit->items as $item) {
+        foreach ($deposit->items as $deposit_item) {
             $pdf->Cell($table_col_widht, 5, $index, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->name, 1, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $item->pivot->quantity, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->pivot->price, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, ($item->pivot->quantity * $item->pivot->price), 1, 1, 'C');
+            $pdf->Cell($table_col_widht, 5, $deposit_item->item->name  == '' ? $deposit_item->item->market_name : '', 1, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht, 5, $deposit_item->quantity, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $deposit_item->price, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, (number_format($deposit_item->quantity * $deposit_item->price,1)), 1, 1, 'C');
             $index++;
         }
         $pdf->Ln();
-        $pdf->Cell($table_col_widht, 5, 'توقيع المستلم', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, "مدير المخزن  ", 0, 1, 'C');
-        $pdf->Cell($table_col_widht, 5, ' _ _ _ _ ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
-        $pdf->Cell($table_col_widht, 5, " _ _ _ _ ", 0, 1, 'C');
+//        $pdf->Cell($table_col_widht, 5, 'توقيع المستلم', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, "مدير المخزن  ", 0, 1, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' _ _ _ _ ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+//        $pdf->Cell($table_col_widht, 5, " _ _ _ _ ", 0, 1, 'C');
         $pdf->Output('example_003.pdf', 'I');
 
     }
@@ -423,6 +428,7 @@ class PDFController extends Controller
         /** @var Deduct $deduct */
         foreach ($shift->deducts as $deduct) {
             $y = $pdf->GetY();
+            if (!$deduct->complete) continue;
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht , 5, $deduct->id, $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, intval($deduct->total_price() * 1e1) / 1e1, $arr, 0, 'C');
@@ -862,7 +868,7 @@ class PDFController extends Controller
 
 
                     }
-                    $pdf->SetFont($arial, '', 10, '', true);
+                    $pdf->SetFont($arial, '', 8, '', true);
                     $pdf->MultiCell($table_col_widht / 2, 5, "$unit", 0, 'C', 0, 0, '', '', true);
 //                        $pdf->cell($table_col_widht/2, 5, "$unit", 0, 0, 'C', 0, '', 1); // unit
                     $normalRangeCellHeight = $pdf->MultiCell($table_col_widht, 5, "$normal_range", 0, 'C', 0, 1, '', '', true);
@@ -1019,6 +1025,123 @@ class PDFController extends Controller
         $pdf->Cell(30,5,number_format($patient->paid_lab(),1),1,1);
         $pdf->Ln();
         $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
+    public function printReception(Request $request)
+    {
+        $patient = Doctorvisit::find($request->get('doctor_visit'));
+//        return $patient;
+        $count =  $patient->services->count();
+        $custom_layout = array(80, 110 + $count * 5);
+        $settings= Setting::all()->first();
+
+        $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $lg = array();
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('ticket');
+        $pdf->setSubject('ticket');
+        $pdf->setMargins(0, 0, 0);
+        $page_width = 75;
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        /** @var Setting $img_base64_encoded */
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, $page_width / 2 - 5, 5, 20, 20,align: 'C');
+
+        }
+        $pdf->Ln();
+        $pdf->SetFont($arial, '', 10, '', true);
+
+        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+
+        $pdf->Ln();
+
+        $pdf->Cell(20,5,'اسم المريض',0,0);
+        $pdf->Cell(60,5,$patient->patient->name,0,1);
+        $pdf->Cell(20,5,'اسم الطبيب',0,0);
+
+        $pdf->Cell(60,5,$patient->doctorShift->doctor->name,0,1);
+        $pdf->Ln();
+        $pdf->Cell(15,5,'التاريخ',0,0);
+        $pdf->Ln();
+
+        $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
+        $pdf->Cell($page_width,5,'DV No  '.$patient->id,1,1,'C');
+        $pdf->Ln();
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(5, 5, 5);
+        //$pdf->Ln(25);
+        $pdf->Ln();
+        $pdf->Cell(25,5,'الخدمات المطلوبه',0,1,'L');
+
+        $pdf->SetFont($arial, '', 8, '', true);
+        $colWidth = $page_width/4;
+        $pdf->Cell($colWidth * 2,5,'الاسم',1,0,fill: 1);
+        $pdf->Cell($colWidth/ 2,5,'السعر',1,0,fill: 1);
+        $pdf->Cell($colWidth/ 2,5,'العدد',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,'اجمالي',1,1,fill: 1);
+        $total = 0;
+        foreach ($patient->services as $requestedService){
+            $pdf->Cell($colWidth * 2,5,$requestedService->name,1,0,stretch: 1);
+            $pdf->Cell($colWidth/2,5,$requestedService->pivot->price,1,0);
+            $pdf->Cell($colWidth/2,5,$requestedService->pivot->count,1,0);
+            $pdf->Cell($colWidth,5,$requestedService->pivot->count * $requestedService->pivot->price,1,1);
+            $total+= $requestedService->pivot->count * $requestedService->pivot->price;
+        }
+
+        $pdf->Ln();
+        $style = array(
+            'position' => 'C',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+
+
+
+        $pdf->Ln();
+        $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
+        $pdf->Ln();
+        $pdf->Cell(15,5,'الاجمالي',1,0,fill: 1);
+
+        $pdf->Cell(30,5,number_format($total,1) ,1,1);
+        $pdf->Ln();
+
+        $pdf->Cell(15,5,'المستخدم',1,0,fill: 1);
+        $pdf->Cell(15,5,auth()->user()->username,1,0,fill: 0);
+
+        $pdf->Ln();
 
         if ($request->has('base64')) {
             $result_as_bs64 = $pdf->output('name.pdf', 'E');

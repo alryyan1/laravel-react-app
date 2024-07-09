@@ -23,6 +23,9 @@ return new class extends Migration
             $table->longText('logo_base64')->nullable();
             $table->string('lab_name')->nullable();
             $table->string('hospital_name')->nullable();
+            $table->boolean('print_direct')->nullable();
+            $table->string('theme')->default('light');
+            $table->string('lang')->default('ar');
             $table->string('inventory_notification_number')->nullable();
             $table->timestamps();
         });

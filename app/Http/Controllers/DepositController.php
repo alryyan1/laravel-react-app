@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deposit;
+use App\Models\DepositItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class DepositController extends Controller
         $data = $request->all();
 //        $date = Carbon::parse($data['date']);
 //        return $date;
-        $data =  Deposit::WhereDate('bill_date','=',$data['date'])->get();
+        $data =  Deposit::WhereDate('created_at','=',$data['date'])->get();
         return ['data'=>$data , 'status'=>true];
     }
     public function getDepositBySupplier(Request $request){
@@ -32,12 +33,13 @@ class DepositController extends Controller
     public function last(Request $request){
         return Deposit::with('items','supplier')->latest()->first();
     }
-    public function complete(Request $request){
+    public function newDeposit(Request $request){
         $data = $request->all();
         $user =  auth()->user();
 
 
         if ($user->can('انشاء فاتوره')) {
+
 //        return $data;
         return ['status' => Deposit::create(['bill_number'=>$data['bill_number'],'bill_date'=>$data['bill_date'],'supplier_id'=>$data['supplier_id'] ,'complete'=>false])] ;
         }else{
@@ -60,11 +62,11 @@ class DepositController extends Controller
 
         if ($user->can('اضافه للمخزون')) {
         $data = $request->all();
-        $item_id = $data['item_id'];
+
 //        return $data['expire'];
         $expire_date =  $data['expire'];
-        $deposit =  Deposit::latest()->first();
-        $deposit->items()->attach($item_id,[
+        $deposit_item = new DepositItem([
+            'item_id' => $data['item_id'],
             'price'=>$data['price'],
             'quantity'=>$data['quantity'],
             'notes'=>$data['notes'],
@@ -73,18 +75,18 @@ class DepositController extends Controller
             'batch'=>$data['batch'],
             'user_id'=>\Auth::user()->id,
             'created_at'=>now()
-        ],touch:true);
-        return ['status'=>true];
+        ]);
+        $deposit->items()->save($deposit_item);
+
+        return ['status'=>true,'deposit'=>$deposit->fresh()];
         }else{
             return \response(['status' => false,'message'=>'صلاحيه اضافه للمخزون  غير مفعله'],400);
         }
     }
-    public function destroy(Request $request){
+    public function destroy(Request $request,DepositItem $depositItem){
         $data = $request->all();
-        $item_id = $data['item_id'];
-        $deposit = Deposit::latest()->first();
-        $deposit->items()->detach($item_id);
-        return ['status'=>true];
+       ;
+        return ['status'=> $depositItem->delete(),'deposit'=>$depositItem->deposit];
     }
     public function destroyDeposit(Request $request,Deposit $deposit){
         $user =  auth()->user();

@@ -71,6 +71,7 @@ Route::middleware('auth:sanctum')->post('user/denos',[\App\Http\Controllers\User
 
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
+Route::middleware('auth:sanctum')->get('printReception',[\App\Http\Controllers\PDFController::class,'printReception']);
 Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
 Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateMindrayMatchingTable']);
@@ -268,14 +269,14 @@ Route::get('sections/all', [SectionController::class, 'all']);
 Route::delete('sections/{section}', [SectionController::class, 'destroy']);
 Route::patch('sections/{section}', [SectionController::class, 'update']);
 
-Route::middleware('auth:sanctum')->post('inventory/deposit/{deposit}', [DepositController::class, 'deposit']);
+Route::middleware('auth:sanctum')->delete('depositItem/{depositItem}', [DepositController::class, 'destroy']);
+Route::middleware('auth:sanctum')->post('inventory/itemDeposit/{deposit}', [DepositController::class, 'deposit']);
 Route::middleware('auth:sanctum')->delete('inventory/{deposit}', [DepositController::class, 'destroyDeposit']);
 Route::controller(DepositController::class)->group(function () {
     Route::prefix('inventory/deposit')->group(function () {
 
-        Route::middleware('auth:sanctum')->post('/complete', 'complete');
+        Route::middleware('auth:sanctum')->post('/newDeposit', 'newDeposit');
         Route::get('/last', 'last');
-        Route::delete('/', 'destroy');
         Route::post('getDepositsByDate', 'getDepositsByDate');
         Route::get('getDepositById/{deposit}', 'getDepositById');
         Route::patch('finish/{deposit}', 'finish');
