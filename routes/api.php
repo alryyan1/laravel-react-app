@@ -156,7 +156,7 @@ Route::patch('doctor/service/{doctorService}', [DoctorController::class, 'update
 Route::delete('doctors/doctor/{doctor_service}', [DoctorController::class, 'deleteDoctorService']);
 
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
-Route::middleware('auth:sanctum')->get('doctor/shift/close/{doctor}',[DoctorShiftController::class,'close']);
+Route::middleware('auth:sanctum')->get('doctor/shift/close/{shift}',[DoctorShiftController::class,'close']);
 Route::middleware('auth:sanctum')->get('doctor/openShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'DoctorShifts']);
 Route::middleware('auth:sanctum')->get('doctor/byLastUnifiedShift',[DoctorShiftController::class, 'LastShift']);
 Route::get('doctors', [DoctorController::class, 'all']);
@@ -171,8 +171,8 @@ Route::post('specialists/add', [SpecialistController::class, 'store']);
 Route::patch('specialists/{specialist}', [SpecialistController::class, 'update']);
 
 //Route::get('lab/money', [ShiftController::class, 'total']);
-Route::get('service/money', [ShiftController::class, 'totalService']);
-Route::get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
+Route::middleware('auth:sanctum')->get('service/money', [ShiftController::class, 'totalService']);
+Route::middleware('auth:sanctum')->get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
 Route::get('shift/last', [ShiftController::class, 'last']);
 Route::get('shiftById/{shift}', [ShiftController::class, 'shiftById']);
 Route::post('shift/status/{shift}', [ShiftController::class, 'status']);
@@ -211,18 +211,18 @@ Route::get('service/all', [ServiceController::class, 'all']);
 Route::get('service/all/pagination/{page}', [ServiceController::class, 'pagination']);
 Route::patch('service/{service}', [ServiceController::class, 'update']);
 Route::patch('service/test/{service}', [ServiceController::class, 'updatePivot']);
-Route::middleware('auth:sanctum')->post('patient/service/add/{doctorvisit}', [ServiceController::class, 'addService']);
+Route::middleware('auth:sanctum')->delete('requestedService/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'deleteService']);
+Route::middleware('auth:sanctum')->patch('requestedService/pay/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'pay']);
+Route::middleware('auth:sanctum')->patch('requestedService/bank/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'bank']);
+Route::middleware('auth:sanctum')->patch('requestedService/discount/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'discount']);
+Route::middleware('auth:sanctum')->patch('requestedService/cancel/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'cancel']);
+Route::middleware('auth:sanctum')->post('patient/service/add/{doctorvisit}', [\App\Http\Controllers\RequestedServiceController::class, 'addService']);
+Route::middleware('auth:sanctum')->patch('requestedService/count/{requestedService}',[\App\Http\Controllers\RequestedServiceController::class,'count']);
 
 Route::get('serviceGroup/all', [\App\Http\Controllers\ServiceGroupController::class, 'all']);
 Route::post('serviceGroup/create', [\App\Http\Controllers\ServiceGroupController::class, 'create']);
 Route::patch('serviceGroup/{serviceGroup}', [\App\Http\Controllers\ServiceGroupController::class, 'update']);
-Route::middleware('auth:sanctum')->delete('patient/service/{doctorvisit}',[ServiceController::class,'deleteService']);
-Route::middleware('auth:sanctum')->get('patient/service/pay/{doctorvisit}',[ServiceController::class,'pay']);
-Route::middleware('auth:sanctum')->get('patient/service/cancel/{doctorvisit}',[ServiceController::class,'cancel']);
-Route::middleware('auth:sanctum')->patch('patient/service/bank/{doctorvisit}',[ServiceController::class,'bank']);
-Route::middleware('auth:sanctum')->patch('patient/service/count/{doctorvisit}',[ServiceController::class,'count']);
 
-Route::patch('patient/service/discount/{doctorvisit}',[ServiceController::class,'discount']);
 Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
 Route::post('patient/search/phone', [PatientController::class, 'searchByphone']);

@@ -52,8 +52,10 @@ class PatientController extends Controller
 
     public function registerVisit(Request $request ,Patient $patient , Doctor $doctor)
     {
+//        return $doctor;
         /** @var DoctorShift $current_shift */
         $current_shift =   $doctor->shiftsByOrder[0];
+//        return $current_shift;
         $doctor_visit = new Doctorvisit();
         $doctor_visit->patient_id = $patient->id;
         $doctor_visit->doctor_shift_id = $current_shift->id;

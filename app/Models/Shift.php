@@ -42,6 +42,10 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read mixed $max_shift_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deduct> $deducts
  * @property-read int|null $deducts_count
+ * @property-read mixed $total_deducts_price
+ * @property-read mixed $total_deducts_price_bank
+ * @property-read mixed $total_deducts_price_cash
+ * @property-read mixed $total_deducts_price_transfer
  * @mixin \Eloquent
  */
 class Shift extends Model
@@ -110,7 +114,7 @@ class Shift extends Model
         return $total;
     }
 
-    public function totalPaidService(): mixed
+    public function totalPaidService($user = null): mixed
     {
         $total = 0;
 //        return  $this->doctorShifts;
@@ -121,13 +125,13 @@ class Shift extends Model
             /** @var Doctorvisit $doctorvisit */
             foreach ($doctorShift->visits as $doctorvisit){
 //               return   $doctorvisit;
-                $total+= $doctorvisit->total_paid_services();
+                $total+= $doctorvisit->total_paid_services(null, $user);
             }
         }
 
         return $total;
     }
-    public function totalPaidServiceBank(): mixed
+    public function totalPaidServiceBank($user= null): mixed
     {
         $total = 0;
         /** @var DoctorShift $doctorShift */
@@ -136,8 +140,12 @@ class Shift extends Model
             /** @var Doctorvisit $doctorvisit */
             foreach ($doctorShift->visits as $doctorvisit){
                 foreach ($doctorvisit->services as $service){
-                    if ($service->pivot->bank == 1){
-                        $total += $service->pivot->amount_paid;
+                    if ($user !=null){
+
+                        if ($service->user_deposited != $user) continue;
+                    }
+                    if ($service->bank == 1){
+                        $total += $service->amount_paid;
 
                     }
                 }

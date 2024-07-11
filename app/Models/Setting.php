@@ -43,6 +43,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsFooter($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsHeader($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsLogo($value)
+ * @property int|null $print_direct
+ * @property string $theme
+ * @property string $lang
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereLang($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePrintDirect($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTheme($value)
  * @mixin \Eloquent
  */
 class Setting extends Model

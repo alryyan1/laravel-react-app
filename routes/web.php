@@ -66,15 +66,29 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-
-
-  $items = Item::all();
-  /** @var Item $item */
-        foreach ($items as $item){
-      $random = rand(1,9);
-      $item->update(['cost_price'=>$random,'sell_price'=>$random+2]);
-  }
-
+           return  \App\Models\Doctorvisit::find(2);
+//   $data =      DB::table('products_export_2024_07_10')->select('*')->get();
+//   foreach ($data as $item) {
+//       Item::create([
+//           'section_id' => NULL,
+//           'name' => '',
+//           'require_amount' => 0,
+//           'initial_balance' => 0,
+//           'initial_price' => 0,
+//           'tests' => 0,
+//           'expire' => '2024-07-01',
+//           'cost_price' => $item->purchase_price,
+//           'sell_price' => $item->selling_price,
+//           'drug_category_id' => NULL,
+//           'pharmacy_type_id' => NULL,
+//           'barcode' => null,
+//           'strips' => 1,
+//           'sc_name' => $item->name,
+//           'market_name' => $item->name,
+//           'batch' => NULL,
+//           'unit' => '',
+//       ]);
+//   }
 
     });
 

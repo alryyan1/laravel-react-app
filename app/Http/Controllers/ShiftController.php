@@ -44,14 +44,16 @@ class ShiftController extends Controller
         return ['status'=> true, 'total'=>$shift->totalPaid()];
     }
     public function totalService(){
+         $user =  auth()->user();
         /** @var Shift $shift */
         $shift = Shift::latest()->first();
-        return ['status'=> true, 'total'=>$shift->totalPaidService()];
+        return ['status'=> true, 'total'=>$shift->totalPaidService($user->id)];
     }
     public function totalServiceBank(){
+        $user =  auth()->user();
         /** @var Shift $shift */
         $shift = Shift::latest()->first();
-        return ['status'=> true, 'total'=>$shift->totalPaidServiceBank()];
+        return ['status'=> true, 'total'=>$shift->totalPaidServiceBank($user->id)];
     }
 
     public function create(){

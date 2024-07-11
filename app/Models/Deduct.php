@@ -32,6 +32,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePaymentTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereShiftId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereTotalAmountReceived($value)
+ * @property int $user_id
+ * @property int $number
+ * @property-read mixed $total_price
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereUserId($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model

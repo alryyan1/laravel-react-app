@@ -29,6 +29,8 @@ class DoctorController extends Controller
     return ['status' => $doctorService->update([$data['colName'] => $data['val']])];
 
     }
+
+
     public function deleteDoctorService(Request $request , DoctorService $doctor_service)
     {
        $result =  $doctor_service->delete();

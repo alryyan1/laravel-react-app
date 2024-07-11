@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereUpdatedAt($value)
  * @property int|null $user_cost
  * @method static \Illuminate\Database\Eloquent\Builder|Cost whereUserCost($value)
+ * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
 class Cost extends Model

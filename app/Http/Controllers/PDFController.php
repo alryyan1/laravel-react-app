@@ -613,7 +613,7 @@ class PDFController extends Controller
 
             $remaining = $total_deposit - $box_quantity_deducted;
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
-            $pdf->Cell($table_col_widht , 5, $item->market_name, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $item->market_name, $arr, 0, 'C',stretch: 1);
             $pdf->Cell($table_col_widht , 5, $item->expire, $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $box_quantity_deducted, $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $item->sell_price, $arr, 1, 'C');
@@ -1058,7 +1058,7 @@ class PDFController extends Controller
         $pdf->setTitle('ticket');
         $pdf->setSubject('ticket');
         $pdf->setMargins(0, 0, 0);
-        $page_width = 75;
+        $page_width = 70;
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
         /** @var Setting $img_base64_encoded */
@@ -1076,17 +1076,19 @@ class PDFController extends Controller
 
         $pdf->Ln();
 
-        $pdf->Cell(20,5,'اسم المريض',0,0);
-        $pdf->Cell(60,5,$patient->patient->name,0,1);
-        $pdf->Cell(20,5,'اسم الطبيب',0,0);
+        $pdf->Cell(20,5,'اسم المريض',1,0,fill: 1);
+        $pdf->Cell(60,5,$patient->patient->name,1,1);
+        $pdf->Cell(20,5,'اسم الطبيب',1,0,fill: 1);
+        $pdf->SetFont($arial, '', 8, '', true);
 
-        $pdf->Cell(60,5,$patient->doctorShift->doctor->name,0,1);
+        $pdf->Cell(60,5,$patient->doctorShift->doctor->name,1,1);
         $pdf->Ln();
-        $pdf->Cell(15,5,'التاريخ',0,0);
-        $pdf->Ln();
+        $colWidth  = $page_width /4;
+        $pdf->Cell($colWidth,5,'التاريخ',1,0,fill: 1,align: 'C');
 
-        $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
-        $pdf->Cell($page_width,5,'DV No  '.$patient->id,1,1,'C');
+        $pdf->Cell($colWidth,5,$patient->created_at->format('Y/m/d         H:i A'),0,1);
+        $pdf->Cell($colWidth,5,'كود',1,0,'C',fill: 1);
+        $pdf->Cell($colWidth,5,$patient->id,0,1,'C');
         $pdf->Ln();
         $pdf->setAutoPageBreak(TRUE, 0);
         $pdf->setMargins(5, 5, 5);
@@ -1102,11 +1104,11 @@ class PDFController extends Controller
         $pdf->Cell($colWidth,5,'اجمالي',1,1,fill: 1);
         $total = 0;
         foreach ($patient->services as $requestedService){
-            $pdf->Cell($colWidth * 2,5,$requestedService->name,1,0,stretch: 1);
-            $pdf->Cell($colWidth/2,5,$requestedService->pivot->price,1,0);
-            $pdf->Cell($colWidth/2,5,$requestedService->pivot->count,1,0);
-            $pdf->Cell($colWidth,5,$requestedService->pivot->count * $requestedService->pivot->price,1,1);
-            $total+= $requestedService->pivot->count * $requestedService->pivot->price;
+            $pdf->Cell($colWidth * 2,5,$requestedService->service->name,1,0,stretch: 1);
+            $pdf->Cell($colWidth/2,5,$requestedService->price,1,0);
+            $pdf->Cell($colWidth/2,5,$requestedService->count,1,0);
+            $pdf->Cell($colWidth,5,$requestedService->count * $requestedService->price,1,1);
+            $total+= $requestedService->count * $requestedService->price;
         }
 
         $pdf->Ln();
@@ -1136,7 +1138,6 @@ class PDFController extends Controller
         $pdf->Cell(15,5,'الاجمالي',1,0,fill: 1);
 
         $pdf->Cell(30,5,number_format($total,1) ,1,1);
-        $pdf->Ln();
 
         $pdf->Cell(15,5,'المستخدم',1,0,fill: 1);
         $pdf->Cell(15,5,auth()->user()->username,1,0,fill: 0);
@@ -1355,6 +1356,7 @@ class PDFController extends Controller
             /** @var Doctorvisit $doctorvisit */
             foreach ($doctor_shift->visits as $doctorvisit) {
                 $y = $pdf->GetY();
+
                 $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
                 $pdf->Cell($table_col_widht, 5, $doctorvisit->patient->id, 0, 0, 'C', fill: 0);
                 $pdf->Cell($table_col_widht, 5, $doctorvisit->patient->name, 0, 0, 'C', fill: 0);
@@ -1393,9 +1395,15 @@ class PDFController extends Controller
     {
 
 
-        $shift = Shift::latest()->first();
-        $user_id = $request->get('user');
-        $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('user_id', $user_id)->where('status', 1)->where('shift_id', $shift->id)->get();
+        $shift = Shift::find($request->get('shift'));
+        if ($request->has('user')){
+            $user_id = $request->get('user');
+            $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('user_id', $user_id)->where('status', 1)->where('shift_id', $shift->id)->get();
+
+        }else{
+            $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('shift_id', $shift->id)->get();
+        }
+
 
 
         $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -1407,7 +1415,7 @@ class PDFController extends Controller
         $pdf->setLanguageArray($lg);
         $pdf->setCreator(PDF_CREATOR);
         $pdf->setAuthor('Nicola Asuni');
-        $pdf->setTitle('العيادات');
+        $pdf->setTitle('التقرير العام');
         $pdf->setSubject('TCPDF Tutorial');
         $pdf->setKeywords('TCPDF, PDF, example, test, guide');
         $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -1668,7 +1676,7 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, '', 0, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, '', 0, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, 'زمن فتح العياده', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $doctorShift->created_at->format('h:i:s'), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, $doctorShift->created_at->format('h:i A'), 1, 1, 'C', fill: 0);
         $pdf->Ln();
         $pdf->Cell('30', 5, 'المرضي', 1, 1, 'C', fill: 0);
         $pdf->Ln();
@@ -1693,18 +1701,23 @@ class PDFController extends Controller
             $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->total_paid_services($doctorShift->doctor), 1), 0, 0, 'C', fill: 0);
             $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit), 1), 0, 0, 'C', fill: 0);
             $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->total_paid_services($doctorShift->doctor) - $doctorShift->doctor->doctor_credit($doctorvisit), 1), 0, 0, 'C', fill: 0);
-            $pdf->MultiCell($table_col_widht, 5, $doctorvisit->services_concatinated_specfic($doctorShift->doctor), 0, 'R', false, stretch: 1);
+            $pdf->MultiCell($table_col_widht, 5, $doctorvisit->services_concatinated(), 0, 'R', false, stretch: 1);
             $y = $pdf->GetY();
 
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
 
 
-            $pdf->Ln();
 
 
         }
+        $pdf->Ln();
 
-
+        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, number_format($doctorShift->total(),1), 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, number_format($doctorShift->doctor_credit_company() + $doctorShift->doctor_credit_cash(),1), 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5,  number_format($doctorShift->hospital_credit(),1), 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, ' ', 1, 1, 'C', fill: 0);
         $pdf->Output('example_003.pdf', 'I');
 
     }

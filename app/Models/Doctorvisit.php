@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\DoctorShift $doctorShift
  * @property-read mixed $total_service_bank
  * @property-read \App\Models\Patient $patient
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Service> $services
  * @property-read int|null $services_count
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit newQuery()
@@ -26,20 +25,29 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit wherePatientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedService> $requested_services
+ * @property-read int|null $requested_services_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedService> $services
  * @mixin \Eloquent
  */
 class Doctorvisit extends Model
 {
     use HasFactory;
-    protected $with = ['services','services.pivot.user','patient'];
+    protected $with = ['patient','services'];
     protected $table = 'doctor_visit';
     public function getTotalServiceBankAttribute()
     {
         return $this->bankak_service();
     }
-    protected $appends = ['totalservicebank'];
-    public function services(){
-        return $this->belongsToMany(Service::class,'requested_service','doctor_visit_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid','count'])->using(UserPivot::class);
+
+//    protected $appends = ['totalservicebank'];
+//    public function services(){
+//        return $this->belongsToMany(Service::class,'requested_service','doctor_visit_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid','count'])->using(UserPivot::class);
+//    }
+
+  public function services()
+    {
+        return $this->hasMany(RequestedService::class,'doctor_visit_id');
     }
 
     public function patient(){
@@ -49,28 +57,37 @@ class Doctorvisit extends Model
     public function doctorShift(){
         return $this->belongsTo(DoctorShift::class);
     }
-    public function total_paid_services(Doctor|null $doctor  = null){
+    public function total_paid_services(Doctor|null $doctor  = null,$user= null){
         $total = 0;
+//        dd($this->services);
         foreach ($this->services as $service){
+
             if (!is_null($doctor)){
-                if ($doctor->id != $service->pivot->doctor_id ){
+                if ($doctor->id != $service->doctor_id ){
                     continue;
                 }
 
             }
+            if ($user !=null){
+                    if ($service->user_deposited != $user) continue;
+                      $total += $service->amount_paid;
 
-            $total += $service->pivot->amount_paid;
+            }else{
+                $total += $service->amount_paid;
+
+            }
+
         }
         return $total;
     }
     public function bankak_service(){
 
         $total = 0;
-        foreach ($this->services as $service){
-            if ($service->pivot->is_paid && $service->pivot->bank == 1){
+        foreach ($this->services() as $service){
+            if ($service->is_paid && $service->bank == 1){
 
                 $price = $service->price ;
-                $discount = $service->pivot->discount;
+                $discount = $service->discount;
                 $discounted_money = ($price * $discount ) / 100;
                 $patient_paid =   $price - $discounted_money ;
                 $total+=$patient_paid;
@@ -82,11 +99,13 @@ class Doctorvisit extends Model
 
     }
     public function services_concatinated(){
-        return join(' - ',$this::services()->pluck('name')->all());
+        return $this->services->reduce(function($prev,$current){
+            return $prev .' - '. $current->service->name.'x'.$current->count;
+        },'');
     }
     public function services_concatinated_specfic(Doctor $doctor){
         return  join('-', $this->services->filter(function ($service) use ($doctor){
-            return $service->pivot->doctor_id == $doctor->id;
+            return $service->doctor_id == $doctor->id;
         })->pluck('name')->all());
     }
 }

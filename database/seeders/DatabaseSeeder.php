@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         Role::create(['name'=>'admin']);
 
         Deno::create(['name'=>0.1]);
+        Deno::create(['name'=>0.5]);
         Deno::create(['name'=>1]);
         Deno::create(['name'=>5]);
         Deno::create(['name'=>10]);

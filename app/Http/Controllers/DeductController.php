@@ -115,10 +115,12 @@ class DeductController extends Controller
             $deduct->number = 1;
             $shift->touched = 1;
             $shift->save();
+            $deduct->save();
         } else {
             $max_lab_no = Deduct::where('shift_id', $shift->id)->max('number');
             $max_lab_no++;
             $deduct->number = $max_lab_no;
+            $deduct->save();
         }
         return ['status' => true, 'data' => $deduct->fresh(), 'shift' => $deduct->shift];
 

@@ -31,10 +31,17 @@ class DoctorShiftController extends Controller
         $doctor_shift =  DoctorShift::create(['user_id'=>$user,'shift_id'=>$shift->id,'status'=>1,'doctor_id'=>$doctor->id]);
         return ['status'=>true,'shift'=>$doctor_shift->load('visits','doctor')];
     }
-    public function close(Request $request , Doctor $doctor){
+    public function close(Request $request , DoctorShift $shift){
+//             return $shift;
 //        return $request->all();
-        $shifts =  $doctor->shifts()->orderByDesc('id')->get();
-         $shift =  $shifts[0];
+        $user_id = auth()->user()->id;
+        if ($shift->user->id != $user_id){
+            return \response(['status'=>false,'message'=>'عفوا , يتم قفل الورديه بنفس المستخدم الذي فتحها'],400);
+        }
+
+//        $shifts =  $doctor->shifts()->orderByDesc('id')->get();
+//        /** @var DoctorShift $shift */
+//         $shift =  $shifts[0];
          if ($shift->status == 1){
              $shift->status = 0;
              $shift->update();
