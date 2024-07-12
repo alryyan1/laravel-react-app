@@ -4,10 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorShift;
 use App\Models\Shift;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ShiftController extends Controller
 {
+
+    public function totalUserLab(Request $request){
+        $user = auth()->user();
+        $shift = Shift::latest()->first();
+        return $shift->paidLab($user->id);
+    }
+    public function totalUserLabBank(Request $request){
+        $user = auth()->user();
+        $shift = Shift::latest()->first();
+        return $shift->bankakLab($user->id);
+    }
+    public function totalUserLabTotalAndBank(Request $request){
+        $user = auth()->user();
+        $shift = Shift::latest()->first();
+        return ['bank'=>$shift->bankakLab($user->id),'total'=>$shift->paidLab($user->id)];
+    }
+    public function getShiftByDate( Request $request){
+        $date_selected =  $request->get('date');
+//        return Carbon::parse($date_selected)->startOfDay();
+        return Shift::with(['doctorShifts','doctorShifts.doctor'])->whereDate('created_at','=',$date_selected)->get();
+    }
     public function status(Request  $request  , Shift $shift)
     {
        $status =  $request->get('status');

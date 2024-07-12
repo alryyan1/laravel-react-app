@@ -26,47 +26,55 @@ class LabRequestController extends Controller
         return ['status'=>$labRequest->update(['hidden'=>$data['val']]),'data'=>$labRequest->patient->refresh()];
     }
     public function edit(Request $request,LabRequest $labRequest){
+        $user =  auth()->user();
+        if (!$user->can('التخفيض')) {
+            return  response(['message'=>'صلاحيه التخفيض غير مفعله'],400);
+        }
         $data = $request->all();
 
         return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$labRequest->patient->refresh()];
     }
     public function payment(Request $request,Patient $patient){
-
+        $user =  auth()->user();
+        if (!$user->can('سداد فحص')) {
+            return  response(['message'=>'صلاحيه سداد فحص غير مفعله'],400);
+        }
         try {
             DB::transaction(function () use ($request,$patient) {
                 $user = auth()->user();
-                $data = $request->all();
-                $patient_company = null;
-                if ($patient->company_id != null) {
-                    /** @var Company $patient_company */
-                    $patient_company = $patient->company;
-                    $patient_company->load('tests');
-
-                }
-                /** @var LabRequest $requested */
-                foreach ($patient->labrequests as $requested) {
-                    $price = null;
+                    $data = $request->all();
+                    $patient_company = null;
                     if ($patient->company_id != null) {
-                        $id = $requested->mainTest->id;
-                        $test = $patient_company->tests->filter(function ($item) use ($id) {
-                            return $item->pivot->main_test_id == $id;
-                        })->first();
-                        $price = $test->pivot->price;
+                        /** @var Company $patient_company */
+                        $patient_company = $patient->company;
+                        $patient_company->load('tests');
 
-
-                        $amount_paid = $test->pivot->price * $patient_company->lab_endurance / 100;
-
-                    } else {
-                        $price = $requested->mainTest->price;
-                        $discount = $requested->discount_per;
-                        $discount_amount = ($requested->mainTest->price * $discount) / 100;
-                        $amount_paid = $requested->mainTest->price - $discount_amount;
                     }
-                    $requested->update(['price' => $price, 'amount_paid' => $amount_paid, 'user_deposited' => $user->id]);
-                }
-                $patient->is_lab_paid = true;
-                $patient->lab_paid = $data['paid'];
-                $result = $patient->save();
+                    /** @var LabRequest $requested */
+                    foreach ($patient->labrequests as $requested) {
+                        $price = null;
+                        if ($patient->company_id != null) {
+                            $id = $requested->mainTest->id;
+                            $test = $patient_company->tests->filter(function ($item) use ($id) {
+                                return $item->pivot->main_test_id == $id;
+                            })->first();
+                            $price = $test->pivot->price;
+
+
+                            $amount_paid = $test->pivot->price * $patient_company->lab_endurance / 100;
+
+                        } else {
+                            $price = $requested->mainTest->price;
+                            $discount = $requested->discount_per;
+                            $discount_amount = ($requested->mainTest->price * $discount) / 100;
+                            $amount_paid = $requested->mainTest->price - $discount_amount;
+                        }
+                        $requested->update(['price' => $price, 'amount_paid' => $amount_paid, 'user_deposited' => $user->id]);
+                    }
+                    $patient->is_lab_paid = true;
+                    $patient->lab_paid = $data['paid'];
+                    $result = $patient->save();
+
 
             });
         } catch (\Throwable $e) {
@@ -75,7 +83,12 @@ class LabRequestController extends Controller
         return ['status' => true, 'data' => $patient->refresh()];
     }
     public function cancel(Request $request,Patient $patient){
+        $user =  auth()->user();
+        if (!$user->can('الغاء سداد فحص')) {
+            return  response(['message'=>'صلاحيه الغاء السداد غير مفعله'],400);
+        }
         try {
+
             DB::transaction(function () use ($request, $patient) {
                 $patient->is_lab_paid = false;
                 $patient->lab_paid = 0;
@@ -89,6 +102,7 @@ class LabRequestController extends Controller
 
 
         return  ['status'=> $patient->save()];
+
 
 
     }

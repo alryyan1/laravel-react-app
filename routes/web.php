@@ -23,6 +23,7 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 /*
@@ -66,7 +67,16 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-           return  \App\Models\Doctorvisit::find(2);
+        Permission::create(['name' => 'الغاء سداد فحص','guard_name'=>'web']);
+        Permission::create(['name' => 'التخفيض','guard_name'=>'web']);
+        Permission::create(['name' => 'سداد فحص','guard_name'=>'web']);
+        Permission::create(['name' => 'تعديل بيانات المريض','guard_name'=>'web']);
+
+
+        Permission::create(['name' => 'الغاء سداد خدمه','guard_name'=>'web']);
+        Permission::create(['name' => 'سداد خدمه','guard_name'=>'web']);
+        Permission::create(['name' => 'حذف خدمه','guard_name'=>'web']);
+//           return  \App\Models\Doctorvisit::find(2);
 //   $data =      DB::table('products_export_2024_07_10')->select('*')->get();
 //   foreach ($data as $item) {
 //       Item::create([

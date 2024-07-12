@@ -34,6 +34,10 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
         Permission::create(['name' => 'عرض منتج']);
+
+
+
+
         PaymentType::create(['name'=>'Cash']);
         PaymentType::create(['name'=>'Transfer']);
         PaymentType::create(['name'=>'Bank']);

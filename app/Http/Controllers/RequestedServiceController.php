@@ -27,6 +27,11 @@ class RequestedServiceController extends Controller
 
     public function cancel(Request $request , RequestedService $requestedService)
     {
+        $user =  auth()->user();
+        if (!$user->can('الغاء سداد خدمه')) {
+            return  response(['message'=>'صلاحيه    الغاء سداد خدمه غير مفعله'],400);
+        }
+
         $id =  $request->get('service_id');
         $requestedService->update( ['is_paid' => 0,'amount_paid' => 0,'discount' => 0,'count'=>1]);
         return ['status' => true,'patient'=> $requestedService->doctorVisit->fresh()];
@@ -34,10 +39,18 @@ class RequestedServiceController extends Controller
     }
 
     public function deleteService(Request $request , RequestedService $requestedService){
+        $user =  auth()->user();
+        if (!$user->can('حذف خدمه')) {
+            return  response(['message'=>'صلاحيه    حذف  خدمه غير مفعله'],400);
+        }
         return  ['status' => $requestedService->delete(),'patient'=>$requestedService->doctorVisit->fresh()];
     }
     public function pay(Request $request , RequestedService $requestedService)
     {
+        $user =  auth()->user();
+        if (!$user->can('سداد خدمه')) {
+            return  response(['message'=>'صلاحيه   سداد خدمه غير مفعله'],400);
+        }
         $user =  auth()->user();
         $id =  $request->get('service_id');
         $price =  $requestedService->price * $requestedService->count;

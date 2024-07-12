@@ -35,7 +35,7 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read int|null $doctor_shifts_count
  * @property int $touched
  * @property-read mixed $bankak
- * @property-read mixed $paid_lab
+ * @property-read mixed $paid_web
  * @method static \Illuminate\Database\Eloquent\Builder|Shift whereTouched($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cost> $cost
  * @property-read int|null $cost_count
@@ -186,19 +186,19 @@ class Shift extends Model
         return $this->bankakLab();
     }
 
-    public function paidLab(){
+    public function paidLab($user = null){
         $total = 0;
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
-                $total += $patient->paid_lab();
+                $total += $patient->paid_lab($user);
         }
         return $total;
     }
-    public function bankakLab(){
+    public function bankakLab($user = null){
         $total = 0;
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
-                $total += $patient->bankak();
+                $total += $patient->bankak($user);
         }
         return $total;
     }

@@ -145,6 +145,10 @@ class PatientController extends Controller
         return ['status'=>true];
     }
     public function update(PatientAddRequest  $request,Patient $patient){
+        $user =  auth()->user();
+        if (!$user->can('تعديل بيانات المريض')) {
+            return  response(['message'=>'صلاحيه تعديل بيانات المريض غير مفعله'],400);
+        }
 //        return $request->all();
 //        return $doctorvisit;
 //        return $request->validated();

@@ -1499,6 +1499,7 @@ class PDFController extends Controller
 //        $pdf->Cell($table_col_widht, 5, number_format($total_doctor_isnu, 1), 1, 0, 'C', fill: 0, stretch: 1);
 //        $pdf->Cell($table_col_widht, 5, number_format($total_hosptal, 1), 1, 1, 'C', fill: 0, stretch: 1);
         $pdf->Ln();
+        $pdf->AddPage();
         $pdf->Cell($table_col_widht, 5, 'المصروفات ', 1, 1, 'C', fill: 1, stretch: true);
         $pdf->Ln();
 
@@ -1664,7 +1665,12 @@ class PDFController extends Controller
         $pdf->setFillColor(200, 200, 200);
         $table_col_widht = $page_width / 6;
         $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $doctorShift->created_at->format('Y/m/d'), 1, 1, 'C');
+        $pdf->Cell($table_col_widht, 5, $doctorShift->created_at->format('Y/m/d'), 1, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C', fill: 0);
+
+        $pdf->Cell($table_col_widht, 5, 'المستخدم ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $doctorShift->user->username, 1, 1, 'C');
 
         $table_col_widht = ($page_width - 20) / 7;
         $pdf->Ln();

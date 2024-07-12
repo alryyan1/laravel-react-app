@@ -99,7 +99,9 @@ class Doctorvisit extends Model
 
     }
     public function services_concatinated(){
-        return $this->services->reduce(function($prev,$current){
+        return $this->services->filter(function (RequestedService $item){
+            return $item->is_paid == 1;
+        })->reduce(function($prev,$current){
             return $prev .' - '. $current->service->name.'x'.$current->count;
         },'');
     }

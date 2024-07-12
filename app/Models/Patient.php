@@ -100,7 +100,7 @@ class Patient extends Model
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests','doctor','company','subcompany','relation'];
+    protected  $with = ['labrequests','doctor','company','subcompany','relation','user'];
 
     protected $appends = ['paid'];
     public function getPaidAttribute(){
@@ -123,11 +123,18 @@ class Patient extends Model
     public function tests(){
         return $this->hasMany(LabRequest::class,'pid');
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
-
-    public function paid_lab(){
+    public function paid_lab($user = null){
         $total = 0;
+        /** @var LabRequest $labrequest */
         foreach ($this->labrequests as $labrequest){
+            if ($user){
+                if ($labrequest->user_deposited != $user) continue;
+
+            }
             if ($this->is_lab_paid){
                 $total+=$labrequest->amount_paid;
             }
@@ -155,10 +162,14 @@ class Patient extends Model
         return join('-',$this->labrequests->pluck('name')->all());
      }
 
-    public function bankak(){
+    public function bankak($user = null){
 
         $total = 0;
         foreach ($this->labrequests as $labrequest){
+            if ($user){
+                if ($labrequest->user_deposited != $user) continue;
+
+            }
             if ($this->is_lab_paid){
                 if ($labrequest->is_bankak == 1){
 

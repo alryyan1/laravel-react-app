@@ -36,6 +36,11 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::middleware('auth:sanctum')-> get('totalUserLabTotalAndBank',[ShiftController::class,'totalUserLabTotalAndBank']);
+Route::middleware('auth:sanctum')->get('getUserTotalLabBank',[ShiftController::class,'totalUserLabBank']);
+Route::middleware('auth:sanctum')->get('getShiftByDate',[ShiftController::class,'getShiftByDate']);
+
 Route::middleware('auth:sanctum')->delete('items/{item}', [ItemController::class, 'destroy']);
 Route::middleware('auth:sanctum')->delete('deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
 Route::middleware('auth:sanctum')->post('searchDeductsByDate', [DeductController::class, 'searchDeductsByDate']);
@@ -229,12 +234,12 @@ Route::post('patient/search/phone', [PatientController::class, 'searchByphone'])
 Route::post('patient/copy/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
-Route::patch('patients/{patient}', [PatientController::class, 'update']);
+Route::middleware('auth:sanctum')->patch('patients/{patient}', [PatientController::class, 'update']);
 Route::get('patient/barcode/{patient}', [PatientController::class, 'printBarcode']);
 Route::middleware('auth:sanctum')->post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
-Route::patch('labRequest/{labRequest}', [LabRequestController::class, 'edit']);
+Route::middleware('auth:sanctum')->patch('labRequest/{labRequest}', [LabRequestController::class, 'edit']);
 Route::middleware('auth:sanctum')->patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
-Route::patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
+Route::middleware('auth:sanctum')->patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
 Route::patch('labRequest/bankak/{labRequest}', [LabRequestController::class, 'bankak']);
 Route::patch('labRequest/hidetest/{labRequest}', [LabRequestController::class, 'hide']);
 
