@@ -131,6 +131,62 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-06-11 14:00:28',
                 'updated_at' => '2024-06-11 14:39:33',
             ),
+            14 => 
+            array (
+                'id' => 18,
+                'name' => 'الغاء سداد فحص',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
+            15 => 
+            array (
+                'id' => 19,
+                'name' => 'التخفيض',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
+            16 => 
+            array (
+                'id' => 20,
+                'name' => 'سداد فحص',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
+            17 => 
+            array (
+                'id' => 21,
+                'name' => 'تعديل بيانات المريض',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
+            18 => 
+            array (
+                'id' => 22,
+                'name' => 'الغاء سداد خدمه',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
+            19 => 
+            array (
+                'id' => 23,
+                'name' => 'سداد خدمه',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
+            20 => 
+            array (
+                'id' => 24,
+                'name' => 'حذف خدمه',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-13 01:54:08',
+                'updated_at' => '2024-07-13 01:54:08',
+            ),
         ));
         
         
