@@ -1061,6 +1061,8 @@ class PDFController extends Controller
         $page_width = 70;
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
+        $pdf->setMargins(5, 5, 5);
+
         /** @var Setting $img_base64_encoded */
         $settings= Setting::all()->first();
         $img_base64_encoded =  $settings->header_base64;
@@ -1075,13 +1077,15 @@ class PDFController extends Controller
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
 
         $pdf->Ln();
+        $colWidth  = $page_width /2;
 
-        $pdf->Cell(20,5,'اسم المريض',1,0,fill: 1);
-        $pdf->Cell(60,5,$patient->patient->name,1,1);
-        $pdf->Cell(20,5,'اسم الطبيب',1,0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'اسم المريض',1,0,fill: 1);
+        $pdf->Cell($colWidth *1.5 ,5,$patient->patient->name,1,1);
+        $pdf->Cell($colWidth/2,5,'اسم الطبيب',1,0,fill: 1);
+        $pdf->Cell($colWidth *1.5,5,$patient->doctorShift->doctor->name,1,1);
+
         $pdf->SetFont($arial, '', 8, '', true);
 
-        $pdf->Cell(60,5,$patient->doctorShift->doctor->name,1,1);
         $pdf->Ln();
         $colWidth  = $page_width /4;
         $pdf->Cell($colWidth,5,'التاريخ',1,0,fill: 1,align: 'C');
@@ -1091,9 +1095,10 @@ class PDFController extends Controller
         $pdf->Cell($colWidth,5,$patient->id,0,1,'C');
         $pdf->Ln();
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 5, 5);
         //$pdf->Ln(25);
         $pdf->Ln();
+        $pdf->SetFont($arial, 'ub', 10, '', true);
+
         $pdf->Cell(25,5,'الخدمات المطلوبه',0,1,'L');
 
         $pdf->SetFont($arial, '', 8, '', true);
@@ -1140,7 +1145,7 @@ class PDFController extends Controller
         $pdf->Cell(30,5,number_format($total,1) ,1,1);
 
         $pdf->Cell(15,5,'المستخدم',1,0,fill: 1);
-        $pdf->Cell(15,5,auth()->user()->username,1,0,fill: 0);
+        $pdf->Cell(30,5,auth()->user()->username,1,0,fill: 0);
 
         $pdf->Ln();
 
@@ -1394,8 +1399,12 @@ class PDFController extends Controller
     public function allclinicsReport(Request $request)
     {
 
+        if ($request->has('shift')){
+            $shift = Shift::find($request->get('shift'));
 
-        $shift = Shift::find($request->get('shift'));
+        }else{
+            $shift = Shift::latest()->first();
+        }
         if ($request->has('user')){
             $user_id = $request->get('user');
             $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('user_id', $user_id)->where('status', 1)->where('shift_id', $shift->id)->get();

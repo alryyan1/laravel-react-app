@@ -3,14 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deno;
+use App\Models\Route;
 use App\Models\Shift;
 use App\Models\User;
+use App\Models\UserRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function editRoutes(Request $request){
+
+       $add =  $request->get('add');
+       $user_id =  $request->get('user_id');
+       $route_id =  $request->get('route_id');
+       $userRoute =   UserRoute::where('user_id',$user_id)->where('route_id',$route_id);
+       if (!$add){
+           $userRoute->delete();
+
+       }else{
+           UserRoute::create(['user_id'=>$user_id,'route_id'=>$route_id]);
+
+       }
+       return ['status'=>true];
+    }
+    public function routes(){
+        return Route::all();
+    }
     public function updateDenoUser(Request $request)
     {
         $data = $request->all();

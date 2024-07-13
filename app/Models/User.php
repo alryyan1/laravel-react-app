@@ -70,7 +70,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-    protected $with = ['roles'];
+    protected $with = ['roles','routes'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -93,6 +93,9 @@ class User extends Authenticatable
     public function denos()
     {
         return $this->belongsToMany(Deno::class,'denos_users','user_id','deno_id');
+    }
+    public function routes(){
+       return $this->hasMany(UserRoute::class);
     }
     public function user_denos_by_shift()
     {

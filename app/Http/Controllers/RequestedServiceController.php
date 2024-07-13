@@ -12,6 +12,10 @@ class RequestedServiceController extends Controller
 {
 
     public function discount(Request $request , RequestedService $requestedService){
+        $user =  auth()->user();
+        if (!$user->can('التخفيض')) {
+            return  response(['message'=>'صلاحيه    التخفيض   غير مفعله'],400);
+        }
         $data = $request->all();
         $requestedService->update(['discount'=>$data['discount']]);
         return ['status'=>true,'patient'=>$requestedService->doctorVisit->fresh()];

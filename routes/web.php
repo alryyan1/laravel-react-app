@@ -67,15 +67,26 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-        Permission::create(['name' => 'الغاء سداد فحص','guard_name'=>'web']);
-        Permission::create(['name' => 'التخفيض','guard_name'=>'web']);
-        Permission::create(['name' => 'سداد فحص','guard_name'=>'web']);
-        Permission::create(['name' => 'تعديل بيانات المريض','guard_name'=>'web']);
+        \App\Models\Route::create(['name'=>'المخزن','path'=>'inventory']);
+        \App\Models\Route::create(['name'=>'الصيدليه','path'=>'pharma']);
+        \App\Models\Route::create(['name'=>'التدقيق','path'=>'audit']);
+        \App\Models\Route::create(['name'=>'المختبر','path'=>'lab']);
+        \App\Models\Route::create(['name'=>'العيادات','path'=>'clinic']);
+        \App\Models\Route::create(['name'=>'التعاقدات','path'=>'insurance']);
+        \App\Models\Route::create(['name'=>'الخدمات','path'=>'services']);
+        \App\Models\Route::create(['name'=>'الاعدادات','path'=>'settings']);
+        \App\Models\Route::create(['name'=>'الرئيسيه','path'=>'dashboard']);
 
 
-        Permission::create(['name' => 'الغاء سداد خدمه','guard_name'=>'web']);
-        Permission::create(['name' => 'سداد خدمه','guard_name'=>'web']);
-        Permission::create(['name' => 'حذف خدمه','guard_name'=>'web']);
+//        Permission::create(['name' => 'الغاء سداد فحص','guard_name'=>'web']);
+//        Permission::create(['name' => 'التخفيض','guard_name'=>'web']);
+//        Permission::create(['name' => 'سداد فحص','guard_name'=>'web']);
+//        Permission::create(['name' => 'تعديل بيانات المريض','guard_name'=>'web']);
+//
+//
+//        Permission::create(['name' => 'الغاء سداد خدمه','guard_name'=>'web']);
+//        Permission::create(['name' => 'سداد خدمه','guard_name'=>'web']);
+//        Permission::create(['name' => 'حذف خدمه','guard_name'=>'web']);
 //           return  \App\Models\Doctorvisit::find(2);
 //   $data =      DB::table('products_export_2024_07_10')->select('*')->get();
 //   foreach ($data as $item) {
