@@ -1036,6 +1036,77 @@ class PDFController extends Controller
         }
 
     }
+    public function printBarcode(Request $request)
+    {
+        /** @var Patient $patient */
+        $patient = Patient::find($request->get('pid'));
+        $custom_layout = array(39, 25);
+        $settings= Setting::all()->first();
+
+        $pdf = new Pdf('landscape', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+
+//        $lg = array();
+//        $lg['a_meta_charset'] = 'UTF-8';
+//        $lg['a_meta_dir'] = 'rtl';
+//        $lg['a_meta_language'] = 'fa';
+//        $lg['w_page'] = 'page';
+//        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('ايصال المختبر');
+        $pdf->setSubject('ايصال المختبر');
+        $pdf->setMargins(0, 0, 0);
+//        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+//        $pdf->setFooterMargin(0);
+        $page_width = 39;
+//        echo  $pdf->getPageWidth();
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(7, 7, 7);
+        $style = array(
+            'position' => 'C',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+        //$pdf->Ln(25);
+        $pdf->SetFillColor(240, 240, 240);
+
+        $pdf->SetFont($arial, 'u', 6, '', true);
+        $col = $page_width / 2;
+        $pdf->Cell($col/2,5,$patient->visit_number,1,0);
+        $pdf->Cell($col * 1.5,5,$patient->name,0,1);
+        $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 14, 0.4, $style, 'N');
+        $pdf->SetFont($arial, 'u', 4, '', true);
+
+        $pdf->MultiCell($page_width,5,$patient->tests_concatinated(),0,'j',false,1);
+//        $pdf->Ln();
+
+
+//        $pdf->Ln();
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
     public function printReception(Request $request)
     {
         $patient = Doctorvisit::find($request->get('doctor_visit'));

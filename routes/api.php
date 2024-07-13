@@ -78,6 +78,7 @@ Route::middleware('auth:sanctum')->post('user/denos',[\App\Http\Controllers\User
 
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
+Route::get('printBarcode',[\App\Http\Controllers\PDFController::class,'printBarcode']);
 Route::middleware('auth:sanctum')->get('printReception',[\App\Http\Controllers\PDFController::class,'printReception']);
 Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('getChemistryColumnNames',[\App\Http\Controllers\RequestedResultController::class,'Chemistry']);
