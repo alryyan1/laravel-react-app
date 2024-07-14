@@ -77,7 +77,23 @@ class Shift extends Model
         }
         return $total;
     }
-
+    public function getSpecialistsAttribute()
+    {
+        return $this->specialists();
+    }
+   public function specialists()
+   {
+        return \DB::table("doctor_shifts")
+            ->join("doctors", function($join){
+                $join->on("doctors.id", "=", "doctor_shifts.doctor_id");
+            })
+            ->join("specialists", function($join){
+                $join->on("specialists.id", "=", "doctors.specialist_id");
+            })
+            ->select(['specialists.id','specialists.name'])
+            ->groupBy("specialists.id")
+            ->get();
+   }
     public function totalLabDiscount(){
         $total = 0;
         /** @var Patient $patient */
@@ -114,6 +130,10 @@ class Shift extends Model
         return $total;
     }
 
+    public function sepcialists()
+    {
+      return  $this->hasManyThrough(Specialist::class,Doctor::class);
+    }
     public function totalPaidService($user = null): mixed
     {
         $total = 0;
@@ -154,7 +174,7 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank'];
+    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists'];
     public function getTotalDeductsPriceAttribute()
     {
         return $this->totalDeductsPrice();

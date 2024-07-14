@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('lab_paid')->default(0);
             $table->boolean('result_is_locked')->default(0);
             $table->boolean('sample_collected')->default(0);
+            $table->time('sample_collect_time')->nullable();
             $table->dateTime('result_print_date')->nullable()->default(null);
             $table->dateTime('sample_print_date')->nullable()->default(null);
             $table->integer('visit_number');

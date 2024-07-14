@@ -189,6 +189,7 @@ Route::get('tests', [\App\Http\Controllers\MainTestController::class, 'show']);
 Route::get('packages/all', function () {
     return \App\Models\Package::with('tests')->get();
 });
+Route::middleware('auth:sanctum')->get('patient/sampleCollected/{patient}', [PatientController::class, 'collectSample']);
 Route::middleware('auth:sanctum')->get('printLock/{patient}', [PatientController::class, 'printLock']);
 Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'byName']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);

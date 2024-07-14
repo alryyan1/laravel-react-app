@@ -19,6 +19,7 @@ use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Shift;
 use App\Models\Shipping;
+use App\Models\User;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
 use Elibyy\TCPDF\Facades\TCPDF;
@@ -1043,7 +1044,7 @@ class PDFController extends Controller
         $custom_layout = array(39, 25);
         $settings= Setting::all()->first();
 
-        $pdf = new Pdf('landscape', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+        $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
 
 //        $lg = array();
 //        $lg['a_meta_charset'] = 'UTF-8';
@@ -1055,43 +1056,70 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ايصال المختبر');
         $pdf->setSubject('ايصال المختبر');
-        $pdf->setMargins(0, 0, 0);
-//        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
-//        $pdf->setFooterMargin(0);
         $page_width = 39;
-//        echo  $pdf->getPageWidth();
-        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
-        $pdf->AddPage();
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(7, 7, 7);
-        $style = array(
-            'position' => 'C',
-            'align' => 'C',
-            'stretch' => false,
-            'fitwidth' => true,
-            'cellfitalign' => '',
-            'border' => false,
-            'hpadding' => 'auto',
-            'vpadding' => 'auto',
-            'fgcolor' => array(0,0,0),
-            'bgcolor' => false, //array(255,255,255),
-            'text' => true,
-            'font' => 'helvetica',
-            'fontsize' => 8,
-            'stretchtext' => 4
-        );
+        $pdf->setMargins(1, 1, 1);
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $containers = $patient->labrequests->map(function(LabRequest $req){
+            return $req->mainTest->container;
+        });
+
+        foreach($containers as $container )
+        {
+            $pdf->AddPage();
+            $tests_accoriding_to_container =  $patient->labrequests->filter(function (LabRequest $labrequest) use ($container){
+                return $labrequest->mainTest->container->id == $container->id;
+            })->map(function (LabRequest $labRequest){
+                return $labRequest->mainTest;
+            });
+            $tests ="";
+            /** @var MainTest $maintest */
+            $i = 0;
+            foreach($tests_accoriding_to_container as $maintest)
+            {
+                if ($i== 0){
+                    $main_test_name =  $maintest->main_test_name;
+                    $tests.=$main_test_name;
+                }else{
+                    $main_test_name =  $maintest->main_test_name;
+                    $tests.='- '.$main_test_name;
+                }
+
+                $i++;
+            }
+            $pdf->SetFillColor(240, 240, 240);
+            $style = array(
+                'position' => 'C',
+                'align' => 'C',
+                'stretch' => false,
+                'fitwidth' => true,
+                'cellfitalign' => '',
+                'border' => false,
+                'hpadding' => 'auto',
+                'vpadding' => 'auto',
+                'fgcolor' => array(0,0,0),
+                'bgcolor' => false, //array(255,255,255),
+                'text' => true,
+                'font' => 'helvetica',
+                'fontsize' => 8,
+                'stretchtext' => 4
+            );
+
+            $pdf->SetFont($arial, 'u', 5, '', true);
+            $col = $page_width / 2;
+            $pdf->Cell($col/2,5,$patient->visit_number,1,0,'C');
+            $pdf->Cell($col * 1.5,5,$patient->name,0,1);
+            $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 13, 0.4, $style, 'N');
+            $pdf->SetFont($arial, 'u', 4, '', true);
+
+
+            $pdf->Cell($page_width,5,$tests,0,1,'L');
+
+        }//end of foreach
+
 
         //$pdf->Ln(25);
-        $pdf->SetFillColor(240, 240, 240);
 
-        $pdf->SetFont($arial, 'u', 6, '', true);
-        $col = $page_width / 2;
-        $pdf->Cell($col/2,5,$patient->visit_number,1,0);
-        $pdf->Cell($col * 1.5,5,$patient->name,0,1);
-        $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 14, 0.4, $style, 'N');
-        $pdf->SetFont($arial, 'u', 4, '', true);
-
-        $pdf->MultiCell($page_width,5,$patient->tests_concatinated(),0,'j',false,1);
 //        $pdf->Ln();
 
 
@@ -1611,6 +1639,133 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, number_format( $cost_total, 1), 1, 1, 'C', fill: 0, stretch: 1);
         $pdf->Cell($table_col_widht, 5, 'الصاقي', 1, 0, 'C', fill: 1, stretch: true);
         $pdf->Cell($table_col_widht, 5, ($total_total + $shift->paid_lab )-$cost_total  , 1, 0, 'C', fill: 1, stretch: true);
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function userClinicReport(Request $request)
+    {
+
+        if ($request->has('shift')){
+            $shift = Shift::find($request->get('shift'));
+
+        }else{
+            $shift = Shift::latest()->first();
+        }
+        if ($request->has('user')){
+            $user_id = $request->get('user');
+            $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('user_id', $user_id)->where('status', 1)->where('shift_id', $shift->id)->get();
+
+        }else{
+            $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('shift_id', $shift->id)->get();
+        }
+
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('التقرير العام');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+        $pdf->foot = function ()use($pdf,$page_width,$request){
+           $col =   $page_width /6 ;
+          $pdf->Cell($col,5,'',0,0,'L')  ;
+          $pdf->Cell($col,5,'',0,0,'L')  ;
+          $pdf->Cell($col,5,'',0,0,'L')  ;
+          $pdf->Cell($col,5,'',0,0,'L')  ;
+          $user = User::find(  $request->get('user'));
+          $pdf->Cell($col * 1.5,5,$user->username,0,0,'L')  ;
+            $pdf->Cell($col  / 2,5,'User',0,1,'L')  ;
+
+        };
+        $pdf->Cell($page_width, 5, 'تقرير  العام', 0, 1, 'C');
+        $pdf->setFont($fontname, 'b', 14);
+        $table_col_widht = ($page_width) / 6;
+
+        $pdf->Cell($table_col_widht, 5, "التاريخ", 0, 0, 'L');
+        $pdf->Cell($table_col_widht, 5, "" . $shift->created_at->format('Y/m/d'), 0, 0, 'R');
+        $pdf->Cell($table_col_widht * 2, 5, "رقم الورديه المالي " . $shift->id, 0, 1, 'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200, 200, 200);
+        $table_col_widht = ($page_width) / 6;
+        $pdf->Cell($table_col_widht, 5, 'العيادات ', 1, 1, 'C', fill: 1, stretch: true);
+
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+        /** @var DoctorShift $doctor_shift */
+        $doc_count = 0;
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+
+        $pdf->Cell($table_col_widht, 5, 'التخصص', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الطبيب', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'نصيب الطبيب النقدي', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'نصيب الطيب من التامين', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'صافي ', $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Ln();
+        $total_total = 0;
+        $total_doctor_cash = 0;
+        $total_doctor_isnu = 0;
+        $total_hosptal = 0;
+
+        foreach ($doctor_shifts as $doctor_shift) {
+
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->specialist->name, 1, 0, 'C', fill: 1, stretch: true);
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->name, 0, 0, 'C', fill: 0, stretch: 1);
+            $total = $doctor_shift->total();
+            $total_total += $total;
+            $pdf->Cell($table_col_widht, 5, number_format($total, 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $doctor_cash = $doctor_shift->doctor_credit_cash();
+            $total_doctor_cash += $doctor_cash;
+            $pdf->Cell($table_col_widht, 5, number_format($doctor_cash, 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $doctor_isnu = $doctor_shift->doctor_credit_company();
+            $total_doctor_isnu += $doctor_isnu;
+            $pdf->Cell($table_col_widht, 5, number_format($doctor_isnu, 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $hospital = $doctor_shift->hospital_credit();
+            $total_hosptal += $hospital;
+            $pdf->Cell($table_col_widht, 5, number_format($hospital, 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $pdf->Ln();
+            $y = $pdf->GetY();
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+
+        }
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht, 5, '', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, ' ', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, '  ', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, '   ', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, number_format($total_hosptal,1), $arr, 1, 'C', fill: 1, stretch: 1);
+
 
 
         $pdf->Output('example_003.pdf', 'I');

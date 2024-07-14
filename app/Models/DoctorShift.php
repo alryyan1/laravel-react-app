@@ -56,6 +56,7 @@ class DoctorShift extends Model
     {
         return $this->doctor_credit_company();
     }
+
     public function doctor(){
         return $this->belongsTo(Doctor::class);
     }

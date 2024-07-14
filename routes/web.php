@@ -130,6 +130,7 @@ Route::get('searchDeductByDate',[\App\Http\Controllers\PDFController::class,'sea
 Route::get('costReport',[\App\Http\Controllers\PDFController::class,'costReport']);
 Route::get('expireReport',[\App\Http\Controllers\PDFController::class,'expiredItems']);
 //clinics
+Route::get('userClinicReport',[\App\Http\Controllers\PDFController::class,'userClinicReport']);
 Route::get('clinics/report',[\App\Http\Controllers\PDFController::class,'clinicsReport']);
 Route::get('clinics/all',[\App\Http\Controllers\PDFController::class,'allclinicsReport']);
 Route::get('clinics/doctor/report',[\App\Http\Controllers\PDFController::class,'clinicReport']);

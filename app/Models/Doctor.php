@@ -87,6 +87,9 @@ class Doctor extends Model
         foreach ($doctorvisit->services as $service) {
 
             if ($service->doctor_id != $this->id) continue;
+
+
+
             if (in_array($service->service->id, $array_1)) {
                 if ($doctorvisit->patient->company_id !=null){
                     $patient_company =  $doctorvisit->patient->company;

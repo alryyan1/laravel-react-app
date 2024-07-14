@@ -76,5 +76,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CbcBindingsTableSeeder::class);
         $this->call(ChemistryBindingsTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
+        $this->call(RoutesTableSeeder::class);
+        $this->call(RoleHasPermissionsTableSeeder::class);
+        $this->call(UserRoutesTableSeeder::class);
     }
 }

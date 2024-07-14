@@ -38,6 +38,10 @@ class PatientController extends Controller
         $patient->update(['result_is_locked'=> $lock]);
         return ['status'=>true,'patient'=>$patient,'lock'=>$lock];
     }
+    public function collectSample(Request $request , Patient $patient)
+    {
+        return ['status'=>$patient->update(['sample_collected'=>1,'sample_collect_time'=>now()]),'patient'=>$patient->fresh(),'shift'=>$patient->shift];
+    }
 
     public function saveByHistoryLab(Patient $patient , Doctor|null $doctor){
         if ($doctor == null){
