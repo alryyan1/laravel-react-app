@@ -109,7 +109,7 @@ class PatientController extends Controller
     public function printBarcode(Request $request , Patient $patient)
     {
 
-        $patient->update(['sample_print_date'=>now()]);
+//        $patient->update(['sample_print_date'=>now()]);
         $ip_address = $_SERVER['REMOTE_ADDR'];
         $hostPrinter = "\\$ip_address\zebra";
         $speedPrinter = 3;
@@ -136,12 +136,19 @@ class PatientController extends Controller
                 $tests.=$main_test_name;
 
             }
-                $z->setBarcode(1, 270, 120, $patient->id); #1 -> cod128//barcode
-                $z->writeLabel("------------",340,165,4);//patient id
-                $z->writeLabel($patient->id,340,155,4);//patient id
-                $z->writeLabel("$tests",330,10,1);
-                //$z->writeLabel("-",200,20,1);
-                $z->setLabelCopies(1);
+//                $z->setBarcode(1, 270, 120, $patient->id); #1 -> cod128//barcode
+//                $z->writeLabel("------------",340,165,4);//patient id
+//                $z->writeLabel($patient->id,340,155,4);//patient id
+//                $z->writeLabel("$tests",330,10,1);
+//                //$z->writeLabel("-",200,20,1);
+//                $z->setLabelCopies(1);
+            $z->setBarcode(1, 270, 110, $patient->id); #1 -> cod128//barcode
+            $z->writeLabel($patient->id,340,155,4);//patient id
+            $z->writeLabel("$tests",330,10,1);
+//            $z->writeLabel("$package_name",210,150,1);
+
+            //$z->writeLabel("-",200,20,1);
+            $z->setLabelCopies(1);
 
         }//end of foreach
 
