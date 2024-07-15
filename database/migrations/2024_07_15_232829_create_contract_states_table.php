@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Contract;
+use App\Models\ContractState;
+use App\Models\State;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +15,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contracts', function (Blueprint $table) {
+        Schema::create('contract_states', function (Blueprint $table) {
             $table->id();
-            $table->string('tenant_name');
-            $table->string('room_no');
-            $table->string('building_no');
-            $table->boolean('checklist');
-            $table->string('notes');
-            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(Contract::class);
+            $table->foreignIdFor(State::class);
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('contract_states');
     }
 };
