@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
+            $table->string('tenant_name');
             $table->string('room_no');
-            $table->string('code_no');
-            $table->boolean('check_list_received');
-            $table->dateTime('received_at')->nullable();
+            $table->string('building_no');
+            $table->boolean('checklist');
+            $table->text('notes ');
+            $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();
         });
     }

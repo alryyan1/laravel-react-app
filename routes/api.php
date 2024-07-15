@@ -37,6 +37,10 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::middleware('auth:sanctum')-> post('contracts',[\App\Http\Controllers\ContractController::class,'store']);
+Route::middleware('auth:sanctum')->get('contracts/all/pagination/{item}', [\App\Http\Controllers\ContractController::class, 'pagination']);
+
+
 Route::middleware('auth:sanctum')-> patch('routes',[\App\Http\Controllers\UserController::class,'editRoutes']);
 Route::middleware('auth:sanctum')-> get('routes',[\App\Http\Controllers\UserController::class,'routes']);
 Route::middleware('auth:sanctum')-> get('totalUserLabTotalAndBank',[ShiftController::class,'totalUserLabTotalAndBank']);
