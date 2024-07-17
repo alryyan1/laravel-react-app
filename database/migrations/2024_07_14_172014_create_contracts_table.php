@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('building_no');
             $table->boolean('checklist');
             $table->string('notes');
-            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class,'user_handed')->nullable()->constrained()->references('id')->on('users');
+
             $table->timestamps();
         });
     }

@@ -89,6 +89,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $auth_date
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAuthDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereResultAuth($value)
+ * @property string|null $sample_collect_time
+ * @property-read \App\Models\Shift $shift
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSampleCollectTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

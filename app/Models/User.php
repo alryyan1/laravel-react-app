@@ -51,6 +51,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $denos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Deno> $user_denos_by_shift
  * @property-read int|null $user_denos_by_shift_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserRoute> $routes
+ * @property-read int|null $routes_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable

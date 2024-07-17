@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
+    public function update(Request $request , Contract  $contract)
+    {
+       return ['status'=>$contract->update(['user_handed'=>$request->user_id])];
+    }
     public function addStateToContract(Request $request,Contract $contract){
         $user =  auth()->user();
         $contractState = new ContractState();
@@ -20,7 +24,7 @@ class ContractController extends Controller
     }
     public function createState(Request $request)
     {
-        return State::create(['name' => $request->name]);
+        return ['status'=>true,'data'=>State::create(['name' => $request->name])];
     }
     public function getStates()
     {
@@ -35,7 +39,15 @@ class ContractController extends Controller
     }
     public function store(Request $request)
     {
-        return ['status' => Contract::create($request->all())];
+        $user =  auth()->user();
+        return ['status' => Contract::create([
+            'tenant_name'=>$request->tenant_name,
+            'room_no'=>$request->room_no,
+            'building_no'=>$request->building_no,
+            'checklist'=>$request->checklist,
+            'notes'=>$request->notes,
+            'user_id'=>$user->id,
+        ])];
     }
     public function pagination(Request $request)
     {

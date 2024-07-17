@@ -36,6 +36,8 @@ use Spatie\Permission\Models\Role;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('contractStates/{contract}',[\App\Http\Controllers\PDFController::class,'contractStates']);
+Route::get('states',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
 Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);

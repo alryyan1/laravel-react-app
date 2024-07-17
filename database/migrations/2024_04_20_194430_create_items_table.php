@@ -25,11 +25,12 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\DrugCategory::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\PharmacyType::class)->nullable()->constrained();
             $table->string('barcode')->nullable();
-            $table->smallInteger('strips');
+            $table->smallInteger('strips')->nullable();
             $table->string('sc_name');
             $table->string('market_name');
             $table->string('batch')->nullable();
             $table->timestamps();
+            $table->longText('images')->nullable();
             $table->unique(['barcode']);
         });
     }

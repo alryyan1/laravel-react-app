@@ -46,6 +46,10 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read mixed $total_deducts_price_bank
  * @property-read mixed $total_deducts_price_cash
  * @property-read mixed $total_deducts_price_transfer
+ * @property-read mixed $paid_lab
+ * @property-read mixed $specialists
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Specialist> $sepcialists
+ * @property-read int|null $sepcialists_count
  * @mixin \Eloquent
  */
 class Shift extends Model

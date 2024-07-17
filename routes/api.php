@@ -37,10 +37,11 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
-Route::middleware('auth:sanctum')-> post('addStateToContract',[\App\Http\Controllers\ContractController::class,'addStateToContract']);
+Route::middleware('auth:sanctum')-> post('addStateToContract/{contract}',[\App\Http\Controllers\ContractController::class,'addStateToContract']);
 Route::middleware('auth:sanctum')-> post('states',[\App\Http\Controllers\ContractController::class,'createState']);
 Route::middleware('auth:sanctum')-> get('states',[\App\Http\Controllers\ContractController::class,'getStates']);
 Route::middleware('auth:sanctum')-> post('contracts',[\App\Http\Controllers\ContractController::class,'store']);
+Route::middleware('auth:sanctum')-> patch('contracts/{contract}',[\App\Http\Controllers\ContractController::class,'update']);
 Route::middleware('auth:sanctum')->get('contracts/all/pagination/{item}', [\App\Http\Controllers\ContractController::class, 'pagination']);
 
 

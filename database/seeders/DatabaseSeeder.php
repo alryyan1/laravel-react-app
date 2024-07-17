@@ -63,13 +63,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ChildTestsTableSeeder::class);
         $this->call(SectionSeeder::class);
         $this->call(SupplierSeeder::class);
-        Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
+//        Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
 
         $this->call(ClientSeeder::class);
-        $this->call(ItemsTableSeeder::class);
+//        $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
-        $this->call(DepositItemsTableSeeder::class);
+//        $this->call(DepositItemsTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
 //        $this->call(RolesTableSeeder::class);
         $this->call(ChildTestOptionsTableSeeder::class);
