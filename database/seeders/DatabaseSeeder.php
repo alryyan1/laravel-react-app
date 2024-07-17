@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         //Specialist::truncate();
         //Doctor::truncate();
 
-        DrugCategory::create(['name'=>'الجهاز التنفسي']);
+//        DrugCategory::create(['name'=>'الجهاز التنفسي']);
         PharmacyType::create(['name'=>'حبوب']);
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         Deno::create(['name'=>50]);
 
         Shift::create();
-        User::create(['username'=>'starsIntaj','password'=>bcrypt('starsIntaj')]);
+        User::create(['username'=>'admin123','password'=>bcrypt('admin123')]);
        $specialist =  Specialist::create(['name'=>'الباطنيه']);
        $doctor = Doctor::factory(10)->create();
 //       Patient::factory(10)->create();
@@ -64,9 +64,10 @@ class DatabaseSeeder extends Seeder
         $this->call(SectionSeeder::class);
         $this->call(SupplierSeeder::class);
 //        Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
+        $this->call(DrugCategoriesTableSeeder::class);
 
         $this->call(ClientSeeder::class);
-//        $this->call(ItemsTableSeeder::class);
+        $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
 //        $this->call(DepositItemsTableSeeder::class);

@@ -82,7 +82,8 @@ class Deduct extends Model
 
         foreach ($this->deductedItems as $item){
 
-            $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+//            $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+            $total +=  $item->box  *  $item->item->sell_price;
         }
 
         return $total;

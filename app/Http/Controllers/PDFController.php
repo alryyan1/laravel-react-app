@@ -1406,7 +1406,7 @@ class PDFController extends Controller
         $pdf->Cell($colWidth,5,'Subtotal',1,1,fill: 1);
         /** @var DeductedItem $deductedItem */
         foreach ($deduct->deductedItems as $deductedItem){
-            $pdf->Cell($colWidth,5,$deductedItem->item->market_name,1,0);
+            $pdf->Cell($colWidth,5,$deductedItem->item->market_name,1,0,stretch: 1);
             $pdf->Cell($colWidth,5,$deductedItem->item->sell_price,1,0);
             $pdf->Cell($colWidth,5,$deductedItem->box,1,0);
             $pdf->Cell($colWidth,5,$deductedItem->box * $deductedItem->item->sell_price,1,1);

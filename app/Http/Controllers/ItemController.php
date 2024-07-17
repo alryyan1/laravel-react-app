@@ -9,6 +9,8 @@ use App\Models\DepositItems;
 use App\Models\Item;
 use App\Models\Shift;
 use DB;
+use Gumlet\ImageResize;
+use Gumlet\ImageResizeException;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -32,19 +34,19 @@ class ItemController extends Controller
                     $deductedItem =  DeductedItem::where('item_id',$product_id)->where('shift_id',$id)->where('deduct_id',$deduct->id)->first();
                     $item =  Item::find($product_id);
                     if ($deductedItem){
-                        $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
+                        $deductedItem->update(['box'=>Db::raw("`box` +     1")]);
                     }else{
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
                 }
             }else{
                 foreach ($request->get('selectedDrugs' ) as $drug_id){
                     $deductedItem =  DeductedItem::where('item_id',$drug_id)->where('shift_id',$id)->where('deduct_id',$deduct->id)->first();
                     $item =  Item::find($drug_id);
                     if ($deductedItem){
-                        $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
+                        $deductedItem->update(['box'=>Db::raw("`box` +     1")]);
                     }else{
 
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
 
                     }
                 }
@@ -157,11 +159,11 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
-            $totaldeduct = $total_deduct / $item->strips;
-            $item->totaldeduct = $totaldeduct;
-            $item->remaining = $total_deposit - $totaldeduct;
+
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct;
         }
         return $items;
     }
@@ -216,11 +218,11 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
-            $totaldeduct = $total_deduct / $item->strips;
-            $item->totaldeduct = $totaldeduct;
-            $item->remaining = $total_deposit - $totaldeduct;
+//            $totaldeduct = $total_deduct / $item->strips;
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct;
         }
         return $items;
     }
@@ -258,12 +260,24 @@ class ItemController extends Controller
         }
     }
 
+
     public function update(Request $request, Item $item)
     {
        $user =  auth()->user();
        if ($user->can('تعديل صنف')){
            $data = $request->all();
 //        return $data;
+
+//           if ($data['colName'] == 'images'){
+//               try {
+//                   $image = ImageResize::createFromString(base64_decode($data['val']));
+//                   $image->scale(50);
+//                   echo $image->getImageAsString();
+//               }catch (ImageResizeException $exception){
+//                   return  ['error' => $exception->getMessage()];
+//               }
+//
+//           }
 
            return ['status' => $item->update([$data['colName'] => $data['val']])];
        }else{

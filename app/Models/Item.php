@@ -68,7 +68,7 @@ class Item extends Model
     use HasFactory;
     use EagerLoadPivotTrait;
     protected $guarded = ['id'];
-    protected $with = ['section','category','type'];
+    protected $with = ['section','type'];
     public function category()
     {
         return $this->belongsTo(DrugCategory::class,'drug_category_id');
