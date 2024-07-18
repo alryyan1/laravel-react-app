@@ -140,6 +140,7 @@ Route::get('clinics/doctor/report',[\App\Http\Controllers\PDFController::class,'
 //company
 Route::get('company/test/{company}',[\App\Http\Controllers\PDFController::class,'companyTest']);
 Route::get('company/service/{company}',[\App\Http\Controllers\PDFController::class,'companyService']);
+Route::get('excel/items',[\App\Http\Controllers\ExcellController::class,'export']);
 
 
 require __DIR__.'/auth.php';
