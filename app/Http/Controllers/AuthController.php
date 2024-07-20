@@ -16,7 +16,7 @@ class AuthController extends Controller
         $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password'])]);
         $user->load(['roles','routes']);
         $token =      $user->createToken('main')->plainTextToken;
-        return ['status'=>true,'user'=>$user , 'token'=>$token];
+        return ['status'=>true,'user'=>$user->load('sub_routes') , 'token'=>$token];
 
     }
     public function login(\App\Http\Requests\Auth\LoginRequest $request){

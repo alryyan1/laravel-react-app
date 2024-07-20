@@ -83,14 +83,14 @@ class Doctorvisit extends Model
     public function bankak_service(){
 
         $total = 0;
-        foreach ($this->services() as $service){
+        foreach ($this->services as $service){
             if ($service->is_paid && $service->bank == 1){
 
-                $price = $service->price ;
-                $discount = $service->discount;
-                $discounted_money = ($price * $discount ) / 100;
-                $patient_paid =   $price - $discounted_money ;
-                $total+=$patient_paid;
+                 $total += $service->amount_paid ;
+//                $discount = $service->discount;
+//                $discounted_money = ($price * $discount ) / 100;
+//                $patient_paid =   $price - $discounted_money ;
+//                $total+=$patient_paid;
 
             }
 

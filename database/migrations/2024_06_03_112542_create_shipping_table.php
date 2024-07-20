@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('express');
-            $table->string('ctn');
-            $table->string('cbm');
-            $table->string('kg');
+            $table->string('ctn')->nullable();
+            $table->string('cbm')->nullable();
+            $table->string('kg')->nullable();
             $table->string('prefix');
             $table->foreignIdFor(\App\Models\ShippingState::class)->nullable()->constrained();
             $table->timestamps();

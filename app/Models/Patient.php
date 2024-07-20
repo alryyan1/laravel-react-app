@@ -165,7 +165,7 @@ class Patient extends Model
         return join('-',$this->labrequests->pluck('name')->all());
      }
 
-    public function bankak($user = null){
+    public function lab_bank($user = null){
 
         $total = 0;
         foreach ($this->labrequests as $labrequest){

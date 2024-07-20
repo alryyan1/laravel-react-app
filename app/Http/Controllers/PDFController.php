@@ -84,8 +84,8 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht, 5, 'كود الصنف', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الاسم ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'كود ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht*1.5, 5, 'الاسم ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'سعر الوحده ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'رصيد اول المده', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, ' الاجمالي ', 1, 0, 'C', fill: 1);
@@ -93,15 +93,15 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, "المنصرف  ", 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, "الرصيد  ", 1, 1, 'C', fill: 1);
         $pdf->setFont($fontname, 'b', 12);
-        $items = \App\Models\Item::all();
+        $items = \App\Models\Item::orderByDesc('id')->get();
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(DB::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
             $item->totaldeduct = $total_deduct;
             $item->remaining = $total_deposit - $total_deduct;
-            $pdf->Cell($table_col_widht, 5, $item->id, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->name, 1, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht/2, 5, $item->id, 1, 0, 'C');
+            $pdf->Cell($table_col_widht * 1.5, 5, $item->market_name, 1, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht, 5, $item->initial_price, 1, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht, 5, $item->initial_balance, 1, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht, 5, $item->initial_price * $item->initial_balance, 1, 0, 'C', stretch: 1);
@@ -338,7 +338,7 @@ class PDFController extends Controller
             $pdf->Cell($table_col_widht, 5, number_format($patient->total(), 1), 0, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht, 5, number_format($patient->paid_lab(), 1), 0, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht / 2, 5, $patient->discountAmount(), 0, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht / 2, 5, $patient->bankak(), 0, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht / 2, 5, $patient->lab_bank(), 0, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht / 2, 5, $patient?->company->name ?? 'cash', 0, 0, 'C', stretch: 1);
             $pdf->MultiCell($table_col_widht * 2, 5, $patient->tests_concatinated(), 0, 'L', false, stretch: 1);
             $pdf->Line(PDF_MARGIN_LEFT, $y, PDF_MARGIN_RIGHT, $y);
@@ -411,14 +411,16 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, 'Time ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, $shift->created_at->format('H:i A'), 1, 1, 'C');
 
-        $table_col_widht = ($page_width ) / 5;
+        $table_col_widht = ($page_width ) / 7;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht , 5, 'Id', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2 , 5, 'Id', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'sale number', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'Total', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht /2, 5, 'Type', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht /2 , 5, "Time", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht  , 5, "Time", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht  , 5, "profit", 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht * 2 , 5, 'Items', 1, 1, 'C', fill: 1);
 
 
@@ -431,10 +433,13 @@ class PDFController extends Controller
             $y = $pdf->GetY();
             if (!$deduct->complete) continue;
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
-            $pdf->Cell($table_col_widht , 5, $deduct->id, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht / 2 , 5, $deduct->id, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->number, $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, intval($deduct->total_price() * 1e1) / 1e1, $arr, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, $arr, 0, 'C');
-            $pdf->Cell($table_col_widht/2 , 5, $deduct->created_at->format('H:i A'), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('H:i A'), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, intval($deduct->profit() * 1e1) / 1e1, $arr, 0, 'C');
+
             $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), $arr, 0, ln: 1);
 
 
@@ -443,6 +448,13 @@ class PDFController extends Controller
             $index++;
         }
         $pdf->Ln();
+        $pdf->Cell($table_col_widht/2 , 5, '', 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, '', 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht /2, 5, '', 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht  , 5, "", 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht  , 5, number_format($shift->totalItemsProfit(),1), 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht * 2 , 5, '', 1, 1, 'C', fill: 0);
         $pdf->Ln();
 
         $table_col_widht = ($page_width) / 5;
@@ -450,8 +462,8 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPrice() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceBank() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
-        $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPriceTransfer() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
+//        $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
+//        $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPriceTransfer() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Cash', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceCash() * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
 
@@ -509,40 +521,51 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, $second, 1, 1, 'C');
 
 
-        $table_col_widht = ($page_width ) / 5;
+        $table_col_widht = ($page_width ) / 8;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
+        $pdf->Cell($table_col_widht/2 , 5, 'id', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht /2, 5, 'sale id', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'profit', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, 'Date', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'Price', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, 'User', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, 'Payment', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht  , 5, "Items", 1, 1, 'C', fill: 1);
-        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Cell($table_col_widht *2 , 5, "Items", 1, 1, 'C', fill: 1);
+        $pdf->setFont($fontname, 'b', 10);
         $pdf->Ln();
         $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
         $index = 1;
         $total = 0;
+        $total_profit = 0 ;
         /** @var Deduct $deduct */
         foreach ($deducts as $deduct) {
             $y = $pdf->GetY();
             $total+= $deduct->total_price();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $pdf->Cell($table_col_widht/2 , 5, $deduct->id, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht/2 , 5, $deduct->number, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->profit(), $arr, 0, 'C');
+
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5,intval($deduct->total_price() * 1e1) / 1e1 , $arr, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->user->username, $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, $arr, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, $arr, 0, 'C',stretch: 1);
 
             $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), $arr, 0, ln: 1);
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $total_profit += $deduct->profit();
             $index++;
         }
         $pdf->Ln();
         $pdf->Ln();
 
-        $table_col_widht = ($page_width) / 4;
+        $table_col_widht = ($page_width) / 6;
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, intval($total * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, 'Total Profit', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, intval($total_profit * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
 
 
 
@@ -1546,12 +1569,16 @@ class PDFController extends Controller
 
         $pdf->Cell($table_col_widht, 5, "التاريخ", 0, 0, 'L');
         $pdf->Cell($table_col_widht, 5, "" . $shift->created_at->format('Y/m/d'), 0, 0, 'R');
-        $pdf->Cell($table_col_widht * 2, 5, "رقم الورديه المالي " . $shift->id, 0, 1, 'C');
+        $pdf->Cell($table_col_widht * 2, 5, "رقم الورديه المالي " . $shift->id, 0, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, "الوقت", 0, 0, 'L');
+        $pdf->Cell($table_col_widht, 5, "" . $shift->created_at->format('H:i A'), 0, 0, 'R');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 16);
 
         $pdf->setFillColor(200, 200, 200);
         $table_col_widht = ($page_width) / 6;
+        $pdf->Ln();
+
         $pdf->Cell($table_col_widht, 5, 'العيادات ', 1, 1, 'C', fill: 1, stretch: true);
 
         $pdf->Ln();
@@ -1599,6 +1626,39 @@ class PDFController extends Controller
 
         }
         $pdf->Ln();
+        $table_col_widht = ($page_width) / 6;
+
+        $pdf->Cell($table_col_widht, 5, 'التخصص', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الطبيب', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'البنك', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, ' النقديه', $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Ln();
+        $total_total = 0;
+        $total_doctor_cash = 0;
+        $total_doctor_isnu = 0;
+        $total_hosptal = 0;
+
+        foreach ($doctor_shifts as $doctor_shift) {
+
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->specialist->name, 1, 0, 'C', fill: 1, stretch: true);
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->name, 0, 0, 'C', fill: 0, stretch: 1);
+            $total = $doctor_shift->total();
+            $pdf->Cell($table_col_widht, 5, number_format($total, 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $doctor_cash = $doctor_shift->doctor_credit_cash();
+            $pdf->Cell($table_col_widht, 5, number_format($doctor_shift->total_bank(), 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $doctor_isnu = $doctor_shift->doctor_credit_company();
+            $pdf->Cell($table_col_widht, 5, number_format($total -$doctor_shift->total_bank() , 1), 0, 1, 'C', fill: 0, stretch: 1);
+            $y = $pdf->GetY();
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+
+        }
+        $pdf->Ln();
 
 //        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 1, stretch: true);
 //        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0, stretch: 1);
@@ -1629,17 +1689,54 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->Cell($table_col_widht, 5, 'الملخص ', 1, 1, 'C', fill: 1, stretch: true);
         $pdf->Ln();
+        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C', fill: 0, stretch: true);
+        $pdf->Cell($table_col_widht, 5, 'الاجمالي', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, 'البنك', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, 'النقديه', 1, 1, 'C', fill: 1, stretch: true);
 
-        $pdf->Cell($table_col_widht, 5, 'اجمالي المختبر', 1, 0, 'C', fill: 1, stretch: true);
-        $pdf->Cell($table_col_widht, 5, number_format($shift->paid_lab, 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, ' المختبر', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, number_format($shift->paid_lab, 1), 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, number_format($shift->paidLabBank(), 1), 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,200,0);
+
+        $pdf->Cell($table_col_widht, 5, number_format($shift->paid_lab -  $shift->paidLabBank(), 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,0,0);
 
         $pdf->Cell($table_col_widht, 5, 'اجمالي العيادات', 1, 0, 'C', fill: 1, stretch: true);
-        $pdf->Cell($table_col_widht, 5, number_format($total_total , 1), 1, 1, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'اجمالي المنصرف', 1, 0, 'C', fill: 1, stretch: true);
-        $pdf->Cell($table_col_widht, 5, number_format( $cost_total, 1), 1, 1, 'C', fill: 0, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'الصاقي', 1, 0, 'C', fill: 1, stretch: true);
-        $pdf->Cell($table_col_widht, 5, ($total_total + $shift->paid_lab )-$cost_total  , 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5, number_format($shift->totalPaidService(), 1), 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, number_format($shift->totalPaidServiceBank(), 1), 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,200,0);
 
+        $pdf->Cell($table_col_widht, 5, number_format($shift->totalPaidService() -  $shift->totalPaidServiceBank(), 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,0,0);
+
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المنصرف', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5,'', 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5,'', 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',200,0,0);
+
+        $pdf->Cell($table_col_widht, 5, number_format( $cost_total, 1), 1, 1, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,0,0);
+
+        $pdf->Cell($table_col_widht, 5, 'صافي النقديه', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5,'', 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5,'', 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,0,0);
+
+        $pdf->Cell($table_col_widht, 5, number_format(($shift->totalPaidService() -  $shift->totalPaidServiceBank()) +($shift->paid_lab -  $shift->paidLabBank())  - $cost_total,1) , 1, 1, 'C', fill: 0, stretch: true);
+        $pdf->setColor('text',0,0,0);
+
+        $pdf->Cell($table_col_widht, 5, 'الصافي', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5,'', 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5,'', 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->setColor('text',0,200,0);
+
+        $pdf->Cell($table_col_widht, 5, number_format(($shift->totalPaidService() + $shift->paid_lab )-$cost_total ,1) , 1, 1, 'C', fill: 0, stretch: true);
+        $pdf->setColor('text',0,0,0);
+        $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 1, stretch: true);
+        $pdf->Cell($table_col_widht, 5,number_format($shift->paid_lab + $shift->totalPaidService(),1), 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5,number_format($shift->paidLabBank() +$shift->totalPaidServiceBank() ,1), 1, 0, 'C', fill: 0, stretch: 1);
+        $pdf->Cell($table_col_widht, 5,'', 1, 1, 'C', fill: 0, stretch: 1);
 
         $pdf->Output('example_003.pdf', 'I');
 
@@ -1765,7 +1862,42 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, '  ', $arr, 0, 'C', fill: 1, stretch: 1);
         $pdf->Cell($table_col_widht, 5, '   ', $arr, 0, 'C', fill: 1, stretch: 1);
         $pdf->Cell($table_col_widht, 5, number_format($total_hosptal,1), $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Ln();
 
+        $pdf->AddPage();
+        $table_col_widht = ($page_width) / 5;
+
+        $pdf->Cell($table_col_widht, 5, 'التخصص', $arr, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الطبيب', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'البنك', $arr, 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, ' النقديه', $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Ln();
+        $total_total = 0;
+        $total_doctor_cash = 0;
+        $total_doctor_isnu = 0;
+        $total_hosptal = 0;
+
+        foreach ($doctor_shifts as $doctor_shift) {
+
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->specialist->name, 1, 0, 'C', fill: 1, stretch: true);
+            $pdf->Cell($table_col_widht, 5, $doctor_shift->doctor->name, 0, 0, 'C', fill: 0, stretch: 1);
+            $total = $doctor_shift->total();
+            $pdf->Cell($table_col_widht, 5, number_format($total, 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $doctor_cash = $doctor_shift->doctor_credit_cash();
+            $pdf->Cell($table_col_widht, 5, number_format($doctor_shift->total_bank(), 1), 0, 0, 'C', fill: 0, stretch: 1);
+            $doctor_isnu = $doctor_shift->doctor_credit_company();
+            $pdf->Cell($table_col_widht, 5, number_format($total -$doctor_shift->total_bank() , 1), 0, 1, 'C', fill: 0, stretch: 1);
+            $y = $pdf->GetY();
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+
+        }
+        $pdf->Ln();
 
 
         $pdf->Output('example_003.pdf', 'I');
@@ -1921,11 +2053,13 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->Cell('30', 5, 'المرضي', 1, 1, 'C', fill: 0);
         $pdf->Ln();
-        $table_col_widht = ($page_width) / 6;
+        $table_col_widht = ($page_width) / 8;
 
-        $pdf->Cell($table_col_widht, 5, 'الكود', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'اسم', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'المدفوع', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'الكود', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht*1.5, 5, 'اسم', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'نقدا', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'بنك', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'نصيب الطبيب', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'نصيب المركز', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'الخدمات *', 1, 1, 'C', fill: 1);
@@ -1937,9 +2071,11 @@ class PDFController extends Controller
             $y = $pdf->GetY();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
 
-            $pdf->Cell($table_col_widht, 5, $doctorvisit->id, 0, 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht, 5, $doctorvisit->patient->name, 0, 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht/2, 5, $doctorvisit->id, 0, 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht*1.5, 5, $doctorvisit->patient->name, 0, 0, 'C', fill: 0);
             $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->total_paid_services($doctorShift->doctor), 1), 0, 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht, 5,number_format($doctorvisit->total_paid_services($doctorShift->doctor) -$doctorvisit->bankak_service() ,1) , 0, 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->bankak_service(), 1), 0, 0, 'C', fill: 0);
             $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->doctorShift->doctor->doctor_credit($doctorvisit), 1), 0, 0, 'C', fill: 0);
             $pdf->Cell($table_col_widht, 5, number_format($doctorvisit->total_paid_services($doctorShift->doctor) - $doctorShift->doctor->doctor_credit($doctorvisit), 1), 0, 0, 'C', fill: 0);
             $pdf->MultiCell($table_col_widht, 5, $doctorvisit->services_concatinated(), 0, 'R', false, stretch: 1);
@@ -1956,6 +2092,8 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, number_format($doctorShift->total(),1), 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, number_format($doctorShift->total() - $doctorShift->total_bank(),1), 1, 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, number_format($doctorShift->total_bank(),1), 1, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, number_format($doctorShift->doctor_credit_company() + $doctorShift->doctor_credit_cash(),1), 1, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5,  number_format($doctorShift->hospital_credit(),1), 1, 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, ' ', 1, 1, 'C', fill: 0);
@@ -2029,6 +2167,80 @@ class PDFController extends Controller
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht, 5, $test->main_test_name, 0, 0, 'C', fill: true, stretch: true);
             $pdf->Cell($table_col_widht, 5, number_format($test->pivot->price, 1), 0, 1, 'C');
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $index++;
+        }
+        $pdf->Ln();
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function labprice(Request $request)
+    {
+//        dd($company);
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+//        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('اسعار المختبر');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+
+        $pdf->Cell($page_width, 5, 'اسعار التحاليل', 0, 1, 'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 16);
+
+        $pdf->setFillColor(200, 200, 200);
+        $table_col_widht = $page_width / 2;
+
+        $table_col_widht = ($page_width) / 6;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht, 5, '  الاسم', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'السعر ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '  الاسم', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'السعر ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '  الاسم', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'السعر ', 1, 1, 'C', fill: 1);
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+
+        $pdf->setEqualColumns(3, $page_width / 3);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        $index = 1;
+        $table_col_widht = ($page_width) / 6;
+         $tests =   MainTest::all();
+        /** @var MainTest $test */
+        foreach ($tests as $test) {
+            $y = $pdf->GetY();
+//            dd($test);
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+            $pdf->Cell($table_col_widht, 5, $test->main_test_name, 0, 0, 'C', fill: true, stretch: true);
+            $pdf->Cell($table_col_widht, 5, number_format($test->price, 1), 0, 1, 'C');
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
 
             $index++;

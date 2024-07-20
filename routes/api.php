@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->get('contracts/all/pagination/{item}', [\App\
 
 
 Route::middleware('auth:sanctum')-> patch('routes',[\App\Http\Controllers\UserController::class,'editRoutes']);
+Route::middleware('auth:sanctum')-> patch('subRoutes',[\App\Http\Controllers\UserController::class,'editSubRoutesRoutes']);
 Route::middleware('auth:sanctum')-> get('routes',[\App\Http\Controllers\UserController::class,'routes']);
 Route::middleware('auth:sanctum')-> get('totalUserLabTotalAndBank',[ShiftController::class,'totalUserLabTotalAndBank']);
 Route::middleware('auth:sanctum')->get('getUserTotalLabBank',[ShiftController::class,'totalUserLabBank']);
@@ -65,7 +66,7 @@ Route::middleware('auth:sanctum')->post('addDrugForSell',[\App\Http\Controllers\
 Route::middleware('auth:sanctum')->patch('deductedItem/{deductedItem}',[\App\Http\Controllers\deductedItemController::class,'update']);
 Route::middleware('auth:sanctum')->delete('inventory/deduct/{deductedItem}', [\App\Http\Controllers\deductedItemController::class, 'destroy']);
 
-Route::post('drugs',[\App\Http\Controllers\DrugController::class,'store']);
+Route::middleware('auth:sanctum')->post('drugs',[\App\Http\Controllers\DrugController::class,'store']);
 
 
 Route::post('pharmacyTypes',[\App\Http\Controllers\PharmacyTypeController::class,'store']);
@@ -293,6 +294,7 @@ Route::controller(DepositController::class)->group(function () {
 
         Route::middleware('auth:sanctum')->post('/newDeposit', 'newDeposit');
         Route::get('/last', 'last');
+        Route::get('/all', 'allDeposits');
         Route::post('getDepositsByDate', 'getDepositsByDate');
         Route::get('getDepositById/{deposit}', 'getDepositById');
         Route::patch('finish/{deposit}', 'finish');

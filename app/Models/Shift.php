@@ -199,6 +199,7 @@ class Shift extends Model
     {
         return self::max('id');
     }
+
     public function getPaidLabAttribute(){
         return $this->paidLab();
     }
@@ -214,11 +215,19 @@ class Shift extends Model
         }
         return $total;
     }
+    public function paidLabBank($user = null){
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            $total += $patient->lab_bank($user);
+        }
+        return $total;
+    }
     public function bankakLab($user = null){
         $total = 0;
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
-                $total += $patient->bankak($user);
+                $total += $patient->lab_bank($user);
         }
         return $total;
     }
@@ -239,6 +248,19 @@ class Shift extends Model
         foreach ($this->deducts as $deduct){
             if (!$deduct->complete) continue;
            $total += $deduct->total_price();
+        }
+
+        return $total;
+    }
+    public function totalItemsProfit(){
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+            if (!$deduct->complete) continue;
+
+                $total += $deduct->profit();
+
+
         }
 
         return $total;

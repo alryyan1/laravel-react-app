@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DepositController extends Controller
 {
+
+    public function allDeposits(){
+        return Deposit::orderByDesc('id')->with('supplier')->get();
+    }
     public function getDepositsByDate(Request $request){
         $data = $request->all();
 //        $date = Carbon::parse($data['date']);

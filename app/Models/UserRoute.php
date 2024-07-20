@@ -10,6 +10,9 @@ class UserRoute extends Model
     protected $guarded = [];
     public $timestamps = false;
     protected $with = ['route'];
+    public function sub_routes(){
+        return $this->hasMany(UserSubRoute::class);
+    }
 
     use HasFactory;
     public function route(){

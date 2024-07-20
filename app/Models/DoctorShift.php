@@ -71,6 +71,14 @@ class DoctorShift extends Model
         }
         return $total_paid;
     }
+    public function total_bank(){
+        $total_paid = 0;
+        /** @var Doctorvisit $doctorvisit */
+        foreach ($this->visits as $doctorvisit){
+            $total_paid+= $doctorvisit->bankak_service();
+        }
+        return $total_paid;
+    }
     public function doctor_credit_cash(){
         $total_credit = 0;
         /** @var Doctorvisit $doctorvisit */

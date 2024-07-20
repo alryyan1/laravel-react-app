@@ -35,6 +35,7 @@ return new class extends Migration
             $table->decimal('pdw', 10, 1);
             $table->decimal('mpv', 10, 1);
             $table->decimal('plcr', 10, 1);
+            $table->integer('flag');
         });
     }
 

@@ -45,10 +45,14 @@ class Deduct extends Model
     protected $guarded = ['id'];
     use HasFactory;
     protected $with = ['deductedItems','paymentType','user'];
-    protected $appends = ['total_price'];
+    protected $appends = ['total_price','profit'];
     public function getTotalPriceAttribute()
     {
         return $this->total_price();
+    }
+    public function getProfitAttribute()
+    {
+        return $this->profit();
     }
     public function items(){
         return $this->belongsToMany(Item::class,'deducted_items','deduct_id','item_id')->withPivot(['client_id','quantity'])->using(ClientDeductPivot::class);
@@ -86,6 +90,22 @@ class Deduct extends Model
         }
 
         return $total;
+
+    }
+
+    public function profit( )
+    {
+
+        $total = 0;
+        $cost = 0;
+
+        foreach ($this->deductedItems as $item){
+
+            $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+            $cost +=  $item->strips  *  ($item->item->cost_price/$item->item->strips)  ;
+        }
+
+        return $total - $cost;
 
     }
     public function items_concatinated( )

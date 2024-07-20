@@ -7,6 +7,7 @@ use App\Models\Route;
 use App\Models\Shift;
 use App\Models\User;
 use App\Models\UserRoute;
+use App\Models\UserSubRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -27,6 +28,21 @@ class UserController extends Controller
 
        }
        return ['status'=>true];
+    }
+    public function editSubRoutesRoutes(Request $request){
+
+        $add =  $request->get('add');
+        $user_id =  $request->get('user_id');
+        $route_id =  $request->get('sub_route_id');
+        $userRoute =   UserSubRoute::where('user_id',$user_id)->where('sub_route_id',$route_id);
+        if (!$add){
+            $userRoute->delete();
+
+        }else{
+            UserSubRoute::create(['user_id'=>$user_id,'sub_route_id'=>$route_id]);
+
+        }
+        return ['status'=>true];
     }
     public function routes(){
         return Route::all();
