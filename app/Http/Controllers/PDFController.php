@@ -272,8 +272,14 @@ class PDFController extends Controller
     public function labreport(Request $request)
     {
 
+        if ($request->has('shift')){
+            $shift = Shift::find($request->get('shift'));
 
-        $shift = Shift::latest()->first();
+        }else{
+            $shift = Shift::latest()->first();
+
+        }
+
 
         $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $lg = array();
