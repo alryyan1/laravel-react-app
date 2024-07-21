@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Deposit;
 use App\Models\DepositItem;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,39 @@ use Illuminate\Support\Facades\Auth;
 class DepositController extends Controller
 {
 
+    public function updateDepositItem(Request $request , DepositItem $depositItem)
+    {
+        $data = $request->all();
+
+
+        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->fresh()];
+    }
+    public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
+    {
+       $items =  Item::take(50)->get();
+       /** @var Item $item */
+        foreach ($items as $item) {
+
+            $deposit_item =   DepositItem::where('item_id', $item->id)->first();
+            if ($deposit_item){
+                continue ;
+            }
+            $deposit_item = new DepositItem([
+                'item_id' => $item->id,
+                'price'=>$item->sell_price,
+                'quantity'=>0,
+                'notes'=>'',
+                'expire'=>$item->expire,
+                'barcode'=>$item->barcode,
+                'batch'=>$item->batch,
+                'user_id'=>\Auth::user()->id,
+                'created_at'=>now()
+            ]);
+            $deposit->items()->save($deposit_item);
+
+        }
+        return ['success'=>true,'deposit'=>$deposit->load('items')];
+    }
     public function allDeposits(){
         return Deposit::orderByDesc('id')->with('supplier')->get();
     }

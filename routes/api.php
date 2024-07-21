@@ -37,6 +37,11 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::middleware('auth:sanctum')-> patch('depositItems/update/{depositItem}',[\App\Http\Controllers\DepositController::class,'updateDepositItem']);
+Route::middleware('auth:sanctum')-> post('income-item/bulk/{deposit}',[\App\Http\Controllers\DepositController::class,'defineAllItemsToDeposit']);
+
+
+
 Route::middleware('auth:sanctum')-> post('addStateToContract',[\App\Http\Controllers\ContractController::class,'addStateToContract']);
 Route::middleware('auth:sanctum')-> post('states',[\App\Http\Controllers\ContractController::class,'createState']);
 Route::middleware('auth:sanctum')-> get('states',[\App\Http\Controllers\ContractController::class,'getStates']);

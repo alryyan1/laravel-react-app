@@ -164,27 +164,43 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, '', 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, 'تاريخ الفاتوره ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, $deposit->bill_date, 1, 1, 'C', stretch: 1);
-        $table_col_widht = $page_width / 5;
+        $table_col_widht = $page_width / 7;
         $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 14);
+        $pdf->setFont($fontname, 'b', 12);
 
-        $pdf->Cell($table_col_widht, 5, 'الرقم', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الصنف ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الكميه ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'الرقم', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht*2, 5, 'الصنف ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'الكميه ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'السعر ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, "الاجمالي  ", 1, 1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "الاجمالي  ", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "الصلاحيه  ", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "الباتش  ", 1, 1, 'C', fill: 1);
         $pdf->setFont($fontname, 'b', 10);
 
         $index = 1;
+        $total = 0;
         foreach ($deposit->items as $deposit_item) {
-            $pdf->Cell($table_col_widht, 5, $index, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $deposit_item->item->name  == '' ? $deposit_item->item->market_name : '', 1, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $deposit_item->quantity, 1, 0, 'C');
+            $pdf->Cell($table_col_widht/2, 5, $index, 1, 0, 'C');
+            $pdf->Cell($table_col_widht*2, 5, $deposit_item->item->name  == '' ? $deposit_item->item->market_name : '', 1, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht/2, 5, $deposit_item->quantity, 1, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $deposit_item->price, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, (number_format($deposit_item->quantity * $deposit_item->price,1)), 1, 1, 'C');
+            $deposit_total = $deposit_item->quantity * $deposit_item->price;
+            $total += $deposit_total;
+            $pdf->Cell($table_col_widht, 5, (number_format($deposit_total,1)), 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $deposit_item->expire, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $deposit_item->batch, 1, 1, 'C');
+
             $index++;
         }
         $pdf->Ln();
+        $pdf->Cell($table_col_widht/2, 5, '', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht*2, 5, ' ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, ' ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "  ", 1, 0, 'C', fill: 1);
+
+        $pdf->Cell($table_col_widht, 5, number_format($total,1), 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "  ", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "  ", 1, 1, 'C', fill: 1);
 //        $pdf->Cell($table_col_widht, 5, 'توقيع المستلم', 0, 0, 'C');
 //        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
 //        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
