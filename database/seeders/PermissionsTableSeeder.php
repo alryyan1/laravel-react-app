@@ -187,6 +187,14 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2024-07-13 01:54:08',
                 'updated_at' => '2024-07-13 01:54:08',
             ),
+            21 => 
+            array (
+                'id' => 25,
+                'name' => 'اضافه عميل',
+                'guard_name' => 'web',
+                'created_at' => '2024-07-22 10:59:18',
+                'updated_at' => '2024-07-22 10:59:18',
+            ),
         ));
         
         

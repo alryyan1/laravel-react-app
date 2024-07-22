@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('require_amount')->nullable()->default(0);
             $table->integer('initial_balance')->default(0);
             $table->integer('initial_price')->default(0);
-            $table->integer('tests')->default(0);
+            $table->integer('tests')->nullable()->default(0);
             $table->date('expire');
             $table->float('cost_price');
             $table->float('sell_price');

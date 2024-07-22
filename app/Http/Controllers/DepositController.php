@@ -21,7 +21,7 @@ class DepositController extends Controller
     }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
-       $items =  Item::take(50)->get();
+       $items =  Item::all();
        /** @var Item $item */
         foreach ($items as $item) {
 
@@ -31,7 +31,7 @@ class DepositController extends Controller
             }
             $deposit_item = new DepositItem([
                 'item_id' => $item->id,
-                'price'=>$item->sell_price,
+                'price'=>$item->cost_price,
                 'quantity'=>0,
                 'notes'=>'',
                 'expire'=>$item->expire,

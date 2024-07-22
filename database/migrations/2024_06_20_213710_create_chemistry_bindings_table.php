@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chemistry_bindings', function (Blueprint $table) {
             $table->id();
-            $table->string('child_id_array');
+            $table->string('child_id_array')->nullable();
             $table->string('name_in_mindray_table');
         });
     }

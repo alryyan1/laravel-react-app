@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Deduct;
 use App\Models\DeductedItem;
 use App\Models\Deposit;
+use App\Models\DepositItem;
 use App\Models\DepositItems;
 use App\Models\Item;
 use App\Models\Shift;
@@ -78,25 +79,32 @@ class ItemController extends Controller
 
 //         dd($first_day_last_month);
 
-            $deposit_items =  Deposit:: whereDate('bill_date',$first_day_last_month)->get();
-            $total = 0;
+            $deposits =  Deposit:: whereDate('bill_date',$first_day_last_month)->get();
+            $total_deposits = 0;
             /** @var Deposit $deposit */
-            foreach ($deposit_items as $deposit) {
-                $deposit->load(['items'=>function ($query) use($item_id) {
-                    $query->where('deposit_items.item_id',$item_id);
-                }]);
-                $total+= $deposit->items->sum('pivot.quantity');
+            foreach ($deposits as $deposit) {
+//                $deposit->load(['items'=>function ($query) use($item_id) {
+//                    $query->where('deposit_items.item_id',$item_id);
+//                }]);
+                /** @var DepositItem $deposit_item */
+                foreach ($deposit->items as $deposit_item){
+                    $total_deposits+= $deposit_item->quantity;
+                }
             }
             $deducts =  \App\Models\Deduct:: whereDate('created_at',$first_day_last_month)->get();
             $total_deducts = 0;
+            $box_deducted = 0;
             /** @var \App\Models\Deduct $deduct */
             foreach ($deducts as $deduct) {
-                $deduct->load(['items'=>function ($query) use($item_id)  {
-                    $query->where('deducted_items.item_id',$item_id);
-                }]);
-                $total_deducts+= $deduct->items->sum('pivot.quantity');
+//                $deduct->load(['items'=>function ($query) use($item_id)  {
+//                    $query->where('deducted_items.item_id',$item_id);
+//                }]);
+                foreach ($deduct->deductedItems as $deductItem) {
+                       $box_deducted +=  $deductItem->box;
+                }
+//                $total_deducts+= $deduct->items->sum('pivot.quantity');
             }
-            $dates [] = ['date'=>$first_day_last_month,'income'=>$total,'deducts'=>$total_deducts];
+            $dates [] = ['date'=>$first_day_last_month,'income'=>$total_deposits,'deducts'=>$box_deducted];
             $start_date->addDay();
         }
 //    dd($first_day_last_month);
@@ -159,7 +167,11 @@ class ItemController extends Controller
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
             $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
-            $totaldeduct = $total_deduct / $item->strips;
+            $totaldeduct = 0;
+            if ($item->strips > 0){
+                $totaldeduct = $total_deduct / $item->strips;
+
+            }
             $item->totaldeduct = $totaldeduct;
             $item->remaining = $total_deposit - $totaldeduct;
         }
@@ -172,10 +184,15 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
+            $totaldeduct = 0;
+            if ($item->strips > 0){
+                $totaldeduct = $total_deduct / $item->strips;
+
+            }
             $item->totaldeposit = $total_deposit;
-            $item->totaldeduct = $total_deduct;
-            $item->remaining = $total_deposit - $total_deduct + $item->initial_balance;
+            $item->totaldeduct = $totaldeduct;
+            $item->remaining = $total_deposit - $totaldeduct + $item->initial_balance;
         }
         return $items;
     }
@@ -201,7 +218,7 @@ class ItemController extends Controller
         if ($user->can('اضافه صنف')) {
             $data = $request->all();
 //        return $data;
-            $result = Item::create(['name' => $data['name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
+            $result = Item::create(['market_name' => $data['market_name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
                 , 'initial_price' => $data['initial_price']]);
             return ['status' => $result];
         }else{
@@ -218,7 +235,11 @@ class ItemController extends Controller
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
             $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
-            $totaldeduct = $total_deduct / $item->strips;
+            $totaldeduct = 0;
+            if ($item->strips > 0){
+                $totaldeduct = $total_deduct / $item->strips;
+
+            }
             $item->totaldeduct = $totaldeduct;
             $item->remaining = $total_deposit - $totaldeduct;
         }

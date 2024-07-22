@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Model;
 class DeductedItem extends Model
 {
     protected $guarded =['id'];
-    protected $with = ['item'];
+    protected $with = ['item','client'];
     public function client()
     {
         return $this->belongsTo(Client::class);

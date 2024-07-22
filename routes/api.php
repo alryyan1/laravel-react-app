@@ -312,6 +312,8 @@ Route::middleware('auth:sanctum')->get('balance',[\App\Http\Controllers\PDFContr
 
 
 //
+Route::middleware('auth:sanctum')->post('addToDeduct/{deduct}', [DeductController::class, 'deduct']);
+
 Route::middleware('auth:sanctum')->post('inventory/deduct', [DeductController::class, 'deduct']);
 Route::get('inventory/deduct/last', [DeductController::class, 'last']);
 Route::post('inventory/deduct/item', [DeductController::class, 'destroy']);

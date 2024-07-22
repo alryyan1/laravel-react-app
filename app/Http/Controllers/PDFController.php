@@ -247,7 +247,7 @@ class PDFController extends Controller
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
-        $table_col_widht = $page_width / 3;
+        $table_col_widht = $page_width / 5;
 
         $pdf->Cell($page_width, 5, 'اذن صرف', 0, 1, 'C');
         $pdf->Ln();
@@ -264,14 +264,19 @@ class PDFController extends Controller
 
         $pdf->Cell($table_col_widht, 5, 'الرقم', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'الصنف ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الكميه ', 1, 1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الكميه ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'سعر الشراء ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, ' تاريخ الصلاحيه ', 1, 1, 'C', fill: 1);
         $pdf->setFont($fontname, 'b', 12);
 
         $index = 1;
-        foreach ($deduct->items as $item) {
+        /** @var DeductedItem $item */
+        foreach ($deduct->deductedItems as $item) {
             $pdf->Cell($table_col_widht, 5, $index, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->name, 1, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $item->pivot->quantity, 1, 1, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->item->name, 1, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht, 5, $item->box, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->item->cost_price, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->item->expire, 1, 1, 'C');
             $index++;
         }
         $pdf->Ln();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deduct;
+use App\Models\DeductedItem;
+use App\Models\DepositItem;
 use App\Models\Item;
 use App\Models\Patient;
 use App\Models\Shift;
@@ -53,7 +55,7 @@ class DeductController extends Controller
         return ['status'=>true,'deduct'=>$deduct->refresh()];
 
     }
-    public function deduct(Request $request){
+    public function deduct(Request $request,Deduct $deduct){
         $user =  auth()->user();
 
         $shift_id = Shift::max('id');
@@ -67,13 +69,19 @@ class DeductController extends Controller
             Deduct::create(['shift_id'=>$shift_id]);
 
         }
-        $deposit =  Deduct::latest()->first();
-        $deposit->items()->attach($item_id,[
-            'quantity'=>$data['quantity'],
+
+
+        DeductedItem::create([
+            'item_id'=>$item_id,
+            'deduct_id'=>$deduct->id,
+            'user_id'=>$user->id,
+            'shift_id'=>$shift_id,
+            'box'=>$data['box'],
             'client_id'=>$data['client_id'],
             'created_At'=>now()
         ]);
-        return ['status'=>true];
+
+        return ['status'=>true,'deduct'=>$deduct->fresh()];
         }else{
             return \response(['status' => false,'message'=>'صلاحيه  اذن طلب  غير مفعله'],400);
         }

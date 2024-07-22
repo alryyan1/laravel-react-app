@@ -20,6 +20,7 @@ return new class extends Migration
 //            $table->boolean('complete')->default(false);
             $table->float('total_amount_received')->default(false);
             $table->integer('number');
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }
