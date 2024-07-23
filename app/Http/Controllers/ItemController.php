@@ -53,6 +53,37 @@ class ItemController extends Controller
 
             return ['status'=>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift];
     }
+
+    public function expireMonthPanel()
+    {
+        $month = Carbon::now()->month;
+        $date_f = Carbon::now()->addDay()->format('Y-m-d');
+        $now =  Carbon::now();
+        $now2 =  Carbon::now();
+        $start_date =  $now->setMonth($month)->setDay(1);
+        $end_date = $now2->setMonth($month)->setDay(1)->addMonths(11)->lastOfMonth();
+        $dates = [];
+        $data = [];
+        while ($start_date <= $end_date) {
+
+
+            $start_of_month = Carbon::parse($start_date)->setDay(1)->format('Y-m-d');
+            $end_of_month =  Carbon::parse($start_date)->lastOfMonth()->format('Y-m-d');
+            $pdo = DB::getPdo();
+            $items =  $pdo->query("select * from items where expire between '$start_of_month'  and '$end_of_month' ")->fetchAll();
+            $data[] =[
+              'firstofMonth'=>$start_of_month,
+              'lastofmonth'=>$end_of_month,
+              'items'=>$items,
+                'monthname'=>Carbon::parse($start_date)->setDay(1)->monthName,
+                'year'=>Carbon::parse($start_date)->setDay(1)->year,
+            ];
+            $start_date->addMonths(1);
+
+        }
+        return ['month'=>$month,'start'=>$start_date,'end'=>$end_date,'data'=>$data];
+
+    }
     public function balance()
     {
         $items = \App\Models\Item::all();
@@ -156,7 +187,7 @@ class ItemController extends Controller
         $data  = $request->all();
         if (isset($data['word'])){
             $name  = $data['word'];
-            $items = \App\Models\Item::where('name','like',"%$name%")->paginate($page);
+            $items = \App\Models\Item::where('name','like',"%$name%")->orWhere('sc_name','like',"%$name%")->orWhere('market_name','like',"%$name%")->orWhere('barcode','like',"%$name%")->paginate($page);
 
         }else{
             $items = \App\Models\Item::orderByDesc('id')->paginate($page);
@@ -165,15 +196,11 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
-            $totaldeduct = 0;
-            if ($item->strips > 0){
-                $totaldeduct = $total_deduct / $item->strips;
 
-            }
-            $item->totaldeduct = $totaldeduct;
-            $item->remaining = $total_deposit - $totaldeduct;
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct;
         }
         return $items;
     }
@@ -184,15 +211,11 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
-            $totaldeduct = 0;
-            if ($item->strips > 0){
-                $totaldeduct = $total_deduct / $item->strips;
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
 
-            }
             $item->totaldeposit = $total_deposit;
-            $item->totaldeduct = $totaldeduct;
-            $item->remaining = $total_deposit - $totaldeduct + $item->initial_balance;
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct + $item->initial_balance;
         }
         return $items;
     }
@@ -204,7 +227,7 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
             $item->totaldeduct = $total_deduct;
             $item->remaining = $total_deposit - $total_deduct + $item->initial_balance;
@@ -233,15 +256,11 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(strips) as total'))->where('item_id', $item->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
-            $totaldeduct = 0;
-            if ($item->strips > 0){
-                $totaldeduct = $total_deduct / $item->strips;
 
-            }
-            $item->totaldeduct = $totaldeduct;
-            $item->remaining = $total_deposit - $totaldeduct;
+            $item->totaldeduct = $total_deduct;
+            $item->remaining = $total_deposit - $total_deduct;
         }
         return $items;
     }

@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
-        $this->call(DepositItemsTableSeeder::class);
+//        $this->call(DepositItemsTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
 //        $this->call(RolesTableSeeder::class);
         $this->call(ChildTestOptionsTableSeeder::class);

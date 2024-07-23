@@ -37,6 +37,8 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+
+Route::get('expireMonthPanel',[ItemController::class,'expireMonthPanel']);
 Route::middleware('auth:sanctum')-> patch('depositItems/update/{depositItem}',[\App\Http\Controllers\DepositController::class,'updateDepositItem']);
 Route::middleware('auth:sanctum')-> post('income-item/bulk/{deposit}',[\App\Http\Controllers\DepositController::class,'defineAllItemsToDeposit']);
 

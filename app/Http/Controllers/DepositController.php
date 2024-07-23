@@ -8,6 +8,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DepositController extends Controller
 {
@@ -25,10 +26,13 @@ class DepositController extends Controller
        /** @var Item $item */
         foreach ($items as $item) {
 
-            $deposit_item =   DepositItem::where('item_id', $item->id)->first();
-            if ($deposit_item){
-                continue ;
-            }
+            $pdo =   DB::getPdo();
+             $result =   $pdo->prepare("select * from deposit_items where item_id = ? and deposit_id = ? ");
+              $result->execute([$item->id,$deposit->id]);
+              if ($result->rowCount() > 0){
+                  continue ;
+
+              }
             $deposit_item = new DepositItem([
                 'item_id' => $item->id,
                 'price'=>$item->cost_price,

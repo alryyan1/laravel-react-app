@@ -86,7 +86,14 @@ class Deduct extends Model
 
         foreach ($this->deductedItems as $item){
 
-            $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+            if ($item->item->strips  == 0){
+                $total +=  $item->strips  *  $item->item->sell_price ;
+
+            }else{
+                $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+
+            }
+
         }
 
         return $total;
@@ -100,9 +107,14 @@ class Deduct extends Model
         $cost = 0;
 
         foreach ($this->deductedItems as $item){
+                if ($item->item->strips == 0){
+                    $total +=  $item->strips  *  $item->item->sell_price  ;
+                    $cost +=  $item->strips  *  $item->item->cost_price  ;
+                }else{
+                    $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+                    $cost +=  $item->strips  *  ($item->item->cost_price/$item->item->strips)  ;
+                }
 
-            $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
-            $cost +=  $item->strips  *  ($item->item->cost_price/$item->item->strips)  ;
         }
 
         return $total - $cost;

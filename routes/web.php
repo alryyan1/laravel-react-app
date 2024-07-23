@@ -37,6 +37,7 @@ use Spatie\Permission\Models\Role;
 |
 */
 
+Route::get('expired/items',[\App\Http\Controllers\PDFController::class,'balancebyExpire']);
 Route::get('labPrices',[\App\Http\Controllers\PDFController::class,'labprice']);
 Route::get('excel/items',[\App\Http\Controllers\ExcelController::class,'items']);
 Route::get('excel/labPrices',[\App\Http\Controllers\ExcelController::class,'lapPrices']);
