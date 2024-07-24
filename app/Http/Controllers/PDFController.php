@@ -66,10 +66,19 @@ class PDFController extends Controller
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setFont('times', 'BI', 12);
         $pdf->AddPage();
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 50, 5, 40, 40);
+
+        }
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
 
+        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
         $pdf->Cell($page_width, 5, 'المخزون', 0, 1, 'C');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 16);
@@ -280,10 +289,19 @@ class PDFController extends Controller
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setFont('times', 'BI', 12);
         $pdf->AddPage();
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 55, 5, 40, 40);
+
+        }
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
 
+        $pdf->Cell($page_width, 5,$settings->hospital_name, 0, 1, 'C');
         $pdf->Cell($page_width, 5, 'فاتوره وارد', 0, 1, 'C');
         $pdf->Ln();
         $pdf->setFont($fontname, '', 12);
@@ -380,11 +398,20 @@ class PDFController extends Controller
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setFont('times', 'BI', 12);
         $pdf->AddPage();
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 55, 5, 40, 40);
+
+        }
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
         $table_col_widht = $page_width / 5;
 
+        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
         $pdf->Cell($page_width, 5, 'اذن صرف', 0, 1, 'C');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 16);
@@ -398,9 +425,9 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht, 5, 'الرقم', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الصنف ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الكميه ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'الرقم', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht*2, 5, 'الصنف ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'الكميه ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'سعر الشراء ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, ' تاريخ الصلاحيه ', 1, 1, 'C', fill: 1);
         $pdf->setFont($fontname, 'b', 12);
@@ -408,9 +435,9 @@ class PDFController extends Controller
         $index = 1;
         /** @var DeductedItem $item */
         foreach ($deduct->deductedItems as $item) {
-            $pdf->Cell($table_col_widht, 5, $index, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->item->name, 1, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $item->box, 1, 0, 'C');
+            $pdf->Cell($table_col_widht/2, 5, $index, 1, 0, 'C');
+            $pdf->Cell($table_col_widht*2, 5, $item->item->market_name, 1, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht/2, 5, $item->box, 1, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $item->item->cost_price, 1, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $item->item->expire, 1, 1, 'C');
             $index++;
@@ -555,7 +582,14 @@ class PDFController extends Controller
         $pdf->setFont('times', 'BI', 12);
 
         $pdf->AddPage();
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
 
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 15, 5, 40, 40);
+
+        }
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
@@ -563,16 +597,14 @@ class PDFController extends Controller
         $pdf->Cell($page_width, 5, ' Sales report', 0, 1, 'C');
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($page_width, 5, ' No  '.$shift->id, 0, 1, 'C');
+        $pdf->Cell($page_width, 5, 'Shift No  '.$shift->id, 0, 1, 'C');
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 16);
 
         $pdf->setFillColor(200, 200, 200);
         $table_col_widht = $page_width / 4;
         $pdf->Cell($table_col_widht, 5, 'Date ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');
-        $pdf->Cell($table_col_widht, 5, 'Time ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('H:i A'), 1, 1, 'C');
+        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d').'   '.$shift->created_at->format('H:i A'), 1, 1, 'C');
 
         $table_col_widht = ($page_width ) / 7;
         $pdf->Ln();
@@ -598,10 +630,10 @@ class PDFController extends Controller
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht / 2 , 5, $deduct->id, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->number, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, intval($deduct->total_price() * 1e1) / 1e1, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, number_format(intval($deduct->total_price() * 1e1) / 1e1,1), 0, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('H:i A'), 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, intval($deduct->profit() * 1e1) / 1e1, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, number_format(intval($deduct->profit() * 1e1) / 1e1,1), 0, 0, 'C');
             $pdf->setFont($fontname, '', 8);
 
             $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
@@ -624,8 +656,12 @@ class PDFController extends Controller
         $pdf->Ln();
 
         $table_col_widht = ($page_width) / 5;
+        $y = $pdf->GetY();
+        if ($y > 160 ){
+            $pdf->AddPage();
+        }
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPrice() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, number_format(intval($shift->totalDeductsPrice() * 1e1) / 1e1,1), 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceBank() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
@@ -662,11 +698,19 @@ class PDFController extends Controller
         $pdf->setFont('times', 'BI', 12);
 
         $pdf->AddPage();
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
 
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 15, 5, 40, 40);
+
+        }
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->setFont($fontname, 'b', 22);
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
 
+        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
         $pdf->Cell($page_width, 5, ' Sales report', 0, 1, 'C');
         $pdf->setFont($fontname, 'b', 14);
 
@@ -710,16 +754,16 @@ class PDFController extends Controller
             $y = $pdf->GetY();
             $total+= $deduct->total_price();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
-            $pdf->Cell($table_col_widht/2 , 5, $deduct->id, $arr, 0, 'C');
-            $pdf->Cell($table_col_widht/2 , 5, $deduct->number, $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->profit(), $arr, 0, 'C');
+            $pdf->Cell($table_col_widht/2 , 5, $deduct->id, 0, 0, 'C');
+            $pdf->Cell($table_col_widht/2 , 5, $deduct->number, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->profit(), 0, 0, 'C');
 
-            $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5,intval($deduct->total_price() * 1e1) / 1e1 , $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->user->username, $arr, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, $arr, 0, 'C',stretch: 1);
+            $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5,intval($deduct->total_price() * 1e1) / 1e1 , 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->user->username, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, 0, 0, 'C',stretch: 1);
 
-            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), $arr, 0, ln: 1);
+            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $total_profit += $deduct->profit();
             $index++;
@@ -1549,7 +1593,7 @@ class PDFController extends Controller
         $pdf->Ln();
 
         $pdf->Cell(15,5,'User',1,0,fill: 1);
-        $pdf->Cell(15,5,$deduct->user->username,1,0,fill: 0);
+        $pdf->Cell(50,5,$deduct->user->username,1,0,fill: 0);
 
         $pdf->Ln();
 
