@@ -38,6 +38,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereUserId($value)
+ * @property string|null $notes
+ * @property int|null $is_sell
+ * @property-read mixed $profit
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereIsSell($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereNotes($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
@@ -83,6 +88,7 @@ class Deduct extends Model
     {
 
         $total = 0;
+        if (!$this->complete)  return 0;
 
         foreach ($this->deductedItems as $item){
 
@@ -105,9 +111,11 @@ class Deduct extends Model
 
         $total = 0;
         $cost = 0;
-
+        if (!$this->complete) return 0;
         foreach ($this->deductedItems as $item){
-                if ($item->item->strips == 0){
+
+
+            if ($item->item->strips == 0){
                     $total +=  $item->strips  *  $item->item->sell_price  ;
                     $cost +=  $item->strips  *  $item->item->cost_price  ;
                 }else{

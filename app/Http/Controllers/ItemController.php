@@ -119,7 +119,10 @@ class ItemController extends Controller
 //                }]);
                 /** @var DepositItem $deposit_item */
                 foreach ($deposit->items as $deposit_item){
-                    $total_deposits+= $deposit_item->quantity;
+                    if ($deposit_item->item_id == $item_id){
+                        $total_deposits+= $deposit_item->quantity;
+
+                    }
                 }
             }
             $deducts =  \App\Models\Deduct:: whereDate('created_at',$first_day_last_month)->get();
@@ -131,7 +134,10 @@ class ItemController extends Controller
 //                    $query->where('deducted_items.item_id',$item_id);
 //                }]);
                 foreach ($deduct->deductedItems as $deductItem) {
-                       $box_deducted +=  $deductItem->box;
+                    if ($deductItem->item_id == $item_id) {
+
+                        $box_deducted += $deductItem->box;
+                    }
                 }
 //                $total_deducts+= $deduct->items->sum('pivot.quantity');
             }

@@ -46,6 +46,10 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read mixed $total_deducts_price_bank
  * @property-read mixed $total_deducts_price_cash
  * @property-read mixed $total_deducts_price_transfer
+ * @property-read mixed $paid_lab
+ * @property-read mixed $specialists
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Specialist> $sepcialists
+ * @property-read int|null $sepcialists_count
  * @mixin \Eloquent
  */
 class Shift extends Model
@@ -246,7 +250,7 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
-            if (!$deduct->complete) continue;
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
            $total += $deduct->total_price();
         }
 
@@ -256,7 +260,7 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
-            if (!$deduct->complete) continue;
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
                 $total += $deduct->profit();
 
@@ -270,7 +274,7 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
-            if (!$deduct->complete) continue;
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             if ($deduct->payment_type_id == 3 ){
                 $total += $deduct->total_price();
@@ -285,7 +289,7 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
-            if (!$deduct->complete) continue;
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             if ($deduct->payment_type_id == 2 ){
                 $total += $deduct->total_price();
@@ -300,7 +304,7 @@ class Shift extends Model
         $total = 0;
 
         foreach ($this->deducts as $deduct){
-            if (!$deduct->complete) continue;
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             if ($deduct->payment_type_id == 1 ){
                 $total += $deduct->total_price();

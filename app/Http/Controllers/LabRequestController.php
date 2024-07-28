@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Patient;
+use App\Models\RequestedOrganism;
 use App\Models\RequestedResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -15,6 +16,17 @@ use Illuminate\Support\Facades\DB;
 class LabRequestController extends Controller
 {
 
+    public function addOrganism(Request $request , LabRequest $labRequest)
+    {
+       $result =     RequestedOrganism::create(['organism'=>'Organism','sensitive'=>'','resistant'=>'','lab_request_id'=>$labRequest->id]);
+       return ['status'=>true,'data'=>$result];
+    }
+    public function editOrganism(Request $request , RequestedOrganism $requestedOrganism)
+    {
+       $col =  $request->get('colName');
+       $val =  $request->get('val');
+        return ['status'=>$requestedOrganism->update([$col=>$val])];
+    }
     public function bankak(Request $request,LabRequest $labRequest){
         $data = $request->all();
         $test_id =  $data['id'];

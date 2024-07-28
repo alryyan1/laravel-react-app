@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $user_deposited
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereUserDeposited($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereUserRequested($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedOrganism> $requested_organisms
+ * @property-read int|null $requested_organisms_count
  * @mixin \Eloquent
  */
 class LabRequest extends Model
@@ -52,10 +54,13 @@ class LabRequest extends Model
     use HasFactory;
     protected $table='labRequests';
     public $timestamps = false;
-    protected $with = ['requested_results','mainTest','unfinished_results_count'];
+    protected $with = ['requested_results','mainTest','unfinished_results_count','requested_organisms'];
     protected $guarded = [];
     protected $appends = ['name'];
-
+    public function requested_organisms()
+    {
+        return $this->hasMany(RequestedOrganism::class);
+    }
     public function getNameAttribute(){
         return $this->mainTest->main_test_name;
     }

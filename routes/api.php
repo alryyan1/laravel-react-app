@@ -37,7 +37,8 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
-
+Route::post('addOrganism/{labRequest}',[LabRequestController::class,'addOrganism']);
+Route::patch('editOrganism/{requestedOrganism}',[LabRequestController::class,'editOrganism']);
 Route::get('expireMonthPanel',[ItemController::class,'expireMonthPanel']);
 Route::middleware('auth:sanctum')-> patch('depositItems/update/{depositItem}',[\App\Http\Controllers\DepositController::class,'updateDepositItem']);
 Route::middleware('auth:sanctum')-> post('income-item/bulk/{deposit}',[\App\Http\Controllers\DepositController::class,'defineAllItemsToDeposit']);

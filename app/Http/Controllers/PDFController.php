@@ -443,6 +443,17 @@ class PDFController extends Controller
             $index++;
         }
         $pdf->Ln();
+
+
+        $pdf->setFont($fontname, 'u', 16);
+
+        $pdf->Cell(20, 5, 'ملاحظات', 0, 1, '');
+        $pdf->Cell($page_width, 20, $deduct->notes, 0, 1, '');
+        $pdf->setFont($fontname, '', 13);
+
+        $pdf->Ln();
+        $table_col_widht = $page_width / 3;
+
         $pdf->Cell($table_col_widht, 5, 'توقيع المستلم', 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, "مدير المخزن  ", 0, 1, 'C');
@@ -626,7 +637,7 @@ class PDFController extends Controller
         /** @var Deduct $deduct */
         foreach ($shift->deducts as $deduct) {
             $y = $pdf->GetY();
-            if (!$deduct->complete) continue;
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht / 2 , 5, $deduct->id, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->number, 0, 0, 'C');
@@ -1008,11 +1019,33 @@ class PDFController extends Controller
 
 
                 }
+                $is_columns = false;
+                if ($m_test->requested_organisms()->count() > 0){
+                    $is_columns = true;
+                    $pdf->setEqualColumns($m_test->requested_organisms()->count() ,$page_width /$m_test->requested_organisms()->count() - 5 );
+                    $pdf->selectColumn(0);
+                    $column_width = $page_width / (($m_test->requested_organisms()->count() )*2  );
+                }
+                $col_number = 0;
+                foreach ($m_test->requested_organisms as $organism){
+                    $pdf->selectColumn($col_number);
+                    $pdf->cell($column_width*2  , 10, "Isolated Organism", 1, 1, 'C', 1);
+                    $pdf->cell($column_width *2 , 5, $organism->organism, 1, 1, 'C', 0);
+                    $pdf->cell($column_width , 5, 'Sensitivity', 1, 0, 'C', 0);
+                    $pdf->cell($column_width , 5, 'Resistant', 1, 1, 'C', 0);
+                    $pdf->MultiCell($column_width , 5, $organism->sensitive, 1 , 'C', ln: 0);
+                    $pdf->MultiCell($column_width , 5, $organism->resistant,  1,'C', ln: 1);
+                    $col_number++;
 
+
+
+                }
+                $pdf->resetColumns();
+                $pdf->Ln();
 
                 $has_more_than1_child = false;
                 if ($children_count > 1) {
-                    $has_more_than1_child = true;
+                    $has_more_than1_child  = true;
                 }
                 if ($has_more_than1_child == false) {
 
@@ -1040,13 +1073,17 @@ class PDFController extends Controller
                     $pdf->SetFont($arial, '', 11, '', true);
                     $y = $pdf->GetY();
 
-                    $pdf->cell($table_col_widht, 5, "Test", 1, 0, 'C', 1);
-                    $pdf->cell($table_col_widht * 1.5, 5, "Result", 1, 0, 'C', 1);
-                    $pdf->cell($table_col_widht / 2, 5, "Unit", 1, 0, 'C', 1);
-                    $pdf->cell($table_col_widht, 5, "R.Values", 1, 1, 'C', 1);
+                        $pdf->cell($table_col_widht, 5, "Test", 1, 0, 'C', 1);
+                        $pdf->cell($table_col_widht * 1.5, 5, "Result", 1, 0, 'C', 1);
+                        $pdf->cell($table_col_widht / 2, 5, "Unit", 1, 0, 'C', 1);
+                        $pdf->cell($table_col_widht, 5, "R.Values", 1, 1, 'C', 1);
+
+
                     $pdf->Ln();
 
                 }
+
+
                 $old = '';
 
                 /** @var RequestedResult $result */
@@ -1078,7 +1115,13 @@ class PDFController extends Controller
                     $child_id = $child_test->id;
                     $table_col_widht = ($page_width) / 4;
                     $resultCellHeight = 5;
-                    $pdf->cell($table_col_widht, 5, $child_test->child_test_name, 0, 0, 'C'); // test name
+                    if ($is_columns){
+                        $pdf->cell($column_width, 5, ucfirst($child_test->child_test_name), 0, 0, 'C'); // test name
+
+                    }else{
+                        $pdf->cell($table_col_widht, 5, ucfirst($child_test->child_test_name), 0, 0, 'C'); // test name
+
+                    }
                     $report_result = $result->result;
                     $pdf->SetFont('dejavusans', 'b', 11, '', true);
 
@@ -1498,7 +1541,7 @@ class PDFController extends Controller
         /** @var Deduct $deduct */
         $deduct = Deduct::find($request->get('deduct_id'));
         $count =  $deduct->deductedItems->count();
-        $custom_layout = array(80, 110 + $count * 5);
+        $custom_layout = array(80, 120 + $count * 5);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -1521,40 +1564,58 @@ class PDFController extends Controller
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, $page_width / 2 - 5, 5, 20, 20,align: 'C');
+            $pdf->Image("@".$img, $page_width / 2 - 10, 0, 30, 30,align: 'C');
 
         }
 
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 5, 5);
+        $pdf->setMargins(5, 0, 5);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
 
+        $pdf->SetFont($arial, '', 7, '', true);
+        $pdf->Cell(60,5,$deduct->created_at->format('Y/m/d H:i A'),0,1);
+
         $pdf->SetFont($arial, 'u', 10, '', true);
         $pdf->Ln(15);
+
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
+        $pdf->Cell($page_width,5,'فاتوره',0,1,'C');
         $pdf->SetFont($arial, '', 10, '', true);
+        $pdf->SetFont($arial, '', 7, '', true);
 
         $pdf->Ln();
+        $colWidth = $page_width/4;
+        $pdf->Cell($colWidth,5,'Invoice',0,0,fill: 0);
+        $pdf->Cell($colWidth,5,'',0,0,fill: 0);
+        $pdf->Cell($colWidth,5,'',0,0,fill: 0);
+        $pdf->Cell($colWidth,5,'فاتوره',0,1,'R');
+        $pdf->Cell($colWidth,5,'Tax',0,0,fill: 0);
+        $pdf->Cell($colWidth,5,'',0,0,fill: 0);
+        $pdf->Cell($colWidth,5,'Om 1100312320',0,0,fill: 0);
+        $pdf->Cell($colWidth,5,'الرقم الضريبي',0,1,'R');
+        $pdf->Ln();
+
+        $pdf->Cell($page_width,5,'------------------------------------------------------------------------------------------------ ',0,1,'C');
 
         $pdf->Cell(20,5,'Sale No',0,0);
         $pdf->Cell(60,5,$deduct->id,0,1);
 //        $pdf->Ln();
-        $pdf->Cell(15,5,'Date',0,0);
+//        $pdf->Cell(15,5,'Date',0,0);
 
-        $pdf->Cell(60,5,$deduct->created_at->format('Y/m/d H:i A'),0,1);
-        $pdf->Ln();
+//        $pdf->Ln();
         $pdf->SetFont($arial, 'u', 10, '', true);
 
         $pdf->Cell(25,5,'Requested Items',0,1,'L');
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
-        $pdf->Cell($colWidth*2,5,'Name',1,0,fill: 1);
-        $pdf->Cell($colWidth/2,5,'Price',1,0,fill: 1);
-        $pdf->Cell($colWidth/2,5,'Unit',1,0,fill: 1);
-        $pdf->Cell($colWidth,5,'Subtotal',1,1,fill: 1);
+        $pdf->Cell($colWidth*2,5,'الصنف',1,0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'السعر',1,0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'الوحده',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,'اجمالي',1,1,fill: 1);
         /** @var DeductedItem $deductedItem */
         foreach ($deduct->deductedItems as $deductedItem){
             $pdf->Cell($colWidth*2,5,$deductedItem->item->market_name,1,0,stretch: 1);
@@ -1584,16 +1645,17 @@ class PDFController extends Controller
 
 
 
-        $pdf->Ln();
+//        $pdf->Ln();
         $pdf->write1DBarcode("$deduct->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
-        $pdf->Ln();
-        $pdf->Cell(15,5,'Total',1,0,fill: 1);
+//        $pdf->Ln();
+        $pdf->Cell(15,5,'المجموع',1,0,fill: 1);
 
-        $pdf->Cell(30,5,number_format($deduct->total_price(),1) ,1,1);
+        $pdf->Cell(30,5,number_format(intval($deduct->total_price() * 1e1) / 1e1,1).' OMR',1 ,1,1);
         $pdf->Ln();
 
         $pdf->Cell(15,5,'User',1,0,fill: 1);
-        $pdf->Cell(50,5,$deduct->user->username,1,0,fill: 0);
+        $pdf->Cell(50,5,$deduct->user->username,1,1,fill: 0);
+        $pdf->Cell($page_width,5,'نتمني لكم الشفاء العاجل',0,0,'C');
 
         $pdf->Ln();
 

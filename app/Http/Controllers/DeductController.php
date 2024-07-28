@@ -118,16 +118,20 @@ class DeductController extends Controller
         $shift_id = Shift::max('id');
         $deduct = Deduct::create(['shift_id' => $shift_id, 'user_id' => $user->id]);
         $shift = Shift::latest()->first();
+        $is_sell = $request->query('is_sell') ? 1 : 0;
 
         if ($shift->touched == 0) {
             $deduct->number = 1;
             $shift->touched = 1;
             $shift->save();
+            $deduct->is_sell = $is_sell;
             $deduct->save();
         } else {
             $max_lab_no = Deduct::where('shift_id', $shift->id)->max('number');
             $max_lab_no++;
             $deduct->number = $max_lab_no;
+            $deduct->is_sell = $is_sell;
+
             $deduct->save();
         }
         return ['status' => true, 'data' => $deduct->fresh(), 'shift' => $deduct->shift];

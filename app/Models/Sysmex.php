@@ -53,6 +53,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereRdwCv($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereRdwSd($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereWbc($value)
+ * @property int $flag
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereFlag($value)
  * @mixin \Eloquent
  */
 class Sysmex extends Model
