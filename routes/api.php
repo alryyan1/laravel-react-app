@@ -39,6 +39,7 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 
 Route::post('addOrganism/{labRequest}',[LabRequestController::class,'addOrganism']);
 Route::patch('editOrganism/{requestedOrganism}',[LabRequestController::class,'editOrganism']);
+Route::delete('deleteOrganism/{requestedOrganism}',[LabRequestController::class,'deleteOrganism']);
 Route::get('expireMonthPanel',[ItemController::class,'expireMonthPanel']);
 Route::middleware('auth:sanctum')-> patch('depositItems/update/{depositItem}',[\App\Http\Controllers\DepositController::class,'updateDepositItem']);
 Route::middleware('auth:sanctum')-> post('income-item/bulk/{deposit}',[\App\Http\Controllers\DepositController::class,'defineAllItemsToDeposit']);
@@ -84,7 +85,9 @@ Route::get('drugCategory',[\App\Http\Controllers\DrugCategoryController::class,'
 Route::post('drugCategory',[\App\Http\Controllers\DrugCategoryController::class,'store']);
 
 Route::middleware('auth:sanctum')->post('settings',[\App\Http\Controllers\SettingController::class,'update']);
+Route::middleware('auth:sanctum')->post('updateUserSettings',[\App\Http\Controllers\SettingController::class,'updateUserSettings']);
 Route::get('settings',[\App\Http\Controllers\SettingController::class,'index']);
+Route::middleware('auth:sanctum')->get('userSettings',[\App\Http\Controllers\SettingController::class,'userSettings']);
 
 
 

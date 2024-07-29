@@ -28,4 +28,7 @@ class RequestedOrganism extends Model
     protected $guarded =['id'];
     public $timestamps = false;
     use HasFactory;
+    public function labRequest(){
+        return $this->belongsTo(LabRequest::class);
+    }
 }

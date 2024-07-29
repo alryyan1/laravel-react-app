@@ -509,7 +509,10 @@ class PDFController extends Controller
         $pdf->setFont($fontname, 'b', 16);
 
         $pdf->setFillColor(200, 200, 200);
-        $table_col_widht = $page_width / 2;
+        $table_col_widht = $page_width / 6;
+        $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');
+
         $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');
 
@@ -1022,15 +1025,25 @@ class PDFController extends Controller
                 $is_columns = false;
                 if ($m_test->requested_organisms()->count() > 0){
                     $is_columns = true;
+                    $pdf->SetFont($arial, '', 18, '', true);
+
+                    $pdf->cell(180  , 5, "Isolated organisms :", 0, 1, 'L', 0);
+
                     $pdf->setEqualColumns($m_test->requested_organisms()->count() ,$page_width /$m_test->requested_organisms()->count() - 5 );
+
                     $pdf->selectColumn(0);
                     $column_width = $page_width / (($m_test->requested_organisms()->count() )*2  );
                 }
                 $col_number = 0;
+
                 foreach ($m_test->requested_organisms as $organism){
                     $pdf->selectColumn($col_number);
-                    $pdf->cell($column_width*2  , 10, "Isolated Organism", 1, 1, 'C', 1);
-                    $pdf->cell($column_width *2 , 5, $organism->organism, 1, 1, 'C', 0);
+                    $pdf->SetFont($arial, 'b', 15, '', true);
+
+                    $pdf->cell($column_width *2 , 10, $organism->organism, 1, 1, 'C', 1);
+                    $pdf->SetFont($arial, '', 11, '', true);
+                    $pdf->SetFont($arial, '', 12, '', true);
+
                     $pdf->cell($column_width , 5, 'Sensitivity', 1, 0, 'C', 0);
                     $pdf->cell($column_width , 5, 'Resistant', 1, 1, 'C', 0);
                     $pdf->MultiCell($column_width , 5, $organism->sensitive, 1 , 'C', ln: 0);

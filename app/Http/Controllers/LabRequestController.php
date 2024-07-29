@@ -18,8 +18,15 @@ class LabRequestController extends Controller
 
     public function addOrganism(Request $request , LabRequest $labRequest)
     {
+//        $labRequest->load('patient');
+
        $result =     RequestedOrganism::create(['organism'=>'Organism','sensitive'=>'','resistant'=>'','lab_request_id'=>$labRequest->id]);
-       return ['status'=>true,'data'=>$result];
+       return ['status'=>true,'data'=>$result,'patient'=>$labRequest->patient];
+    }
+    public function deleteOrganism(Request $request , RequestedOrganism $requestedOrganism)
+    {
+        $requestedOrganism->load('labRequest');
+       return ['status'=>true,'data'=>$requestedOrganism->delete(),'patient'=>$requestedOrganism->labRequest->patient];
     }
     public function editOrganism(Request $request , RequestedOrganism $requestedOrganism)
     {
