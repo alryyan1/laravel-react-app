@@ -463,6 +463,113 @@ class PDFController extends Controller
         $pdf->Output('example_003.pdf', 'I');
 
     }
+    public function deductInvoice(Request $request)
+    {
+
+        $id = $request->query('id');
+        $deduct = Deduct::find($id);
+
+
+        $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+//        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('Invoice');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+        $pdf->AddPage();
+
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 125  , 0, 60, 60,align: 'C',);
+
+        }
+
+        $table_col_widht = $page_width / 4;
+//        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+
+//        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
+        $pdf->Ln(15);
+        $pdf->Cell($page_width, 5, 'Invoice', 0, 1, 'C');
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Cell($table_col_widht/2, 5, 'Bill To', 0, 0, 'L');
+        $pdf->Cell($table_col_widht*1.5, 5, $deduct?->client?->name , 0, 0, 'L',stretch: 1);
+        $pdf->Cell($table_col_widht*1.5, 5, ' Invoice No #', 0, 0, 'R');
+        $pdf->Cell($table_col_widht/2, 5, $deduct->id, 0, 1, 'C');
+
+        $pdf->Cell($table_col_widht/2, 5, 'Date', 0, 0, 'L');
+        $pdf->Cell($table_col_widht*1.5, 5, $deduct->created_at->format('Y-m-d H:m A') , 0, 0, 'L');
+        $pdf->Cell($table_col_widht, 5, "   ", 0, 1, 'C');
+//        $pdf->Cell($table_col_widht, 5, $deduct->created_at->format('Y-m-d'), 0, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, "", 0, 1, 'C');
+        $pdf->setFillColor(200, 200, 200);
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+        $table_col_widht = $page_width / 5;
+
+        $pdf->Cell($table_col_widht/2, 5, 'No', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht*1.5, 5, 'Item ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Box Price ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Quantity ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Amount ', 'T,B', 1, 'C', fill: 0);
+        $pdf->setFont($fontname, 'b', 12);
+        $pdf->Ln();
+
+        $index = 1;
+        /** @var DeductedItem $item */
+        foreach ($deduct->deductedItems as $item) {
+            $y = $pdf->GetY();
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $pdf->Cell($table_col_widht/2, 5, $index, 0, 0, 'C');
+            $pdf->Cell($table_col_widht*1.5, 5, $item->item->market_name, 0, 0, 'C', stretch: 1);
+            $pdf->Cell($table_col_widht, 5, $item->item->sell_price, 0, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->box, 0, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->box * $item->item->sell_price, 0, 1, 'C');
+            $y = $pdf->GetY();
+
+            $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
+
+            $index++;
+        }
+        $pdf->Ln();
+        $table_col_widht = $page_width / 6;
+        $pdf->setFont($fontname, 'b', 15);
+
+        $pdf->Cell($table_col_widht*4, 5, '', 0, 0, 'L');
+        $pdf->Cell($table_col_widht, 5, 'Total', 0, 0, 'C');
+        $pdf->Cell($table_col_widht, 5, $deduct->total_price, 0, 1, 'C');
+        $pdf->setFont($fontname, 'u', 16);
+
+
+        $pdf->setFont($fontname, '', 13);
+
+        $pdf->Ln();
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
 
     public function labreport(Request $request)
     {
@@ -644,10 +751,10 @@ class PDFController extends Controller
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht / 2 , 5, $deduct->id, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->number, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, number_format(intval($deduct->total_price() * 1e1) / 1e1,1), 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->total_price() , 0, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('H:i A'), 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, number_format(intval($deduct->profit() * 1e1) / 1e1,1), 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->profit(), 0, 0, 'C');
             $pdf->setFont($fontname, '', 8);
 
             $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
@@ -675,13 +782,13 @@ class PDFController extends Controller
             $pdf->AddPage();
         }
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, number_format(intval($shift->totalDeductsPrice() * 1e1) / 1e1,1), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPrice() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceBank() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceBank() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, intval($shift->totalDeductsPriceTransfer() * 1e1) / 1e1, 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceTransfer() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Cash', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5,intval($shift->totalDeductsPriceCash() * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceCash(), 1, 1, 'C', fill: 0);
 
 
 
@@ -1577,7 +1684,7 @@ class PDFController extends Controller
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, $page_width / 2 - 10, 0, 30, 30,align: 'C');
+            $pdf->Image("@".$img, 10, 5, 50, 20,align: 'C');
 
         }
 
@@ -1621,14 +1728,14 @@ class PDFController extends Controller
 //        $pdf->Ln();
         $pdf->SetFont($arial, 'u', 10, '', true);
 
-        $pdf->Cell(25,5,'Requested Items',0,1,'L');
+//        $pdf->Cell(25,5,'Requested Items',0,1,'L');
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
-        $pdf->Cell($colWidth*2,5,'الصنف',1,0,fill: 1);
-        $pdf->Cell($colWidth/2,5,'السعر',1,0,fill: 1);
-        $pdf->Cell($colWidth/2,5,'الوحده',1,0,fill: 1);
-        $pdf->Cell($colWidth,5,'اجمالي',1,1,fill: 1);
+        $pdf->Cell($colWidth*2,5,'Name',1,0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'Price',1,0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'QY',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,'Subtotal',1,1,fill: 1);
         /** @var DeductedItem $deductedItem */
         foreach ($deduct->deductedItems as $deductedItem){
             $pdf->Cell($colWidth*2,5,$deductedItem->item->market_name,1,0,stretch: 1);
@@ -1661,9 +1768,9 @@ class PDFController extends Controller
 //        $pdf->Ln();
         $pdf->write1DBarcode("$deduct->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
 //        $pdf->Ln();
-        $pdf->Cell(15,5,'المجموع',1,0,fill: 1);
+        $pdf->Cell(15,5,'Total',1,0,fill: 1);
 
-        $pdf->Cell(30,5,number_format(intval($deduct->total_price() * 1e1) / 1e1,1).' OMR',1 ,1,1);
+        $pdf->Cell(30,5,$deduct->total_price() .' OMR',1 ,1,1);
         $pdf->Ln();
 
         $pdf->Cell(15,5,'User',1,0,fill: 1);

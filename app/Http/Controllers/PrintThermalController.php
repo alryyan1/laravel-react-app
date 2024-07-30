@@ -27,19 +27,19 @@ class PrintThermalController extends Controller
          */
         try {
             $connector = null;
-            $connector = new WindowsPrintConnector("oscar");
+            $connector = new WindowsPrintConnector("pos");
 
             /* Print a "Hello world" receipt" */
             $printer = new Printer($connector);
-            $printer -> text("Hello World!\n");
-            $printer -> cut();
+//            $printer -> text("Hello World!\n");
+//            $printer -> cut();
             $printer->pulse();
 
             /* Close printer */
-            $printer -> close();
+//            $printer -> close();
 
-            $printer -> text("Hello World!\n");
-            $printer -> cut();
+//            $printer -> text("Hello World!\n");
+//            $printer -> cut();
             $printer -> close();
         } catch (Exception $e) {
             echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";

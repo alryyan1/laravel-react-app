@@ -152,6 +152,7 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 //inventory
 Route::get('pdf',[\App\Http\Controllers\PDFController::class,'invnetoryIncome']);
 Route::get('deduct/report',[\App\Http\Controllers\PDFController::class,'deductReport']);
+Route::get('deduct/invoice',[\App\Http\Controllers\PDFController::class,'deductInvoice']);
 Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
 
 

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\DB;
 class DepositController extends Controller
 {
 
+
+    public function pay(Request $request,Deposit $deposit)
+    {
+        $deposit->update(['paid'=>!$deposit->paid]);
+        return ['status'=>true,'data'=>$deposit->fresh()];
+    }
     public function updateDepositItem(Request $request , DepositItem $depositItem)
     {
         $data = $request->all();
@@ -83,7 +89,7 @@ class DepositController extends Controller
         if ($user->can('انشاء فاتوره')) {
 
 //        return $data;
-        return ['status' => Deposit::create(['bill_number'=>$data['bill_number'],'bill_date'=>$data['bill_date'],'supplier_id'=>$data['supplier_id'] ,'complete'=>false])] ;
+        return ['status' => Deposit::create(['bill_number'=>$data['bill_number'],'bill_date'=>$data['bill_date'],'supplier_id'=>$data['supplier_id'] ,'complete'=>false,'user_id'=>$user->id])] ;
         }else{
             return \response(['status' => false,'message'=>'صلاحيه انشاء فاتوره  غير مفعله'],400);
         }

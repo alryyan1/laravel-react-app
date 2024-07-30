@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('number');
             $table->string('notes')->nullable();
             $table->boolean('is_sell')->nullable();
+            $table->foreignIdFor(\App\Models\Client::class)->nullable();
             $table->timestamps();
         });
     }

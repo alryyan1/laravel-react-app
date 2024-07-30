@@ -34,7 +34,13 @@ class Deposit extends Model
 {
     use HasFactory;
 
-    protected $fillable =['bill_number','bill_date','complete','supplier_id'];
+    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+
+    }
     public function items(){
 //        return $this->belongsToMany(Item::class,'deposit_items','deposit_id','item_id')->withPivot(['price','quantity']);
         return $this->hasMany(DepositItem::class);
@@ -42,7 +48,23 @@ class Deposit extends Model
     public function supplier(){
         return $this->belongsTo(Supplier::class);
     }
-    protected $with =['items','supplier'];
+    protected $with =['items','supplier','user'];
+    protected $appends = ['total'];
+
+    function getTotalAttribute()
+    {
+        return $this->total();
+    }
+
+    public function total()
+    {
+        $total = 0;
+        /** @var DepositItem $item */
+        foreach ($this->items as $item){
+            $total += ($item->price*$item->quantity);
+        }
+        return $total;
+    }
 
 
 

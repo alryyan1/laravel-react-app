@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('bill_number');
             $table->date('bill_date');
             $table->boolean('complete')->default(0);
+            $table->boolean('paid')->default(false);
+            $table->foreignIdFor(\App\Models\User::class)->nullable();
+
             $table->timestamps();
 
         });

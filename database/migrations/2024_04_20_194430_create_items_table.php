@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('initial_price')->default(0);
             $table->integer('tests')->nullable()->default(0);
             $table->date('expire');
-            $table->float('cost_price');
-            $table->float('sell_price');
+            $table->float('cost_price',8,3);
+            $table->float('sell_price',8,3);
             $table->foreignIdFor(\App\Models\DrugCategory::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\PharmacyType::class)->nullable()->constrained();
             $table->string('barcode')->nullable();

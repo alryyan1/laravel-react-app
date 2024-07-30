@@ -49,8 +49,13 @@ class Deduct extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
-    protected $with = ['deductedItems','paymentType','user'];
+    protected $with = ['deductedItems','paymentType','user','client'];
     protected $appends = ['total_price','profit'];
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+
+    }
     public function getTotalPriceAttribute()
     {
         return $this->total_price();
