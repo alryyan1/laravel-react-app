@@ -201,7 +201,7 @@ class ItemController extends Controller
         }
         /** @var Item $item */
         foreach ($items as $item) {
-            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
+            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->where('return','=',0)->value('total');
             $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
             $item->totaldeposit = $total_deposit;
 

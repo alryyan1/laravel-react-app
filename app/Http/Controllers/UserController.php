@@ -27,7 +27,7 @@ class UserController extends Controller
            UserRoute::create(['user_id'=>$user_id,'route_id'=>$route_id]);
 
        }
-       return ['status'=>true];
+       return ['status'=>true,'user'=>User::find($user_id)];
     }
     public function editSubRoutesRoutes(Request $request){
 
@@ -42,7 +42,7 @@ class UserController extends Controller
             UserSubRoute::create(['user_id'=>$user_id,'sub_route_id'=>$route_id]);
 
         }
-        return ['status'=>true];
+        return ['status'=>true,'user'=>User::find($user_id)];
     }
     public function routes(){
         return Route::all();

@@ -38,6 +38,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereUserId($value)
+ * @property int|null $return
+ * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereReturn($value)
  * @mixin \Eloquent
  */
 class DepositItem extends Model

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('expire')->nullable();
             $table->string('notes')->nullable();
             $table->string('barcode')->nullable();
+            $table->boolean('return')->default(0);
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedOrganism whereOrganism($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedOrganism whereResistant($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedOrganism whereSensitive($value)
+ * @property-read \App\Models\LabRequest|null $labRequest
  * @mixin \Eloquent
  */
 class RequestedOrganism extends Model

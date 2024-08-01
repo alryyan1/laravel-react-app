@@ -61,6 +61,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereScName($value)
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereSellPrice($value)
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereStrips($value)
+ * @property float $tax
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereTax($value)
  * @mixin \Eloquent
  */
 class Item extends Model

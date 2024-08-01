@@ -38,6 +38,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereShiftId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereStrips($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereUserId($value)
+ * @property int $discount
+ * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereDiscount($value)
  * @mixin \Eloquent
  */
 class DeductedItem extends Model

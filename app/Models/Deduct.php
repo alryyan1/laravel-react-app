@@ -43,6 +43,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $profit
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereIsSell($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereNotes($value)
+ * @property int|null $client_id
+ * @property-read \App\Models\Client|null $client
+ * @property-read mixed $total_price_unpaid
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereClientId($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
@@ -50,7 +54,7 @@ class Deduct extends Model
     protected $guarded = ['id'];
     use HasFactory;
     protected $with = ['deductedItems','paymentType','user','client'];
-    protected $appends = ['total_price','profit'];
+    protected $appends = ['total_price','profit','total_price_unpaid'];
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -59,6 +63,10 @@ class Deduct extends Model
     public function getTotalPriceAttribute()
     {
         return $this->total_price();
+    }
+    public function getTotalPriceUnpaidAttribute()
+    {
+        return $this->total_price_unpaid();
     }
     public function getProfitAttribute()
     {
@@ -97,13 +105,31 @@ class Deduct extends Model
 
         foreach ($this->deductedItems as $item){
 
-            if ($item->item->strips  == 0){
-                $total +=  $item->strips  *  $item->item->sell_price ;
 
-            }else{
-                $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+            $strip_price = ($item->price/$item->item->strips);
 
-            }
+            $total +=  $item->strips  *   $strip_price ;
+
+
+        }
+
+        return $total;
+
+    }
+    public function total_price_unpaid( )
+    {
+
+        $total = 0;
+//        if (!$this->complete)  return 0;
+
+        foreach ($this->deductedItems as $item){
+
+
+            $strip_price = ($item->price/$item->item->strips);
+
+            $total +=  $item->strips  *   $strip_price ;
+
+
 
         }
 
@@ -120,13 +146,10 @@ class Deduct extends Model
         foreach ($this->deductedItems as $item){
 
 
-            if ($item->item->strips == 0){
-                    $total +=  $item->strips  *  $item->item->sell_price  ;
-                    $cost +=  $item->strips  *  $item->item->cost_price  ;
-                }else{
-                    $total +=  $item->strips  *  ($item->item->sell_price/$item->item->strips)  ;
+
+                    $total +=  $item->strips  *  ($item->price/$item->item->strips)  ;
                     $cost +=  $item->strips  *  ($item->item->cost_price/$item->item->strips)  ;
-                }
+
 
         }
 
@@ -138,7 +161,7 @@ class Deduct extends Model
 
 
        return $this->deductedItems->reduce(function ($prev,$current){
-           return $prev.'-'.$current->item->market_name.'x'.$current->item->strips;
+           return $prev.'-'.$current->item->market_name.' x '.$current->box;
         },'');
 
 

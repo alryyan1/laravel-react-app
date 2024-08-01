@@ -28,6 +28,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereSupplierId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereUpdatedAt($value)
+ * @property int $paid
+ * @property int|null $user_id
+ * @property-read mixed $total
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit wherePaid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereUserId($value)
  * @mixin \Eloquent
  */
 class Deposit extends Model

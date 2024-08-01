@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('expire');
             $table->float('cost_price',8,3);
             $table->float('sell_price',8,3);
+            $table->float('tax',8,3);
             $table->foreignIdFor(\App\Models\DrugCategory::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\PharmacyType::class)->nullable()->constrained();
             $table->string('barcode')->nullable();
