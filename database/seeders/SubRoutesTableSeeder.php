@@ -72,56 +72,56 @@ class SubRoutesTableSeeder extends Seeder
             array (
                 'id' => 8,
                 'route_id' => 5,
-                'name' => 'الحجز',
+                'name' => 'booking',
                 'path' => '/clinic',
             ),
             8 =>
             array (
                 'id' => 9,
                 'route_id' => 5,
-                'name' => 'استحقاق الاطباء',
+                'name' => 'doctor_reclaim',
                 'path' => '/clinic/doctors',
             ),
             9 =>
             array (
                 'id' => 10,
                 'route_id' => 5,
-                'name' => 'حساب الفئات',
+                'name' => 'cash_count',
                 'path' => 'clinic/denos',
             ),
             10 =>
             array (
                 'id' => 11,
                 'route_id' => 4,
-                'name' => 'تسجيل مريض',
+                'name' => 'register_lab_patient',
                 'path' => 'laboratory/add',
             ),
             11 =>
             array (
                 'id' => 12,
                 'route_id' => 4,
-                'name' => 'ادخال النتائج ',
+                'name' => 'result_entry',
                 'path' => 'laboratory/result',
             ),
             12 =>
             array (
                 'id' => 13,
                 'route_id' => 4,
-                'name' => 'سحب العينات',
+                'name' => 'sample_collection',
                 'path' => 'laboratory/sample',
             ),
             13 =>
             array (
                 'id' => 14,
                 'route_id' => 4,
-                'name' => 'اداره التحاليل ',
+                'name' => 'test_management',
                 'path' => 'laboratory/tests',
             ),
             14 =>
             array (
                 'id' => 15,
                 'route_id' => 4,
-                'name' => 'قائمه الاسعار',
+                'name' => 'price_list',
                 'path' => 'laboratory/price',
             ),
             15 =>

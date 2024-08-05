@@ -1078,7 +1078,9 @@ class PDFController extends Controller
         };
         $pdf->foot = function ($pdf) use ($patient, $page_width, $arial,$settings) {
             if ($settings->footer_content != null){
-              $pdf->MultiCell($page_width, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);
+               $pdf->SetFont($arial, '', 11, '', true);
+
+                $pdf->MultiCell($page_width, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);
 
             }
         };
@@ -1284,6 +1286,7 @@ class PDFController extends Controller
                     $y = $pdf->GetY();
                     $x = $pdf->GetX();
                     $highestValue = max([$normalRangeCellHeight, $resultCellHeight]);
+                    $pdf->SetFont($arial, '', 11, '', true);
 
                     if ($resultCellHeight > $normalRangeCellHeight) {
                         //caclulate additional height
@@ -1710,7 +1713,8 @@ class PDFController extends Controller
         $pdf->SetFont($arial, 'u', 10, '', true);
         $pdf->Ln(15);
 
-        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+//        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->Ln();
         $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
         $pdf->Cell($page_width,5,'فاتوره',0,1,'C');
         $pdf->SetFont($arial, '', 10, '', true);

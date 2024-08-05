@@ -107,7 +107,7 @@ class Patient extends Model
     }
     protected  $with = ['labrequests','doctor','company','subcompany','relation','user'];
 
-    protected $appends = ['paid'];
+    protected $appends = ['paid','hasCbc'];
     public function getPaidAttribute(){
         return $this->paid_lab();
     }
@@ -133,6 +133,14 @@ class Patient extends Model
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function hasCbc(){
+               return Sysmex::where('patient_id','=',$this->id)->get()->count() > 0;
+
+     }
+    public function getHascbcAttribute(){
+                return $this->hasCbc();
+        return $this->hasCbc();
     }
 
     public function paid_lab($user = null){
