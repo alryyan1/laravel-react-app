@@ -72,6 +72,7 @@ Route::middleware('auth:sanctum')->get('inventory/deduct/new', [DeductController
 Route::middleware('auth:sanctum')->patch('deduct/{deduct}', [DeductController::class, 'update']);
 
 Route::middleware('auth:sanctum')->post('addDrugForSell',[\App\Http\Controllers\ItemController::class,'addSell']);
+Route::middleware('auth:sanctum')->post('addPrescribedDrug/{patient}',[\App\Http\Controllers\ItemController::class,'addPrescribtion']);
 Route::middleware('auth:sanctum')->patch('deductedItem/{deductedItem}',[\App\Http\Controllers\deductedItemController::class,'update']);
 Route::middleware('auth:sanctum')->delete('inventory/deduct/{deductedItem}', [\App\Http\Controllers\deductedItemController::class, 'destroy']);
 
@@ -190,6 +191,7 @@ Route::get('doctors', [DoctorController::class, 'all']);
 Route::patch('doctors/{doctor}', [DoctorController::class, 'update']);
 Route::post('doctors/add', [DoctorController::class, 'create']);
 Route::get('doctors/pagination/{page_size}', [DoctorController::class, 'pagination']);
+Route::get('doctors/find/{doctor}', [DoctorController::class, 'find']);
 
 
 //specialists
@@ -211,6 +213,8 @@ Route::get('packages/all', function () {
 Route::middleware('auth:sanctum')->get('patient/sampleCollected/{patient}', [PatientController::class, 'collectSample']);
 Route::middleware('auth:sanctum')->get('printLock/{patient}', [PatientController::class, 'printLock']);
 Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'byName']);
+Route::middleware('auth:sanctum')->patch('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugUpdate']);
+Route::middleware('auth:sanctum')->delete('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugDelete']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor?}', [PatientController::class, 'saveByHistoryLab']);

@@ -8,6 +8,8 @@ use App\Models\Deposit;
 use App\Models\DepositItem;
 use App\Models\DepositItems;
 use App\Models\Item;
+use App\Models\Patient;
+use App\Models\PrescribedDrug;
 use App\Models\Shift;
 use DB;
 use http\Env\Response;
@@ -52,6 +54,24 @@ class ItemController extends Controller
             }
 
             return ['status'=>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift];
+    }
+    public function addPrescribtion(Request $request,Patient $patient)
+    {
+            $user = auth()->user();
+        $doctor_id = $request->get('doctor_id');
+
+            if ($request->has('product_id')){
+
+                $product_id = $request->get('product_id');
+
+                        PrescribedDrug::create(['patient_id'=>$patient->id,'item_id'=>$product_id,'doctor_id'=>   $doctor_id]);
+            }else{
+                foreach ($request->get('selectedDrugs' ) as $drug_id){
+                    PrescribedDrug::create(['patient_id'=>$patient->id,'item_id'=>$drug_id,'doctor_id'=>   $doctor_id]);
+                }
+            }
+
+            return ['status'=>true,'patient'=>$patient->fresh()];
     }
 
     public function expireMonthPanel()

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignIdFor(\App\Models\Shift::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+
             $table->foreignId('doctor_id')->nullable()->references('id')->on('doctors');
             $table->string('phone',10);
             $table->string('gender');

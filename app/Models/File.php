@@ -23,10 +23,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class File extends Model
 {
+
+
     use HasFactory;
     protected $fillable = ['patient_id','file_id'];
+//    protected $with =['filePatients'];
 
-    public function patients(){
-        return $this->belongsToMany(Patient::class);
-    }
+  protected $appends =  ['filePatients'];
+
+  public function getFilePatientsAttribute()
+  {
+      return $this->filePatients();
+  }
+   public  function filePatients()
+   {
+       return $this->hasMany(FilePatient::class);
+   }
 }

@@ -93,19 +93,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Shift $shift
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSampleCollectTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'phone','insurance_no','user_id','shift_id','age_day','age_month','age_year','doctor_id','gender','visit_number','company_id','subcompany_id','company_relation_id','insurance_no','guarantor','result_is_locked','result_print_date','sample_print_date','sample_collected','sample_collect_time'];
+    protected $guarded =['id'];
+    public function prescriptions()
+    {
+        return $this->hasMany(PrescribedDrug::class);
+    }
     protected function name() : Attribute {
         return Attribute::make(
             set:fn($value)=> trim($value),
         );
     }
-    protected  $with = ['labrequests','doctor','company','subcompany','relation','user'];
+    protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient'];
 
     protected $appends = ['paid','hasCbc'];
     public function getPaidAttribute(){
@@ -200,9 +203,10 @@ class Patient extends Model
     }
 
 
-    public function file(){
-        return $this->belongsToMany(File::class);
+    public function file_patient(){
+        return $this->hasOne(FilePatient::class);
     }
+
     public function company()
     {
         return $this->belongsTo(Company::class);

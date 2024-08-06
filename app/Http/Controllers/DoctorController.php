@@ -81,6 +81,14 @@ class DoctorController extends Controller
         return collect( Doctor::with('specialist')->orderByDesc('id')->paginate($page_size));
     }
 
+    public function find(Request $request,Doctor $doctor)
+    {
+        return $doctor->load(['shifts'=>function ($query){
+            return $query->orderByDesc('id');
+            
+        }]);
+    }
+
 
 
 }

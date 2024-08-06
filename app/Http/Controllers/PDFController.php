@@ -621,17 +621,18 @@ class PDFController extends Controller
         $pdf->setFont($fontname, 'b', 22);
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
 
-        $pdf->Cell($page_width, 5, 'ورديه المعمل', 0, 1, 'C');
+        $pdf->Cell($page_width, 5, 'تقرير المختبر', 0, 1, 'C');
+        $pdf->setFont($fontname, '', 12);
+
+        $pdf->Cell($page_width, 5, "   رقم ".$shift->id, 0, 1, 'C');
         $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 16);
 
         $pdf->setFillColor(200, 200, 200);
-        $table_col_widht = $page_width / 6;
+        $table_col_widht = $page_width / 5;
         $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');
+        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d H:m A'), 1, 1, 'C');
 
-        $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');
+
 
         $table_col_widht = ($page_width - 20) / 7;
         $pdf->Ln();
@@ -1078,9 +1079,11 @@ class PDFController extends Controller
         };
         $pdf->foot = function ($pdf) use ($patient, $page_width, $arial,$settings) {
             if ($settings->footer_content != null){
-               $pdf->SetFont($arial, '', 11, '', true);
+               $pdf->SetFont($arial, '', 10, '', true);
 
-                $pdf->MultiCell($page_width, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);
+                $pdf->cell(25, 5, "Sign: ", 0, 1, 'L');
+
+                $pdf->MultiCell($page_width - 25, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);
 
             }
         };
@@ -1248,10 +1251,10 @@ class PDFController extends Controller
                     $table_col_widht = ($page_width) / 4;
                     $resultCellHeight = 5;
                     if ($is_columns){
-                        $pdf->cell($column_width, 5, ucfirst($child_test->child_test_name), 0, 0, 'C'); // test name
+                        $pdf->cell($column_width, 5, ucfirst(strtolower($child_test->child_test_name)), 0, 0, 'C'); // test name
 
                     }else{
-                        $pdf->cell($table_col_widht, 5, ucfirst($child_test->child_test_name), 0, 0, 'C'); // test name
+                        $pdf->cell($table_col_widht, 5, ucfirst(strtolower($child_test->child_test_name) ), 0, 0, 'C'); // test name
 
                     }
                     $report_result = $result->result;

@@ -22,7 +22,7 @@ class PatientAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'name' => 'string',
             'phone' => 'numeric',
              'doctor_id'=>'',
             'age_day' => '',
@@ -33,7 +33,23 @@ class PatientAddRequest extends FormRequest
             'company_relation_id' => 'numeric',
             'age_year' => 'numeric',
             'guarantor' => '',
-            'insurance_no'=>''
+            'insurance_no'=>'',
+            'bp'=>'',
+            'temp'=>'',
+            'height'=>'',
+            'weight'=>'',
+            'juandice'=>'',
+            'pallor'=>'',
+            'clubbing'=>'',
+            'cyanosis'=>'',
+            'edema_feet'=>'',
+            'dehydration'=>'',
+            'lymphadenopathy'=>'',
+            'peripheral_pulses'=>'',
+            'feet_ulcer'=>'',
+            'present_complains'=>'',
+            'history_of_present_illness'=>'',
+            'prescription_notes'=>'',
         ];
     }
 }

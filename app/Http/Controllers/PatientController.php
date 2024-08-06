@@ -7,9 +7,11 @@ use App\Models\Doctor;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
 use App\Models\File;
+use App\Models\FilePatient;
 use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Patient;
+use App\Models\PrescribedDrug;
 use App\Models\Shift;
 use App\Zebra;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -19,13 +21,24 @@ use PHPUnit\Exception;
 
 class PatientController extends Controller
 {
+    public function prescribedDrugUpdate(Request $request , PrescribedDrug $prescribedDrug)
+    {
+        $data = $request->all();
+        return ['status' => $prescribedDrug->update([$data['colName'] => $data['val']])];
+
+    }
+    public function prescribedDrugDelete(Request $request , PrescribedDrug $prescribedDrug)
+    {
+        return ['status' => $prescribedDrug->delete(),'patient'=>$prescribedDrug->patient];
+
+    }
     public function ByName(Request $request){
         $name = $request->query('name');
         if (is_numeric($name)){
             return  ['status'=>true,'data'=>Patient::find($name)];
         }
      elseif ($request->has('withTests') && $request->withTests == '1'){
-         return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
+         return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->limit(30)->get();
 
      }else{
             return Patient::with('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
@@ -236,12 +249,13 @@ class PatientController extends Controller
 
             if($result){
                 $patient = $patient->refresh();
-                $file =  \App\Models\File::whereHas('patients', function ($query) use($patient){
+                $file =  \App\Models\FilePatient::whereHas('patients', function ($query) use($patient){
                     return $query->where('phone', '=', $patient->phone);
                 })->first();
+//                FilePatient::where()
                 //the patient has a file number
                 if ($file)  {
-                    $file->patients()->attach($patient->id,['file_id'=>$file->id]);
+                    $file->patients()->attach($patient->id,['file_id'=>$file->file_id]);
 
                 }else{
                     //create new file
