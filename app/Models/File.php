@@ -29,14 +29,14 @@ class File extends Model
     protected $fillable = ['patient_id','file_id'];
 //    protected $with =['filePatients'];
 
-  protected $appends =  ['filePatients'];
+//  protected $appends =  ['filePatients'];
 
-  public function getFilePatientsAttribute()
-  {
-      return $this->filePatients();
-  }
-   public  function filePatients()
+//  public function getFilePatientsAttribute()
+//  {
+//      return $this->filePatients();
+//  }
+   public  function patients()
    {
-       return $this->hasMany(FilePatient::class);
+       return $this->belongsToMany(Patient::class);
    }
 }

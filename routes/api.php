@@ -36,11 +36,12 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+Route::get('file/{patient}',[PatientController::class,'file']);
 Route::post('addOrganism/{labRequest}',[LabRequestController::class,'addOrganism']);
 Route::patch('editOrganism/{requestedOrganism}',[LabRequestController::class,'editOrganism']);
 Route::delete('deleteOrganism/{requestedOrganism}',[LabRequestController::class,'deleteOrganism']);
 Route::get('expireMonthPanel',[ItemController::class,'expireMonthPanel']);
+Route::get('complains',[PatientController::class,'complains']);
 Route::middleware('auth:sanctum')-> patch('depositItems/update/{depositItem}',[\App\Http\Controllers\DepositController::class,'updateDepositItem']);
 Route::middleware('auth:sanctum')-> post('income-item/bulk/{deposit}',[\App\Http\Controllers\DepositController::class,'defineAllItemsToDeposit']);
 

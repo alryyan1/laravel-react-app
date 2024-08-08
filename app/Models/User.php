@@ -73,6 +73,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'doctor_id',
     ];
     protected $with = ['roles','routes','sub_routes'];
     /**

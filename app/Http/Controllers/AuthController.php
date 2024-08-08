@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function signup(SignUpRequest $request){
         $data = $request->validated();
-        $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password'])]);
+        $user =  User::create(['username'=>$data['username'],'password'=>bcrypt($data['password']),'doctor_id'=>$data['doctor_id']]);
         $user->load(['roles','routes']);
         $token =      $user->createToken('main')->plainTextToken;
         return ['status'=>true,'user'=>$user->load('sub_routes') , 'token'=>$token];

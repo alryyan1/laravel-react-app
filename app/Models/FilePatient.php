@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FilePatient extends Model
 {
     protected $table = 'file_patient';
-    protected $with =['file'];
+//    protected $with =['file'];
     public function patient()
     {
         return $this->belongsTo(Patient::class);

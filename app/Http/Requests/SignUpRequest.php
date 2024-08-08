@@ -24,6 +24,7 @@ class SignUpRequest extends FormRequest
         return [
             'username'=>'required|string|min:6|unique:users',
             'password'=>'required|confirmed|min:6',
+            'doctor_id'=>'',
         ];
     }
 }

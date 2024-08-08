@@ -110,7 +110,13 @@ class Patient extends Model
     }
     protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient'];
 
-    protected $appends = ['paid','hasCbc'];
+
+
+    protected $appends = ['paid','hasCbc','visit_count'];
+    public  function getVisitCountAttribute()
+    {
+        return $this->visit_count();
+    }
     public function getPaidAttribute(){
         return $this->paid_lab();
     }
@@ -203,6 +209,10 @@ class Patient extends Model
     }
 
 
+    public function visit_count()
+    {
+        return FilePatient::where('file_id',$this?->file_patient?->file_id)->count();
+    }
     public function file_patient(){
         return $this->hasOne(FilePatient::class);
     }
