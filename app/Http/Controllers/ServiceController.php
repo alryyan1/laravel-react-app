@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Doctorvisit;
 use App\Models\Patient;
 use App\Models\Service;
+use App\Models\ServiceCost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,18 @@ class ServiceController extends Controller
     }
 
 
-
+    public function addServiceCost(Request $request , Service $service)
+    {
+       return ['status'=>ServiceCost::create($request->all()),'service'=>$service->fresh()];
+    }
+    public function updateServiceCost(Request $request , ServiceCost $serviceCost)
+    {
+        return ['status'=>$serviceCost->update([$request->all()]),'service'=>$serviceCost->service];
+    }
+    public function removeServiceCost(Request $request , ServiceCost $serviceCost)
+    {
+        return ['status'=>$serviceCost->delete(),'service'=>$serviceCost->service];
+    }
 
 
     public function create(ServiceFormRequest $request){

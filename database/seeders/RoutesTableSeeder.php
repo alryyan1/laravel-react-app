@@ -14,12 +14,12 @@ class RoutesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('routes')->delete();
-        
+
         \DB::table('routes')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'inventory',
@@ -27,7 +27,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'pharmacy',
@@ -35,7 +35,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'audit',
@@ -43,7 +43,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'lab',
@@ -51,7 +51,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'name' => 'clinic',
@@ -59,7 +59,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'name' => 'insurance',
@@ -67,7 +67,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'name' => 'services',
@@ -75,7 +75,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'name' => 'settings',
@@ -83,7 +83,7 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'name' => 'dashboard',
@@ -91,8 +91,33 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 14:22:58',
                 'updated_at' => '2024-07-14 14:22:58',
             ),
+
+            9 =>
+                array (
+                    'id' => 10,
+                    'name' => 'moneyIncome',
+                    'path' => 'moneyIncome',
+                    'created_at' => '2024-08-13 14:22:58',
+                    'updated_at' => '2024-08-13 14:22:58',
+                ),
+
+            10 =>
+                array (
+                    'id' => 11,
+                    'name' => 'MoneyExpenses',
+                    'path' => 'MoneyExpenses',
+                    'created_at' => '2024-08-13 14:22:58',
+                    'updated_at' => '2024-08-13 14:22:58',
+                ), 11 =>
+                array (
+                    'id' => 12,
+                    'name' => 'finance',
+                    'path' => 'finance',
+                    'created_at' => '2024-08-14 14:22:58',
+                    'updated_at' => '2024-08-14 14:22:58',
+                ),
         ));
-        
-        
+
+
     }
 }

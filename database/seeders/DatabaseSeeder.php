@@ -82,5 +82,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SubRoutesTableSeeder::class);
         $this->call(ChiefComplainTableSeeder::class);
         $this->call(DrugsTableSeeder::class);
+        $this->call(AccountCategoriesTableSeeder::class);
+        $this->call(FinanceAccountsTableSeeder::class);
     }
 }

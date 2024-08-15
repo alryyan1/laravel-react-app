@@ -70,10 +70,15 @@ class Shift extends Model
      * cash + insurance test prices values only paid
      * @return int
      */
-    public function totalLab(){
+    public function totalLab( $user = null){
         $total = 0;
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
+            if ($user){
+                if ($patient->user_id != $user){
+                    continue;
+                }
+            }
             if ($patient->is_lab_paid){
                 $total += $patient->total();
 
@@ -95,15 +100,16 @@ class Shift extends Model
                 $join->on("specialists.id", "=", "doctors.specialist_id");
             })
             ->select(['specialists.id','specialists.name'])
+            ->where('doctor_shifts.shift_id', $this->id)
             ->groupBy("specialists.id")
             ->get();
    }
-    public function totalLabDiscount(){
+    public function totalLabDiscount($user=null){
         $total = 0;
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
             if ($patient->is_lab_paid){
-                $total += $patient->discountAmount();
+                $total += $patient->discountAmount($user);
 
             }
         }

@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSetting whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSetting whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSetting whereWebDialog($value)
+ * @property int $print_lab_direction
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSetting wherePrintLabDirection($value)
  * @mixin \Eloquent
  */
 class UserSetting extends Model

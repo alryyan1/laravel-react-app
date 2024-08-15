@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Service whereUpdatedAt($value)
  * @property int $activate
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Service whereActivate($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ServiceCost> $service_costs
+ * @property-read int|null $service_costs_count
  * @mixin \Eloquent
  */
 class Service extends Model
@@ -40,6 +42,11 @@ class Service extends Model
 //    protected $fillable =['activate'];
     protected $guarded = ['id'];
 //    protected $with = ['service_group'];
+    protected $with =['service_costs'];
+   public function service_costs()
+   {
+       return $this->hasMany(ServiceCost::class);
+   }
 
     public function service_group(){
         return $this->belongsTo(ServiceGroup::class);

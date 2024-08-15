@@ -93,6 +93,52 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Shift $shift
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSampleCollectTime($value)
+ * @property string $present_complains
+ * @property string $history_of_present_illness
+ * @property string $procedures
+ * @property string $provisional_diagnosis
+ * @property string $bp
+ * @property float $temp
+ * @property float $weight
+ * @property float $height
+ * @property int|null $juandice
+ * @property int|null $pallor
+ * @property int|null $clubbing
+ * @property int|null $cyanosis
+ * @property int|null $edema_feet
+ * @property int|null $dehydration
+ * @property int|null $lymphadenopathy
+ * @property int|null $peripheral_pulses
+ * @property int|null $feet_ulcer
+ * @property int|null $country_id
+ * @property string|null $gov_id
+ * @property string|null $prescription_notes
+ * @property-read \App\Models\FilePatient|null $file_patient
+ * @property-read mixed $hascbc
+ * @property-read mixed $visit_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PrescribedDrug> $prescriptions
+ * @property-read int|null $prescriptions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereBp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereClubbing($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereCountryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereCyanosis($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDehydration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereEdemaFeet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereFeetUlcer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereGovId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereHistoryOfPresentIllness($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereJuandice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereLymphadenopathy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePallor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePeripheralPulses($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePrescriptionNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePresentComplains($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereProcedures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereProvisionalDiagnosis($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereTemp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereWeight($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -172,9 +218,13 @@ class Patient extends Model
       return $this->labrequests()->sum('labrequests.price');
 
     }
-    public function discountAmount(){
+    public function discountAmount($user=null){
         $total = 0;
         foreach ($this->labrequests as $labrequest){
+            if ($user){
+                if ($labrequest->user_deposited != $user) continue;
+
+            }
             $price = $labrequest->price ;
             $discount = $labrequest->discount_per;
             $discounted_money = ($price * $discount ) / 100;

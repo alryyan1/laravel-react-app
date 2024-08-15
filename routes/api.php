@@ -36,6 +36,22 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('ledger/{account_id}',[\App\Http\Controllers\FinanceController::class,'ledger']);
+Route::get('financeEntries',[\App\Http\Controllers\FinanceController::class,'financeEntries']);
+Route::post('createFinanceEntries',[\App\Http\Controllers\FinanceController::class,'createFinanceEntries']);
+
+Route::get('financeAccounts',[\App\Http\Controllers\FinanceController::class,'index']);
+Route::delete('financeAccounts/{financeAccount}',[\App\Http\Controllers\FinanceController::class,'destroy']);
+Route::post('createFinanceAccount',[\App\Http\Controllers\FinanceController::class,'createFinanceAccount']);
+
+Route::post('financeSections',[\App\Http\Controllers\FinanceController::class,'createSection']);
+Route::patch('financeSections/{accountCategory}',[\App\Http\Controllers\FinanceController::class,'editSection']);
+Route::get('financeSections',[\App\Http\Controllers\FinanceController::class,'getSections']);
+
+Route::post('addServiceCost/{service}', [ServiceController::class, 'addServiceCost']);
+Route::post('updateServiceCost/{serviceCost}', [ServiceController::class, 'updateServiceCost']);
+Route::delete('removeServiceCost/{serviceCost}', [ServiceController::class, 'removeServiceCost']);
 Route::get('file/{patient}',[PatientController::class,'file']);
 Route::post('addOrganism/{labRequest}',[LabRequestController::class,'addOrganism']);
 Route::patch('editOrganism/{requestedOrganism}',[LabRequestController::class,'editOrganism']);
@@ -58,6 +74,7 @@ Route::middleware('auth:sanctum')-> patch('routes',[\App\Http\Controllers\UserCo
 Route::middleware('auth:sanctum')-> patch('subRoutes',[\App\Http\Controllers\UserController::class,'editSubRoutesRoutes']);
 Route::middleware('auth:sanctum')-> get('routes',[\App\Http\Controllers\UserController::class,'routes']);
 Route::middleware('auth:sanctum')-> get('totalUserLabTotalAndBank',[ShiftController::class,'totalUserLabTotalAndBank']);
+Route::middleware('auth:sanctum')-> get('monthlyIncome',[ShiftController::class,'monthlyIncome']);
 Route::middleware('auth:sanctum')->get('getUserTotalLabBank',[ShiftController::class,'totalUserLabBank']);
 Route::middleware('auth:sanctum')->get('getShiftByDate',[ShiftController::class,'getShiftByDate']);
 
@@ -244,6 +261,7 @@ Route::get('service/all', [ServiceController::class, 'all']);
 Route::get('service/all/pagination/{page}', [ServiceController::class, 'pagination']);
 Route::patch('service/{service}', [ServiceController::class, 'update']);
 Route::patch('service/test/{service}', [ServiceController::class, 'updatePivot']);
+
 Route::middleware('auth:sanctum')->delete('requestedService/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'deleteService']);
 Route::middleware('auth:sanctum')->patch('requestedService/pay/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'pay']);
 Route::middleware('auth:sanctum')->patch('requestedService/bank/{requestedService}', [\App\Http\Controllers\RequestedServiceController::class, 'bank']);

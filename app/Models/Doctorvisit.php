@@ -62,6 +62,7 @@ class Doctorvisit extends Model
 //        dd($this->services);
         foreach ($this->services as $service){
 
+//            if (!$service->is_paid) continue;
             if (!is_null($doctor)){
                 if ($doctor->id != $service->doctor_id ){
                     continue;

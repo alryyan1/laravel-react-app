@@ -106,6 +106,11 @@ class LabRequestController extends Controller
         if (!$user->can('الغاء سداد فحص')) {
             return  response(['message'=>'صلاحيه الغاء السداد غير مفعله'],400);
         }
+//        $user_deposited =  $patient->labrequests[0]->user_deposited ;
+//        if ($user->id != $user_deposited){
+//            return  response(['message'=>'يجب الغاء السداد من نفس المستخدم'],400);
+//
+//        }
         try {
 
             DB::transaction(function () use ($request, $patient) {
