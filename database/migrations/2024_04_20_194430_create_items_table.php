@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('market_name');
             $table->string('batch')->nullable();
             $table->timestamps();
+            $table->longText('images')->nullable();
             $table->unique(['barcode']);
         });
     }

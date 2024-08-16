@@ -1,0 +1,93 @@
+[1mdiff --git a/app/Http/Controllers/PDFController.php b/app/Http/Controllers/PDFController.php[m
+[1mindex 1424400..20abad0 100644[m
+[1m--- a/app/Http/Controllers/PDFController.php[m
+[1m+++ b/app/Http/Controllers/PDFController.php[m
+[36m@@ -311,27 +311,27 @@[m [mpublic function labreport(Request $request)[m
+ [m
+         $pdf->Cell($page_width, 5, 'ورديه المعمل', 0, 1, 'C');[m
+         $pdf->Ln();[m
+[31m-        $pdf->setFont($fontname, 'b', 16);[m
+[32m+[m[32m        $pdf->setFont($fontname, 'b', 12);[m
+ [m
+         $pdf->setFillColor(200, 200, 200);[m
+[31m-        $table_col_widht = $page_width / 2;[m
+[32m+[m[32m        $table_col_widht = $page_width / 5;[m
+         $pdf->Cell($table_col_widht, 5, 'التاريخ ', 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d'), 1, 1, 'C');[m
+[32m+[m[32m        $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d H:m A'), 1, 1, 'C');[m
+ [m
+         $table_col_widht = ($page_width - 20) / 7;[m
+         $pdf->Ln();[m
+         $pdf->setFont($fontname, 'b', 14);[m
+ [m
+[31m-        $pdf->Cell($table_col_widht / 2, 5, 'الرقم', 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht + 20, 5, '  الاسم', 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht, 5, 'القيمه ', 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht, 5, 'المدفوع ', 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht / 2, 5, " التخفيض", 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht / 2, 5, "بنكك", 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht / 2, 5, "الشركه", 1, 0, 'C', fill: 1);[m
+[31m-        $pdf->Cell($table_col_widht * 2, 5, "  الفحوصات", 1, 1, 'C', fill: 1);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht / 2, 5, 'الرقم', "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht + 20, 5, '  الاسم', "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht, 5, 'القيمه ', "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht, 5, 'المدفوع ', "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht / 2, 5, " التخفيض", "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht / 2, 5, "بنكك", "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht / 2, 5, "الشركه", "T,B", 0, 'C', fill: 0);[m
+[32m+[m[32m        $pdf->Cell($table_col_widht * 2, 5, "  الفحوصات", "T,B", 1, 'C', fill: 0);[m
+ [m
+[31m-        $pdf->setFont($fontname, 'b', 12);[m
+[32m+[m[32m        $pdf->setFont($fontname, '', 10);[m
+         $pdf->Ln();[m
+ [m
+         $index = 1;[m
+[36m@@ -743,7 +743,9 @@[m [mpublic function result(Request $request)[m
+         };[m
+         $pdf->foot = function ($pdf) use ($patient, $page_width, $arial,$settings) {[m
+             if ($settings->footer_content != null){[m
+[31m-              $pdf->MultiCell($page_width, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);[m
+[32m+[m[32m                $pdf->SetFont($arial, '', 11, '', true);[m
+[32m+[m
+[32m+[m[32m              $pdf->MultiCell($page_width -20, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);[m
+ [m
+             }[m
+         };[m
+[36m@@ -905,6 +907,7 @@[m [mpublic function result(Request $request)[m
+                     $y = $pdf->GetY();[m
+                     $x = $pdf->GetX();[m
+                     $highestValue = max([$normalRangeCellHeight, $resultCellHeight]);[m
+[32m+[m[32m                    $pdf->SetFont($arial, '', 11, '', true);[m
+ [m
+                     if ($resultCellHeight > $normalRangeCellHeight) {[m
+                         //caclulate additional height[m
+[1mdiff --git a/app/Models/Patient.php b/app/Models/Patient.php[m
+[1mindex a58feee..b965941 100644[m
+[1m--- a/app/Models/Patient.php[m
+[1m+++ b/app/Models/Patient.php[m
+[36m@@ -102,10 +102,13 @@[m [mprotected function name() : Attribute {[m
+     }[m
+     protected  $with = ['labrequests','doctor','company','subcompany','relation','user'];[m
+ [m
+[31m-    protected $appends = ['paid'];[m
+[32m+[m[32m    protected $appends = ['paid','hasCbc'];[m
+     public function getPaidAttribute(){[m
+         return $this->paid_lab();[m
+     }[m
+[32m+[m[32m    public function getHascbcAttribute(){[m
+[32m+[m[32m        return $this->hasCbc();[m
+[32m+[m[32m    }[m
+     public function shift()[m
+     {[m
+         return $this->belongsTo(Shift::class);[m
+[36m@@ -160,6 +163,10 @@[m [mpublic function discountAmount(){[m
+         }[m
+         return $total;[m
+ [m
+[32m+[m[32m    }[m
+[32m+[m[32m    public function hasCbc(){[m
+[32m+[m[32m        return Sysmex::where('patient_id','=',$this->id)->get()->count() > 0;[m
+[32m+[m
+     }[m
+      public function tests_concatinated(){[m
+         return join('-',$this->labrequests->pluck('name')->all());[m

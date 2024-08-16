@@ -20,6 +20,13 @@ use Illuminate\Database\Eloquent\Model;
 class DrugCategory extends Model
 {
     protected $fillable = ['name'];
+    protected $with = ['items'];
     use HasFactory;
     public $timestamps = false;
+
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }
