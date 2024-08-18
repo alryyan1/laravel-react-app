@@ -153,11 +153,18 @@ class Patient extends Model
             set:fn($value)=> trim($value),
         );
     }
+    public function getTotalLabValueWillPayAttribute()
+    {
+        return $this->total_lab_value_will_pay();
+    }
     protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient'];
+    public function getTotalLabValueUnpaidAttribute()
+    {
+        return $this->total_lab_value_unpaid();
+    }
 
 
-
-    protected $appends = ['paid','hasCbc','visit_count'];
+    protected $appends = ['paid','hasCbc','visit_count','total_lab_value_unpaid','total_lab_value_will_pay'];
     public  function getVisitCountAttribute()
     {
         return $this->visit_count();
@@ -211,12 +218,55 @@ class Patient extends Model
         }
         return $total;
     }
-    public function total(){
+    public function total_lab_value_unpaid(){
 
 
       return $this->labrequests()->sum('labrequests.price');
 
     }
+    public function total_lab_value_will_pay(){
+        $total =0;
+        foreach ($this->labrequests as $requested) {
+            $price = null;
+            if ($this->company_id != null) {
+                $id = $requested->mainTest->id;
+                $test = $this->company->tests->filter(function ($item) use ($id) {
+                    return $item->pivot->main_test_id == $id;
+                })->first();
+                $price = $requested->price;
+                if ($test->pivot->endurance_static > 0) {
+                    // alert('s')
+                    $amount_paid =$test->pivot->endurance_static;
+
+                }else{
+                    if($test->pivot->endurance_percentage > 0 ){
+                        $amount_paid = ($price * $test->pivot->endurance_percentage) / 100;
+
+                    }else{
+                        $amount_paid = ($price * $this->company->lab_endurance) / 100;
+
+                    }
+                }
+
+
+                $total+=$amount_paid;
+
+
+
+            } else {
+                $price = $requested->mainTest->price;
+                $discount = $requested->discount_per;
+                $discount_amount = ($requested->mainTest->price * $discount) / 100;
+                $amount_paid = $requested->mainTest->price - $discount_amount;
+
+                $total+=$amount_paid;
+        }
+        }
+        return $total;
+    }
+
+
+
     public function discountAmount($user=null){
         $total = 0;
         foreach ($this->labrequests as $labrequest){

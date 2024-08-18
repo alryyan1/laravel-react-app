@@ -40,7 +40,7 @@ class Doctorvisit extends Model
         return $this->bankak_service();
     }
 
-//    protected $appends = ['totalservicebank'];
+    protected $appends = ['total_paid_services'];
 //    public function services(){
 //        return $this->belongsToMany(Service::class,'requested_service','doctor_visit_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid','count'])->using(UserPivot::class);
 //    }
@@ -56,6 +56,10 @@ class Doctorvisit extends Model
 
     public function doctorShift(){
         return $this->belongsTo(DoctorShift::class);
+    }
+    public function getTotalPaidServicesAttribute()
+    {
+        return $this->total_paid_services();
     }
     public function total_paid_services(Doctor|null $doctor  = null,$user= null){
         $total = 0;
@@ -75,6 +79,55 @@ class Doctorvisit extends Model
 
             }else{
                 $total += $service->amount_paid;
+
+            }
+
+        }
+        return $total;
+    }
+    public function total_paid_services_insurance(Doctor|null $doctor  = null,$user= null){
+        $total = 0;
+         if (!$this->patient->company) return  0;
+//        dd($this->services);
+        foreach ($this->services as $service){
+
+//            if (!$service->is_paid) continue;
+            if (!is_null($doctor)){
+                if ($doctor->id != $service->doctor_id ){
+                    continue;
+                }
+
+            }
+            if ($user !=null){
+                    if ($service->user_deposited != $user) continue;
+                      $total += $service->amount_paid;
+
+            }else{
+                $total += $service->amount_paid;
+
+            }
+
+        }
+        return $total;
+    }
+    public function total_services(Doctor|null $doctor  = null,$user= null){
+        $total = 0;
+//        dd($this->services);
+        foreach ($this->services as $service){
+
+//            if (!$service->is_paid) continue;
+            if (!is_null($doctor)){
+                if ($doctor->id != $service->doctor_id ){
+                    continue;
+                }
+
+            }
+            if ($user !=null){
+                    if ($service->user_deposited != $user) continue;
+                      $total += $service->price;
+
+            }else{
+                $total += $service->price;
 
             }
 

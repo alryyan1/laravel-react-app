@@ -92,13 +92,14 @@ class Doctor extends Model
 
             if (in_array($service->service->id, $array_1)) {
                 if ($doctorvisit->patient->company_id !=null){
+//                    dd($service);
                     $patient_company =  $doctorvisit->patient->company;
                     $patient_company->load('services');
                     $company_service =  $patient_company->services->filter(function($item) use($service){
                         return $item->id == $service->service->id;
                     })->first();
 
-                    $doctor_credit =   ($company_service->price * $service->count) * $this->company_percentage /100;
+                    $doctor_credit =   ($service->price * $service->count) * $this->company_percentage /100;
                     $total += $doctor_credit;
                 }else{
                     $doctor_service =  $this->services->firstWhere(function ($item) use($service){

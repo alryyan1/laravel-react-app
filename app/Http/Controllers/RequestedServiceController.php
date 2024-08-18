@@ -69,8 +69,19 @@ class RequestedServiceController extends Controller
             })->first();
 //            return $service;
 
+            if ($service->pivot->static_endurance > 0){
+                $amount_paid =  $requestedService->count * $service->pivot->static_endurance;
+            }else{
+                if ($service->pivot->percentage_endurance > 0){
+                    $amount_paid =   ($requestedService->price * $requestedService->count) * $service->pivot->percentage_endurance /100;
 
-            $amount_paid =   ($service->pivot->price * $requestedService->count) * $requestedService->doctorVisit->patient->company->service_endurance /100;
+                }else{
+                    $amount_paid =   ($requestedService->price * $requestedService->count) * $requestedService->doctorVisit->patient->company->service_endurance /100;
+
+                }
+            }
+
+
 
         }else{
             $discount =  $requestedService->discount;

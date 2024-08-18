@@ -23,7 +23,7 @@ class CompanyFormRequest extends FormRequest
     {
         return [
             'name'=>'string|required',
-            'email'=>'email',
+            'email'=>'',
             'lab_endurance'=>'numeric|required',
             'service_endurance'=>'numeric|required',
             'lab_roof'=>'numeric|required',

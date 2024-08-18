@@ -161,6 +161,7 @@ Route::group(['middleware' => ['can:reports']], function () {
 });
 
 //lab
+Route::get('insurance/report',[\App\Http\Controllers\PDFController::class,'insuranceReport']);
 Route::get('lab/report',[\App\Http\Controllers\PDFController::class,'labreport']);
 Route::get('pharmacy/sellsReport',[\App\Http\Controllers\PDFController::class,'sellReport']);
 Route::get('searchDeductByDate',[\App\Http\Controllers\PDFController::class,'searchDeductByDate']);

@@ -61,7 +61,7 @@ class Company extends Model
        /** @var MainTest $test */
         foreach ($tests as $test){
             if ($company_from){
-                $to->tests()->updateExistingPivot($test->id,['endurance_static'=>0,'endurance_percentage'=>0,'status'=>1,'price'=> $test->price ?? 0,'approve'=>0]);
+                $to->tests()->updateExistingPivot($test->id,['endurance_static'=>0,'endurance_percentage'=>0,'status'=>1,'price'=> $test->pivot->price ?? 0,'approve'=>0]);
 
             }else{
 
@@ -81,7 +81,7 @@ class Company extends Model
         /** @var Service $service */
         foreach ($services as $service){
             if ($company_from){
-                $to->services()->updateExistingPivot($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $service->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
+                $to->services()->updateExistingPivot($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $service->pivot->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
 
             }else{
                 $this->services()->attach($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $service->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);

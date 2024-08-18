@@ -77,10 +77,22 @@ class LabRequestController extends Controller
                             $test = $patient_company->tests->filter(function ($item) use ($id) {
                                 return $item->pivot->main_test_id == $id;
                             })->first();
-                            $price = $test->pivot->price;
+                            $price = $requested->price;
+                            if ($test->pivot->endurance_static > 0) {
+                                // alert('s')
+                                $amount_paid =$test->pivot->endurance_static;
+
+                    }else{
+                                if($test->pivot->endurance_percentage > 0 ){
+                                    $amount_paid = ($price * $test->pivot->endurance_percentage) / 100;
+
+                                }else{
+                                    $amount_paid = ($price * $patient->company->lab_endurance) / 100;
+
+                                }
+                            }
 
 
-                            $amount_paid = $test->pivot->price * $patient_company->lab_endurance / 100;
 
                         } else {
                             $price = $requested->mainTest->price;
@@ -140,8 +152,18 @@ class LabRequestController extends Controller
                     foreach ($data['main_test_id'] as $d) {
                         //add test to requested tests
                         $main = MainTest::with('childtests')->find($d);
+                        $price = $main->price;
+                        if ($patient->company_id != null){
+                            /** @var Company $patient_company */
+                            $patient_company =  $patient->company;
+                            $patient_company->load('tests');
+                            $service =  $patient_company->tests->filter(function($item) use($d){
+                                return $item->id == $d;
+                            })->first();
+                            $price =   $service->pivot->price;
 
-                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $main->price, 'user_requested' => $user->id]);
+                        }
+                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $price, 'user_requested' => $user->id]);
                         //                $patient->labrequests()->attach($d);
                         //add test with their children to requested results
                         /** @var ChildTest $childTest */

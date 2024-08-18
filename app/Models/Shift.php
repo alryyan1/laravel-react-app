@@ -80,7 +80,7 @@ class Shift extends Model
                 }
             }
             if ($patient->is_lab_paid){
-                $total += $patient->total();
+                $total += $patient->total_lab_value_unpaid();
 
             }
         }
@@ -160,6 +160,68 @@ class Shift extends Model
         }
 
         return $total;
+    }    public function companies($user = null)
+    {
+
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
+
+            $companies = collect();
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
+
+              if ($doctorvisit->patient->company){
+                  $obj = [];
+                 if ($companies->contains('id', $doctorvisit->patient->company->id)){
+                     $obj['id'] = $doctorvisit->patient->company->id;
+                     $obj['name'] = $doctorvisit->patient->company->name;
+                     $obj['count'] = 1;
+                     $companies->push($obj);
+
+
+                 }else{
+                    $companies->map(function($item) use($doctorvisit){
+                        if ($item->id == $doctorvisit->patient->company->id){
+                        }
+                    });
+                 }
+              }
+
+            }
+        }
+        return $companies;
+
+    }
+
+    public function totalPaidServiceInsurance($user = null): mixed
+    {
+        $total = 0;
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
+
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
+                if (!$doctorvisit->patient->company) continue;
+                $total+= $doctorvisit->total_paid_services(null, $user);
+            }
+        }
+
+        return $total;
+    }
+    public function totalServicesValue($user = null): mixed
+    {
+        $total = 0;
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
+
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
+                if (!$doctorvisit->patient->company) continue;
+                $total+= $doctorvisit->total_services(null, $user);
+            }
+        }
+
+        return $total;
     }
     public function totalPaidServiceBank($user= null): mixed
     {
@@ -222,6 +284,24 @@ class Shift extends Model
         /** @var Patient $patient */
         foreach ($this->patients as $patient){
                 $total += $patient->paid_lab($user);
+        }
+        return $total;
+    }
+    public function paidLabInsurance($user = null){
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            if (!$patient->company) continue;
+                $total += $patient->paid_lab($user);
+        }
+        return $total;
+    }
+    public function labInsuranceValue($user = null){
+        $total = 0;
+        /** @var Patient $patient */
+        foreach ($this->patients as $patient){
+            if (!$patient->company) continue;
+                $total += $patient->total_lab_value_unpaid();
         }
         return $total;
     }

@@ -43,7 +43,7 @@ class DoctorShift extends Model
     protected $appends  = ['total','doctor_credit_cash','doctor_credit_company'];
     public function getTotalAttribute()
     {
-        return $this->total();
+        return $this->total_paid_services();
     }
     public function getDoctorCreditCashAttribute()
     {
@@ -63,11 +63,19 @@ class DoctorShift extends Model
     public function visits(){
         return $this->hasMany(Doctorvisit::class);
     }
-    public function total(){
+    public function total_paid_services(){
         $total_paid = 0;
         /** @var Doctorvisit $doctorvisit */
         foreach ($this->visits as $doctorvisit){
             $total_paid+= $doctorvisit->total_paid_services($this->doctor);
+        }
+        return $total_paid;
+    }
+    public function total_services(){
+        $total_paid = 0;
+        /** @var Doctorvisit $doctorvisit */
+        foreach ($this->visits as $doctorvisit){
+            $total_paid+= $doctorvisit->total_services($this->doctor);
         }
         return $total_paid;
     }
@@ -100,7 +108,7 @@ class DoctorShift extends Model
         return $total_credit;
     }
     public function hospital_credit(){
-        return $this->total() -( $this->doctor_credit_cash() + $this->doctor_credit_company());
+        return $this->total_paid_services() -( $this->doctor_credit_cash() + $this->doctor_credit_company());
     }
 
     public function cost()
