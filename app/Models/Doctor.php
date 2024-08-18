@@ -95,7 +95,7 @@ class Doctor extends Model
                     $patient_company =  $doctorvisit->patient->company;
                     $patient_company->load('services');
                     $company_service =  $patient_company->services->filter(function($item) use($service){
-                        return $item->id == $service->id;
+                        return $item->id == $service->service->id;
                     })->first();
 
                     $doctor_credit =   ($company_service->price * $service->count) * $this->company_percentage /100;

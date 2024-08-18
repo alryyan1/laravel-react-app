@@ -1398,7 +1398,12 @@ class PDFController extends Controller
     {
         /** @var Patient $patient */
         $patient = Patient::find($request->get('pid'));
-        $custom_layout = array(80, 110);
+        $height=110;
+
+        if ($patient->company_id != null){
+            $height=150;
+        }
+        $custom_layout = array(80, $height);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -1420,29 +1425,58 @@ class PDFController extends Controller
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
+        $pdf->SetFont($arial, '', 7, '', true);
+
+        $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
+        $pdf->SetFont($arial, '', 10, '', true);
+
         $pdf->setAutoPageBreak(TRUE, 0);
         $pdf->setMargins(5, 5, 10);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
 
-        $pdf->SetFont($arial, 'u', 10, '', true);
         $pdf->Ln();
-        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->SetFont($arial, '', 15, '', true);
+
+        $pdf->Cell($page_width-10,5,$settings->hospital_name,0,1,'C');
         $pdf->SetFont($arial, '', 10, '', true);
 
         $pdf->Ln();
 
-        $pdf->Cell(20,5,'اسم المريض',0,0);
-        $pdf->Cell(60,5,$patient->name,0,1);
-        $pdf->Cell(20,5,'اسم الطبيب',0,0);
+        $pdf->Cell(15,5,'اسم المريض','TB',0,'R',fill: 1);
+        $pdf->Cell(50,5,$patient->name,'TB',1);
+        $pdf->Cell(15,5,'اسم الطبيب','TB',0,'R',fill: 1);
 
-        $pdf->Cell(60,5,$patient?->doctor?->name,0,1);
+        $pdf->Cell(50,5,$patient?->doctor?->name,'TB',1);
         $pdf->Ln();
-        $pdf->Cell(15,5,'التاريخ',0,0);
 
-        $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
-        $pdf->Cell($page_width,5,'Lab No  '.$patient->visit_number,1,1,'C');
+        if ($patient->company_id != null){
+            $pdf->Cell(20,5,'',0,0,'C');
+
+            $pdf->Cell(20,5,'بيانات التامين',1,1,'C',fill: 1);
+
+            $pdf->Cell($page_width - 10,5,'------------------------------------------------------------------ ',0,1,'C');
+
+            $col = $page_width / 4 ;
+
+            $pdf->Cell($col,5,'رقم البطاقه',0,0,'C');
+            $pdf->Cell($col,5, $patient->insurance_no,0,0,'C');
+            $pdf->Cell($col,5,'الشركه',0,0,'C');
+            $pdf->Cell($col,5, $patient->company->name,0,1,'C');
+            $pdf->Cell($col,5,'الضامن',0,0,'C');
+            $pdf->Cell($col,5, $patient->guarantor,0,0,'C');
+            $pdf->Cell($col,5,'العلاقه',0,0,'C');
+            $pdf->Cell($col,5, $patient->relation?->name,0,1,'C');
+            $pdf->Cell($col,5,'الجهه ',0,0,'C');
+            $pdf->Cell($col,5, $patient->subcompany?->name,0,1,'C');
+            $pdf->Cell($page_width - 10,5,'------------------------------------------------------------------ ',0,1,'C');
+
+
+        }
+
+        $pdf->Cell(20,5,'',0,0,'C');
+        $pdf->Cell(20,5,'Lab No  '.$patient->visit_number,1,1,'C');
         $pdf->Ln();
         $pdf->SetFont($arial, 'u', 10, '', true);
 
@@ -1470,11 +1504,11 @@ class PDFController extends Controller
         );
 
 
-        $pdf->Cell(15,5,'الاجمالي',1,0,fill: 1);
-        $pdf->Cell(30,5,number_format($patient->total(),1) ,1,1);
+        $pdf->Cell(15,5,'الاجمالي','TB',0,fill: 1);
+        $pdf->Cell(30,5,number_format($patient->total(),1) ,'TB',1);
 
-        $pdf->Cell(15,5,'المدفوع',1,0,fill: 1);
-        $pdf->Cell(30,5,number_format($patient->paid_lab(),1),1,1);
+        $pdf->Cell(15,5,'المدفوع','TB',0,fill: 1);
+        $pdf->Cell(30,5,number_format($patient->paid_lab(),1),'TB',1);
         $pdf->Ln();
         $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
         $pdf->Ln();
@@ -1599,7 +1633,12 @@ class PDFController extends Controller
         $patient = Doctorvisit::find($request->get('doctor_visit'));
 //        return $patient;
         $count =  $patient->services->count();
-        $custom_layout = array(80, 110 + $count * 5);
+        $height=110;
+
+        if ($patient->patient->company_id != null){
+            $height=150;
+        }
+        $custom_layout = array(80, $height + $count * 5);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -1615,12 +1654,14 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ticket');
         $pdf->setSubject('ticket');
-        $pdf->setMargins(0, 0, 0);
-        $page_width = 70;
+        $pdf->setMargins(0, 0, 10);
+        $page_width = 70 - 5;
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
-        $pdf->setMargins(5, 5, 5);
+        $pdf->setMargins(5, 5, 10);
+        $pdf->SetFont($arial, '', 7, '', true);
 
+        $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
         /** @var Setting $img_base64_encoded */
         $settings= Setting::all()->first();
         $img_base64_encoded =  $settings->header_base64;
@@ -1637,18 +1678,38 @@ class PDFController extends Controller
         $pdf->Ln();
         $colWidth  = $page_width /2;
 
-        $pdf->Cell($colWidth/2,5,'اسم المريض',1,0,fill: 1);
-        $pdf->Cell($colWidth *1.5 ,5,$patient->patient->name,1,1);
-        $pdf->Cell($colWidth/2,5,'اسم الطبيب',1,0,fill: 1);
-        $pdf->Cell($colWidth *1.5,5,$patient->doctorShift->doctor->name,1,1);
+        $pdf->Cell($colWidth/2,5,'اسم المريض','TB',0,fill: 1);
+        $pdf->Cell($colWidth *1.5 ,5,$patient->patient->name,'TB',1);
+        $pdf->Cell($colWidth/2,5,'اسم الطبيب','TB',0,fill: 1);
+        $pdf->Cell($colWidth *1.5,5,$patient->doctorShift->doctor->name,'TB',1);
 
         $pdf->SetFont($arial, '', 8, '', true);
 
         $pdf->Ln();
         $colWidth  = $page_width /4;
-        $pdf->Cell($colWidth,5,'التاريخ',1,0,fill: 1,align: 'C');
+        if ($patient->patient->company != null){
+            $pdf->Cell(20,5,'',0,0,'C');
 
-        $pdf->Cell($colWidth,5,$patient->created_at->format('Y/m/d         H:i A'),0,1);
+            $pdf->Cell(20,5,'بيانات التامين',1,1,'C',fill: 1);
+
+            $pdf->Cell($page_width - 10,5,'------------------------------------------------------------------ ',0,1,'C');
+
+            $col = $page_width / 4 ;
+
+            $pdf->Cell($col,5,'رقم البطاقه',0,0,'C');
+            $pdf->Cell($col,5, $patient->patient->insurance_no,0,0,'C');
+            $pdf->Cell($col,5,'الشركه',0,0,'C');
+            $pdf->Cell($col,5, $patient->patient->company->name,0,1,'C');
+            $pdf->Cell($col,5,'الضامن',0,0,'C');
+            $pdf->Cell($col,5, $patient->patient->guarantor,0,0,'C');
+            $pdf->Cell($col,5,'العلاقه',0,0,'C');
+            $pdf->Cell($col,5, $patient->patient->relation?->name,0,1,'C');
+            $pdf->Cell($col,5,'الجهه ',0,0,'C');
+            $pdf->Cell($col,5, $patient->patient->subcompany?->name,0,1,'C');
+            $pdf->Cell($page_width - 10,5,'------------------------------------------------------------------ ',0,1,'C');
+
+
+        }
         $pdf->Cell($colWidth,5,'كود',1,0,'C',fill: 1);
         $pdf->Cell($colWidth,5,$patient->id,0,1,'C');
         $pdf->Ln();
@@ -1661,16 +1722,16 @@ class PDFController extends Controller
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
-        $pdf->Cell($colWidth * 2,5,'الاسم',1,0,fill: 1);
-        $pdf->Cell($colWidth/ 2,5,'السعر',1,0,fill: 1);
-        $pdf->Cell($colWidth/ 2,5,'العدد',1,0,fill: 1);
-        $pdf->Cell($colWidth,5,'اجمالي',1,1,fill: 1);
+        $pdf->Cell($colWidth * 1.5,5,'الاسم','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'السعر','TB',0,fill: 1);
+        $pdf->Cell($colWidth/ 2,5,'العدد','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'اجمالي','TB',1,fill: 1);
         $total = 0;
         foreach ($patient->services as $requestedService){
-            $pdf->Cell($colWidth * 2,5,$requestedService->service->name,1,0,stretch: 1);
-            $pdf->Cell($colWidth/2,5,$requestedService->price,1,0);
-            $pdf->Cell($colWidth/2,5,$requestedService->count,1,0);
-            $pdf->Cell($colWidth,5,$requestedService->count * $requestedService->price,1,1);
+            $pdf->Cell($colWidth * 1.5,5,$requestedService->service->name,'TB',0,stretch: 1);
+            $pdf->Cell($colWidth,5,$requestedService->price,'TB',0);
+            $pdf->Cell($colWidth/2,5,$requestedService->count,'TB',0);
+            $pdf->Cell($colWidth,5,$requestedService->count * $requestedService->price,'TB',1);
             $total+= $requestedService->count * $requestedService->price;
         }
 
@@ -1701,6 +1762,9 @@ class PDFController extends Controller
         $pdf->Cell(15,5,'الاجمالي',1,0,fill: 1);
 
         $pdf->Cell(30,5,number_format($total,1) ,1,1);
+        $pdf->Cell(15,5,'المدفوع',1,0,fill: 1);
+
+        $pdf->Cell(30,5,number_format($patient->total_paid_services(),1) ,1,1);
 
         $pdf->Cell(15,5,'المستخدم',1,0,fill: 1);
         $pdf->Cell(30,5,auth()->user()->username,1,0,fill: 0);
@@ -1746,6 +1810,7 @@ class PDFController extends Controller
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
+
         /** @var Setting $img_base64_encoded */
         $settings= Setting::all()->first();
         $img_base64_encoded =  $settings->header_base64;

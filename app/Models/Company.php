@@ -50,18 +50,43 @@ class Company extends Model
 
     protected $with = ['relations','sub_companies'];
 
-    public function define_tests(){
-       $tests =  MainTest::all();
+    public function define_tests(Company $company_from = null,Company $to = null){
+        if ($company_from){
+            $tests =  $company_from->tests;
+
+        }else{
+            $tests =  MainTest::all();
+
+        }
        /** @var MainTest $test */
         foreach ($tests as $test){
-           $this->tests()->attach($test->id,['endurance_static'=>0,'endurance_percentage'=>0,'status'=>1,'price'=> $test->price ?? 0,'approve'=>1]);
+            if ($company_from){
+                $to->tests()->updateExistingPivot($test->id,['endurance_static'=>0,'endurance_percentage'=>0,'status'=>1,'price'=> $test->price ?? 0,'approve'=>0]);
+
+            }else{
+
+                $this->tests()->attach($test->id,['endurance_static'=>0,'endurance_percentage'=>0,'status'=>1,'price'=> $test->price ?? 0,'approve'=>0]);
+
+            }
        }
     }
-    public function define_services(){
-        $services =  Service::all();
-        /** @var Service $test */
+    public function define_services(Company $company_from = null,Company $to = null){
+        if ($company_from){
+            $services =  $company_from->services;
+
+        }else{
+            $services =  Service::all();
+
+        }
+        /** @var Service $service */
         foreach ($services as $service){
-            $this->services()->attach($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $test->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
+            if ($company_from){
+                $to->services()->updateExistingPivot($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $service->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
+
+            }else{
+                $this->services()->attach($service->id,['static_endurance'=>0,'percentage_endurance'=>0,'price'=> $service->price ?? 0,'static_wage'=>0,'percentage_wage'=>0]);
+
+            }
         }
     }
     public function define_service($service_id){

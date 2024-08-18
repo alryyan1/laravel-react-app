@@ -242,6 +242,7 @@ Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [Pati
 //companies
 
 Route::post('relation/create/{company}', [\App\Http\Controllers\CompanyRelationController::class, 'store']);
+Route::patch('copyContract', [\App\Http\Controllers\CompanyController::class, 'copy']);
 Route::post('subcompany/create/{company}', [\App\Http\Controllers\SubCompanyController::class, 'store']);
 Route::get('subcompany/all', [\App\Http\Controllers\SubCompanyController::class, 'all']);
 Route::get('relation/all', [\App\Http\Controllers\CompanyRelationController::class, 'all']);

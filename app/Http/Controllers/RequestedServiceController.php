@@ -56,16 +56,18 @@ class RequestedServiceController extends Controller
             return  response(['message'=>'صلاحيه   سداد خدمه غير مفعله'],400);
         }
         $user =  auth()->user();
-        $id =  $request->get('service_id');
+//        $id =  $request->get('service_id');
         $price =  $requestedService->price * $requestedService->count;
         $amount_paid = 0 ;
         if ($requestedService->doctorVisit->patient->company_id != null){
             /** @var Company $patient_company */
             $patient_company =  $requestedService->doctorVisit->patient->company;
             $patient_company->load('services');
-            $service =  $patient_company->services->filter(function($item) use($id){
-                return $item->id == $id;
+//            return  $patient_company;
+            $service =  $patient_company->services->filter(function($item) use($requestedService){
+                return $item->id == $requestedService->service->id;
             })->first();
+//            return $service;
 
 
             $amount_paid =   ($service->pivot->price * $requestedService->count) * $requestedService->doctorVisit->patient->company->service_endurance /100;
@@ -89,17 +91,33 @@ class RequestedServiceController extends Controller
     }
     public function addService(Request $request , Doctorvisit $doctorvisit){
         $data = $request->all();
+
 //        return  $doctorvisit;
 
         if (is_array($data['services'])) {
             foreach ($data['services'] as $d) {
                 /** @var Service $service */
                 $service = Service::find($d);
+                $price = $service->price;
+                if ($doctorvisit->patient->company_id != null){
+                    /** @var Company $patient_company */
+                    $patient_company =  $doctorvisit->patient->company;
+                    $patient_company->load('services');
 
+//            return  $patient_company;
+                    $service =  $patient_company->services->filter(function($item) use($d){
+                        return $item->id == $d;
+                    })->first();
+//            return $service;
+
+
+                    $price =   $service->pivot->price;
+
+                }
                 $requested_service = new RequestedService([
                     'user_id'=>auth()->user()->id,
                     'bank'=>0,
-                    'price'=>$service->price,
+                    'price'=>$price,
                     'doctor_id'=>$data['doctor_id'],
                     'discount'=>0,
                     'is_paid'=>0,

@@ -136,7 +136,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient wherePresentComplains($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereProcedures($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereProvisionalDiagnosis($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereTemp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereWeight($value)
  * @mixin \Eloquent

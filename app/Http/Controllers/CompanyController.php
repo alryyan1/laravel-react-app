@@ -68,4 +68,17 @@ class CompanyController extends Controller
        }
        return ['status',true,'company'=>$company];
     }
+
+    public function copy(Request $request){
+        $from = $request->from;
+        $to = $request->to;
+        $company_from =  Company::find($from);
+        $company_to =  Company::find($to);
+        $company_from->load(['services','tests']);
+        $company_to->load(['services','tests']);
+        $company_from->define_tests($company_from,$company_to);
+        $company_from->define_services($company_from,$company_to);
+
+        return ['status',true,'company'=>$company_from];
+    }
 }
