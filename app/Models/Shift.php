@@ -63,6 +63,8 @@ class Shift extends Model
     public function doctorShifts(){
         return $this->hasMany(DoctorShift::class);
     }
+//    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists'];
+    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists'];
 
     protected $with = ['patients','cost','deducts'];
 
@@ -246,7 +248,6 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists'];
     public function getTotalDeductsPriceAttribute()
     {
         return $this->totalDeductsPrice();

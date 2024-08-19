@@ -1787,7 +1787,7 @@ class PDFController extends Controller
         /** @var Deduct $deduct */
         $deduct = Deduct::find($request->get('deduct_id'));
         $count =  $deduct->deductedItems->count();
-        $custom_layout = array(80, 120 + $count * 5);
+        $custom_layout = array(80, 135 + $count * 5);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -1804,10 +1804,10 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ticket');
         $pdf->setSubject('ticket');
-        $pdf->setMargins(0, 0, 0);
+        $pdf->setMargins(0, 0, 10);
 //        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
 //        $pdf->setFooterMargin(0);
-        $page_width = 70;
+        $page_width = 65;
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
@@ -1817,12 +1817,12 @@ class PDFController extends Controller
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, 60, 5, 50, 20,align: 'C');
+            $pdf->Image("@".$img, 48, 5, 25, 25,align: 'C');
 
         }
 
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 0, 5);
+        $pdf->setMargins(5, 0, 10);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
@@ -1835,8 +1835,7 @@ class PDFController extends Controller
 
 //        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
         $pdf->Ln();
-        $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
-        $pdf->Cell($page_width,5,'فاتوره',0,1,'C');
+//        $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
         $pdf->SetFont($arial, '', 10, '', true);
         $pdf->SetFont($arial, '', 7, '', true);
 
@@ -1846,7 +1845,7 @@ class PDFController extends Controller
         $pdf->Cell($colWidth,5,$deduct->id,0,0,'C',fill: 0);
         $pdf->Cell($colWidth,5,'Invoice',0,1,'C');
         $pdf->Cell($colWidth,5,'الرقم الضريبي',0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,'Om 1100312320',0,0,'C',fill: 0);
+        $pdf->Cell($colWidth,5,'Om ------',0,0,'C',fill: 0);
         $pdf->Cell($colWidth,5,'Tax No',0,1,'C');
         $pdf->Ln();
 
@@ -1864,6 +1863,10 @@ class PDFController extends Controller
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
+        $pdf->Cell($colWidth*2,5,'Name','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'Price','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'QY','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'Subtotal','TB',1,fill: 1);
         $pdf->Cell($colWidth*2,5,'الاسم','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'السعر','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'كميه','TB',0,fill: 1);
@@ -1902,12 +1905,20 @@ class PDFController extends Controller
 //        $pdf->Ln();
         $pdf->Cell(15,5,'المجموع',0,0,fill: 1);
 
-        $pdf->Cell(30,5,$deduct->total_price() .' OMR',0 ,1,1);
+        $pdf->Cell(35,5,$deduct->total_price() .' OMR',0 ,0,'C');
+        $pdf->Cell(15,5,'Total',0,1,fill: 1);
+
         $pdf->Ln();
 
         $pdf->Cell(15,5,'المستخدم',0,0,fill: 1);
-        $pdf->Cell(50,5,$deduct->user->username,0,1,fill: 0);
-        $pdf->Cell($page_width,5,'نتمني لكم الشفاء العاجل',0,0,'C');
+        $pdf->Cell(35,5,$deduct->user->username,0,0,'C',fill: 0);
+        $pdf->Cell(15,5,'User',0,1,fill: 1);
+
+        $pdf->Cell($page_width,5,'C.R:1203430',0,1,'C');
+        $pdf->Cell($page_width,5,'GSM:94240490',0,1,'C');
+        $pdf->Cell($page_width,5,'Email:sahara.pharmacy101@gmail.com',0,1,'C');
+        $pdf->Cell($page_width,5,'address:Dawahiriah, Dhank',0,1,'C');
+        $pdf->MultiCell($page_width,5,'الادويه مهما كانت طبيعتها لا تسترد لاستبدالها او لاسترجاع ثمنها لاسباب تتعلق بالسلامه الدوائيه',0,1,'C');
 
         $pdf->Ln();
 
