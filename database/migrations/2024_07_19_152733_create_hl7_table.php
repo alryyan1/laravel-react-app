@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('hl7', function (Blueprint $table) {
             $table->id();
             $table->longText('msg');
-            $table->timestamps();
         });
     }
 

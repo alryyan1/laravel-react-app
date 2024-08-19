@@ -171,6 +171,7 @@ Route::get('expireReport',[\App\Http\Controllers\PDFController::class,'expiredIt
 Route::get('userClinicReport',[\App\Http\Controllers\PDFController::class,'userClinicReport']);
 Route::get('clinics/report',[\App\Http\Controllers\PDFController::class,'clinicsReport']);
 Route::get('clinics/all',[\App\Http\Controllers\PDFController::class,'allclinicsReport']);
+Route::get('clinics2/all',[\App\Http\Controllers\PDFController::class,'allclinicsReport2']);
 Route::get('clinics/doctor/report',[\App\Http\Controllers\PDFController::class,'clinicReport']);
 
 //company
