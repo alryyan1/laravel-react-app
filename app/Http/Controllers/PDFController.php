@@ -1804,10 +1804,10 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ticket');
         $pdf->setSubject('ticket');
-        $pdf->setMargins(0, 0, 0);
+        $pdf->setMargins(0, 0, 10);
 //        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
 //        $pdf->setFooterMargin(0);
-        $page_width = 70;
+        $page_width = 65;
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
@@ -1822,7 +1822,7 @@ class PDFController extends Controller
         }
 
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 0, 5);
+        $pdf->setMargins(5, 0, 10);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
@@ -1864,6 +1864,10 @@ class PDFController extends Controller
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
+        $pdf->Cell($colWidth*2,5,'Name','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'Price','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'QY','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'Subtotal','TB',1,fill: 1);
         $pdf->Cell($colWidth*2,5,'الاسم','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'السعر','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'كميه','TB',0,fill: 1);
@@ -2137,29 +2141,29 @@ class PDFController extends Controller
             $pdf->Ln();
 
         }
-        $pdf->Cell($table_col_widht, 5, 'الاقسام', 1, 1, 'C', fill: 0);
-        $pdf->Ln();
+//        $pdf->Cell($table_col_widht, 5, 'الاقسام', 1, 1, 'C', fill: 0);
+//        $pdf->Ln();
         $table_col_widht = ($page_width ) / 3;
-        $pdf->Cell($table_col_widht * 2, 5, '  القسم', 'TB', 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الايراد', 'TB', 1, 'C', fill: 1);
-//        dd($shift->specialists);
-        /** @var Specialist $specialist */
-        foreach ($shift->specialists as $specialist){
-           $filtered_doctor_shifts =  $shift->doctorShifts->filter(function (DoctorShift $doctorShift) use ($specialist){
-              return  $doctorShift->doctor->specialist_id == $specialist->id;
-            });
-
-//           dd($filtered_doctor_shifts);
-
-           $total = 0;
-           $filtered_doctor_shifts->map(function (DoctorShift $doctorShift) use (&$total){
-              $total += $doctorShift->total_paid_services();
-           });
-            $pdf->Cell($table_col_widht * 2, 5, $specialist->name, 'TB', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht, 5, number_format($total,1), 'TB', 1, 'C', fill: 0);
-        }
-        $pdf->Cell($table_col_widht * 2, 5, 'المختبر', 'TB', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, number_format($shift->paidLab(),1), 'TB', 1, 'C', fill: 0);
+//        $pdf->Cell($table_col_widht * 2, 5, '  القسم', 'TB', 0, 'C', fill: 1);
+//        $pdf->Cell($table_col_widht, 5, 'الايراد', 'TB', 1, 'C', fill: 1);
+////        dd($shift->specialists);
+//        /** @var Specialist $specialist */
+//        foreach ($shift->specialists as $specialist){
+//           $filtered_doctor_shifts =  $shift->doctorShifts->filter(function (DoctorShift $doctorShift) use ($specialist){
+//              return  $doctorShift->doctor->specialist_id == $specialist->id;
+//            });
+//
+////           dd($filtered_doctor_shifts);
+//
+//           $total = 0;
+//           $filtered_doctor_shifts->map(function (DoctorShift $doctorShift) use (&$total){
+//              $total += $doctorShift->total_paid_services();
+//           });
+//            $pdf->Cell($table_col_widht * 2, 5, $specialist->name, 'TB', 0, 'C', fill: 0);
+//            $pdf->Cell($table_col_widht, 5, number_format($total,1), 'TB', 1, 'C', fill: 0);
+//        }
+//        $pdf->Cell($table_col_widht * 2, 5, 'المختبر', 'TB', 0, 'C', fill: 0);
+//        $pdf->Cell($table_col_widht, 5, number_format($shift->paidLab(),1), 'TB', 1, 'C', fill: 0);
 
         $pdf->selectColumn(1);
         $pdf->Cell($table_col_widht, 5, 'المصروفات', 1, 1, 'C', fill: 0);
@@ -2475,12 +2479,12 @@ class PDFController extends Controller
         $doc_count = 0;
 //        'TB' = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
 
-        $pdf->Cell($table_col_widht, 5, 'التخصص', $arr, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الطبيب', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'نصيب الطبيب النقدي', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'نصيب الطيب من التامين', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'صافي ', $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'التخصص', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الطبيب', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'نصيب الطبيب النقدي','TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'نصيب الطيب من التامين', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'صافي ', 'TB', 1, 'C', fill: 1, stretch: 1);
         $pdf->Ln();
         $total_total = 0;
         $total_doctor_cash = 0;
@@ -2515,22 +2519,22 @@ class PDFController extends Controller
         }
         $pdf->Ln();
 
-        $pdf->Cell($table_col_widht, 5, '', $arr, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, '', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, ' ', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, '  ', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, '   ', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, number_format($total_hosptal,1), $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, '', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, ' ', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, '  ', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, '   ', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, number_format($total_hosptal,1), 'TB', 1, 'C', fill: 1, stretch: 1);
         $pdf->Ln();
 
         $pdf->AddPage();
         $table_col_widht = ($page_width) / 5;
 
-        $pdf->Cell($table_col_widht, 5, 'التخصص', $arr, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الطبيب', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, 'البنك', $arr, 0, 'C', fill: 1, stretch: 1);
-        $pdf->Cell($table_col_widht, 5, ' النقديه', $arr, 1, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'التخصص', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الطبيب', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي المدفوع', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, 'البنك', 'TB', 0, 'C', fill: 1, stretch: 1);
+        $pdf->Cell($table_col_widht, 5, ' النقديه', 'TB', 1, 'C', fill: 1, stretch: 1);
         $pdf->Ln();
         $total_total = 0;
         $total_doctor_cash = 0;
