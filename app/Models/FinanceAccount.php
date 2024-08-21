@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceAccount whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceAccount whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceAccount whereUpdatedAt($value)
+ * @property string|null $description
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanceAccount whereDescription($value)
  * @mixin \Eloquent
  */
 class FinanceAccount extends Model

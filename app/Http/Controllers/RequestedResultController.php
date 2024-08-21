@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cbc5Binder;
 use App\Models\CbcBinder;
 use App\Models\ChemistryBinder;
 use App\Models\ChildTest;
@@ -12,12 +13,20 @@ use App\Models\Package;
 use App\Models\Patient;
 use App\Models\RequestedResult;
 use App\Models\Sysmex;
+use App\Models\Sysmex5;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RequestedResultController extends Controller
 {
     public function populate(Request $request){
+        /** @var MainTest $cbc */
+        $cbc =  MainTest::with('childTests','childTests.unit')->find(1);
+        foreach ($cbc->childTests as $childTest){
+                CbcBinder::create(['name_in_sysmex_table'=>$childTest->child_test_name,'name_in_cbc_child_table'=>$childTest->child_test_name]);
+        }
+    }
+    public function populateCbc5Bindings(Request $request){
         /** @var MainTest $cbc */
         $cbc =  MainTest::with('childTests','childTests.unit')->find(1);
         foreach ($cbc->childTests as $childTest){
@@ -34,6 +43,13 @@ class RequestedResultController extends Controller
                 ChemistryBinder::create(['child_id_array'=>1,'name_in_mindray_table'=>$name]);
         }
     }
+    public function populateCbc5(Request $request){
+        /** @var MainTest $cbc */
+        $cbc =  MainTest::with('childTests','childTests.unit')->find(1);
+        foreach ($cbc->childTests as $childTest){
+                CbcBinder::create(['child_id_array'=>0,'name_in_sysmex_table'=>$childTest->child_test_name]);
+        }
+    }
     public function sysmexColumnNames(Request $request){
         return  DB::connection()->getSchemaBuilder()->getColumnListing('sysmex');
 
@@ -44,6 +60,35 @@ class RequestedResultController extends Controller
     public function populatePatientCbcData(Request $request,Patient $patient){
         $main_test_id = $request->get('main_test_id');
         $sysmex =   Sysmex::where('patient_id','=',$patient->id)->first();
+        if ($sysmex == null){
+            return  ['status'=>false,'message'=>'no data found'];
+        }
+        $bindings =   \App\Models\CbcBinder::all();
+        /** @var \App\Models\CbcBinder $binding */
+        $object = null;
+        foreach ($bindings as $binding){
+            $object[$binding->name_in_sysmex_table] =[
+                'child_id'=>[$binding->child_id_array],
+                'result'=> $sysmex[$binding->name_in_sysmex_table]
+            ];
+            $child_array =  explode(',',$binding->child_id_array);
+            foreach ($child_array as $child_id){
+                $requested_result = RequestedResult::whereChildTestId($child_id)->where('main_test_id','=',$main_test_id)->where('patient_id','=',$patient->id)->first();
+                if ($requested_result !=null){
+
+                    $requested_result->update(['result'=>$sysmex[$binding->name_in_sysmex_table]]);
+                }
+
+            }
+
+        }
+
+        return ['status'=>true,'patient'=>$patient->refresh(),'cbcObj'=>$object];
+    }
+    public function populatePatientCbc5Data(Request $request,Patient $patient){
+        $main_test_id = $request->get('main_test_id');
+        $sysmex =   Sysmex5::where('patient_id','=',$patient->id)->first();
+        // return $sysmex;
         if ($sysmex == null){
             return  ['status'=>false,'message'=>'no data found'];
         }
@@ -109,6 +154,9 @@ class RequestedResultController extends Controller
     public function getCbcBindings(Request $request){
        return CbcBinder::all();
     }
+    public function getCbc5Bindings(Request $request){
+        return Cbc5Binder::all();
+     }
     public function getChemistryBindings(Request $request){
        return ChemistryBinder::all();
     }

@@ -138,6 +138,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereProvisionalDiagnosis($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereTemp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereWeight($value)
+ * @property-read mixed $total_lab_value_unpaid
+ * @property-read mixed $total_lab_value_will_pay
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -164,7 +167,7 @@ class Patient extends Model
     }
 
 
-    protected $appends = ['paid','hasCbc','visit_count','total_lab_value_unpaid','total_lab_value_will_pay'];
+    protected $appends = ['paid','hasCbc5','visit_count','total_lab_value_unpaid','total_lab_value_will_pay'];
     public  function getVisitCountAttribute()
     {
         return $this->visit_count();
@@ -199,11 +202,18 @@ class Patient extends Model
                return Sysmex::where('patient_id','=',$this->id)->get()->count() > 0;
 
      }
+     public function hasCbc5(){
+        return Sysmex5::where('patient_id','=',$this->id)->get()->count() > 0;
+
+}
     public function getHascbcAttribute(){
                 return $this->hasCbc();
         return $this->hasCbc();
     }
-
+    public function getHasCbc5Attribute(){
+        return $this->hasCbc();
+return $this->hasCbc();
+}
     public function paid_lab($user = null){
         $total = 0;
         /** @var LabRequest $labrequest */

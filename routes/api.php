@@ -128,9 +128,12 @@ Route::post('populatePatientChemistryData/{patient}',[\App\Http\Controllers\Requ
 
 
 Route::post('populatePatientCbcData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientCbcData']);
+Route::post('populatePatientCbc5Data/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientCbc5Data']);
 Route::get('getSysmexColumnNames',[\App\Http\Controllers\RequestedResultController::class,'sysmexColumnNames']);
 Route::post('populateCBCMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populate']);
+Route::post('populateCBC5MatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateCbc5Bindings']);
 Route::get('getCbcBindings',[\App\Http\Controllers\RequestedResultController::class,'getCbcBindings']);
+Route::get('getCbc5Bindings',[\App\Http\Controllers\RequestedResultController::class,'getCbc5Bindings']);
 Route::patch('updateCbcBindings/{cbcBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateCbcBindings']);
 
 

@@ -16,6 +16,7 @@ use App\Models\Patient;
 use App\Models\RequestedResult;
 use App\Models\Shift;
 use App\Models\Shipping;
+use App\Models\Sysmex5;
 use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
 use DebugBar\DebugBar;
 use Elibyy\TCPDF\Facades\TCPDF;
@@ -73,7 +74,7 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-   return \App\Models\File::with('patients')->find(118);
+   return Sysmex5::find(1);
 //        \App\Models\Route::create(['name'=>'المخزن','path'=>'inventory']);
 //        \App\Models\Route::create(['name'=>'الصيدليه','path'=>'pharma']);
 //        \App\Models\Route::create(['name'=>'التدقيق','path'=>'audit']);

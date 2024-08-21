@@ -84,5 +84,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DrugsTableSeeder::class);
         $this->call(AccountCategoriesTableSeeder::class);
         $this->call(FinanceAccountsTableSeeder::class);
+        $this->call(Sysmex550TableSeeder::class);
     }
 }

@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereUserRequested($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedOrganism> $requested_organisms
  * @property-read int|null $requested_organisms_count
+ * @property int $approve
+ * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereApprove($value)
  * @mixin \Eloquent
  */
 class LabRequest extends Model

@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedService> $requested_services
  * @property-read int|null $requested_services_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedService> $services
+ * @property-read mixed $total_paid_services
  * @mixin \Eloquent
  */
 class Doctorvisit extends Model
