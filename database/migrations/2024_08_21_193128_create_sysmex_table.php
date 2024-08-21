@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sysmex', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\Patient::class);
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('patient_id');
             $table->decimal('wbc', 10, 1);
             $table->decimal('rbc', 10, 1);
             $table->decimal('hgb', 10, 1);
@@ -36,6 +36,13 @@ return new class extends Migration
             $table->decimal('mpv', 10, 1);
             $table->decimal('plcr', 10, 1);
             $table->integer('flag');
+            $table->decimal('mono_p', 10);
+            $table->double('eos_p', 10, 2);
+            $table->double('baso_p', 10, 2);
+            $table->double('mono_abs', 10, 2);
+            $table->double('eso_abs', 10, 2);
+            $table->double('baso_abs', 10, 2);
+            $table->integer('MICROR');
         });
     }
 
