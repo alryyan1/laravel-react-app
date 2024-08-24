@@ -75,7 +75,8 @@ class Item extends Model
     public function getLastDepositItemAttribute(){
         return $this->getLastDepositItem();
     }
-    public function getLastDepositItem(){
+    public function getLastDepositItem(): DepositItem|null
+    {
         return DepositItem::where('item_id','=',$this->id)->latest()->first();
     }
     protected $with = ['section','category','type'];

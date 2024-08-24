@@ -47,7 +47,7 @@ class ItemController extends Controller
                         $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
                     }else{
 
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->last_deposit_item->finalSellPrice,'box'=>1]);
 
                     }
                 }

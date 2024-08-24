@@ -51,6 +51,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereSellPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereVatCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereVatSell($value)
+ * @property-read mixed $final_cost_price
  * @mixin \Eloquent
  */
 class DepositItem extends Model

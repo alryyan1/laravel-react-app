@@ -333,7 +333,7 @@ Route::controller(DepositController::class)->group(function () {
         Route::middleware('auth:sanctum')->post('/newDeposit', 'newDeposit');
         Route::get('/last', 'last');
         Route::patch('pay/{deposit}', 'pay');
-        Route::get('/all', 'allDeposits');
+        Route::get('/all', 'allDepositsallDeposits');
         Route::post('getDepositsByDate', 'getDepositsByDate');
         Route::get('getDepositById/{deposit}', 'getDepositById');
         Route::patch('finish/{deposit}', 'finish');

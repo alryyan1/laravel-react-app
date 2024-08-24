@@ -26,7 +26,7 @@ class DepositController extends Controller
         $data = $request->all();
 
 
-        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->fresh()];
+        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item')];
     }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
@@ -58,13 +58,13 @@ class DepositController extends Controller
         return ['success'=>true,'deposit'=>$deposit->load('items')];
     }
     public function allDeposits(){
-        return Deposit::orderByDesc('id')->with('supplier')->get();
+        return Deposit::with(['items','items.item'])->orderByDesc('id')->with('supplier')->get();
     }
     public function getDepositsByDate(Request $request){
         $data = $request->all();
 //        $date = Carbon::parse($data['date']);
 //        return $date;
-        $data =  Deposit::WhereDate('created_at','=',$data['date'])->get();
+        $data =  Deposit::with('item')->WhereDate('created_at','=',$data['date'])->get();
         return ['data'=>$data , 'status'=>true];
     }
     public function getDepositBySupplier(Request $request){
@@ -132,7 +132,7 @@ class DepositController extends Controller
         ]);
         $deposit->items()->save($deposit_item);
 
-        return ['status'=>true,'deposit'=>$deposit->fresh()];
+        return ['status'=>true,'deposit'=>$deposit->load(['items.item'])];
         }else{
             return \response(['status' => false,'message'=>'صلاحيه اضافه للمخزون  غير مفعله'],400);
         }
