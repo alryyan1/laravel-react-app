@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SupplierSeeder::class);
         Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
 
-        $this->call(ClientSeeder::class);
+//        $this->call(ClientSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
