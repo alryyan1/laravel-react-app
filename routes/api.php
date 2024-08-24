@@ -37,6 +37,7 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+Route::get('barcode',[\App\Http\Controllers\PDFController::class,'printBarcodePos']);
 Route::middleware('auth:sanctum')-> post('addStateToContract/{contract}',[\App\Http\Controllers\ContractController::class,'addStateToContract']);
 Route::middleware('auth:sanctum')-> post('states',[\App\Http\Controllers\ContractController::class,'createState']);
 Route::middleware('auth:sanctum')-> get('states',[\App\Http\Controllers\ContractController::class,'getStates']);

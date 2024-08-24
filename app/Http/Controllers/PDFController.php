@@ -1219,6 +1219,62 @@ class PDFController extends Controller
         }
 
     }
+    public function printBarcodePos(Request $request)
+    {
+        $custom_layout = array(39, 25);
+        $settings= Setting::all()->first();
+        $item = Item::find($request->get('item_id'));
+        $pdf = new Pdf('landscape', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle(' barcode');
+        $pdf->setSubject(' barcode');
+        $page_width = 39;
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(1, 1, 1);
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+
+        $pdf->AddPage();
+
+
+        $style = array(
+            'position' => 'C',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+        $pdf->SetFont($arial, 'u', 5, '', true);
+        $col = $page_width / 2;
+        $pdf->Cell($col/2,5,$item->id,1,0,'C');
+        $pdf->Cell($col * 1.5,5,$item->market_name,0,1);
+        $pdf->write1DBarcode($item->barcode, 'C128', '', '', '25', 13, 0.4, $style, 'N');
+        $pdf->SetFont($arial, 'u', 4, '', true);
+
+
+        $pdf->Cell($page_width,5,$item->sell_price.' OMR',0,1,'L');
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
     public function printReception(Request $request)
     {
         $patient = Doctorvisit::find($request->get('doctor_visit'));

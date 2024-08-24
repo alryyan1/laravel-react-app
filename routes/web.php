@@ -116,6 +116,7 @@ Route::post('webhook',[WebhookController::class,'webhook']);
     });
 
 //inventory
+Route::get('barcode',[\App\Http\Controllers\PDFController::class,'printBarcodePos']);
 Route::get('pdf',[\App\Http\Controllers\PDFController::class,'invnetoryIncome']);
 Route::get('deduct/report',[\App\Http\Controllers\PDFController::class,'deductReport']);
 Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
