@@ -34,6 +34,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit wherePaid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereUserId($value)
+ * @property string $payment_method
+ * @property float $discount
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit wherePaymentMethod($value)
  * @mixin \Eloquent
  */
 class Deposit extends Model

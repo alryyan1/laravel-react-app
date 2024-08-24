@@ -141,6 +141,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $total_lab_value_unpaid
  * @property-read mixed $total_lab_value_will_pay
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
+ * @property-read mixed $has_cbc5
  * @mixin \Eloquent
  */
 class Patient extends Model

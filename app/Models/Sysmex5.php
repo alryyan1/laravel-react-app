@@ -69,6 +69,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex5 whereRDWCV($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex5 whereRDWSD($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex5 whereWBC($value)
+ * @property int $id
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex5 whereId($value)
  * @mixin \Eloquent
  */
 class Sysmex5 extends Model

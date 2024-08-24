@@ -55,6 +55,20 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereWbc($value)
  * @property int $flag
  * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereFlag($value)
+ * @property string $mono_p
+ * @property float $eos_p
+ * @property float $baso_p
+ * @property float $mono_abs
+ * @property float $eso_abs
+ * @property float $baso_abs
+ * @property int $MICROR
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereBasoAbs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereBasoP($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereEosP($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereEsoAbs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereMICROR($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereMonoAbs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sysmex whereMonoP($value)
  * @mixin \Eloquent
  */
 class Sysmex extends Model

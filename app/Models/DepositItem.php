@@ -40,13 +40,33 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereUserId($value)
  * @property int|null $return
  * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereReturn($value)
+ * @property float $cost
+ * @property float $sell_price
+ * @property float $vat_cost
+ * @property float $vat_sell
+ * @property int $free_quantity
+ * @property-read mixed $final_sell_price
+ * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereFreeQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereSellPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereVatCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DepositItem whereVatSell($value)
  * @mixin \Eloquent
  */
 class DepositItem extends Model
 {
     protected $guarded = ['id'];
+    protected $appends =['finalSellPrice','finalCostPrice'];
+    public function getFinalSellPriceAttribute(){
+        return ($this->vat_sell * $this->sell_price)/100  + $this->sell_price;
+
+    }
+    public function getFinalCostPriceAttribute(){
+        return ($this->vat_cost * $this->cost)/100  + $this->cost;
+
+    }
     use HasFactory;
-    protected $with = ['item'];
+//    protected $with = ['item'];
     public function item()
     {
         return $this->belongsTo(Item::class);

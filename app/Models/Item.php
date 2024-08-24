@@ -63,6 +63,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereStrips($value)
  * @property float $tax
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereTax($value)
+ * @property-read mixed $last_deposit_item
  * @mixin \Eloquent
  */
 class Item extends Model
@@ -70,6 +71,13 @@ class Item extends Model
     use HasFactory;
     use EagerLoadPivotTrait;
     protected $guarded = ['id'];
+    protected $appends =['lastDepositItem'];
+    public function getLastDepositItemAttribute(){
+        return $this->getLastDepositItem();
+    }
+    public function getLastDepositItem(){
+        return DepositItem::where('item_id','=',$this->id)->latest()->first();
+    }
     protected $with = ['section','category','type'];
     public function category()
     {

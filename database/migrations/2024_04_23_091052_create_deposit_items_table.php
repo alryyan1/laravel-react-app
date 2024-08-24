@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('barcode')->nullable();
             $table->boolean('return')->default(0);
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unique(['item_id','deposit_id']);
             $table->timestamps();
         });
     }

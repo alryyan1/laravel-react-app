@@ -14,6 +14,8 @@ class DepositController extends Controller
 {
 
 
+
+
     public function pay(Request $request,Deposit $deposit)
     {
         $deposit->update(['paid'=>!$deposit->paid]);
@@ -115,12 +117,16 @@ class DepositController extends Controller
         $expire_date =  $data['expire'];
         $deposit_item = new DepositItem([
             'item_id' => $data['item_id'],
-            'price'=>$data['price'],
+            'cost'=>$data['cost'],
             'quantity'=>$data['quantity'],
             'notes'=>$data['notes'],
             'expire'=>$expire_date,
             'barcode'=>$data['barcode'],
             'batch'=>$data['batch'],
+            'free_quantity'=>$data['free_quantity'],
+            'vat_cost'=>5,
+            'vat_sell'=>5,
+            'sell_price'=>$data['sell_price'],
             'user_id'=>\Auth::user()->id,
             'created_at'=>now()
         ]);
