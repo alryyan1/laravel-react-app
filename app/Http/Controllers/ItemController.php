@@ -222,11 +222,12 @@ class ItemController extends Controller
         /** @var Item $item */
         foreach ($items as $item) {
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->where('return','=',0)->value('total');
+            $free_qtn = DB::table('deposit_items')->select(Db::raw('sum(free_quantity) as total'))->where('item_id', $item->id)->where('return','=',0)->value('total');
             $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
-            $item->totaldeposit = $total_deposit;
+            $item->totaldeposit = $total_deposit + $free_qtn;
 
             $item->totaldeduct = $total_deduct;
-            $item->remaining = $total_deposit - $total_deduct;
+            $item->remaining = $item->totaldeposit - $total_deduct;
         }
         return $items;
     }
@@ -301,14 +302,19 @@ class ItemController extends Controller
         if ( $request->query('word') && $request->query('word') != ''){
             $word = $request->query('word');
 
-            return collect( Item::with('section','category','type')->orderByDesc('id')->orWhere('name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('market_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->paginate($item));
-        }
-        return collect( Item::with('section','category','type')->orderByDesc('id')->paginate($item));
+            $items =  collect( Item::with('section','category','type')->orderByDesc('id')->orWhere('name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('market_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->paginate($item));
 
         }else{
-            return \response(['status' => false,'message'=>'صلاحيه عرض الاصناف غير مفعله'],400);
+            $items =  collect( Item::with('section','category','type')->orderByDesc('id')->paginate($item));
 
         }
+
+        }else{
+            $items =  \response(['status' => false,'message'=>'صلاحيه عرض الاصناف غير مفعله'],400);
+
+        }
+
+        return  $items;
     }
 
     public function destroy(Request $request, Item $item)

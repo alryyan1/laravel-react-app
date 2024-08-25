@@ -23,7 +23,7 @@ class DeductController extends Controller
         $data = $request->all();
 
 
-        return ['status'=>$deduct->update([$data['colName']=>$data['val']]),'data'=>$deduct->fresh()];
+        return ['status'=>$deduct->update([$data['colName']=>$data['val']]),'data'=>$deduct->fresh(),'shift'=>$deduct->shift];
     }
     public function deleteDeduct(Request $request ,Deduct $deduct)
     {

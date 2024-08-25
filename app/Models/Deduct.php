@@ -148,7 +148,7 @@ class Deduct extends Model
 
 
                     $total +=  $item->strips  *  ($item->price/$item->item->strips)  ;
-                    $cost +=  $item->strips  *  ($item->item->cost_price/$item->item->strips)  ;
+                    $cost +=  $item->strips  *  ($item->item->last_deposit_item?->finalCostPrice/$item->item->strips)  ;
 
 
         }

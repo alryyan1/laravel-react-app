@@ -246,10 +246,13 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists'];
+    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists','totalDeductsPostPaid'];
     public function getTotalDeductsPriceAttribute()
     {
         return $this->totalDeductsPrice();
+    }
+    public function getTotalDeductsPostPaidAttribute(){
+        return $this->totalDeductsPostPaid();
     }
     public function getTotalDeductsPriceCashAttribute()
     {
@@ -327,7 +330,7 @@ class Shift extends Model
     }
     public function deducts()
     {
-        return $this->hasMany(Deduct::class);
+        return $this->hasMany(Deduct::class)->orderByDesc('id');
     }
 
 
@@ -338,6 +341,17 @@ class Shift extends Model
         foreach ($this->deducts as $deduct){
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
            $total += $deduct->total_price();
+        }
+
+        return $total;
+    }
+    public function totalDeductsPostPaid()
+    {
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+            if (!$deduct->is_postpaid ) continue;
+            $total += $deduct->total_price();
         }
 
         return $total;
@@ -392,7 +406,7 @@ class Shift extends Model
         foreach ($this->deducts as $deduct){
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
-            if ($deduct->payment_type_id == 1 ){
+            if ($deduct->payment_type_id == 1 && !$deduct->is_postpaid ){
                 $total += $deduct->total_price();
 
             }

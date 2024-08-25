@@ -44,7 +44,7 @@ class Deposit extends Model
 {
     use HasFactory;
 
-    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid'];
+    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid','discount'];
 
     public function user()
     {
@@ -59,7 +59,20 @@ class Deposit extends Model
         return $this->belongsTo(Supplier::class);
     }
     protected $with =['items','supplier','user'];
-    protected $appends = ['total'];
+    protected $appends = ['total','totalAmountPaid','totalVatCostMoney','totalCost','totalSell'];
+
+    public function getTotalAmountPaidAttribute(){
+        return $this->totalPaid();
+    }
+    public function getTotalCostAttribute(){
+        return $this->totalCost();
+    }
+    public function getTotalSellAttribute(){
+        return $this->totalSellWithoutVat();
+    }
+    public function getTotalVatCostMoneyAttribute(){
+        return $this->totalVatCostMoney();
+    }
 
     function getTotalAttribute()
     {
@@ -75,6 +88,45 @@ class Deposit extends Model
         }
         return $total;
     }
+
+    public function totalPaid()
+    {
+        $total = 0;
+        /** @var DepositItem $item */
+        foreach ($this->items as $item){
+            $total += ($item->item->last_deposit_item->finalCostPrice *$item->quantity);
+        }
+        return $total;
+    }
+    public function totalCost()
+    {
+        $total = 0;
+        /** @var DepositItem $item */
+        foreach ($this->items as $item){
+            $total += ($item->cost *$item->quantity);
+        }
+        return $total;
+    }
+    public function totalSellWithoutVat()
+    {
+        $total = 0;
+        /** @var DepositItem $item */
+        foreach ($this->items as $item){
+            $total += ($item->sell_price *$item->quantity);
+        }
+        return $total;
+    }
+
+    public function totalVatCostMoney()
+    {
+        $total = 0;
+        /** @var DepositItem $item */
+        foreach ($this->items as $item){
+            $total += ($item->vat_cost * $item->cost / 100) * $item->quantity;
+        }
+        return $total;
+    }
+
 
 
 

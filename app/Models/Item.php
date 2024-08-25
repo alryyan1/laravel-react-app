@@ -5,6 +5,7 @@ namespace App\Models;
 use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\Item
@@ -71,9 +72,29 @@ class Item extends Model
     use HasFactory;
     use EagerLoadPivotTrait;
     protected $guarded = ['id'];
-    protected $appends =['lastDepositItem'];
+    protected $appends =['lastDepositItem','totalDeposit','totalOut','totalRemaining'];
+    public function getTotalDepositAttribute(){
+        return $this->totalDeposit();
+    }
+    public function getTotalOutAttribute(){
+        return $this->totalOut();
+    }
     public function getLastDepositItemAttribute(){
         return $this->getLastDepositItem();
+    }
+    public function getTotalRemainingAttribute(){
+        return $this->totalDeposit() - $this->totalOut();
+    }
+    public function totalDeposit(){
+            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $this->id)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $this->id)->value('total');
+            $free_qtn = DB::table('deposit_items')->select(Db::raw('sum(free_quantity) as total'))->where('item_id', $this->id)->where('return','=',0)->value('total');
+            $item['totaldeduct'] = $total_deduct;
+            $item['remaining'] = $total_deposit - $total_deduct;
+            return $total_deposit + $free_qtn;
+    }
+    public function totalOut(){
+        return DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $this->id)->value('total');
     }
     public function getLastDepositItem(): DepositItem|null
     {

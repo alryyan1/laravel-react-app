@@ -209,13 +209,14 @@ class PDFController extends Controller
         $table_col_widht = $page_width / 7;
         $pdf->Ln();
 
-        $pdf->Cell($table_col_widht/2, 5, 'كود ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht*1.5, 5, 'الاسم ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'سعر البيع ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, ' الاجمالي ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, "الوارد  ", 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, "المنصرف  ", 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, "الرصيد  ", 1, 1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2, 5, 'كود ', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht*1.5, 5, 'الاسم ', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'سعر البيع ', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "الوارد  ", 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "المنصرف  ", 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, "الرصيد  ", 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, ' الاجمالي ', 'TB', 1, 'C', fill: 1);
+
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
@@ -224,13 +225,14 @@ class PDFController extends Controller
             $pdf->SetFont($arial, '', 12, '', true);
 
             $pdf->setFillColor(200, 200, 200);
-            $pdf->Cell($table_col_widht/2, 5, 'كود ', 1, 0, 'C', fill: 1);
-            $pdf->Cell($table_col_widht*1.5, 5, 'الاسم ', 1, 0, 'C', fill: 1);
-            $pdf->Cell($table_col_widht, 5, 'سعر البيع ', 1, 0, 'C', fill: 1);
-            $pdf->Cell($table_col_widht, 5, ' الاجمالي ', 1, 0, 'C', fill: 1);
-            $pdf->Cell($table_col_widht, 5, "الوارد  ", 1, 0, 'C', fill: 1);
-            $pdf->Cell($table_col_widht, 5, "المنصرف  ", 1, 0, 'C', fill: 1);
-            $pdf->Cell($table_col_widht, 5, "الرصيد  ", 1, 1, 'C', fill: 1);
+            $pdf->Cell($table_col_widht/2, 5, 'كود ', 'TB', 0, 'C', fill: 1);
+            $pdf->Cell($table_col_widht*1.5, 5, 'الاسم ', 'TB', 0, 'C', fill: 1);
+            $pdf->Cell($table_col_widht, 5, 'سعر البيع ', 'TB', 0, 'C', fill: 1);
+            $pdf->Cell($table_col_widht, 5, "الوارد  ", 'TB', 0, 'C', fill: 1);
+            $pdf->Cell($table_col_widht, 5, "المنصرف  ", 'TB', 0, 'C', fill: 1);
+            $pdf->Cell($table_col_widht, 5, "الرصيد  ", 'TB', 0, 'C', fill: 1);
+            $pdf->Cell($table_col_widht, 5, ' الاجمالي ', 'TB', 1, 'C', fill: 1);
+
         };
 
 
@@ -242,22 +244,19 @@ class PDFController extends Controller
 
 //  $pdo->query("select * from items where expire between '$start_of_month'  and '$end_of_month' ")->fetchAll();
         $items = Item::whereBetween('expire', [$start_of_month, $end_of_month])->get();
-
+        $total_sell = 0;
+        $total_inventory = 0;
         /** @var Item $item */
         foreach ($items as $item) {
-            $total_deposit = DB::table('deposit_items')->select(DB::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
-            $item->totaldeposit = $total_deposit;
-            $item->totaldeduct = $total_deduct;
-            $item->remaining = $total_deposit - $total_deduct;
             $pdf->Cell($table_col_widht/2, 5, $item->id, 1, 0, 'C');
             $pdf->Cell($table_col_widht * 1.5, 5, $item->market_name, 1, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $item->sell_price, 1, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $item->sell_price * $item->remaining, 1, 0, 'C', stretch: 1);
-            $total+= $item->sell_price * $item->remaining;
-            $pdf->Cell($table_col_widht, 5, $total_deposit, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $total_deduct, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->remaining, 1, 1, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->last_deposit_item->finalSellPrice, 1, 0, 'C', stretch: 1);
+            $total_sell+= $item->last_deposit_item->finalSellPrice * $item->totalRemaining;
+            $pdf->Cell($table_col_widht, 5, $item->totalDeposit, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->totalOut, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->totalRemaining, 1, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->last_deposit_item->finalSellPrice * $item->totalRemaining, 1, 1, 'C', stretch: 1);
+
         }
 
         $pdf->Ln();
@@ -267,7 +266,7 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, number_format($total,1), 1, 0, 'C', stretch: 1);
         $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C');
         $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C');
-        $pdf->Cell($table_col_widht, 5,'', 1, 1, 'C');
+        $pdf->Cell($table_col_widht, 5,$total_sell, 1, 1, 'C');
         $pdf->Output('example_003.pdf', 'I');
     }
 
@@ -348,8 +347,8 @@ class PDFController extends Controller
             $pdf->Cell($table_col_widht/2, 5, $index, 1, 0, 'C');
             $pdf->Cell($table_col_widht*2, 5, $deposit_item->item->name  == '' ? $deposit_item->item->market_name : '', 1, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht/2, 5, $deposit_item->quantity, 1, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $deposit_item->price, 1, 0, 'C');
-            $deposit_total = $deposit_item->quantity * $deposit_item->price;
+            $pdf->Cell($table_col_widht, 5, $deposit_item->finalCostPrice, 1, 0, 'C');
+            $deposit_total = $deposit_item->quantity * $deposit_item->finalCostPrice;
             $total += $deposit_total;
             $pdf->Cell($table_col_widht, 5, (number_format($deposit_total,1)), 1, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $deposit_item->expire, 1, 0, 'C');
@@ -555,9 +554,9 @@ class PDFController extends Controller
 
             $pdf->Cell($table_col_widht/2, 5, $index, 0, 0, 'C');
             $pdf->Cell($table_col_widht*1.5, 5, $item->item->market_name, 0, 0, 'C', stretch: 1);
-            $pdf->Cell($table_col_widht, 5, $item->item->sell_price, 0, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->price, 0, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $item->box, 0, 0, 'C');
-            $pdf->Cell($table_col_widht, 5, $item->box * $item->item->sell_price, 0, 1, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->box * $item->price, 0, 1, 'C');
             $y = $pdf->GetY();
 
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
@@ -794,9 +793,11 @@ class PDFController extends Controller
         $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
         $index = 1;
         /** @var Deduct $deduct */
+//        $client_id =$request->get('client_id');
         foreach ($shift->deducts as $deduct) {
             $y = $pdf->GetY();
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
+
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht / 2 , 5, $deduct->id, 0, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->number, 0, 0, 'C');
@@ -905,14 +906,14 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht/2 , 5, 'id', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht /2, 5, 'sale id', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'profit', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'Date', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'Price', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'User', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'Payment', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht *2 , 5, "Items", 1, 1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2 , 5, 'id', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht /2, 5, 'sale id', 'TB', 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'profit', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'Date', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'Price', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'User', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'Payment', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht *2 , 5, "Items", 'TB',  1, 'C', fill: 1);
         $pdf->setFont($fontname, 'b', 10);
         $pdf->Ln();
         $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
@@ -920,7 +921,15 @@ class PDFController extends Controller
         $total = 0;
         $total_profit = 0 ;
         /** @var Deduct $deduct */
+        $client_id = $request->get('client_id');
+        $is_postpaid = $request->get('is_postpaid');
         foreach ($deducts as $deduct) {
+            if ($client_id){
+                if ($deduct->client_id != $client_id) continue;
+            }
+            if ($is_postpaid){
+                if (!$deduct->is_postpaid == $is_postpaid)continue;
+            }
             $y = $pdf->GetY();
             $total+= $deduct->total_price();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
@@ -1875,9 +1884,9 @@ class PDFController extends Controller
         /** @var DeductedItem $deductedItem */
         foreach ($deduct->deductedItems as $deductedItem){
             $pdf->Cell($colWidth*2,5,$deductedItem->item->market_name,'TB',0,stretch: 1);
-            $pdf->Cell($colWidth/2,5,$deductedItem->item->sell_price,'TB',0);
+            $pdf->Cell($colWidth/2,5,$deductedItem->price,'TB',0);
             $pdf->Cell($colWidth/2,5,$deductedItem->box,'TB',0);
-            $pdf->Cell($colWidth,5,$deductedItem->box * $deductedItem->item->sell_price,'TB',1);
+            $pdf->Cell($colWidth,5,$deductedItem->box * $deductedItem->price,'TB',1);
         }
 
         $pdf->Ln();

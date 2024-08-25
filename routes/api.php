@@ -333,12 +333,13 @@ Route::controller(DepositController::class)->group(function () {
         Route::middleware('auth:sanctum')->post('/newDeposit', 'newDeposit');
         Route::get('/last', 'last');
         Route::patch('pay/{deposit}', 'pay');
-        Route::get('/all', 'allDepositsallDeposits');
+        Route::get('/all', 'allDeposits');
         Route::post('getDepositsByDate', 'getDepositsByDate');
         Route::get('getDepositById/{deposit}', 'getDepositById');
         Route::patch('finish/{deposit}', 'finish');
         Route::post('getDepoistByInvoice', 'getDepoistByInvoice');
         Route::post('getDepositBySupplier', 'getDepositBySupplier');
+        Route::patch('update/{deposit}', 'updateDeposit');
     });
 
 });

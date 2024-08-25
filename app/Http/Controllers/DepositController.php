@@ -16,6 +16,11 @@ class DepositController extends Controller
 
 
 
+    public function updateDeposit(Request $request , Deposit $deposit){
+        $data = $request->all();
+
+        return ['status'=>$deposit->update([$data['colName'] => $data['val']]),'data'=>$deposit->load('items')];
+    }
     public function pay(Request $request,Deposit $deposit)
     {
         $deposit->update(['paid'=>!$deposit->paid]);
@@ -30,6 +35,8 @@ class DepositController extends Controller
     }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
+
+
        $items =  Item::all();
        /** @var Item $item */
         foreach ($items as $item) {
@@ -43,8 +50,13 @@ class DepositController extends Controller
               }
             $deposit_item = new DepositItem([
                 'item_id' => $item->id,
-                'price'=>$item->cost_price,
+                'cost'=>$item->cost_price,
                 'quantity'=>0,
+                'free_quantity'=>0,
+                'vat_cost'=>5,
+                'vat_sell'=>5,
+                'sell_price'=>$item->sell_price,
+
                 'notes'=>'',
                 'expire'=>$item->expire,
                 'barcode'=>$item->barcode,
@@ -112,12 +124,12 @@ class DepositController extends Controller
 
         if ($user->can('اضافه للمخزون')) {
         $data = $request->all();
-
+        $item =  Item::find($data['item_id']);
 //        return $data['expire'];
         $expire_date =  $data['expire'];
         $deposit_item = new DepositItem([
             'item_id' => $data['item_id'],
-            'cost'=>$data['cost'],
+            'cost'=>$item->cost_price,
             'quantity'=>$data['quantity'],
             'notes'=>$data['notes'],
             'expire'=>$expire_date,
@@ -126,7 +138,7 @@ class DepositController extends Controller
             'free_quantity'=>$data['free_quantity'],
             'vat_cost'=>5,
             'vat_sell'=>5,
-            'sell_price'=>$data['sell_price'],
+            'sell_price'=>$item->sell_price,
             'user_id'=>\Auth::user()->id,
             'created_at'=>now()
         ]);

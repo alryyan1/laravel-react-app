@@ -51,8 +51,8 @@ class SubRoutesTableSeeder extends Seeder
             array (
                 'id' => 5,
                 'route_id' => 2,
-                'name' => 'inventory',
-                'path' => '/pharmacy/inventory',
+                'name' => 'quantities',
+                'path' => '/pharmacy/quantities',
             ),
             5 =>
             array (
