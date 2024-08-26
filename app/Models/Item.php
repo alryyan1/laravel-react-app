@@ -73,6 +73,7 @@ class Item extends Model
     use EagerLoadPivotTrait;
     protected $guarded = ['id'];
     protected $appends =['lastDepositItem','totalDeposit','totalOut','totalRemaining'];
+//    protected $appends =['lastDepositItem','totalDeposit','totalOut','totalRemaining'];
     public function getTotalDepositAttribute(){
         return $this->totalDeposit();
     }
