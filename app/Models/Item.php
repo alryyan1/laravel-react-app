@@ -72,10 +72,10 @@ class Item extends Model
     use HasFactory;
     use EagerLoadPivotTrait;
     protected $guarded = ['id'];
-    protected $appends =['lastDepositItem','totalDeposit','totalOut','totalRemaining'];
+    protected $appends =['lastDepositItem'];
 //    protected $appends =['lastDepositItem','totalDeposit','totalOut','totalRemaining'];
     public function getTotalDepositAttribute(){
-        return $this->totalDeposit();
+        return $this->calculateInventory();
     }
     public function getTotalOutAttribute(){
         return $this->totalOut();
@@ -84,15 +84,15 @@ class Item extends Model
         return $this->getLastDepositItem();
     }
     public function getTotalRemainingAttribute(){
-        return $this->totalDeposit() - $this->totalOut();
+        return $this->calculateInventory() - $this->totalOut();
     }
-    public function totalDeposit(){
+    public function calculateInventory(){
             $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $this->id)->value('total');
             $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $this->id)->value('total');
             $free_qtn = DB::table('deposit_items')->select(Db::raw('sum(free_quantity) as total'))->where('item_id', $this->id)->where('return','=',0)->value('total');
             $item['totaldeduct'] = $total_deduct;
             $item['remaining'] = $total_deposit - $total_deduct;
-            return $total_deposit + $free_qtn;
+          return  $total_deposit + $free_qtn - $total_deduct ;
     }
     public function totalOut(){
         return DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $this->id)->value('total');

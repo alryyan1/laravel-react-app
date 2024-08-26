@@ -18,6 +18,10 @@ use Illuminate\Support\Carbon;
 use PDF;
 class ItemController extends Controller
 {
+    public function calculateInventory(Request $request , Item $item){
+       return $item->calculateInventory();
+
+    }
     public function find(Request $request , Item $item){
         return $item;
     }
@@ -40,7 +44,7 @@ class ItemController extends Controller
                     if ($deductedItem){
                         $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
                     }else{
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->last_deposit_item->finalSellPrice,'box'=>1]);
                 }
             }else{
                 foreach ($request->get('selectedDrugs' ) as $drug_id){
@@ -53,8 +57,10 @@ class ItemController extends Controller
                         DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->last_deposit_item->finalSellPrice,'box'=>1]);
 
                     }
+
                 }
             }
+
 
             return ['status'=>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift];
     }

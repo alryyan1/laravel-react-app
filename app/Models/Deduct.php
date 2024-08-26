@@ -75,6 +75,7 @@ class Deduct extends Model
     public function items(){
         return $this->belongsToMany(Item::class,'deducted_items','deduct_id','item_id')->withPivot(['client_id','quantity'])->using(ClientDeductPivot::class);
     }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
