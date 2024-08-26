@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         //Specialist::truncate();
         //Doctor::truncate();
 
-        DrugCategory::create(['name'=>'الجهاز التنفسي']);
+        DrugCategory::create(['name'=>'الجهاز ']);
         PharmacyType::create(['name'=>'حبوب']);
         Permission::create(['name' => 'اضافه منتج']);
         Permission::create(['name' => 'تعديل منتج']);
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SupplierSeeder::class);
         Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
 
-        $this->call(ClientSeeder::class);
+//        $this->call(ClientSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
@@ -85,5 +85,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountCategoriesTableSeeder::class);
         $this->call(FinanceAccountsTableSeeder::class);
         $this->call(Sysmex550TableSeeder::class);
+        $this->call(DrugCategoriesTableSeeder::class);
     }
 }
