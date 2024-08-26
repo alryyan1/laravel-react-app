@@ -38,6 +38,8 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 */
 
 
+Route::get('country',[\App\Http\Controllers\CountryController::class,'index']);
+Route::post('country',[\App\Http\Controllers\CountryController::class,'store']);
 Route::get('ledger/{account_id}',[\App\Http\Controllers\FinanceController::class,'ledger']);
 Route::get('financeEntries',[\App\Http\Controllers\FinanceController::class,'financeEntries']);
 Route::post('createFinanceEntries',[\App\Http\Controllers\FinanceController::class,'createFinanceEntries']);

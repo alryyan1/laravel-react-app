@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('phone',10);
             $table->string('address');
             $table->string('email')->nullable();
+            $table->foreignIdFor(\App\Models\Country::class)->constrained();
+            $table->string('state');
             $table->timestamps();
         });
     }
