@@ -15,7 +15,27 @@ class DepositController extends Controller
 
 
 
+    public function defineItemToLastDeposit(Request $request , Item $item){
+        $deposit_item = new DepositItem([
+            'item_id' => $item->id,
+            'cost'=>$item->cost_price,
+            'quantity'=>0,
+            'free_quantity'=>0,
+            'vat_cost'=>5,
+            'vat_sell'=>5,
+            'sell_price'=>$item->sell_price,
 
+            'notes'=>'',
+            'expire'=>$item->expire,
+            'barcode'=>$item->barcode,
+            'batch'=>$item->batch,
+            'user_id'=>\Auth::user()->id,
+            'created_at'=>now()
+        ]);
+       $deposit =  Deposit::latest()->first();
+      ;
+       return ['satus'=> $deposit->items()->save($deposit_item) , 'deposit'=>$deposit->fresh()];
+    }
     public function updateDeposit(Request $request , Deposit $deposit){
         $data = $request->all();
 

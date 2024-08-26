@@ -18,6 +18,9 @@ use Illuminate\Support\Carbon;
 use PDF;
 class ItemController extends Controller
 {
+    public function find(Request $request , Item $item){
+        return $item;
+    }
     public function addSell(Request $request)
     {
             $user = auth()->user();

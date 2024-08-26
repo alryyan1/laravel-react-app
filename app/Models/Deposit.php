@@ -53,7 +53,7 @@ class Deposit extends Model
     }
     public function items(){
 //        return $this->belongsToMany(Item::class,'deposit_items','deposit_id','item_id')->withPivot(['price','quantity']);
-        return $this->hasMany(DepositItem::class);
+        return $this->hasMany(DepositItem::class)->orderByDesc('id');
     }
     public function supplier(){
         return $this->belongsTo(Supplier::class);

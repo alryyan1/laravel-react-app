@@ -37,6 +37,7 @@ use Symfony\Component\HttpKernel\Log\Logger as LogLogger;
 |
 */
 
+
 Route::get('ledger/{account_id}',[\App\Http\Controllers\FinanceController::class,'ledger']);
 Route::get('financeEntries',[\App\Http\Controllers\FinanceController::class,'financeEntries']);
 Route::post('createFinanceEntries',[\App\Http\Controllers\FinanceController::class,'createFinanceEntries']);
@@ -308,6 +309,7 @@ Route::middleware('auth:sanctum')->patch('suppliers/{supplier}', [SupplierContro
 
 
 Route::middleware('auth:sanctum')->post('items/create', [ItemController::class, 'create']);
+Route::middleware('auth:sanctum')->get('items/find/{item}', [ItemController::class, 'find']);
 Route::post('item/state/{item_id}', [ItemController::class, 'state']);
 Route::post('item/stateByMonth/{item_id}', [ItemController::class, 'stateByMonth']);
 Route::middleware('auth:sanctum')->patch('items/{item}', [ItemController::class, 'update']);
@@ -324,6 +326,7 @@ Route::get('sections/all', [SectionController::class, 'all']);
 Route::delete('sections/{section}', [SectionController::class, 'destroy']);
 Route::patch('sections/{section}', [SectionController::class, 'update']);
 
+Route::middleware('auth:sanctum')->post('defineItemToLastDeposit/{item}', [DepositController::class, 'defineItemToLastDeposit']);
 Route::middleware('auth:sanctum')->delete('depositItem/{depositItem}', [DepositController::class, 'destroy']);
 Route::middleware('auth:sanctum')->post('inventory/itemDeposit/{deposit}', [DepositController::class, 'deposit']);
 Route::middleware('auth:sanctum')->delete('inventory/{deposit}', [DepositController::class, 'destroyDeposit']);
