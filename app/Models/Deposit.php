@@ -38,6 +38,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $discount
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit wherePaymentMethod($value)
+ * @property-read mixed $total_amount_paid
+ * @property-read mixed $total_cost
+ * @property-read mixed $total_sell
+ * @property-read mixed $total_vat_cost_money
  * @mixin \Eloquent
  */
 class Deposit extends Model

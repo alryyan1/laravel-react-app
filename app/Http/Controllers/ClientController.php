@@ -18,7 +18,7 @@ class ClientController extends Controller
         }
     }
     public  function index(){
-        return Client::all();
+        return Client::orderByDesc('id')->get();
     }
     public function create(ClientFormRequest $request){
 //        $request->validate($request->all());
@@ -26,13 +26,7 @@ class ClientController extends Controller
         if ($user->can('اضافه عميل')) {
         $data = $request->all();
 //        return $data;
-       $result = Client::create([
-            'name'=>$data['name'],
-            'phone'=>$data['phone'],
-            'address'=>$data['address'],
-            'email'=>$data['email'],
-
-        ]);
+       $result = Client::create($request->all());
        return ['status'=> true, 'data' => $result];
         }else{
             return response(['status' => false,'message'=>'صلاحيه اضافه العميل غير مفعله'],400);

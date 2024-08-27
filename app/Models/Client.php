@@ -25,10 +25,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereUpdatedAt($value)
+ * @property int $country_id
+ * @property string $state
+ * @property string|null $clinic_name
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereClinicName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereCountryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereState($value)
  * @mixin \Eloquent
  */
 class Client extends Model
 {
     use HasFactory;
-    protected $fillable =['name','phone','address','email'];
+    protected $fillable =['name','phone','address','email','country_id','state','clinic_name'];
 }

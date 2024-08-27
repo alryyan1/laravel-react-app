@@ -47,13 +47,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Client|null $client
  * @property-read mixed $total_price_unpaid
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereClientId($value)
+ * @property float $weight
+ * @property int $is_postpaid
+ * @property int $postpaid_complete
+ * @property string|null $postpaid_date
+ * @property string|null $money_received_at
+ * @property int|null $shipping_state_id
+ * @property-read \App\Models\ShippingState|null $state
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereIsPostpaid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereMoneyReceivedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidComplete($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereShippingStateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereWeight($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
-    protected $with = ['deductedItems','paymentType','user','client'];
+    protected $with = ['deductedItems','paymentType','user','client','state'];
     protected $appends = ['total_price','profit','total_price_unpaid'];
     public function client()
     {
@@ -106,14 +119,19 @@ class Deduct extends Model
         foreach ($this->deductedItems as $item){
 
 
-            $strip_price = ($item->price/$item->item->strips);
 
-            $total +=  $item->strips  *   $strip_price ;
+
+            $total +=  $item->box  *   $item->price ;
 
 
         }
 
         return $total;
+
+    }
+    public function state()
+    {
+        return $this->belongsTo(ShippingState::class,'shipping_state_id');
 
     }
     public function total_price_unpaid( )
@@ -125,9 +143,8 @@ class Deduct extends Model
         foreach ($this->deductedItems as $item){
 
 
-            $strip_price = ($item->price/$item->item->strips);
 
-            $total +=  $item->strips  *   $strip_price ;
+            $total +=  $item->price  *   $item->box ;
 
 
 

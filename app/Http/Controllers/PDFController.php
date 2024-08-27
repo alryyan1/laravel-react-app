@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Company;
 use App\Models\Cost;
 use App\Models\Deduct;
@@ -524,12 +525,13 @@ class PDFController extends Controller
         $pdf->setFont($fontname, 'b', 12);
         $pdf->Cell($table_col_widht/2, 5, 'Bill To', 0, 0, 'L');
         $pdf->Cell($table_col_widht*1.5, 5, $deduct?->client?->name , 0, 0, 'L',stretch: 1);
-        $pdf->Cell($table_col_widht*1.5, 5, ' Invoice No #', 0, 0, 'R');
-        $pdf->Cell($table_col_widht/2, 5, $deduct->id, 0, 1, 'C');
+        $pdf->Cell($table_col_widht*1, 5, ' Invoice No #', 0, 0, 'R');
+        $pdf->Cell($table_col_widht, 5, $deduct->id, 0, 1, 'C');
 
         $pdf->Cell($table_col_widht/2, 5, 'Date', 0, 0, 'L');
         $pdf->Cell($table_col_widht*1.5, 5, $deduct->created_at->format('Y-m-d H:m A') , 0, 0, 'L');
-        $pdf->Cell($table_col_widht, 5, "   ", 0, 1, 'C');
+        $pdf->Cell($table_col_widht*1, 5, 'Address', 0, 0, 'R');
+        $pdf->Cell($table_col_widht, 5, $deduct?->client?->address.'/'.$deduct?->client?->state, 0, 1, 'C');
 //        $pdf->Cell($table_col_widht, 5, $deduct->created_at->format('Y-m-d'), 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, "", 0, 1, 'C');
@@ -540,9 +542,9 @@ class PDFController extends Controller
 
         $pdf->Cell($table_col_widht/2, 5, 'No', 'T,B', 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht*1.5, 5, 'Item ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, 'Box Price ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Unit Price ', 'T,B', 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, 'Quantity ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, 'Amount ', 'T,B', 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Subtotal ', 'T,B', 1, 'C', fill: 0);
         $pdf->setFont($fontname, 'b', 12);
         $pdf->Ln();
 
@@ -764,6 +766,7 @@ class PDFController extends Controller
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
 
         $pdf->Cell($page_width, 5, ' Sales report', 0, 1, 'C');
+
         $pdf->setFont($fontname, 'b', 14);
 
         $pdf->Cell($page_width, 5, 'Shift No  '.$shift->id, 0, 1, 'C');
@@ -883,10 +886,13 @@ class PDFController extends Controller
 
         $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
         $pdf->Cell($page_width, 5, ' Sales report', 0, 1, 'C');
+        $client_id =  $request->get('client_id');
+        $client =  Client::find($client_id);
+        $pdf->Cell($page_width, 5,$client?->name.' ('.$client?->address.' )', 0, 1, 'C');
         $pdf->setFont($fontname, 'b', 14);
 
         $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 16);
+        $pdf->setFont($fontname, 'b', 12);
         $first = $request->query('first');
         $second = $request->query('second');
         $first = \Illuminate\Support\Carbon::createFromFormat('Y/m/d', $first)->startOfDay();
@@ -894,26 +900,25 @@ class PDFController extends Controller
         $deducts =  Deduct::whereBetween('created_at',[$first,$second])->get();
 
         $pdf->setFillColor(200, 200, 200);
-        $table_col_widht = $page_width / 4;
-        $pdf->Cell($table_col_widht, 5, 'From ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $first ,1, 1, 'C');
+        $table_col_widht = $page_width / 6;
+        $pdf->Cell($table_col_widht, 5, 'From ', 0, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $first ,0, 0, 'C');
 
-        $pdf->Cell($table_col_widht, 5, 'To ', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, $second, 1, 1, 'C');
+        $pdf->Cell($table_col_widht, 5, 'To ', 0, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $second, 0, 1, 'C');
 
 
-        $table_col_widht = ($page_width ) / 8;
+        $table_col_widht = ($page_width ) / 6;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht/2 , 5, 'id', 'TB', 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht /2, 5, 'sale id', 'TB', 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'profit', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'Date', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'Price', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'User', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'Payment', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht *2 , 5, "Items", 'TB',  1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2 , 5, 'الكود', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'التاريخ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'المبلغ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'تاريخ الاجل', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'الوزن ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht *1.5 , 5, "الاصناف", 'TB',  1, 'C', fill: 1);
+
         $pdf->setFont($fontname, 'b', 10);
         $pdf->Ln();
         $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
@@ -934,27 +939,18 @@ class PDFController extends Controller
             $total+= $deduct->total_price();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht/2 , 5, $deduct->id, 0, 0, 'C');
-            $pdf->Cell($table_col_widht/2 , 5, $deduct->number, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->profit(), 0, 0, 'C');
-
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5,intval($deduct->total_price() * 1e1) / 1e1 , 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->user->username, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, 0, 0, 'C',stretch: 1);
+            $pdf->Cell($table_col_widht , 5,$deduct->total_price()  , 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->postpaid_date, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->weight, 0, 0, 'C');
+            $pdf->MultiCell($table_col_widht *1.5 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
 
-            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $total_profit += $deduct->profit();
             $index++;
         }
         $pdf->Ln();
-        $pdf->Ln();
 
-        $table_col_widht = ($page_width) / 6;
-        $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, intval($total * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
-        $pdf->Cell($table_col_widht , 5, 'Total Profit', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, intval($total_profit * 1e1) / 1e1 , 1, 1, 'C', fill: 0);
 
 
 

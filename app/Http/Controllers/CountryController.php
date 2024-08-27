@@ -12,6 +12,6 @@ class CountryController extends Controller
     }
 
     public function store(Request $request){
-        return ['status'=>Country::create($request->all())];
+        return ['status'=>true,'data'=>Country::create($request->all())];
     }
 }

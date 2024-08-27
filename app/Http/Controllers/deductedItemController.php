@@ -10,18 +10,8 @@ class deductedItemController extends Controller
 {
     public function update(Request $request,DeductedItem $deductedItem){
         $data = $request->all();
-        if ($data['colName'] == 'discount'){
-            return ['status'=>$deductedItem->update([$data['colName']=>$data['val'],'price'=>$deductedItem->item->sell_price -  ($deductedItem->item->sell_price * $data['val'])/100]),'data'=>$deductedItem->deduct,'shift'=>$deductedItem->deduct->shift];
 
-        }
 
-        if ($data['colName']==='box'){
-            $deductedItem->update(['strips'=> $deductedItem->item->strips * $data['val']]) ;
-        }else{
-//            return ['box'=> $deductedItem->strips / $deductedItem->item->strips];
-            $deductedItem->update(['box'=> $data['val'] / $deductedItem->item->strips]) ;
-
-        }
 
         return ['status'=>$deductedItem->update([$data['colName']=>$data['val']]),'data'=>$deductedItem->deduct,'shift'=>$deductedItem->deduct->shift];
     }

@@ -23,7 +23,7 @@ class ClientFormRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'address'=>'required',
+            'address'=>'',
             'phone'=>'required'
         ];
     }

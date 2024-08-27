@@ -21,4 +21,5 @@ class Country extends Model
 {
     protected $fillable = ['name'];
     use HasFactory;
+    public $timestamps = false;
 }

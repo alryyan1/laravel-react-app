@@ -14,62 +14,69 @@ class SubRoutesTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('sub_routes')->delete();
-
+        
         \DB::table('sub_routes')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'route_id' => 2,
                 'name' => 'define',
                 'path' => '/pharmacy/add',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'route_id' => 2,
                 'name' => 'pos',
                 'path' => '/pharmacy/sell',
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'route_id' => 2,
                 'name' => 'items',
                 'path' => '/pharmacy/items',
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'route_id' => 2,
                 'name' => 'sales',
                 'path' => '/pharmacy/reports',
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'route_id' => 2,
                 'name' => 'quantities',
                 'path' => '/pharmacy/quantities',
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'route_id' => 2,
                 'name' => 'income',
                 'path' => '/pharmacy/deposit',
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'route_id' => 2,
                 'name' => 'expenses',
                 'path' => '/clinic/denos',
-            )
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'route_id' => 2,
+                'name' => 'clientItemsReports',
+                'path' => '/pharmacy/clients',
+            ),
         ));
-
-
+        
+        
     }
 }
