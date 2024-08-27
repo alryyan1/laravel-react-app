@@ -42,6 +42,7 @@ use Spatie\Permission\Models\Role;
 Route::get('expired/items',[\App\Http\Controllers\PDFController::class,'balancebyExpire']);
 Route::get('labPrices',[\App\Http\Controllers\PDFController::class,'labprice']);
 Route::get('excel/items',[\App\Http\Controllers\ExcelController::class,'items']);
+Route::get('excel/itemsClientOrders',[\App\Http\Controllers\ExcelController::class,'itemsClientOrders']);
 Route::get('excel/labPrices',[\App\Http\Controllers\ExcelController::class,'lapPrices']);
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
@@ -157,9 +158,7 @@ Route::get('deduct/invoice',[\App\Http\Controllers\PDFController::class,'deductI
 Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
 
 
-Route::group(['middleware' => ['can:reports']], function () {
-    Route::middleware('auth:sanctum')->get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
-});
+    Route::get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
 
 //lab
 Route::get('insurance/report',[\App\Http\Controllers\PDFController::class,'insuranceReport']);

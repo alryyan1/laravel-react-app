@@ -890,7 +890,12 @@ class PDFController extends Controller
         $client =  Client::find($client_id);
         $pdf->Cell($page_width, 5,$client?->name.' ('.$client?->address.' )', 0, 1, 'C');
         $pdf->setFont($fontname, 'b', 14);
-
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 12);
         $first = $request->query('first');
@@ -908,12 +913,14 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, $second, 0, 1, 'C');
 
 
-        $table_col_widht = ($page_width ) / 6;
+        $table_col_widht = ($page_width ) / 7;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
         $pdf->Cell($table_col_widht/2 , 5, 'الكود', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'التاريخ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, ' العميل', 'TB',  0, 'C', fill: 1);
+
+        $pdf->Cell($table_col_widht , 5, 'تاريخ الطلب', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'المبلغ', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'تاريخ الاجل', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'الوزن ', 'TB',  0, 'C', fill: 1);
@@ -929,19 +936,24 @@ class PDFController extends Controller
         $client_id = $request->get('client_id');
         $is_postpaid = $request->get('is_postpaid');
         foreach ($deducts as $deduct) {
-            if ($client_id){
+            if ($client_id != 'null'){
+
                 if ($deduct->client_id != $client_id) continue;
             }
-            if ($is_postpaid){
-                if (!$deduct->is_postpaid == $is_postpaid)continue;
-            }
+           if ($is_postpaid != null){
+               if ($is_postpaid){
+                   if (!$deduct->is_postpaid == $is_postpaid)continue;
+               }
+           }
             $y = $pdf->GetY();
             $total+= $deduct->total_price();
+            $post_paid_date = new \DateTime($deduct->postpaid_date);
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht/2 , 5, $deduct->id, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct?->client?->name.' ('.$deduct?->client?->address.' )', 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y-m-d'), 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5,$deduct->total_price()  , 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->postpaid_date, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $post_paid_date->format('Y-m-d'), 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->weight, 0, 0, 'C');
             $pdf->MultiCell($table_col_widht *1.5 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
 
