@@ -58,21 +58,18 @@ class Deposit extends Model
     public function supplier(){
         return $this->belongsTo(Supplier::class);
     }
-    protected $with =['items','supplier','user'];
-    protected $appends = ['total','totalAmountPaid','totalVatCostMoney','totalCost','totalSell'];
+//    protected $with =['items','supplier','user'];
+    protected $with =['supplier','user'];
+//    protected $appends = ['total','totalAmountPaid','totalVatCostMoney','totalCost','totalSell'];
 
-    public function getTotalAmountPaidAttribute(){
-        return $this->totalPaid();
+    public function getSummery(){
+        $this->totalpaid =  $this->totalPaid();
+        $this->totalCost =  $this->totalCost();
+        $this->totalSellWithoutVat =  $this->totalSellWithoutVat();
+        $this->totalVatCostMoney =  $this->totalVatCostMoney();
+        $this->total =  $this->total();
     }
-    public function getTotalCostAttribute(){
-        return $this->totalCost();
-    }
-    public function getTotalSellAttribute(){
-        return $this->totalSellWithoutVat();
-    }
-    public function getTotalVatCostMoneyAttribute(){
-        return $this->totalVatCostMoney();
-    }
+
 
     function getTotalAttribute()
     {

@@ -51,7 +51,7 @@ class DepositController extends Controller
         $data = $request->all();
 
 
-        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item')];
+        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item'),'deposit'=>$depositItem->deposit];
     }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
@@ -90,7 +90,8 @@ class DepositController extends Controller
         return ['success'=>true,'deposit'=>$deposit->load('items')];
     }
     public function allDeposits(){
-        return Deposit::with(['items','items.item'])->orderByDesc('id')->with('supplier')->get();
+//        return Deposit::with(['items','items.item'])->orderByDesc('id')->with('supplier')->get();
+        return Deposit::orderByDesc('id')->with('supplier')->get();
     }
     public function getDepositsByDate(Request $request){
         $data = $request->all();
@@ -113,7 +114,14 @@ class DepositController extends Controller
         return ['data'=>$deposit , 'status'=>true];
     }
     public function last(Request $request){
-        return Deposit::with('items','supplier')->latest()->first();
+        return Deposit::with('supplier')->latest()->first();
+    }
+    public function getDepositWithItems(Request $request,Deposit $deposit){
+        return $deposit->load(['items','items.item']);
+    }  public function getDepositWithItemsAndSummery(Request $request,Deposit $deposit){
+         $deposit->load(['items','items.item']);
+         $deposit->getSummery();
+         return $deposit;
     }
     public function newDeposit(Request $request){
         $data = $request->all();
@@ -172,7 +180,7 @@ class DepositController extends Controller
     public function destroy(Request $request,DepositItem $depositItem){
         $data = $request->all();
        ;
-        return ['status'=> $depositItem->delete(),'deposit'=>$depositItem->deposit];
+        return ['status'=> $depositItem->delete(),'deposit'=>$depositItem->deposit->load(['items','items.item'])];
     }
     public function destroyDeposit(Request $request,Deposit $deposit){
         $user =  auth()->user();
