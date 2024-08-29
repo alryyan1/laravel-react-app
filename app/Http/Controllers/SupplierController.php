@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
@@ -49,7 +50,6 @@ class SupplierController extends Controller
     }
     public function update(Request $request , Supplier $supplier){
         $user =  auth()->user();
-
 
         if ($user->can('تعديل مورد')) {
 

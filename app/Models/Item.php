@@ -65,6 +65,9 @@ use Illuminate\Support\Facades\DB;
  * @property float $tax
  * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereTax($value)
  * @property-read mixed $last_deposit_item
+ * @property-read mixed $total_deposit
+ * @property-read mixed $total_out
+ * @property-read mixed $total_remaining
  * @mixin \Eloquent
  */
 class Item extends Model

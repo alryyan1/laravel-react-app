@@ -47,6 +47,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Client|null $client
  * @property-read mixed $total_price_unpaid
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereClientId($value)
+ * @property int $is_postpaid
+ * @property int $postpaid_complete
+ * @property string|null $postpaid_date
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereIsPostpaid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidComplete($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidDate($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
