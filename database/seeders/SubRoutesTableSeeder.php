@@ -138,6 +138,13 @@ class SubRoutesTableSeeder extends Seeder
                 'name' => 'Chemistry LIS',
                 'path' => 'laboratory/chemistry-lis',
             ),
+            17 =>
+                array (
+                    'id' => 18,
+                    'route_id' => 4,
+                    'name' => 'Hormone LIS',
+                    'path' => 'laboratory/hormone-lis',
+                ),
         ));
 
 

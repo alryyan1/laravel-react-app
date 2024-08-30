@@ -56,12 +56,16 @@ class LabRequest extends Model
     use HasFactory;
     protected $table='labRequests';
     public $timestamps = false;
-    protected $with = ['requested_results','mainTest','unfinished_results_count','requested_organisms'];
+    protected $with = ['requested_results','mainTest','unfinished_results_count','requested_organisms','userRequested'];
     protected $guarded = [];
     protected $appends = ['name'];
     public function requested_organisms()
     {
         return $this->hasMany(RequestedOrganism::class);
+    }
+    public function userRequested()
+    {
+        return $this->belongsTo(User::class,'user_requested');
     }
     public function getNameAttribute(){
         return $this->mainTest->main_test_name;

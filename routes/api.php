@@ -141,6 +141,16 @@ Route::get('getCbc5Bindings',[\App\Http\Controllers\RequestedResultController::c
 Route::patch('updateCbcBindings/{cbcBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateCbcBindings']);
 
 
+
+
+Route::post('populatePatientHormoneData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientHormoneData']);
+Route::get('getHormoneColumnNames',[\App\Http\Controllers\RequestedResultController::class,'hormoneColumnNames']);
+Route::post('populateHormoneMatchingTable',[\App\Http\Controllers\RequestedResultController::class,'populateHormoneMatchingTable']);
+Route::get('getHormoneBindings',[\App\Http\Controllers\RequestedResultController::class,'getHormoneBindings']);
+Route::patch('updateHormoneBindings/{hormoneBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateHormoneBindings']);
+
+
+
 Route::patch('requestedResult/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'save']);
 Route::patch('requestedResult/normalRange/{requestedResult}',[\App\Http\Controllers\RequestedResultController::class,'edit']);
 Route::patch('comment/{labRequest}',[\App\Http\Controllers\RequestedResultController::class,'comment']);

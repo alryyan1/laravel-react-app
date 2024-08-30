@@ -6,6 +6,7 @@ use App\Models\Cbc5Binder;
 use App\Models\CbcBinder;
 use App\Models\ChemistryBinder;
 use App\Models\ChildTest;
+use App\Models\HormoneBinder;
 use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Mindray;
@@ -26,11 +27,11 @@ class RequestedResultController extends Controller
                 CbcBinder::create(['name_in_sysmex_table'=>$childTest->child_test_name,'name_in_cbc_child_table'=>$childTest->child_test_name]);
         }
     }
-    public function populateCbc5Bindings(Request $request){
-        /** @var MainTest $cbc */
-        $cbc =  MainTest::with('childTests','childTests.unit')->find(1);
-        foreach ($cbc->childTests as $childTest){
-                CbcBinder::create(['name_in_sysmex_table'=>$childTest->child_test_name,'name_in_cbc_child_table'=>$childTest->child_test_name]);
+    public function populateHormoneMatchingTable(Request $request){
+        $names =   DB::connection()->getSchemaBuilder()->getColumnListing('hormone');
+
+        foreach ($names as $name){
+            ChemistryBinder::create(['child_id_array'=>1,'name_in_hormone_table'=>$name]);
         }
     }
     public function comment(Request $request,LabRequest $labRequest){
@@ -43,17 +44,17 @@ class RequestedResultController extends Controller
                 ChemistryBinder::create(['child_id_array'=>1,'name_in_mindray_table'=>$name]);
         }
     }
-    public function populateCbc5(Request $request){
-        /** @var MainTest $cbc */
-        $cbc =  MainTest::with('childTests','childTests.unit')->find(1);
-        foreach ($cbc->childTests as $childTest){
-                CbcBinder::create(['child_id_array'=>0,'name_in_sysmex_table'=>$childTest->child_test_name]);
-        }
-    }
+
     public function sysmexColumnNames(Request $request){
         return  DB::connection()->getSchemaBuilder()->getColumnListing('sysmex');
 
-    }  public function Chemistry(Request $request){
+    }
+    public function hormoneColumnNames(Request $request){
+        return  DB::connection()->getSchemaBuilder()->getColumnListing('hormone');
+
+    }
+
+    public function Chemistry(Request $request){
         return  DB::connection()->getSchemaBuilder()->getColumnListing('mindray2');
 
     }
@@ -85,18 +86,17 @@ class RequestedResultController extends Controller
 
         return ['status'=>true,'patient'=>$patient->refresh(),'cbcObj'=>$object];
     }
-    public function populatePatientCbc5Data(Request $request,Patient $patient){
+    public function populatePatientHormoneData(Request $request,Patient $patient){
         $main_test_id = $request->get('main_test_id');
-        $sysmex =   Sysmex5::where('patient_id','=',$patient->id)->first();
-        // return $sysmex;
+        $sysmex =   Sysmex::where('patient_id','=',$patient->id)->first();
         if ($sysmex == null){
             return  ['status'=>false,'message'=>'no data found'];
         }
-        $bindings =   \App\Models\CbcBinder::all();
-        /** @var \App\Models\CbcBinder $binding */
+        $bindings =   \App\Models\HormoneBinder::all();
+        /** @var \App\Models\HormoneBinder $binding */
         $object = null;
         foreach ($bindings as $binding){
-            $object[$binding->name_in_sysmex_table] =[
+            $object[$binding->name_in_hormone_table] =[
                 'child_id'=>[$binding->child_id_array],
                 'result'=> $sysmex[$binding->name_in_sysmex_table]
             ];
@@ -105,7 +105,7 @@ class RequestedResultController extends Controller
                 $requested_result = RequestedResult::whereChildTestId($child_id)->where('main_test_id','=',$main_test_id)->where('patient_id','=',$patient->id)->first();
                 if ($requested_result !=null){
 
-                    $requested_result->update(['result'=>$sysmex[$binding->name_in_sysmex_table]]);
+                    $requested_result->update(['result'=>$sysmex[$binding->name_in_hormone_table]]);
                 }
 
             }
@@ -114,6 +114,7 @@ class RequestedResultController extends Controller
 
         return ['status'=>true,'patient'=>$patient->refresh(),'cbcObj'=>$object];
     }
+
     public function populatePatientChemistryData(Request $request,Patient $patient){
         $main_test_id = $request->get('main_test_id');
         $chemistry =   Mindray::where('pid','=',$patient->id)->first();
@@ -146,6 +147,10 @@ class RequestedResultController extends Controller
        $data  =   $request->all();
        $cbcBinder->update([$data['colName']=>$data['val']]);
     }
+    public function updateHormoneBindings(Request $request , HormoneBinder $hormoneBinder){
+        $data  =   $request->all();
+        $hormoneBinder->update([$data['colName']=>$data['val']]);
+    }
 
     public function updateChemistryBindings(Request $request , ChemistryBinder $chemistryBinder){
        $data  =   $request->all();
@@ -154,9 +159,9 @@ class RequestedResultController extends Controller
     public function getCbcBindings(Request $request){
        return CbcBinder::all();
     }
-    public function getCbc5Bindings(Request $request){
-        return Cbc5Binder::all();
-     }
+    public function getHormoneBindings(Request $request){
+        return HormoneBinder::all();
+    }
     public function getChemistryBindings(Request $request){
        return ChemistryBinder::all();
     }

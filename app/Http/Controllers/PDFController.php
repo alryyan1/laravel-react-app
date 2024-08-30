@@ -1428,10 +1428,10 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ايصال المختبر');
         $pdf->setSubject('ايصال المختبر');
-        $pdf->setMargins(0, 0, 10);
+        $pdf->setMargins(10, 0, 10);
 //        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
 //        $pdf->setFooterMargin(0);
-        $page_width = 70;
+        $page_width = 65;
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
@@ -1441,7 +1441,7 @@ class PDFController extends Controller
         $pdf->SetFont($arial, '', 10, '', true);
 
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(5, 5, 10);
+        $pdf->setMargins(10, 5, 10);
 
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
@@ -1489,8 +1489,9 @@ class PDFController extends Controller
         $pdf->Cell(20,5,'Lab No  '.$patient->visit_number,1,1,'C');
         $pdf->Ln();
         $pdf->SetFont($arial, 'u', 10, '', true);
-
-        $pdf->Cell(25,5,'التحاليل المطلوبه',0,1,'R');
+        $col = $page_width / 2;
+        $pdf->Cell($col,5,'التحاليل المطلوبه',0,0,'R');
+        $pdf->Cell($col,5,'Requested Tests',0,1,'L');
 
         $pdf->SetFont($arial, '', 8, '', true);
 
@@ -1513,12 +1514,15 @@ class PDFController extends Controller
             'stretchtext' => 4
         );
 
+        $col = $page_width / 3;
+        $pdf->Cell($col,5,'الاجمالي','TB',0,fill: 1);
+        $pdf->Cell($col,5,$settings->currency.' '.number_format($patient->total_lab_value_unpaid(),1) ,'TB',0);
+        $pdf->Cell($col,5,'Total','TB',1,fill: 1);
 
-        $pdf->Cell(15,5,'الاجمالي','TB',0,fill: 1);
-        $pdf->Cell(30,5,number_format($patient->total_lab_value_unpaid(),1) ,'TB',1);
+        $pdf->Cell($col,5,'المدفوع','TB',0,fill: 1);
+        $pdf->Cell($col,5,$settings->currency.' '.number_format($patient->paid_lab(),1),'TB',0);
+        $pdf->Cell($col,5,'Paid','TB',1,fill: 1);
 
-        $pdf->Cell(15,5,'المدفوع','TB',0,fill: 1);
-        $pdf->Cell(30,5,number_format($patient->paid_lab(),1),'TB',1);
         $pdf->Ln();
         $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
         $pdf->Ln();
@@ -1526,10 +1530,16 @@ class PDFController extends Controller
         $pdo = DB::getPdo();
          $user_requested =   $pdo->query("select user_requested from labrequests where pid=$patient->id")->fetchColumn();
         $user =  User::find($user_requested);
-        $pdf->Cell(30,5,'   تمت الاضافه بواسطه  '.$user->username ,0,1);
+        $pdf->Cell($col,5,'    الاضافه   ' ,0,0);
+        $pdf->Cell($col,5, $user->username ,0,0);
+        $pdf->Cell($col,5,'     Requested By   ' ,0,1);
+
         $user_requested =   $pdo->query("select user_deposited from labrequests where pid=$patient->id")->fetchColumn();
         $user =  User::find($user_requested);
-        $pdf->Cell(30,5,'   تم التحصيل بواسطه  '.$user->username ,0,1);
+        $pdf->Cell($col,5,'    التحصيل   ' ,0,0);
+        $pdf->Cell($col,5,$user->username ,0,0);
+        $pdf->Cell($col,5,'     collected By   ' ,0,0);
+
         if ($request->has('base64')) {
             $result_as_bs64 = $pdf->output('name.pdf', 'E');
             return $result_as_bs64;
@@ -1544,10 +1554,10 @@ class PDFController extends Controller
     {
         /** @var Patient $patient */
         $patient = Patient::find($request->get('pid'));
-        $custom_layout = array(39, 25);
+        $custom_layout = array(50, 25);
         $settings= Setting::all()->first();
 
-        $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+        $pdf = new Pdf('landscape', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
 
 //        $lg = array();
 //        $lg['a_meta_charset'] = 'UTF-8';
@@ -1561,7 +1571,7 @@ class PDFController extends Controller
         $pdf->setSubject('ايصال المختبر');
         $page_width = 39;
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(1, 1, 1);
+        $pdf->setMargins(0, 3, 2);
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $containers = $patient->labrequests->map(function(LabRequest $req){
             return $req->mainTest->container;
@@ -1593,30 +1603,36 @@ class PDFController extends Controller
             $pdf->SetFillColor(240, 240, 240);
             $style = array(
                 'position' => 'C',
-                'align' => 'C',
+                'align' => 'R',
                 'stretch' => false,
                 'fitwidth' => true,
                 'cellfitalign' => '',
                 'border' => false,
-                'hpadding' => 'auto',
-                'vpadding' => 'auto',
+                'hpadding' => 0,
+                'vpadding' => 0,
                 'fgcolor' => array(0,0,0),
                 'bgcolor' => false, //array(255,255,255),
-                'text' => true,
+                'text' => false,
                 'font' => 'helvetica',
-                'fontsize' => 8,
+                'fontsize' => 10,
                 'stretchtext' => 4
             );
 
-            $pdf->SetFont($arial, 'u', 5, '', true);
+            $pdf->SetFont('helvetica', '', 4, '', true);
             $col = $page_width / 2;
-            $pdf->Cell($col/2,5,$patient->visit_number,1,0,'C');
+            $pdf->Cell($page_width,0,$patient->created_at->format('Y-m-d H:i A'),0,1,'R');
+            $pdf->SetFont('helvetica', '', 7, '', true);
+
+            $pdf->Cell(10,5,'V.No '.$patient->visit_number,0,0,'C');
             $pdf->Cell($col * 1.5,5,$patient->name,0,1);
-            $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 13, 0.4, $style, 'N');
-            $pdf->SetFont($arial, 'u', 4, '', true);
+
+            $pdf->write1DBarcode("$patient->id", 'C128', 100, '', 50, 10, 0.5, $style, 'N');
+            $pdf->Cell(15,5,'PID '.$patient->id,0,0,'');
+
+            $pdf->SetFont('helvetica', 'u', 4, '', true);
 
 
-            $pdf->Cell($page_width,5,$tests,0,1,'L');
+            $pdf->Cell($page_width - 20,5,$tests,0,1,'R');
 
         }//end of foreach
 

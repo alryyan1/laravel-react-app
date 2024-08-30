@@ -52,6 +52,7 @@ class PatientAddRequest extends FormRequest
             'prescription_notes'=>'',
             'provisional_diagnosis'=>'',
             'gov_id'=>'',
+            'address'=>'',
         ];
     }
 }
