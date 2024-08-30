@@ -50,6 +50,8 @@ class PatientAddRequest extends FormRequest
             'present_complains'=>'',
             'history_of_present_illness'=>'',
             'prescription_notes'=>'',
+            'provisional_diagnosis'=>'',
+            'gov_id'=>'',
         ];
     }
 }

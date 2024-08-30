@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         Shift::create();
         User::create(['username'=>'starsIntaj','password'=>bcrypt('starsIntaj')]);
        $specialist =  Specialist::create(['name'=>'الباطنيه']);
-       $doctor = Doctor::factory(10)->create();
+//       $doctor = Doctor::factory(10)->create();
 //       Patient::factory(10)->create();
         $this->call(UnitsTableSeeder::class);
         $this->call(PackageTableSeeder::class);
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClientSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
-        $this->call(ServicesTableSeeder::class);
+//        $this->call(ServicesTableSeeder::class);
 //        $this->call(DepositItemsTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
 //        $this->call(RolesTableSeeder::class);

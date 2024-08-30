@@ -1720,18 +1720,25 @@ class PDFController extends Controller
 
 
         }
+        $colWidth = $page_width / 3;
         $pdf->Cell($colWidth,5,'كود',1,0,'C',fill: 1);
-        $pdf->Cell($colWidth,5,$patient->id,0,1,'C');
+        $pdf->Cell($colWidth,5,$patient->id,0,0,'C');
+        $pdf->Cell($colWidth,5,'Code',0,1,'C');
         $pdf->Ln();
         $pdf->setAutoPageBreak(TRUE, 0);
         //$pdf->Ln(25);
-        $pdf->Ln();
         $pdf->SetFont($arial, 'ub', 10, '', true);
+        $colWidth = $page_width / 2;
 
-        $pdf->Cell(25,5,'الخدمات المطلوبه',0,1,'L');
+        $pdf->Cell($colWidth,5,'الخدمات المطلوبه',0,0,'R');
+        $pdf->Cell($colWidth,5,'Requested Services',0,1,'L');
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
+        $pdf->Cell($colWidth * 1.5,5,'Name','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'Price','TB',0,fill: 1);
+        $pdf->Cell($colWidth/ 2,5,'QYN','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'Sub','TB',1,fill: 1);
         $pdf->Cell($colWidth * 1.5,5,'الاسم','TB',0,fill: 1);
         $pdf->Cell($colWidth,5,'السعر','TB',0,fill: 1);
         $pdf->Cell($colWidth/ 2,5,'العدد','TB',0,fill: 1);
@@ -1769,15 +1776,24 @@ class PDFController extends Controller
         $pdf->Ln();
         $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
         $pdf->Ln();
-        $pdf->Cell(15,5,'الاجمالي',1,0,fill: 1);
+        $colWidth = $page_width / 3;
+        $pdf->Cell($colWidth,5,'الاجمالي',1,0,'C',fill: 1);
 
-        $pdf->Cell(30,5,number_format($total,1) ,1,1);
-        $pdf->Cell(15,5,'المدفوع',1,0,fill: 1);
+        $pdf->Cell($colWidth,5,$settings->currency .'  '.number_format($total,1),1,0,'C');
+        $pdf->Cell($colWidth,5,'Total',1,1,'C',fill: 1);
 
-        $pdf->Cell(30,5,number_format($patient->total_paid_services(),1) ,1,1);
+        $pdf->Cell($colWidth,5,'المدفوع',1,0,'C',fill: 1);
 
-        $pdf->Cell(15,5,'المستخدم',1,0,fill: 1);
-        $pdf->Cell(30,5,auth()->user()->username,1,0,fill: 0);
+        $pdf->Cell($colWidth,5,$settings->currency .' '.number_format($patient->total_paid_services(),1)  ,1,0,'C');
+        $pdf->Cell($colWidth,5,'Paid',1,1,'C',fill: 1);
+
+        $pdf->Cell($colWidth,5,'المستخدم',1,0,'C',fill: 1);
+
+
+
+        $pdf->Cell($colWidth,5,auth()->user()->username,1,0,'C',fill: 0);
+        $pdf->Cell($colWidth,5,'User',1,1,'C',fill: 1);
+
 
         $pdf->Ln();
 
