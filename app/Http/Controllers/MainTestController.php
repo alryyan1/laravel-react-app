@@ -22,6 +22,13 @@ class MainTestController extends Controller
     public function chemistry(){
        return Package::with('tests')->find(2);
     }
+
+    public function hormone(){
+        return Package::with('tests')->find(3);
+    }
+    public function immune(){
+        return Package::with('tests')->find(9);
+    }
     public function show(){
        return MainTest::with('childTests','childTests.unit')->get();
     }

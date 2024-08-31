@@ -128,6 +128,7 @@ Route::post('populateMindrayMatchingTable',[\App\Http\Controllers\RequestedResul
 Route::get('getChemistryBindings',[\App\Http\Controllers\RequestedResultController::class,'getChemistryBindings']);
 Route::patch('updateChemistryBindings/{chemistryBinder}',[\App\Http\Controllers\RequestedResultController::class,'updateChemistryBindings']);
 Route::post('populatePatientChemistryData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientChemistryData']);
+Route::get('chemistry',[\App\Http\Controllers\MainTestController::class,'chemistry']);
 
 
 
@@ -142,6 +143,8 @@ Route::patch('updateCbcBindings/{cbcBinder}',[\App\Http\Controllers\RequestedRes
 
 
 
+Route::get('getHormoneTests',[\App\Http\Controllers\MainTestController::class,'hormone']);
+Route::get('getImmuneTests',[\App\Http\Controllers\MainTestController::class,'immune']);
 
 Route::post('populatePatientHormoneData/{patient}',[\App\Http\Controllers\RequestedResultController::class,'populatePatientHormoneData']);
 Route::get('getHormoneColumnNames',[\App\Http\Controllers\RequestedResultController::class,'hormoneColumnNames']);
@@ -197,7 +200,6 @@ Route::patch('mainTest/{main_test}',[MainTestController::class,'update']);
 Route::post('mainTest',[MainTestController::class,'store']);
 Route::delete('maintest/{main_test}',[MainTestController::class,'destroy']);
 Route::get('mainTestById/{id}',[\App\Http\Controllers\MainTestController::class,'getbyid']);
-Route::get('chemistry',[\App\Http\Controllers\MainTestController::class,'chemistry']);
 
 Route::delete('childTest/{childTest}',[\App\Http\Controllers\childTestController::class,'destroy']);
 Route::post('childTest/create/{main_test}',[\App\Http\Controllers\childTestController::class,'store']);

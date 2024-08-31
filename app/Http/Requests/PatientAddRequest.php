@@ -53,6 +53,7 @@ class PatientAddRequest extends FormRequest
             'provisional_diagnosis'=>'',
             'gov_id'=>'',
             'address'=>'',
+            'country_id'=>'',
         ];
     }
 }

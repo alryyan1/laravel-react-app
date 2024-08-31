@@ -161,7 +161,7 @@ class Patient extends Model
     {
         return $this->total_lab_value_will_pay();
     }
-    protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient'];
+    protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient','country'];
     public function getTotalLabValueUnpaidAttribute()
     {
         return $this->total_lab_value_unpaid();
@@ -183,6 +183,10 @@ class Patient extends Model
     public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Doctor::class);
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class,'country_id');
     }
 //    public function labrequests(){
 //      return  $this->belongsToMany(MainTest::class,'labrequests','pid','main_test_id')->withPivot(['amount_paid','discount_per','is_bankak']);

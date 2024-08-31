@@ -6,6 +6,7 @@ use App\Models\Cbc5Binder;
 use App\Models\CbcBinder;
 use App\Models\ChemistryBinder;
 use App\Models\ChildTest;
+use App\Models\Hormone;
 use App\Models\HormoneBinder;
 use App\Models\LabRequest;
 use App\Models\MainTest;
@@ -31,7 +32,7 @@ class RequestedResultController extends Controller
         $names =   DB::connection()->getSchemaBuilder()->getColumnListing('hormone');
 
         foreach ($names as $name){
-            ChemistryBinder::create(['child_id_array'=>1,'name_in_hormone_table'=>$name]);
+            HormoneBinder::create(['child_id_array'=>1,'name_in_hormone_table'=>$name]);
         }
     }
     public function comment(Request $request,LabRequest $labRequest){
@@ -88,7 +89,7 @@ class RequestedResultController extends Controller
     }
     public function populatePatientHormoneData(Request $request,Patient $patient){
         $main_test_id = $request->get('main_test_id');
-        $sysmex =   Sysmex::where('patient_id','=',$patient->id)->first();
+        $sysmex =   Hormone::where('pid','=',$patient->id)->first();
         if ($sysmex == null){
             return  ['status'=>false,'message'=>'no data found'];
         }
