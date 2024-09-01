@@ -272,7 +272,24 @@ class ItemController extends Controller
             $data = $request->all();
 //        return $data;
             $result = Item::create(['market_name' => $data['market_name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
-                , 'initial_price' => $data['initial_price']]);
+                , 'initial_price' => $data['initial_price']   , 'offer_price' => $data['offer_price']]);
+            if ($result){
+                $deposit_item = new DepositItem([
+                    'item_id' => $data['item_id'],
+                    'cost'=>$data['cost_price'],
+                    'quantity'=>$data['quantity'],
+                    'notes'=>$data['notes'],
+                    'expire'=>'20240815',
+                    'barcode'=>$data['barcode'],
+                    'batch'=>$data['batch'],
+                    'free_quantity'=>$data['free_quantity'],
+                    'vat_cost'=>0,
+                    'vat_sell'=>0,
+                    'sell_price'=> $data['sell_price'],
+                    'user_id'=>\Auth::user()->id,
+                    'created_at'=>now()
+                ]);
+            }
             return ['status' => $result];
         }else{
             return response(['status' => false,'message'=>'صلاحيه اضافه الاصناف غير مفعله'],400);

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Country;
 use App\Models\Deno;
 use App\Models\Deposit;
 use App\Models\Doctor;
@@ -67,6 +68,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DrugCategoriesTableSeeder::class);
 
 //        $this->call(ClientSeeder::class);
+        Country::create(['name'=>'Oman']);
         $this->call(ItemsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
