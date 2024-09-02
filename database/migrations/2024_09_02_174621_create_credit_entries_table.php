@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('finance_entries', function (Blueprint $table) {
+        Schema::create('credit_entries', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
-            $table->boolean('transfer');
+            $table->foreignIdFor(\App\Models\FinanceAccount::class)->constrained();
+            $table->foreignIdFor(\App\Models\FinanceEntry::class)->constrained();
+            $table->double('amount',10,3);
             $table->timestamps();
         });
     }
@@ -24,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('finance_entries');
-
+        Schema::dropIfExists('credit_entries');
     }
 };

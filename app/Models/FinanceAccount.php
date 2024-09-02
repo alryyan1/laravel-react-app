@@ -32,10 +32,18 @@ class FinanceAccount extends Model
 {
     protected $guarded =  ['id'];
     protected $table ='finance_accounts';
-    protected $with = ['accountCategory'];
+    protected $with = ['accountCategory','credits','debits'];
     use HasFactory;
     public function AccountCategory()
     {
         return $this->belongsTo(AccountCategory::class);
+    }
+    public function debits()
+    {
+        return $this->hasMany(DebitEntry::class);
+    }
+    public function credits()
+    {
+        return $this->hasMany(CreditEntry::class);
     }
 }

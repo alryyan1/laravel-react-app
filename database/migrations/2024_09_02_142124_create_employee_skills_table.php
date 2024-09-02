@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Employee;
+use App\Models\Skill;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('finance_entries', function (Blueprint $table) {
+        Schema::create('employee_skills', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
-            $table->boolean('transfer');
-            $table->timestamps();
+            $table->foreignIdFor(Employee::class)->constrained();
+            $table->foreignIdFor(Skill::class)->constrained();
         });
     }
 
@@ -24,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('finance_entries');
-
+        Schema::dropIfExists('employee_skills');
     }
 };

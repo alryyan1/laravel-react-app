@@ -43,6 +43,8 @@ Route::get('calculateInventory/{item}',[\App\Http\Controllers\ItemController::cl
 
 Route::get('ledger/{account_id}',[\App\Http\Controllers\FinanceController::class,'ledger']);
 Route::get('financeEntries',[\App\Http\Controllers\FinanceController::class,'financeEntries']);
+Route::get('debits',[\App\Http\Controllers\FinanceController::class,'debits']);
+Route::get('credits',[\App\Http\Controllers\FinanceController::class,'credits']);
 Route::post('createFinanceEntries',[\App\Http\Controllers\FinanceController::class,'createFinanceEntries']);
 
 Route::get('financeAccounts',[\App\Http\Controllers\FinanceController::class,'index']);

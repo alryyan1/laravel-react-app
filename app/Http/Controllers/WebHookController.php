@@ -13,7 +13,7 @@ class WebHookController extends Controller
 
         $data = file_get_contents("php://input");
         $event = json_decode($data, true);
-        Whatsapp::sendMsgWb('96878622990','from web api');
+//        Whatsapp::sendMsgWb('96878622990','from web api');
         if(isset($event)){
             //Here, you now have event and can process them how you like e.g Add to the database or generate a response
             $file = 'log.txt';

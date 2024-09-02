@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccountCategory;
+use App\Models\CreditEntry;
+use App\Models\DebitEntry;
 use App\Models\FinanceAccount;
 use App\Models\FinanceEntry;
 use Illuminate\Http\Request;
@@ -34,15 +36,39 @@ class FinanceController extends Controller
     }
     public function index(Request $request)
     {
-        return FinanceAccount::all();
+        return FinanceAccount::with(['credits.account','debits.account'])->get();
     }
     public function financeEntries(Request $request)
     {
-        return FinanceEntry::all();
-    }  public function createFinanceEntries(Request $request)
+        return FinanceEntry::with(['debit.account', 'credit.account'])->get();
+    }
+    public function debits(Request $request)
     {
-         $data = FinanceEntry::create($request->all());
-        return ['status'=> true,'data'=>$data->fresh()];
+        return DebitEntry::with(['account'])->get();
+    }
+    public function credits(Request $request)
+    {
+        return CreditEntry::with(['account'])->get();
+    }
+    public function createFinanceEntries(Request $request)
+    {
+         $financeEntry = FinanceEntry::create([
+             'description'=>$request->get('description'),
+         ]);
+
+
+
+         DebitEntry::create([
+             'amount'=>$request->get('amount'),
+             'finance_account_id'=>$request->get('debit'),
+             'finance_entry_id'=>$financeEntry->id,
+         ]);
+        CreditEntry::create([
+            'amount'=>$request->get('amount'),
+            'finance_account_id'=>$request->get('credit'),
+            'finance_entry_id'=>$financeEntry->id,
+        ]);
+        return ['status'=> true,'data'=>$financeEntry->load(['debit.account', 'credit.account'])];
 
     }
     public function destroy(Request $request ,FinanceAccount $financeAccount)

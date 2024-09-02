@@ -34,13 +34,14 @@ class FinanceEntry extends Model
     protected $guarded  =['id'];
     use HasFactory;
     protected $table = 'finance_entries';
-    protected $with = ['from_account','to_account'];
-    public function from_account(){
-        return $this->belongsTo(FinanceAccount::class,'from_account');
+    protected $with = ['debit','credit'];
+    public function debit(){
+        return $this->hasMany(DebitEntry::class);
     }
-    public function to_account(){
-        return $this->belongsTo(FinanceAccount::class,'to_account');
+    public function credit(){
+        return $this->hasMany(CreditEntry::class);
     }
+
 
 
 }
