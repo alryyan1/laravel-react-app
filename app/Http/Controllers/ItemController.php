@@ -94,8 +94,6 @@ class ItemController extends Controller
         $dates = [];
         $data = [];
         while ($start_date <= $end_date) {
-
-
             $start_of_month = Carbon::parse($start_date)->setDay(1)->format('Y-m-d');
             $end_of_month =  Carbon::parse($start_date)->lastOfMonth()->format('Y-m-d');
             $pdo = DB::getPdo();

@@ -169,6 +169,16 @@ class FinanceAccountsTableSeeder extends Seeder
                 'created_at' => '2024-09-03 02:23:10',
                 'updated_at' => '2024-09-03 02:23:10',
             ),
+            15 => 
+            array (
+                'id' => 16,
+                'name' => 'المدينين',
+                'account_category_id' => 1,
+                'debit' => 0,
+                'description' => NULL,
+                'created_at' => '2024-09-03 17:27:59',
+                'updated_at' => '2024-09-03 17:27:59',
+            ),
         ));
         
         
