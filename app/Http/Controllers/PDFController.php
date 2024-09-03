@@ -923,7 +923,7 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht , 5, 'تاريخ الطلب', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'المبلغ', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'تاريخ الاجل', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, 'الوزن ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'طريقه الدفع ', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht *1.5 , 5, "الاصناف", 'TB',  1, 'C', fill: 1);
 
         $pdf->setFont($fontname, 'b', 10);
@@ -935,16 +935,13 @@ class PDFController extends Controller
         /** @var Deduct $deduct */
         $client_id = $request->get('client_id');
         $is_postpaid = $request->get('is_postpaid');
+
         foreach ($deducts as $deduct) {
             if ($client_id != 'null'){
 
                 if ($deduct->client_id != $client_id) continue;
             }
-           if ($is_postpaid != null){
-               if ($is_postpaid){
-                   if (!$deduct->is_postpaid == $is_postpaid)continue;
-               }
-           }
+
             $y = $pdf->GetY();
             $total+= $deduct->total_price();
             $post_paid_date = new \DateTime($deduct->postpaid_date);
@@ -953,12 +950,135 @@ class PDFController extends Controller
             $pdf->Cell($table_col_widht , 5, $deduct?->client?->name.' ('.$deduct?->client?->address.' )', 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y-m-d'), 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5,$deduct->total_price()  , 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $post_paid_date->format('Y-m-d'), 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->weight, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5,$deduct?->payment_method == 'postpaid'  ? $post_paid_date->format('Y-m-d') : $deduct->payment_method, 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, 0, 0, 'C');
             $pdf->MultiCell($table_col_widht *1.5 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
 
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $total_profit += $deduct->profit();
+            $index++;
+        }
+        $pdf->Ln();
+
+
+
+
+
+
+        $pdf->Output('example_003.pdf', 'I');
+
+    }
+    public function allSalesByItems(Request $request)
+    {
+
+
+
+        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $lg = array();
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('Nicola Asuni');
+        $pdf->setTitle('Items Sales');
+        $pdf->setSubject('TCPDF Tutorial');
+        $pdf->setKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFont('times', 'BI', 12);
+
+        $pdf->AddPage();
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, 15, 5, 40, 40);
+
+        }
+        $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->setFont($fontname, 'b', 22);
+        $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+
+        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
+        $pdf->Cell($page_width, 5, ' Items Report', 0, 1, 'C');
+        $pdf->setFont($fontname, 'b', 14);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+        $pdf->setLanguageArray($lg);
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 12);
+
+        $pdf->setFillColor(200, 200, 200);
+
+        $first = $request->query('first');
+        $second = $request->query('second');
+        $first = \Illuminate\Support\Carbon::createFromFormat('Y/m/d', $first)->startOfDay();
+        $second = Carbon::createFromFormat('Y/m/d', $second)->endOfDay();
+        $table_col_widht = $page_width / 6;
+        $pdf->Cell($table_col_widht, 5, 'من ', 0, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $first ,0, 0, 'C');
+
+        $pdf->Cell($table_col_widht, 5, 'الي ', 0, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, $second, 0, 1, 'C');
+
+        $deducts =  Deduct::whereBetween('created_at',[$first,$second])->get();
+        $table_col_widht = ($page_width ) / 8;
+        $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 14);
+
+        $pdf->Cell($table_col_widht/2 , 5, 'كود', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, ' اسم المنتج', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'سعر الشراء', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'سعر البيع', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'عدد المباع  ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, ' اجمالي الشراء  ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '  عدد العرض  ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '  اجمالي البيع بالعرض  ', 'TB',  1, 'C', fill: 1);
+
+        $pdf->setFont($fontname, 'b', 10);
+        $pdf->Ln();
+        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+        $index = 1;
+        $total = 0;
+        $total_profit = 0 ;
+        $items =  Item::all();
+        Deduct::all();
+        /** @var Item $item */
+        foreach ($items as $item) {
+
+            $deductedItems =  DeductedItem::whereBetween('created_at',[$first,$second])->where('item_id','=',$item->id)->get();
+           $pdo=  DB::getPdo();
+           $id = $item->id;
+
+            $numberOfSoldItems =  $pdo->query("select sum(box) from deducted_items where item_id = $id")->fetchColumn();
+            $numberOfSoldItemsWithOffer =  $pdo->query("select sum(box) from deducted_items where item_id = $id and offer_applied = 1")->fetchColumn();
+            $numberOfSoldItemsWithOfferTotal =  $pdo->query("select sum(box) * price as total  from deducted_items where item_id = $id and offer_applied = 1")->fetchColumn();
+//            $numberOfSoldItems = 0;
+//             if ($deductedItems->count() > 0){
+//
+//                 $numberOfSoldItems = $deductedItems->reduce(function ( $prev, $current){
+//
+//                     return $prev->box + $current->box ;
+//                 });
+//             }
+
+            $y = $pdf->GetY();
+            $pdf->Cell($table_col_widht/2 , 5, $item->id, 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $item->market_name, 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5,$item->last_deposit_item?->finalCostPrice, 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $item->last_deposit_item?->finalSellPrice, 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $numberOfSoldItems , 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $numberOfSoldItems * $item->last_deposit_item?->finalCostPrice , 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $numberOfSoldItemsWithOffer  , 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $numberOfSoldItemsWithOfferTotal  , 'TB', 1, 'C');
+
             $index++;
         }
         $pdf->Ln();

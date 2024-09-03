@@ -70,6 +70,7 @@ class Deduct extends Model
     use HasFactory;
     protected $with = ['deductedItems','paymentType','user','client','state'];
     protected $appends = ['total_price','profit','total_price_unpaid'];
+
     public function client()
     {
         return $this->belongsTo(Client::class);
