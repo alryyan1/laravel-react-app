@@ -60,6 +60,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereShippingStateId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereWeight($value)
+ * @property string $payment_method
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePaymentMethod($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model

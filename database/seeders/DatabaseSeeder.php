@@ -63,8 +63,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MainTestsTableSeeder::class);
         $this->call(ChildTestsTableSeeder::class);
         $this->call(SectionSeeder::class);
-        $this->call(SupplierSeeder::class);
-        Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
+//        $this->call(SupplierSeeder::class);
+//        Deposit::create(['bill_number'=>'123','bill_date'=>now(),'complete'=>1,'supplier_id'=>1]);
         $this->call(DrugCategoriesTableSeeder::class);
 
 //        $this->call(ClientSeeder::class);
@@ -89,5 +89,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FinanceAccountsTableSeeder::class);
         $this->call(Sysmex550TableSeeder::class);
         $this->call(ClientsTableSeeder::class);
+        $this->call(SuppliersTableSeeder::class);
     }
 }

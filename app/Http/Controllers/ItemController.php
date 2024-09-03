@@ -40,7 +40,11 @@ class ItemController extends Controller
                     if ($deductedItem){
                         $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
                     }else{
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->sell_price,'box'=>1]);
+                        $price = $item->last_deposit_item->finalSellPrice;
+                        if ($item->apply_offer){
+                            $price = $item->offer_price;
+                        }
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$product_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$price,'box'=>1,'offer_applied'=>$item->apply_offer]);
                 }
             }else{
                 foreach ($request->get('selectedDrugs' ) as $drug_id){
@@ -49,8 +53,12 @@ class ItemController extends Controller
                     if ($deductedItem){
                         $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
                     }else{
+                        $price = $item->last_deposit_item->finalSellPrice;
 
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->last_deposit_item->finalSellPrice,'box'=>1]);
+                        if ($item->apply_offer){
+                            $price = $item->offer_price;
+                        }
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$price,'box'=>1,'offer_applied'=>$item->apply_offer]);
 
                     }
                 }
@@ -274,6 +282,8 @@ class ItemController extends Controller
             $result = Item::create(['market_name' => $data['market_name'], 'section_id' => $data['section'], 'require_amount' => $data['require_amount'], 'initial_balance' => $data['initial_balance'], 'tests' => $data['tests'], 'unit' => $data['unit']
                 , 'initial_price' => $data['initial_price']   , 'offer_price' => $data['offer_price']]);
             if ($result){
+
+//                return $data;
                 $deposit_item = new DepositItem([
                     'item_id' => $data['item_id'],
                     'cost'=>$data['cost_price'],
@@ -289,7 +299,10 @@ class ItemController extends Controller
                     'user_id'=>\Auth::user()->id,
                     'created_at'=>now()
                 ]);
+                $deposit =  Deposit::latest()->first();
+                $deposit->items()->save($deposit_item);
             }
+
             return ['status' => $result];
         }else{
             return response(['status' => false,'message'=>'صلاحيه اضافه الاصناف غير مفعله'],400);

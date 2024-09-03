@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('deducts', function (Blueprint $table) {
-            $table->enum('payment_method', ['on_receive','postpaid'])->default('on_receive');
+        Schema::table('deducted_items', function (Blueprint $table) {
+            $table->boolean('offer_applied')->default(false);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('deducts', function (Blueprint $table) {
-            //
+        Schema::table('deducted_items', function (Blueprint $table) {
+            $table->dropColumn('offer_applied');
         });
     }
 };

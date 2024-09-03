@@ -68,6 +68,10 @@ use Illuminate\Support\Facades\DB;
  * @property-read mixed $total_deposit
  * @property-read mixed $total_out
  * @property-read mixed $total_remaining
+ * @property float $offer_price
+ * @property int $apply_offer
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereApplyOffer($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereOfferPrice($value)
  * @mixin \Eloquent
  */
 class Item extends Model

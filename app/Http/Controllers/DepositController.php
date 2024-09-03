@@ -21,8 +21,8 @@ class DepositController extends Controller
             'cost'=>$item->cost_price,
             'quantity'=>0,
             'free_quantity'=>0,
-            'vat_cost'=>5,
-            'vat_sell'=>5,
+            'vat_cost'=>0,
+            'vat_sell'=>0,
             'sell_price'=>$item->sell_price,
 
             'notes'=>'',
@@ -73,8 +73,8 @@ class DepositController extends Controller
                 'cost'=>$item->cost_price,
                 'quantity'=>0,
                 'free_quantity'=>0,
-                'vat_cost'=>5,
-                'vat_sell'=>5,
+                'vat_cost'=>0,
+                'vat_sell'=>0,
                 'sell_price'=>$item->sell_price,
 
                 'notes'=>'',
@@ -156,8 +156,8 @@ class DepositController extends Controller
             'barcode'=>$data['barcode'],
             'batch'=>$data['batch'],
             'free_quantity'=>$data['free_quantity'],
-            'vat_cost'=>5,
-            'vat_sell'=>5,
+            'vat_cost'=>0,
+            'vat_sell'=>0,
             'sell_price'=>$item->sell_price,
             'user_id'=>\Auth::user()->id,
             'created_at'=>now()

@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereUserId($value)
  * @property int $discount
  * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereDiscount($value)
+ * @property int $offer_applied
+ * @method static \Illuminate\Database\Eloquent\Builder|DeductedItem whereOfferApplied($value)
  * @mixin \Eloquent
  */
 class DeductedItem extends Model

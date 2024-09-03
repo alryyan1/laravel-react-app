@@ -42,6 +42,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:12:51',
                 'updated_at' => '2024-08-26 20:12:51',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             1 => 
             array (
@@ -66,6 +67,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:13:07',
                 'updated_at' => '2024-08-26 20:13:07',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             2 => 
             array (
@@ -90,6 +92,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:13:27',
                 'updated_at' => '2024-08-26 20:13:27',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             3 => 
             array (
@@ -114,6 +117,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:13:48',
                 'updated_at' => '2024-08-26 20:13:48',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             4 => 
             array (
@@ -138,6 +142,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:14:00',
                 'updated_at' => '2024-08-26 20:14:00',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             5 => 
             array (
@@ -162,6 +167,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:14:11',
                 'updated_at' => '2024-08-26 20:14:11',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             6 => 
             array (
@@ -186,6 +192,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:14:24',
                 'updated_at' => '2024-08-26 20:14:24',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             7 => 
             array (
@@ -210,6 +217,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:14:41',
                 'updated_at' => '2024-08-26 20:14:41',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             8 => 
             array (
@@ -234,6 +242,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:14:57',
                 'updated_at' => '2024-08-26 20:14:57',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             9 => 
             array (
@@ -258,6 +267,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:15:17',
                 'updated_at' => '2024-08-26 20:15:17',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             10 => 
             array (
@@ -282,6 +292,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:15:37',
                 'updated_at' => '2024-08-26 20:15:37',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             11 => 
             array (
@@ -306,32 +317,9 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:15:51',
                 'updated_at' => '2024-08-26 20:15:51',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
             12 => 
-            array (
-                'id' => 13,
-                'section_id' => NULL,
-                'name' => '',
-                'require_amount' => 0,
-                'initial_balance' => 0,
-                'initial_price' => 0,
-                'tests' => 0,
-                'expire' => '2024-08-26',
-                'cost_price' => 0.0,
-                'sell_price' => 0.0,
-                'tax' => 0.0,
-                'drug_category_id' => 2,
-                'pharmacy_type_id' => NULL,
-                'barcode' => '3266974470',
-                'strips' => 1,
-                'sc_name' => '',
-                'market_name' => 'عرض الخيط والفرشاة',
-                'batch' => '0',
-                'created_at' => '2024-08-26 20:16:06',
-                'updated_at' => '2024-08-26 20:16:06',
-                'unit' => '',
-            ),
-            13 => 
             array (
                 'id' => 14,
                 'section_id' => NULL,
@@ -349,13 +337,14 @@ class ItemsTableSeeder extends Seeder
                 'barcode' => '0870409455',
                 'strips' => 1,
                 'sc_name' => '',
-                'market_name' => 'عرض الخيط',
+                'market_name' => 'الخيط',
                 'batch' => '0',
                 'created_at' => '2024-08-26 20:16:24',
-                'updated_at' => '2024-08-26 20:16:24',
+                'updated_at' => '2024-09-03 12:18:56',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
-            14 => 
+            13 => 
             array (
                 'id' => 15,
                 'section_id' => NULL,
@@ -373,13 +362,14 @@ class ItemsTableSeeder extends Seeder
                 'barcode' => '2793603537',
                 'strips' => 1,
                 'sc_name' => '',
-                'market_name' => 'عرض لصقات',
+                'market_name' => 'لصقات',
                 'batch' => '0',
                 'created_at' => '2024-08-26 20:16:37',
-                'updated_at' => '2024-08-26 20:16:37',
+                'updated_at' => '2024-09-03 12:18:55',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
-            15 => 
+            14 => 
             array (
                 'id' => 16,
                 'section_id' => NULL,
@@ -397,13 +387,14 @@ class ItemsTableSeeder extends Seeder
                 'barcode' => '4031999610',
                 'strips' => 1,
                 'sc_name' => '',
-                'market_name' => 'عرض لصقات الاسنان الحساسة',
+                'market_name' => 'لصقات الاسنان الحساسة',
                 'batch' => '0',
                 'created_at' => '2024-08-26 20:16:49',
-                'updated_at' => '2024-08-26 20:16:49',
+                'updated_at' => '2024-09-03 12:18:53',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
-            16 => 
+            15 => 
             array (
                 'id' => 17,
                 'section_id' => NULL,
@@ -421,13 +412,14 @@ class ItemsTableSeeder extends Seeder
                 'barcode' => '4750857106',
                 'strips' => 1,
                 'sc_name' => '',
-                'market_name' => 'عرض الفرشاه',
+                'market_name' => 'الفرشاه',
                 'batch' => '0',
                 'created_at' => '2024-08-26 20:17:05',
-                'updated_at' => '2024-08-26 20:17:05',
+                'updated_at' => '2024-09-03 12:18:48',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
-            17 => 
+            16 => 
             array (
                 'id' => 18,
                 'section_id' => NULL,
@@ -450,6 +442,7 @@ class ItemsTableSeeder extends Seeder
                 'created_at' => '2024-08-26 20:17:16',
                 'updated_at' => '2024-08-26 20:17:16',
                 'unit' => '',
+                'offer_price' => 0.0,
             ),
         ));
         
