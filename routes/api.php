@@ -255,9 +255,9 @@ Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'b
 Route::middleware('auth:sanctum')->patch('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugUpdate']);
 Route::middleware('auth:sanctum')->delete('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugDelete']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
-Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
+Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{doctor}/{patient}', [PatientController::class, 'book']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor?}', [PatientController::class, 'saveByHistoryLab']);
-Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}', [PatientController::class, 'book']);
+Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}/{patient_id?}', [PatientController::class, 'book']);
 
 
 //companies
@@ -342,6 +342,7 @@ Route::post('sections/create', [SectionController::class, 'create']);
 Route::get('sections/all', [SectionController::class, 'all']);
 Route::delete('sections/{section}', [SectionController::class, 'destroy']);
 Route::patch('sections/{section}', [SectionController::class, 'update']);
+Route::get('chemwell', [\App\Http\Controllers\ChemwellController::class, 'read']);
 
 Route::middleware('auth:sanctum')->post('defineItemToLastDeposit/{item}', [DepositController::class, 'defineItemToLastDeposit']);
 Route::middleware('auth:sanctum')->delete('depositItem/{depositItem}', [DepositController::class, 'destroy']);

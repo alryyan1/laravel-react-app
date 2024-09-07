@@ -46,6 +46,8 @@ Route::get('excel/labPrices',[\App\Http\Controllers\ExcelController::class,'lapP
 Route::get('result',[\App\Http\Controllers\PDFController::class,'result']);
 Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
 Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
+Route::get('printReceptionReceipt',[\App\Http\Controllers\PDFController::class,'printReceptionReceipt']);
+Route::get('printLabReceipt/{patient}/{user}',[\App\Http\Controllers\PDFController::class,'printLabReceipt']);
 
 Route::get('/', function () {
     FacadesDebugbar::info('hi');

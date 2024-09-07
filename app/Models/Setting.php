@@ -49,6 +49,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereLang($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePrintDirect($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTheme($value)
+ * @property int $disable_doctor_service_check
+ * @property string $currency
+ * @property string $phone
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereDisableDoctorServiceCheck($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePhone($value)
  * @mixin \Eloquent
  */
 class Setting extends Model

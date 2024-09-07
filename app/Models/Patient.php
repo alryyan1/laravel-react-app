@@ -140,8 +140,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereWeight($value)
  * @property-read mixed $total_lab_value_unpaid
  * @property-read mixed $total_lab_value_will_pay
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @property-read mixed $has_cbc5
+ * @property string|null $address
+ * @property-read \App\Models\Country|null $country
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereAddress($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -213,11 +215,9 @@ class Patient extends Model
 }
     public function getHascbcAttribute(){
                 return $this->hasCbc();
-        return $this->hasCbc();
     }
     public function getHasCbc5Attribute(){
         return $this->hasCbc();
-return $this->hasCbc();
 }
     public function paid_lab($user = null){
         $total = 0;

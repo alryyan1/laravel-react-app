@@ -153,6 +153,25 @@ class Doctorvisit extends Model
         return $total;
 
     }
+    public function total_discounted(){
+
+        $total = 0;
+        foreach ($this->services as $service){
+            if ($service->discount > 0){
+
+                 $price= $service->price ;
+                $discount = $service->discount;
+                $discounted_money = ($price * $discount ) / 100;
+                $total += $discounted_money;
+//                $patient_paid =   $price - $discounted_money ;
+//                $total+=$patient_paid;
+
+            }
+
+        }
+        return $total;
+
+    }
     public function services_concatinated(){
         return $this->services->filter(function (RequestedService $item){
             return $item->is_paid == 1;

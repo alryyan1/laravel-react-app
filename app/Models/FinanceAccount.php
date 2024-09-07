@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceAccount whereUpdatedAt($value)
  * @property string|null $description
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceAccount whereDescription($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CreditEntry> $credits
+ * @property-read int|null $credits_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DebitEntry> $debits
+ * @property-read int|null $debits_count
  * @mixin \Eloquent
  */
 class FinanceAccount extends Model

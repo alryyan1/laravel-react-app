@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceEntry whereToAccount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceEntry whereTransfer($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinanceEntry whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CreditEntry> $credit
+ * @property-read int|null $credit_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DebitEntry> $debit
+ * @property-read int|null $debit_count
  * @mixin \Eloquent
  */
 class FinanceEntry extends Model

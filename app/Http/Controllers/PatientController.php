@@ -80,23 +80,13 @@ class PatientController extends Controller
 //        return ['status'=>$patient];
     }
 
-    public function registerVisit(Request $request ,Patient $patient , Doctor $doctor)
-    {
-//        return $doctor;
-        /** @var DoctorShift $current_shift */
-        $current_shift =   $doctor->shiftsByOrder[0];
-//        return $current_shift;
-        $doctor_visit = new Doctorvisit();
-        $doctor_visit->patient_id = $patient->id;
-        $doctor_visit->doctor_shift_id = $current_shift->id;
-        $current_shift->visits()->save($doctor_visit);
-        return ['status' => true];
-    }
-    public  function book(PatientAddRequest $request ,Doctor $doctor){
+
+    public  function book(PatientAddRequest $request ,Doctor $doctor , $patient_id = null){
         $data = $request->all();
         /** @var DoctorShift $current_shift */
         $current_shift =   $doctor->shiftsByOrder[0];
-        $patient_data =  $this->store($request,$doctor->id);
+        $old_patient = Patient::find($patient_id);
+        $patient_data =  $this->store($request,false,$old_patient,$doctor->id);
 
         $doctor_visit = new Doctorvisit();
         $doctor_visit->patient_id = $patient_data['patient']->id;
@@ -197,25 +187,29 @@ class PatientController extends Controller
         }
 
     }
-    public function store(PatientAddRequest|null $request,$isLab=false,$patient_from_history = null){
+    public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null){
 
+        //اخر ورديه موحده
         $shift = Shift::latest()->first();
+        //لو مقفوله ما تسجل
         if ($shift->is_closed){
             return  response(['message'=>'لم يتم فتح الورديه الماليه'],400);
         }
 
-//        return $request->validated();
-        if ($patient_from_history){
-            $patient = new Patient($patient_from_history->toArray()) ;
-            $patient->paper_fees = 0 ;
-            $patient->is_lab_paid = 0 ;
-            $patient->sample_collected = 0 ;
-            $patient->result_is_locked = 0 ;
-            $patient->result_print_date = null ;
-            $patient->result_print_date = null ;
+        //اذا المريض مسجل من قبل يتم نسخ البيانات الاساسيه فقط واضافه سجل جديد للمريض
+        if ($patient_from_history != null){
 
-
-//            return  ['patient' => $patient];
+//            return $patient_from_history;
+            $patient = new Patient() ;
+            $patient->name = $patient_from_history->name;
+            $patient->age_day = $patient_from_history->age_day;
+            $patient->age_month = $patient_from_history->age_month;
+            $patient->age_year = $patient_from_history->age_year;
+            $patient->gender = $patient_from_history->gender;
+            $patient->phone = $patient_from_history->phone;
+            $patient->gov_id = $patient_from_history->gov_id;
+            $patient->address = $patient_from_history->address;
+            $patient->doctor_id = $patient_from_history->doctor_id;
         }else{
             $patient = new Patient($request->validated());
             if ($isLab){
@@ -223,16 +217,20 @@ class PatientController extends Controller
             }
         }
 
+        // سجل بواسطه المستخدم الحالي
         $patient->user_id = \Auth::user()->id;
+        //اذا كان اول مريض بالنسبه للمعمل
         if ($shift->touched == 0){
             $patient->visit_number = 1;
             $shift->touched = 1;
             $shift->save();
         }else{
+            //sاما اذا كان غير ذلك ستم الحاق اخر رقم موجود زائد واحد
             $max_lab_no =  Patient::where('shift_id',$shift->id)->max('visit_number');
             $max_lab_no++;
             $patient->visit_number = $max_lab_no;
         }
+
 
         $patient->shift_id = $shift->id;
 
