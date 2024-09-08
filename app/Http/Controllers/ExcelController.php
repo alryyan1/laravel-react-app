@@ -97,7 +97,7 @@ class ExcelController extends Controller
         $first = Carbon::createFromFormat('Y/m/d', $data['first'])->startOfDay();
         $second = Carbon::createFromFormat('Y/m/d', $data['second'])->endOfDay();
         $deducts =  Deduct::whereBetween('created_at',[$first,$second])->get();
-        $letters_arr = ['C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','U','V'];
+        $letters_arr = ['C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH'];
         $number = 4;
         $column_start = 0;
 

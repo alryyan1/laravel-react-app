@@ -93,13 +93,10 @@ class DeductController extends Controller
         $id =  Deduct::max('id');
         $deduct->update(['complete'=>1]);
 
-        if ($id == $deduct->id){
-            return $this->newDeduct($request);
-        }else{
 
-            return ['data' => $deduct->fresh(), 'shift' => $deduct->shift];
+        return ['data' => $deduct->fresh(), 'shift' => $deduct->shift];
 
-        }
+
 
     }
     public function payment(Request $request ,Deduct $deduct){
@@ -125,12 +122,17 @@ class DeductController extends Controller
             $shift->touched = 1;
             $shift->save();
             $deduct->is_sell = $is_sell;
+            $deduct->complete = 1;
+            $deduct->shipping_state_id = 1;
+
             $deduct->save();
         } else {
             $max_lab_no = Deduct::where('shift_id', $shift->id)->max('number');
             $max_lab_no++;
             $deduct->number = $max_lab_no;
             $deduct->is_sell = $is_sell;
+            $deduct->complete = 1;
+            $deduct->shipping_state_id = 1;
 
             $deduct->save();
         }

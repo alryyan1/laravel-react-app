@@ -1029,18 +1029,20 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, $second, 0, 1, 'C');
 
         $deducts =  Deduct::whereBetween('created_at',[$first,$second])->get();
-        $table_col_widht = ($page_width ) / 8;
+        $table_col_widht = ($page_width ) / 9;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
         $pdf->Cell($table_col_widht/2 , 5, 'كود', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, ' اسم المنتج', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht *1.5 , 5, ' اسم المنتج', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, 'سعر الشراء', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'سعر البيع', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'عدد المباع  ', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, ' اجمالي الشراء  ', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, '  عدد العرض  ', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht, 5, '  اجمالي البيع بالعرض  ', 'TB',  1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'اجمالي  العدد   ', 'TB',  0, 'C', fill: 1);
+
+        $pdf->Cell($table_col_widht, 5, ' اجمالي الشراء  ', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, '    اج. ب . ع(OMR)  ', 'TB',  1, 'C', fill: 1);
 
         $pdf->setFont($fontname, 'b', 10);
         $pdf->Ln();
@@ -1057,9 +1059,10 @@ class PDFController extends Controller
            $pdo=  DB::getPdo();
            $id = $item->id;
 
-            $numberOfSoldItems =  $pdo->query("select sum(box) from deducted_items where item_id = $id")->fetchColumn();
+            $numberOfSoldItems =  $pdo->query("select sum(box) from deducted_items where item_id = $id and offer_applied = 0")->fetchColumn();
             $numberOfSoldItemsWithOffer =  $pdo->query("select sum(box) from deducted_items where item_id = $id and offer_applied = 1")->fetchColumn();
-            $numberOfSoldItemsWithOfferTotal =  $pdo->query("select sum(box) * price as total  from deducted_items where item_id = $id and offer_applied = 1")->fetchColumn();
+            $numberOfSoldItemsWithOfferTotal =  $pdo->query("select sum(price * box) as total  from deducted_items where item_id = $id and offer_applied = 1")->fetchColumn();
+            $total_count = $numberOfSoldItemsWithOffer  + $numberOfSoldItems;
 //            $numberOfSoldItems = 0;
 //             if ($deductedItems->count() > 0){
 //
@@ -1071,12 +1074,14 @@ class PDFController extends Controller
 
             $y = $pdf->GetY();
             $pdf->Cell($table_col_widht/2 , 5, $item->id, 'TB', 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $item->market_name, 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht * 1.5 , 5, $item->market_name, 'TB', 0, 'C',stretch: 1);
             $pdf->Cell($table_col_widht , 5,$item->last_deposit_item?->finalCostPrice, 'TB', 0, 'C');
             $pdf->Cell($table_col_widht , 5, $item->last_deposit_item?->finalSellPrice, 'TB', 0, 'C');
             $pdf->Cell($table_col_widht , 5, $numberOfSoldItems , 'TB', 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $numberOfSoldItems * $item->last_deposit_item?->finalCostPrice , 'TB', 0, 'C');
             $pdf->Cell($table_col_widht , 5, $numberOfSoldItemsWithOffer  , 'TB', 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $total_count , 'TB', 0, 'C');
+
+            $pdf->Cell($table_col_widht , 5, $total_count * $item->last_deposit_item?->finalCostPrice , 'TB', 0, 'C');
             $pdf->Cell($table_col_widht , 5, $numberOfSoldItemsWithOfferTotal  , 'TB', 1, 'C');
 
             $index++;
