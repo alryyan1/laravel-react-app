@@ -76,6 +76,7 @@ Route::middleware('auth:sanctum')-> post('contracts',[\App\Http\Controllers\Cont
 Route::middleware('auth:sanctum')->get('contracts/all/pagination/{item}', [\App\Http\Controllers\ContractController::class, 'pagination']);
 
 
+Route::middleware('auth:sanctum')-> patch('update/{user}',[\App\Http\Controllers\UserController::class,'update']);
 Route::middleware('auth:sanctum')-> patch('routes',[\App\Http\Controllers\UserController::class,'editRoutes']);
 Route::middleware('auth:sanctum')-> patch('subRoutes',[\App\Http\Controllers\UserController::class,'editSubRoutesRoutes']);
 Route::middleware('auth:sanctum')-> get('routes',[\App\Http\Controllers\UserController::class,'routes']);
