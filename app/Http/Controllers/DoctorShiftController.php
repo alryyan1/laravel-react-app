@@ -61,6 +61,17 @@ class DoctorShiftController extends Controller
         }])->where('user_id',$user_id)->where('status',$open)->where('shift_id',$shift_id)->get();
       return  $shifts;
     }
+    public function  openedDoctorsShifts(Request $request, $shift_id, $last = true ,$open = 1){
+
+
+       if ($last){
+           $shift_id =  Shift::latest()->first()->id;
+       }
+      $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
+            return $query->orderByDesc('doctor_visit.id');
+        }])->where('status',$open)->where('shift_id',$shift_id)->get();
+      return  $shifts;
+    }
     public function  LastShift(Request $request){
         $user_id =  Auth::user()->id;
         $shift_id =  Shift::latest()->first()->id;

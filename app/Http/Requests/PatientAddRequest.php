@@ -36,6 +36,8 @@ class PatientAddRequest extends FormRequest
             'insurance_no'=>'',
             'bp'=>'',
             'temp'=>'',
+            'heart_rate'=>'',
+            'spo2'=>'',
             'height'=>'',
             'weight'=>'',
             'juandice'=>'',

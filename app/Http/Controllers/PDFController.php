@@ -1555,7 +1555,7 @@ class PDFController extends Controller
     {
         /** @var Patient $patient */
         $patient = Patient::find($request->get('pid'));
-        $custom_layout = array(50, 25);
+        $custom_layout = array(38, 25);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('landscape', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -1885,8 +1885,8 @@ class PDFController extends Controller
         $pdf->Cell($colWidth  ,5,$patient->patient->file_patient->file_id,0,0);
         $pdf->Cell($colWidth,5,'رقم الملف',0,1,);
 
-        $pdf->Cell($colWidth,5,' Patient Name :',0,0,);
-        $pdf->Cell($colWidth  ,5,$patient->patient->name,0,0,stretch: 1);
+        $pdf->Cell($colWidth/2,5,' P. Name :',0,0,);
+        $pdf->Cell($colWidth*1.5  ,5,$patient->patient->name,0,0,stretch: 1);
         $pdf->Cell($colWidth,5,' اسم المريض',0,1,);
 
 
@@ -2117,7 +2117,7 @@ class PDFController extends Controller
         $pdf->Cell($colWidth,5,'   كود المريض ',0,1,);
 
         $pdf->Cell($colWidth,5,' Doctor   :',0,0,);
-        $pdf->Cell($colWidth  ,5,$patient->doctor->name,0,0);
+        $pdf->Cell($colWidth  ,5,$patient?->doctor?->name,0,0);
         $pdf->Cell($colWidth,5,'    الطبيب ',0,1,);
              $pdf->Cell($colWidth,5,' Date & time   :',0,0,);
         $pdf->Cell($colWidth  ,5,$patient->created_at->format('Y/m/d H:i A'),0,0);

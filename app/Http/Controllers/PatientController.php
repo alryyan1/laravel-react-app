@@ -17,12 +17,18 @@ use App\Zebra;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
 class PatientController extends Controller
 {
 
+    public function todayPatients(Request $request)
+    {
+        $today = Carbon::now()->format('Y-m-d').'%';
+      return[ 'data' => Doctorvisit::where('created_at','like',$today)->get(),'date'=>$today];
+    }
     public function file(Request $request , Patient $patient)
     {
         return ['data'=>\App\Models\File::with(['patients'=>function ( $query) {

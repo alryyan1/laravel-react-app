@@ -17,9 +17,10 @@ class UserController extends Controller
     public function update(Request $request, User $user){
         $data = $request->all();
 
-        return ['status' => $user->update([$data['colName'] => $data['val']    ? 1 : 0]),'user'=>$user];
+        return ['status' => $user->update([$data['colName'] => $data['val']  ]),'user'=>$user];
 
     }
+
     public function editRoutes(Request $request){
 
        $add =  $request->get('add');

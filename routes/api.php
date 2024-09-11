@@ -226,6 +226,7 @@ Route::delete('doctors/doctor/{doctor_service}', [DoctorController::class, 'dele
 Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShiftController::class,'open']);
 Route::middleware('auth:sanctum')->get('doctor/shift/close/{shift}',[DoctorShiftController::class,'close']);
 Route::middleware('auth:sanctum')->get('doctor/openShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'DoctorShifts']);
+Route::middleware('auth:sanctum')->get('doctor/openedDoctorsShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'openedDoctorsShifts']);
 Route::middleware('auth:sanctum')->get('doctor/byLastUnifiedShift',[DoctorShiftController::class, 'LastShift']);
 Route::get('doctors', [DoctorController::class, 'all']);
 Route::patch('doctors/{doctor}', [DoctorController::class, 'update']);
@@ -253,6 +254,7 @@ Route::get('packages/all', function () {
 Route::middleware('auth:sanctum')->get('patient/sampleCollected/{patient}', [PatientController::class, 'collectSample']);
 Route::middleware('auth:sanctum')->get('printLock/{patient}', [PatientController::class, 'printLock']);
 Route::middleware('auth:sanctum')->get('patients', [PatientController::class, 'byName']);
+Route::middleware('auth:sanctum')->get('todayPatients', [PatientController::class, 'todayPatients']);
 Route::middleware('auth:sanctum')->patch('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugUpdate']);
 Route::middleware('auth:sanctum')->delete('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugDelete']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);

@@ -64,7 +64,10 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable,HasRoles;
 //    protected $guarded = ['web','lab'];
     public function guardName() { return ['web', 'lab']; }
-
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -78,7 +81,7 @@ class User extends Authenticatable
         'doctor_id',
         'is_nurse'
     ];
-    protected $with = ['roles','routes','sub_routes'];
+    protected $with = ['roles','routes','sub_routes','doctor'];
     /**
      * The attributes that should be hidden for serialization.
      *
