@@ -75,7 +75,7 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-   return Sysmex5::find(1);
+
 //        \App\Models\Route::create(['name'=>'المخزن','path'=>'inventory']);
 //        \App\Models\Route::create(['name'=>'الصيدليه','path'=>'pharma']);
 //        \App\Models\Route::create(['name'=>'التدقيق','path'=>'audit']);
@@ -117,37 +117,45 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 //        Permission::create(['name' => 'سداد خدمه','guard_name'=>'web']);
 //        Permission::create(['name' => 'حذف خدمه','guard_name'=>'web']);
 //           return  \App\Models\Doctorvisit::find(2);
-//   $data =      DB::table('products_export_2024_07_10')->select('*')->get();
+   $data =      DB::table('forth')->select('*')->get();
+   $shift =      $shift = Shift::create();
+
+$index = 0;
+$item_id =3;
+
+//dd($data);
+   foreach ($data as $item) {
+       $index++;
+//       dd();
+      $result =  substr($item->brush,0,strpos($item->brush,'(',0));
+      $obj =  explode('-',$result);
+//      dd($obj);
+      $client =  \App\Models\Client::where('phone','=',trim($obj[2]))->first();
+      if ($client){
+          $client =  \App\Models\Client::create(['name'=>trim($obj[0]) ,'phone'=>trim($obj[2]),'address'=>trim($obj[1]),'country_id'=>1]);
+          $date  = explode('/',$obj[3]);
+//          dd($date);
+          $carbon = Carbon::create(2022,str_replace( '-','', trim($date[1])),str_replace( '-','', trim($date[0])));
+//          dd($carbon);
+          $deduct =  \App\Models\Deduct::create(['shift_id'=>$shift->id,'user_id'=>1,'payment_type_id'=>1,'complete'=>1,'weight'=>0,'number'=>$index,'client_id'=>$client->id,'created_at'=>$carbon->format('Y-m-d')]);
+          \App\Models\DeductedItem::create(['shift_id'=>$shift->id,'user_id'=>1,'deduct_id'=>$deduct->id,'item_id'=>$item_id,'client_id'=>$client->id,'strips'=>1,'box'=>1,'discount'=>0,'price'=>0,'created_at'=>$carbon->format('Y-m-d')]);
+
+      }else{
+          $client =  \App\Models\Client::create(['name'=>trim($obj[0]) ,'phone'=>trim($obj[2]),'address'=>trim($obj[1]),'country_id'=>1]);
+
+          $date  = explode('/',$obj[3]);
+          $carbon = Carbon::create(2022,str_replace( '-','', trim($date[1])),str_replace( '-','', trim($date[0])));
+//          dd($carbon);
+
+          $deduct =  \App\Models\Deduct::create(['shift_id'=>$shift->id,'user_id'=>1,'payment_type_id'=>1,'complete'=>1,'weight'=>0,'number'=>$index,'client_id'=>$client->id,'created_at'=>$carbon->format('Y-m-d')]);
+          \App\Models\DeductedItem::create(['shift_id'=>$shift->id,'user_id'=>1,'deduct_id'=>$deduct->id,'item_id'=>$item_id,'client_id'=>$client->id,'strips'=>1,'box'=>1,'discount'=>0,'price'=>0,'created_at'=>$carbon->format('Y-m-d')]);
+
+      }
+//      dd($client);
 
 
-//   foreach ($data as $item) {
-//       $pdo =   DB::getPdo();
-//       $result =   $pdo->prepare("select * from items where barcode = ? ");
-//       $result->execute([$item->barcode]);
-//       if ($result->rowCount() > 0){
-//           continue ;
-//
-//       }
-//       Item::create([
-//           'section_id' => NULL,
-//           'name' => '',
-//           'require_amount' => 0,
-//           'initial_balance' => 0,
-//           'initial_price' => 0,
-//           'tests' => 0,
-//           'expire' => '2024-07-01',
-//           'cost_price' => $item->purchase_price,
-//           'sell_price' => $item->selling_price,
-//           'drug_category_id' => NULL,
-//           'pharmacy_type_id' => NULL,
-//           'barcode' => $item->barcode,
-//           'strips' => 1,
-//           'sc_name' => $item->name,
-//           'market_name' => $item->name,
-//           'batch' => NULL,
-//           'unit' => '',
-//       ]);
-//   }
+
+   }
 
     });
 
