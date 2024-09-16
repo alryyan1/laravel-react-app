@@ -309,17 +309,23 @@ class ItemController extends Controller
         if ( $request->query('word') && $request->query('word') != ''){
             $word = $request->query('word');
 
-            $items =  collect( Item::with('section','category','type')->orderByDesc('id')->orWhere('name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('market_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->paginate($item));
+            $items =   Item::with('section','category','type')->orderByDesc('id')->orWhere('name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('market_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->paginate($item);
 
         }else{
-            $items =  collect( Item::with('section','category','type')->orderByDesc('id')->paginate($item));
+            $items =   Item::with('section','category','type')->orderByDesc('id')->paginate($item);
 
         }
+            /** @var Item $item */
+            foreach ($items as $item){
+                $item->getLastDepositItem();
+            }
+            $items = collect($items);
 
         }else{
             $items =  \response(['status' => false,'message'=>'صلاحيه عرض الاصناف غير مفعله'],400);
 
         }
+
 
         return  $items;
     }

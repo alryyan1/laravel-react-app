@@ -13,10 +13,10 @@ class SupplierSeeder extends Seeder
      */
     public function run(): void
     {
-        Supplier::create(['name'=>'شركه تباشير الطبيه','phone'=>'0','email'=>'','address'=>'']);
-        Supplier::create(['name'=>'شركه شيفاك','phone'=>'0','email'=>'','address'=>'']);
-        Supplier::create(['name'=>'شركه سيمنس  ','phone'=>'0','email'=>'','address'=>'']);
-        Supplier::create(['name'=>'شركه بايوستسم','phone'=>'0','email'=>'','address'=>'']);
-        Supplier::create(['name'=>'شركه  الريان','phone'=>'0','email'=>'','address'=>'']);
+        Supplier::create(['name'=>'مخزون افتتاحي','phone'=>'0','email'=>'','address'=>'']);
+//        Supplier::create(['name'=>'شركه شيفاك','phone'=>'0','email'=>'','address'=>'']);
+//        Supplier::create(['name'=>'شركه سيمنس  ','phone'=>'0','email'=>'','address'=>'']);
+//        Supplier::create(['name'=>'شركه بايوستسم','phone'=>'0','email'=>'','address'=>'']);
+//        Supplier::create(['name'=>'شركه  الريان','phone'=>'0','email'=>'','address'=>'']);
     }
 }

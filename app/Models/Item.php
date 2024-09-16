@@ -100,11 +100,15 @@ class Item extends Model
     public function totalOut(){
         return DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $this->id)->value('total');
     }
-    public function getLastDepositItem(): DepositItem|null
+    public function getLastDepositItem()
     {
         return DepositItem::where('item_id','=',$this->id)->latest()->first();
     }
-    protected $with = ['section','category','type'];
+    public function depositItem()
+    {
+        return $this->hasOne(DepositItem::class)->orderByDesc('id')->with('deposit');
+    }
+    protected $with = ['section','category','type','depositItem'];
     public function category()
     {
         return $this->belongsTo(DrugCategory::class,'drug_category_id');

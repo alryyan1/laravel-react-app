@@ -350,6 +350,8 @@ Route::get('chemwell', [\App\Http\Controllers\ChemwellController::class, 'read']
 Route::middleware('auth:sanctum')->post('defineItemToLastDeposit/{item}', [DepositController::class, 'defineItemToLastDeposit']);
 Route::middleware('auth:sanctum')->delete('depositItem/{depositItem}', [DepositController::class, 'destroy']);
 Route::middleware('auth:sanctum')->post('inventory/itemDeposit/{deposit}', [DepositController::class, 'deposit']);
+Route::middleware('auth:sanctum')->get('depositSummery/{deposit}', [DepositController::class, 'depositSummery']);
+
 Route::middleware('auth:sanctum')->delete('inventory/{deposit}', [DepositController::class, 'destroyDeposit']);
 Route::middleware('auth:sanctum')->get('getDepositWithItems/{deposit}', [DepositController::class, 'getDepositWithItems']);
 Route::middleware('auth:sanctum')->get('getDepositWithItemsAndSummery/{deposit}', [DepositController::class, 'getDepositWithItemsAndSummery']);

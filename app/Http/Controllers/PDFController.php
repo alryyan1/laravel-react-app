@@ -14,6 +14,7 @@ use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Package;
 use App\Models\Patient;
+use App\Models\PrescribedDrug;
 use App\Models\RequestedResult;
 use App\Models\Service;
 use App\Models\Setting;
@@ -1089,7 +1090,7 @@ class PDFController extends Controller
             $pdf->cell($table_col_widht / 2, 5, "Date", 0, 0, 'C');
             $pdf->cell($table_col_widht, 5, $patient->created_at->format('Y-m-d'), 0, 0, 'C');
             $pdf->SetFont($arial, '', 18, '', true);
-            $pdf->cell($table_col_widht * 2 + 10, 5, $patient->name, 0, 0, 'R'); //patient name
+            $pdf->cell($table_col_widht * 2 + 10, 5, $patient->name, 0, 0, 'R',stretch:1); //patient name
             $pdf->cell($table_col_widht / 2 - 10, 5, "الاسم/ ", 0, 1, 'R'); //
 
             $pdf->cell($table_col_widht / 2, 5, "SN", 0, 0, 'C');
@@ -2040,6 +2041,196 @@ class PDFController extends Controller
         }
 
     }
+    public function printPrescribedMedsReceipt(Request $request)
+    {
+        $patient = Doctorvisit::find($request->get('doctor_visit'));
+//        return $patient;
+        $count =  $patient->services->count();
+        $height=110;
+
+        if ($patient->patient->company_id != null){
+            $height=150;
+        }
+        $settings= Setting::all()->first();
+
+        $pdf = new Pdf('landscape', PDF_UNIT, 'A5', true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+//        $pdf->setLanguageArray($lg);
+        $lg = array();
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('prescription');
+        $pdf->setSubject('prescription');
+        $pdf->setMargins(5, 5, 5);
+        $page_width = $pdf->getPageWidth() - 10;
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        $pdf->setMargins(5, 5, 5);
+        $pdf->SetFont($arial, '', 7, '', true);
+
+        $pdf->Cell(60,5,$patient->created_at->format('Y/m/d H:i A'),0,1);
+        /** @var Setting $img_base64_encoded */
+        $settings= Setting::all()->first();
+        $img_base64_encoded =  $settings->header_base64;
+        $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
+        if ($settings->is_logo ){
+            $pdf->Image("@".$img, $page_width / 2 - 5, 5, 20, 20,align: 'C');
+
+        }
+        $pdf->Ln();
+        $pdf->SetFont($arial, '', 10, '', true);
+
+        $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->Cell($page_width,5,'prescription  وصفه طبيه',0,1,'C');
+        $pdf->setEqualColumns(2,$page_width/2);
+
+
+        $pdf->selectColumn(0);
+
+        $pdf->Ln();
+        $colWidth  = ($page_width  /2)/3;
+
+        $pdf->Cell($colWidth,5,' File No :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient->file_patient->file_id,0,0);
+        $pdf->Cell($colWidth,5,'رقم الملف',0,1,);
+
+        $pdf->Cell($colWidth/2,5,' P. Name :',0,0,);
+        $pdf->Cell($colWidth*1.5  ,5,$patient->patient->name,0,0,stretch: 1);
+        $pdf->Cell($colWidth,5,' اسم المريض',0,1,);
+
+
+        $pdf->Cell($colWidth,5,' Nationality  :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient?->country?->name,0,0);
+        $pdf->Cell($colWidth,5,' الجنسيه ',0,1,);
+        $pdf->Cell($colWidth,5,' Contact No  :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient->phone,0,0);
+        $pdf->Cell($colWidth,5,' رقم التواصل ',0,1,);
+        $pdf->Cell($colWidth,5,' Sex & Age   :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient->gender .' & '. $patient->patient->age_year .' Y/ '.$patient->patient->age_month .' M/ '. $patient->patient->age_day .' /D ',0,0);
+        $pdf->Cell($colWidth,5,'  النوع و العمر ',0,1,);
+        $pdf->selectColumn(1);
+        $pdf->Cell($colWidth,5,' Patient Id   :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient->id,0,0);
+        $pdf->Cell($colWidth,5,'   كود المريض ',0,1,);
+        $pdf->Cell($colWidth,5,' Doctor   :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient->doctor->name,0,0);
+        $pdf->Cell($colWidth,5,'    الطبيب ',0,1,);
+        $pdf->Cell($colWidth,5,' Date & time   :',0,0,);
+        $pdf->Cell($colWidth  ,5,$patient->patient->created_at->format('Y/m/d H:i A'),0,0);
+        $pdf->Cell($colWidth,5,'    التاريخ والزمن ',0,1,);
+        $pdf->SetFont($arial, '', 8, '', true);
+        $pdf->resetColumns();
+        $pdf->Ln();
+        $colWidth  = $page_width /4;
+        if ($patient->patient->company != null){
+            $pdf->Cell(20,5,'',0,0,'C');
+
+            $pdf->Cell(20,5,'بيانات التامين',1,1,'C',fill: 1);
+
+            $pdf->Cell($page_width - 10,5,'------------------------------------------------------------------ ',0,1,'C');
+
+            $col = $page_width / 4 ;
+
+            $pdf->Cell(10,5,'رقم البطاقه','B',0,'C',fill: 0);
+            $pdf->Cell(20,5, $patient->patient->insurance_no,0,0,'C');
+            $pdf->Cell(10,5,'الشركه','B',0,'C',fill: 0);
+            $pdf->Cell(20,5, $patient->patient->company->name,0,1,'C');
+            $pdf->Cell(10,5,'الضامن','B',0,'C',fill: 0);
+            $pdf->Cell(20,5, $patient->patient->guarantor,0,0,'C');
+            $pdf->Cell(10,5,'العلاقه','B',0,'C',fill: 0);
+            $pdf->Cell(20,5, $patient->patient->relation?->name,0,1,'C');
+            $pdf->Cell(10,5,'الجهه ',0,0,'C',fill: 0);
+            $pdf->Cell(20,5, $patient->patient->subcompany?->name,0,1,'C');
+            $pdf->Cell($page_width - 10,5,'------------------------------------------------------------------ ',0,1,'C');
+
+
+        }
+        $colWidth = $page_width / 3;
+
+        $pdf->Ln();
+        $pdf->setAutoPageBreak(TRUE, 0);
+        //$pdf->Ln(25);
+        $pdf->SetFont($arial, 'ub', 10, '', true);
+        $colWidth = $page_width / 2;
+        $pdf->Ln();
+
+        $pdf->Cell($colWidth,5,'Prescribed medicines',0,0,'');
+
+        $pdf->Cell($colWidth,5,' الوصفه الطبيه',0,1,'R');
+
+        $pdf->SetFont($arial, '', 8, '', true);
+        $colWidth = $page_width/3;
+        $pdf->Cell($colWidth * 1.5,5,'Name','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'Course','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'Days','TB',1,fill: 1);
+        $pdf->Cell($colWidth * 1.5,5,'الاسم','TB',0,fill: 1);
+        $pdf->Cell($colWidth,5,'الكورس','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'الايام','TB',1,fill: 1);
+        $total = 0;
+        /** @var PrescribedDrug $prescription */
+        foreach ($patient->patient->prescriptions as $prescription){
+            $pdf->Cell($colWidth * 1.5,5,$prescription->item->market_name,'TB',0,stretch: 1);
+            $pdf->Cell($colWidth,5,$prescription->course,'TB',0);
+            $pdf->Cell($colWidth/2,5,$prescription->days,'TB',1);
+        }
+        $pdf->Ln();
+        $pdf->Cell(30,5,'Notes',0,1);
+        $pdf->MultiCell($page_width, 10, $patient->patient->prescription_notes, 0, 'L', 1);
+        $style = array(
+            'position' => 'C',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+
+
+        $pdf->setEqualColumns(2,$page_width/2);
+        $pdf->selectColumn(1);
+        $colWidth = ($page_width/2) / 3;
+
+        $pdf->selectColumn(0);
+        $today = new \DateTime();
+        $today = $today->format('Y/m/d H:i A');
+        $pdf->Cell($colWidth,5,'Print Date & Time',0,0,'C',fill: 0);
+        $pdf->Cell($colWidth,5,$today  ,0,0,'C');
+        $pdf->Cell($colWidth,5,'تاريخ الطباعه والزمن',0,1);
+
+        $pdf->Cell($colWidth,5,'Printed By',0,0,'C',fill: 0);
+        $pdf->Cell($colWidth,5,User::find($request->get('user'))->username  ,0,0,'C');
+        $pdf->Cell($colWidth,5,'طبعت بواسطه',0,1);
+        $pdf->resetColumns();
+
+        $pdf->Ln();
+        $pdf->write1DBarcode("$patient->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
+
+
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
     public function printLabReceipt(Request $request,Patient $patient,User $user)
     {
 
@@ -2368,6 +2559,12 @@ class PDFController extends Controller
         $pdf->Cell(15,5,'المجموع',0,0,fill: 1);
 
         $pdf->Cell(30,5,$deduct->total_price() .' OMR',0 ,1,1);
+        $pdf->Cell(15,5,'الخصم',0,0,fill: 1);
+
+        $pdf->Cell(30,5,$deduct->discount .' OMR',0 ,1,1);
+        $pdf->Cell(15,5,'المدفوع',0,0,fill: 1);
+
+        $pdf->Cell(30,5,$deduct->total_price() - $deduct->discount  .' OMR',0 ,1,1);
         $pdf->Ln();
 
         $pdf->Cell(15,5,'المستخدم',0,0,fill: 1);

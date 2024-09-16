@@ -60,14 +60,9 @@ class Deposit extends Model
     }
 //    protected $with =['items','supplier','user'];
     protected $with =['supplier','user'];
-//    protected $appends = ['total','totalAmountPaid','totalVatCostMoney','totalCost','totalSell'];
-
-    public function getSummery(){
-        $this->totalpaid =  $this->totalPaid();
-        $this->totalCost =  $this->totalCost();
-        $this->totalSellWithoutVat =  $this->totalSellWithoutVat();
-        $this->totalVatCostMoney =  $this->totalVatCostMoney();
-        $this->total =  $this->total();
+//    protected $appends = ['purchaseSummery'];
+    public function getTotalAmountPaidAttribute(){
+        return $this->totalPaid();
     }
 
 
@@ -85,44 +80,38 @@ class Deposit extends Model
         }
         return $total;
     }
+//
 
-    public function totalPaid()
+    public function purchaseSummery()
     {
-        $total = 0;
+        $totalFinalPrice = 0;
+        $totalSellWithoutVat = 0;
+        $costWithOutVat = 0;
+        $totalCostWithVat = 0;
+        $totalRetailWithVat= 0 ;
+        $profit = 0;
+        $totalVatCost = 0;
+        $totalRetailWithOutVat = 0;
         /** @var DepositItem $item */
         foreach ($this->items as $item){
-            $total += ($item->item->last_deposit_item->finalCostPrice *$item->quantity);
+            $costWithOutVat += ($item->cost *$item->quantity);
+            $totalCostWithVat += ($item->item->last_deposit_item->finalCostPrice *$item->quantity);
+
+            $totalRetailWithVat += ($item->item->last_deposit_item->finalSellPrice *$item->quantity);
+            $totalRetailWithOutVat += ($item->item->last_deposit_item->finalSellPrice *$item->quantity);
+            $totalVatCost += ($item->vat_cost * $item->cost / 100) * $item->quantity;
+            $totalSellWithoutVat += ($item->sell_price *$item->quantity);
+            $profit +=   $totalRetailWithVat - $totalCostWithVat;
         }
-        return $total;
-    }
-    public function totalCost()
-    {
-        $total = 0;
-        /** @var DepositItem $item */
-        foreach ($this->items as $item){
-            $total += ($item->cost *$item->quantity);
-        }
-        return $total;
-    }
-    public function totalSellWithoutVat()
-    {
-        $total = 0;
-        /** @var DepositItem $item */
-        foreach ($this->items as $item){
-            $total += ($item->sell_price *$item->quantity);
-        }
-        return $total;
+        $this->costWithOutVat = $costWithOutVat ;
+        $this->CostWithVat = $totalCostWithVat ;
+        $this->discountedMoney = $totalCostWithVat * $this->discount / 100 ;
+        $this->totalVatCost = $totalVatCost ;
+        $this->totalSellWithoutVat = $totalSellWithoutVat ;
+        $this->profit = $profit ;
+        return $this;
     }
 
-    public function totalVatCostMoney()
-    {
-        $total = 0;
-        /** @var DepositItem $item */
-        foreach ($this->items as $item){
-            $total += ($item->vat_cost * $item->cost / 100) * $item->quantity;
-        }
-        return $total;
-    }
 
 
 

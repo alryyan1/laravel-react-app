@@ -51,7 +51,7 @@ class DepositController extends Controller
         $data = $request->all();
 
 
-        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item'),'deposit'=>$depositItem->deposit];
+        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item'),'deposit'=>$depositItem->deposit->load('items')];
     }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
@@ -87,7 +87,7 @@ class DepositController extends Controller
             $deposit->items()->save($deposit_item);
 
         }
-        return ['success'=>true,'deposit'=>$deposit->load('items')];
+        return ['success'=>true,'deposit'=>$deposit->load('items','items.item')];
     }
     public function allDeposits(){
 //        return Deposit::with(['items','items.item'])->orderByDesc('id')->with('supplier')->get();
@@ -145,11 +145,12 @@ class DepositController extends Controller
         $data  = $request->all();
         return Deposit::where('bill_number',$data['bill_number'])->get();
     }
+    public function depositSummery(Request $request , Deposit $deposit){
+        return $deposit->purchaseSummery();
+    }
     public function deposit(Request $request , Deposit $deposit){
         $data = $request->all();
         $user =  auth()->user();
-
-
         if ($user->can('اضافه للمخزون')) {
         $data = $request->all();
         $item =  Item::find($data['item_id']);

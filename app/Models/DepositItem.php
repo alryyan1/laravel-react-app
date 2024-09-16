@@ -62,12 +62,13 @@ class DepositItem extends Model
         return ($this->vat_sell * $this->sell_price)/100  + $this->sell_price;
 
     }
+
     public function getFinalCostPriceAttribute(){
         return ($this->vat_cost * $this->cost)/100  + $this->cost;
 
     }
     use HasFactory;
-//    protected $with = ['item'];
+//    protected $with = ['deposit'];
     public function item()
     {
         return $this->belongsTo(Item::class);

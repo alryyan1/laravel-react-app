@@ -115,6 +115,13 @@ class RoutesTableSeeder extends Seeder
                     'path' => 'finance',
                     'created_at' => '2024-08-14 14:22:58',
                     'updated_at' => '2024-08-14 14:22:58',
+                ), 12 =>
+                array (
+                    'id' => 13,
+                    'name' => 'patients',
+                    'path' => 'patients',
+                    'created_at' => '2024-08-14 14:22:58',
+                    'updated_at' => '2024-08-14 14:22:58',
                 ),
         ));
 
