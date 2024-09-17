@@ -55,7 +55,7 @@ class LabRequest extends Model
 {
 
     use HasFactory;
-    protected $table='labRequests';
+    protected $table='labrequests';
     public $timestamps = false;
     protected $with = ['requested_results','mainTest','unfinished_results_count','requested_organisms','userRequested'];
     protected $guarded = [];

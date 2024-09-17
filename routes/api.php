@@ -302,7 +302,7 @@ Route::patch('serviceGroup/{serviceGroup}', [\App\Http\Controllers\ServiceGroupC
 Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
 Route::post('patient/search/phone', [PatientController::class, 'searchByphone']);
-Route::post('patient/copy/{patient}/{doctor}', [PatientController::class, 'registerVisit']);
+Route::post('patient/copy/{doctor}/{patient_id}/{copy?}', [PatientController::class, 'book']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
 Route::middleware('auth:sanctum')->patch('patients/{patient}', [PatientController::class, 'update']);

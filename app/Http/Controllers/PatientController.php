@@ -87,22 +87,25 @@ class PatientController extends Controller
     }
 
 
-    public  function book(PatientAddRequest $request ,Doctor $doctor , $patient_id = null){
+    public  function book(PatientAddRequest $request ,Doctor $doctor , $patient_id = null,$copy = false){
         $data = $request->all();
-        /** @var DoctorShift $current_shift */
         $current_shift =   $doctor->shiftsByOrder[0];
+
+        if ($copy){
+            $doctor_visit = new Doctorvisit();
+            $doctor_visit->patient_id = $patient_id;
+            $doctor_visit->doctor_shift_id = $current_shift->id;
+            $current_shift->visits()->save($doctor_visit);
+            return ['status'=>true];
+        }
+        /** @var DoctorShift $current_shift */
         $old_patient = Patient::find($patient_id);
         $patient_data =  $this->store($request,false,$old_patient,$doctor->id);
-
         $doctor_visit = new Doctorvisit();
         $doctor_visit->patient_id = $patient_data['patient']->id;
         $doctor_visit->doctor_shift_id = $current_shift->id;
-
         $current_shift->visits()->save($doctor_visit);
-
-
-
-        return ['status',true];
+        return ['status'=>true];
     }
     public function search(Request $request){
        $data =  $request->all();
@@ -215,7 +218,13 @@ class PatientController extends Controller
             $patient->phone = $patient_from_history->phone;
             $patient->gov_id = $patient_from_history->gov_id;
             $patient->address = $patient_from_history->address;
-            $patient->doctor_id = $patient_from_history->doctor_id;
+            if ($doctor_id){
+                $patient->doctor_id = $doctor_id;
+
+            }else{
+                $patient->doctor_id = $patient_from_history->doctor_id;
+
+            }
         }else{
             $patient = new Patient($request->validated());
             if ($isLab){

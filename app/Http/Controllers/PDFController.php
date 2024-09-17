@@ -1901,7 +1901,7 @@ class PDFController extends Controller
 
 
         $pdf->Cell($colWidth,5,' Sex & Age   :',0,0,);
-        $pdf->Cell($colWidth  ,5,$patient->patient->gender .' & '. $patient->patient->age_year .' Y/ '.$patient->patient->age_month .' M/ '. $patient->patient->age_day .' /D ',0,0);
+        $pdf->Cell($colWidth  ,5,$patient->patient->gender .' & '. $patient->patient->age_year .' Y/ '.$patient->patient->age_month .' M/ '. $patient->patient->age_day .' /D ',0,0,stretch: 1);
         $pdf->Cell($colWidth,5,'  النوع و العمر ',0,1,);
         $pdf->selectColumn(1);
         $pdf->Cell($colWidth,5,' Patient Id   :',0,0,);
