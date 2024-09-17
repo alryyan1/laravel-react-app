@@ -8,6 +8,7 @@ use App\Models\Shift;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Comment\Doc;
 
 class DoctorShiftController extends Controller
@@ -70,6 +71,17 @@ class DoctorShiftController extends Controller
       $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
             return $query->orderByDesc('doctor_visit.id');
         }])->where('status',$open)->where('shift_id',$shift_id)->get();
+      return  $shifts;
+    }
+    public function  doctorVisitsByDate(Request $request){
+
+        $first = $request->get('first');
+        $second = $request->get('second');
+//       return [$first,$second];
+      $shifts =  DoctorShift::with(['doctor','visits'=>function( $query,){
+
+            return $query->orderByDesc('doctor_visit.id');
+        }])->whereBetween(DB::raw('DATE(created_at)'),[$first,$second])->get();
       return  $shifts;
     }
     public function  LastShift(Request $request){

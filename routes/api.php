@@ -227,6 +227,7 @@ Route::middleware('auth:sanctum')->get('doctor/shift/open/{doctor}',[DoctorShift
 Route::middleware('auth:sanctum')->get('doctor/shift/close/{shift}',[DoctorShiftController::class,'close']);
 Route::middleware('auth:sanctum')->get('doctor/openShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'DoctorShifts']);
 Route::middleware('auth:sanctum')->get('doctor/openedDoctorsShifts/{shift_id?}/{last?}/{open?}',[DoctorShiftController::class, 'openedDoctorsShifts']);
+Route::middleware('auth:sanctum')->post('doctorVisitsByDate',[DoctorShiftController::class, 'doctorVisitsByDate']);
 Route::middleware('auth:sanctum')->get('doctor/byLastUnifiedShift',[DoctorShiftController::class, 'LastShift']);
 Route::get('doctors', [DoctorController::class, 'all']);
 Route::patch('doctors/{doctor}', [DoctorController::class, 'update']);

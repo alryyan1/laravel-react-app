@@ -48,6 +48,8 @@ Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
 Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('printReceptionReceipt',[\App\Http\Controllers\PDFController::class,'printReceptionReceipt']);
 Route::get('printPrescribedMedsReceipt',[\App\Http\Controllers\PDFController::class,'printPrescribedMedsReceipt']);
+Route::get('printLabAndClinicReceipt',[\App\Http\Controllers\PDFController::class,'printLabAndClinicReceipt']);
+Route::get('patientsReport',[\App\Http\Controllers\PDFController::class,'patientsReport']);
 Route::get('printLabReceipt/{patient}/{user}',[\App\Http\Controllers\PDFController::class,'printLabReceipt']);
 
 Route::get('/', function () {
@@ -77,48 +79,9 @@ Route::get('/home', function () {
 Route::post('webhook',[WebhookController::class,'webhook']);
 
     Route::get('test',function (){
-   return Sysmex5::find(1);
-//        \App\Models\Route::create(['name'=>'المخزن','path'=>'inventory']);
-//        \App\Models\Route::create(['name'=>'الصيدليه','path'=>'pharma']);
-//        \App\Models\Route::create(['name'=>'التدقيق','path'=>'audit']);
-//        \App\Models\Route::create(['name'=>'المختبر','path'=>'lab']);
-//        \App\Models\Route::create(['name'=>'العيادات','path'=>'clinic']);
-//        \App\Models\Route::create(['name'=>'التعاقدات','path'=>'insurance']);
-//        \App\Models\Route::create(['name'=>'الخدمات','path'=>'services']);
-//        \App\Models\Route::create(['name'=>'الاعدادات','path'=>'settings']);
-//        \App\Models\Route::create(['name'=>'الرئيسيه','path'=>'dashboard']);
-//
-//            \App\Models\SubRoute::create(['name'=>'define','path'=>'/pharmacy/add','route_id'=>2]);
-//            \App\Models\SubRoute::create(['name'=>'pos','path'=>'/pharmacy/sell','route_id'=>2]);
-//            \App\Models\SubRoute::create(['name'=>'items','path'=>'/pharmacy/items','route_id'=>2]);
-//            \App\Models\SubRoute::create(['name'=>'sales','path'=>'/pharmacy/reports','route_id'=>2]);
-//            \App\Models\SubRoute::create(['name'=>'inventory','path'=>'/pharmacy/inventory','route_id'=>2]);
-//            \App\Models\SubRoute::create(['name'=>'income','path'=>'/pharmacy/deposit','route_id'=>2]);
-//            \App\Models\SubRoute::create(['name'=>'expenses','path'=>'/clinic/denos','route_id'=>2]);
-//
-//        \App\Models\SubRoute::create(['name'=>'الحجز','path'=>'/clinic','route_id'=>5]);
-//        \App\Models\SubRoute::create(['name'=>'استحقاق الاطباء','path'=>'/clinic/doctors','route_id'=>5]);
-//        \App\Models\SubRoute::create(['name'=>'حساب الفئات','path'=>'clinic/denos','route_id'=>5]);
-//
-//
-//        \App\Models\SubRoute::create(['name'=>'تسجيل مريض','path'=>'laboratory/add','route_id'=>4]);
-//        \App\Models\SubRoute::create(['name'=>'ادخال النتائج ','path'=>'laboratory/result','route_id'=>4]);
-//        \App\Models\SubRoute::create(['name'=>'سحب العينات','path'=>'laboratory/sample','route_id'=>4]);
-//        \App\Models\SubRoute::create(['name'=>'اداره التحاليل ','path'=>'laboratory/tests','route_id'=>4]);
-//        \App\Models\SubRoute::create(['name'=>'قائمه الاسعار','path'=>'laboratory/price','route_id'=>4]);
-//        \App\Models\SubRoute::create(['name'=>'CBC LIS','path'=>'laboratory/cbc-lis','route_id'=>4]);
-//        \App\Models\SubRoute::create(['name'=>'Chemistry LIS','path'=>'laboratory/chemistry-lis','route_id'=>4]);
 
-//        Permission::create(['name' => 'الغاء سداد فحص','guard_name'=>'web']);
-//        Permission::create(['name' => 'التخفيض','guard_name'=>'web']);
-//        Permission::create(['name' => 'سداد فحص','guard_name'=>'web']);
-//        Permission::create(['name' => 'تعديل بيانات المريض','guard_name'=>'web']);
-//
-//
-//        Permission::create(['name' => 'الغاء سداد خدمه','guard_name'=>'web']);
-//        Permission::create(['name' => 'سداد خدمه','guard_name'=>'web']);
-//        Permission::create(['name' => 'حذف خدمه','guard_name'=>'web']);
-//           return  \App\Models\Doctorvisit::find(2);
+
+
 //   $data =      DB::table('products_export_2024_07_10')->select('*')->get();
 
 
