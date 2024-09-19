@@ -308,15 +308,15 @@ Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
 Route::middleware('auth:sanctum')->patch('patients/{patient}', [PatientController::class, 'update']);
 Route::get('patient/barcode/{patient}', [PatientController::class, 'printBarcode']);
-Route::middleware('auth:sanctum')->post('labRequest/add/{patient}', [LabRequestController::class, 'store']);
-Route::middleware('auth:sanctum')->patch('labRequest/{labRequest}', [LabRequestController::class, 'edit']);
-Route::middleware('auth:sanctum')->patch('labRequest/payment/{patient}', [LabRequestController::class, 'payment']);
-Route::middleware('auth:sanctum')->patch('labRequest/cancelPayment/{patient}', [LabRequestController::class, 'cancel']);
-Route::patch('labRequest/bankak/{labRequest}', [LabRequestController::class, 'bankak']);
+Route::middleware('auth:sanctum')->post('labRequest/add/{doctorVisit}', [LabRequestController::class, 'store']);
+Route::middleware('auth:sanctum')->patch('labRequest/{labRequest}/{doctorVisit}', [LabRequestController::class, 'edit']);
+Route::middleware('auth:sanctum')->patch('payment/{doctorVisit}', [LabRequestController::class, 'payment']);
+Route::middleware('auth:sanctum')->patch('cancelPayment/{doctorVisit}', [LabRequestController::class, 'cancel']);
+Route::patch('labRequest/bankak/{labRequest}/{doctorVisit}', [LabRequestController::class, 'bankak']);
 Route::patch('labRequest/hidetest/{labRequest}', [LabRequestController::class, 'hide']);
 
 Route::get('labRequest/{patient}', [LabRequestController::class, 'all']);
-Route::delete('labRequest/{labRequest}', [LabRequestController::class, 'destroy']);
+Route::delete('labRequest/{labRequest}/{doctorVisit}', [LabRequestController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->post('client/create', [ClientController::class, 'create']);

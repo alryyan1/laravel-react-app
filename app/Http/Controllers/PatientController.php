@@ -199,7 +199,7 @@ class PatientController extends Controller
     public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null){
 
         //اخر ورديه موحده
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         //لو مقفوله ما تسجل
         if ($shift->is_closed){
             return  response(['message'=>'لم يتم فتح الورديه الماليه'],400);

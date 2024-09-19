@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ChildTest;
 use App\Models\Company;
+use App\Models\Doctorvisit;
 use App\Models\LabRequest;
 use App\Models\MainTest;
 use App\Models\Patient;
@@ -34,26 +35,27 @@ class LabRequestController extends Controller
        $val =  $request->get('val');
         return ['status'=>$requestedOrganism->update([$col=>$val])];
     }
-    public function bankak(Request $request,LabRequest $labRequest){
+    public function bankak(Request $request,LabRequest $labRequest,Doctorvisit $doctorVisit){
         $data = $request->all();
         $test_id =  $data['id'];
 
-        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh()];
+        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh(),'data'=>$doctorVisit->fresh()];
     }
     public function hide(Request $request,LabRequest $labRequest){
         $data = $request->all();
         return ['status'=>$labRequest->update(['hidden'=>$data['val']]),'data'=>$labRequest->patient->refresh()];
     }
-    public function edit(Request $request,LabRequest $labRequest){
+    public function edit(Request $request,LabRequest $labRequest,Doctorvisit $doctorVisit){
         $user =  auth()->user();
         if (!$user->can('التخفيض')) {
             return  response(['message'=>'صلاحيه التخفيض غير مفعله'],400);
         }
         $data = $request->all();
 
-        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$labRequest->patient->refresh()];
+        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$doctorVisit->fresh()];
     }
-    public function payment(Request $request,Patient $patient){
+    public function payment(Request $request,Doctorvisit $doctorVisit){
+        $patient = $doctorVisit->patient;
         $user =  auth()->user();
         if (!$user->can('سداد فحص')) {
             return  response(['message'=>'صلاحيه سداد فحص غير مفعله'],400);
@@ -103,17 +105,17 @@ class LabRequestController extends Controller
                         $requested->update(['price' => $price, 'amount_paid' => $amount_paid, 'user_deposited' => $user->id]);
                     }
                     $patient->is_lab_paid = true;
-                    $patient->lab_paid = $data['paid'];
-                    $result = $patient->save();
+
 
 
             });
         } catch (\Throwable $e) {
-            return ['status' => true, 'data' => $patient->refresh(),'message' => $e->getMessage()];
+            return ['status' => false,'message' => $e->getMessage()];
         }
-        return ['status' => true, 'data' => $patient->refresh()];
+        return ['status' =>   $patient->save(), 'data' => $doctorVisit->refresh()];
     }
-    public function cancel(Request $request,Patient $patient){
+    public function cancel(Request $request,Doctorvisit $doctorVisit){
+        $patient = $doctorVisit->patient;
         $user =  auth()->user();
         if (!$user->can('الغاء سداد فحص')) {
             return  response(['message'=>'صلاحيه الغاء السداد غير مفعله'],400);
@@ -137,13 +139,15 @@ class LabRequestController extends Controller
         }
 
 
-        return  ['status'=> $patient->save()];
+
+        return  ['status'=> $patient->save(),'data'=>$doctorVisit->fresh()];
 
 
 
     }
-    public function store(Request $request, Patient $patient)
+    public function store(Request $request, Doctorvisit  $doctorVisit)
     {
+        $patient = $doctorVisit->patient;
         try {
             DB::transaction(function () use ($request, $patient) {
                 $user = auth()->user();
@@ -194,11 +198,11 @@ class LabRequestController extends Controller
 
         }
 
-        return ['status' => true,'patient'=>$patient->fresh()];
+        return ['status' => true,'patient'=>$doctorVisit->fresh()];
 
     }
 
-    public function destroy(Request $request,LabRequest $labRequest)
+    public function destroy(Request $request,LabRequest $labRequest,Doctorvisit $doctorVisit)
     {
         try {
             DB::transaction(function () use ($request, $labRequest) {
@@ -211,9 +215,9 @@ class LabRequestController extends Controller
 
             });
         } catch (\Throwable $e) {
-            return ['status' => true, 'message' => $e->getMessage()];
+            return ['status' => false, 'message' => $e->getMessage()];
         }
-        return ['status' => true, 'data' => $labRequest->patient];
+        return ['status' => true, 'data' => $labRequest->patient , 'patient'=>$doctorVisit->fresh()];
 
 
     }

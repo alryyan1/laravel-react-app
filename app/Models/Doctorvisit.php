@@ -41,7 +41,7 @@ class Doctorvisit extends Model
         return $this->bankak_service();
     }
 
-    protected $appends = ['total_paid_services'];
+    protected $appends = ['total_paid_services','total_services','total_discounted'];
 //    public function services(){
 //        return $this->belongsToMany(Service::class,'requested_service','doctor_visit_id','service_id')->withPivot(['price','bank','amount_paid','doctor_id','user_id','discount','is_paid','count'])->using(UserPivot::class);
 //    }
@@ -111,6 +111,10 @@ class Doctorvisit extends Model
         }
         return $total;
     }
+    public function getTotalServicesAttribute()
+    {
+        return $this->total_services();
+    }
     public function total_services(Doctor|null $doctor  = null,$user= null){
         $total = 0;
 //        dd($this->services);
@@ -152,6 +156,10 @@ class Doctorvisit extends Model
         }
         return $total;
 
+    }
+    public function getTotalDiscountedAttribute()
+    {
+        return $this->total_discounted();
     }
     public function total_discounted(){
 

@@ -170,7 +170,7 @@ class Patient extends Model
     }
 
 
-    protected $appends = ['paid','hasCbc','visit_count','total_lab_value_unpaid','total_lab_value_will_pay'];
+    protected $appends = ['paid','hasCbc','visit_count','total_lab_value_unpaid','total_lab_value_will_pay','discountAmount'];
     public  function getVisitCountAttribute()
     {
         return $this->visit_count();
@@ -279,6 +279,11 @@ class Patient extends Model
         }
         return $total;
     }
+    public function getDiscountAmountAttribute(){
+        return $this->discountAmount();
+    }
+
+
 
 
 

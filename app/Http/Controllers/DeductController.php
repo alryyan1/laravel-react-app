@@ -117,7 +117,7 @@ class DeductController extends Controller
         $user = auth()->user();
         $shift_id = Shift::max('id');
         $deduct = Deduct::create(['shift_id' => $shift_id, 'user_id' => $user->id]);
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         $is_sell = $request->query('is_sell') ? 1 : 0;
 
         if ($shift->touched == 0) {

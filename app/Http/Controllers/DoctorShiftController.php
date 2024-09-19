@@ -25,7 +25,7 @@ class DoctorShiftController extends Controller
                 return  ['status'=>false,'msg'=>'يجب قفل الورديه'];
             }
         }
-        $shift  = Shift::latest()->first();
+        $shift  = Shift::orderByDesc('id')->first();
         if ($shift->is_closed){
             return  response(['msg'=> 'يجب فتح ورديه ماليه','status'=>false],400);
         }
@@ -55,7 +55,7 @@ class DoctorShiftController extends Controller
        $user_id =  Auth::user()->id;
 
        if ($last){
-           $shift_id =  Shift::latest()->first()->id;
+           $shift_id =  Shift::orderByDesc('id')->first()->id;
        }
       $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
             return $query->orderByDesc('doctor_visit.id');
@@ -66,7 +66,7 @@ class DoctorShiftController extends Controller
 
 
        if ($last){
-           $shift_id =  Shift::latest()->first()->id;
+           $shift_id =  Shift::orderByDesc('id')->first()->id;
        }
       $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
             return $query->orderByDesc('doctor_visit.id');
@@ -86,7 +86,7 @@ class DoctorShiftController extends Controller
     }
     public function  LastShift(Request $request){
         $user_id =  Auth::user()->id;
-        $shift_id =  Shift::latest()->first()->id;
+        $shift_id =  Shift::orderByDesc('id')->first()->id;
         $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
             return $query->orderByDesc('doctor_visit.id');
         }])->where('user_id',$user_id)->where('shift_id',$shift_id)->get();

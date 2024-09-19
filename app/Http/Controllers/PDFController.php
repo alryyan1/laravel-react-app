@@ -613,7 +613,7 @@ class PDFController extends Controller
             $shift = Shift::find($request->get('shift'));
 
         }else{
-            $shift = Shift::latest()->first();
+            $shift = Shift::orderByDesc('id')->first();
 
         }
 
@@ -1249,10 +1249,18 @@ class PDFController extends Controller
             }
         };
         $pdf->foot = function ($pdf) use ($patient, $page_width, $arial,$settings) {
+            $pdf->SetFont($arial, '', 10, '', true);
+            $col = $page_width / 6;
+            $pdf->cell(20, 5, "Sign: ", 0, 1, 'L');
+            $pdf->cell($col, 5, "", 0, 0, 'L');
+            $pdf->cell($col, 5, " ", 0, 0, 'L');
+            $pdf->cell($col, 5, " ", 0, 0, 'L');
+            $pdf->cell($col, 5, " ", 0, 0, 'L');
+            $pdf->cell($col, 5, "Visit No ", 0, 0, 'R');
+            $pdf->cell($col, 5, $patient->visit_number, 0, 1, 'C');
             if ($settings->footer_content != null){
                $pdf->SetFont($arial, '', 10, '', true);
 
-                $pdf->cell(25, 5, "Sign: ", 0, 1, 'L');
 
                 $pdf->MultiCell($page_width - 25, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);
 
@@ -1992,9 +2000,12 @@ class PDFController extends Controller
 
         }
         $pdf->Ln();
-        $pdf->SetFont($arial, '', 10, '', true);
+        $pdf->SetFont($arial, '', 15, '', true);
 
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->Ln();
+
+        $pdf->SetFont($arial, '', 10, '', true);
         $pdf->Cell($page_width,5,'prescription  وصفه طبيه',0,1,'C');
         $pdf->setEqualColumns(2,$page_width/2);
 
@@ -2178,9 +2189,12 @@ class PDFController extends Controller
 
         }
         $pdf->Ln();
-        $pdf->SetFont($arial, '', 10, '', true);
+        $pdf->SetFont($arial, '', 15, '', true);
 
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->Ln();
+
+        $pdf->SetFont($arial, '', 10, '', true);
         $pdf->Cell($page_width,5,'Invoice  فاتوره',0,1,'C');
         $pdf->setEqualColumns(2,$page_width/2);
 
@@ -2385,9 +2399,12 @@ class PDFController extends Controller
 
         }
         $pdf->Ln();
-        $pdf->SetFont($arial, '', 10, '', true);
+        $pdf->SetFont($arial, '', 15, '', true);
 
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
+        $pdf->Ln();
+
+        $pdf->SetFont($arial, '', 10, '', true);
         $pdf->Cell($page_width,5,'Invoice  فاتوره',0,1,'C');
         $pdf->setEqualColumns(2,$page_width/2);
 
@@ -2926,7 +2943,7 @@ class PDFController extends Controller
     {
 
 
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         $user_id = $request->get('user');
         $doctor_shifts = DoctorShift::with(['doctor', 'visits'])->where('user_id', $user_id)->where('status', 1)->where('shift_id', $shift->id)->get();
 
@@ -3051,7 +3068,7 @@ class PDFController extends Controller
             $shift = Shift::find($request->get('shift'));
 
         }else{
-            $shift = Shift::latest()->first();
+            $shift = Shift::orderByDesc('id')->first();
         }
         if ($request->has('user')){
             $user_id = $request->get('user');
@@ -3289,7 +3306,7 @@ class PDFController extends Controller
             $shift = Shift::find($request->get('shift'));
 
         }else{
-            $shift = Shift::latest()->first();
+            $shift = Shift::orderByDesc('id')->first();
         }
         if ($request->has('user')){
             $user_id = $request->get('user');
@@ -3422,7 +3439,7 @@ class PDFController extends Controller
             $shift = Shift::find($request->get('shift'));
 
         }else{
-            $shift = Shift::latest()->first();
+            $shift = Shift::orderByDesc('id')->first();
         }
         if ($request->has('user')){
             $user_id = $request->get('user');
@@ -3540,7 +3557,7 @@ class PDFController extends Controller
             $shift = Shift::find($request->get('shift'));
 
         }else{
-            $shift = Shift::latest()->first();
+            $shift = Shift::orderByDesc('id')->first();
         }
         if ($request->has('user')){
             $user_id = $request->get('user');

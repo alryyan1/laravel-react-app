@@ -14,17 +14,17 @@ class ShiftController extends Controller
 
     public function totalUserLab(Request $request){
         $user = auth()->user();
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         return $shift->paidLab($user->id);
     }
     public function totalUserLabBank(Request $request){
         $user = auth()->user();
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         return $shift->bankakLab($user->id);
     }
     public function totalUserLabTotalAndBank(Request $request){
         $user = auth()->user();
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         return ['bank'=>$shift->bankakLab($user->id),'total'=>$shift->paidLab($user->id)];
     }
     public function getShiftByDate( Request $request){
@@ -50,10 +50,10 @@ class ShiftController extends Controller
     }
     public function last()
     {
-        $shift = Shift::latest()->with(['deducts','patients'=>function (HasMany $query) {
-            return $query->orderByDesc('patients.id');
-        }])->first();
-        return ['status' => true, 'data' => $shift];
+        $shift = Shift::with(['deducts','patients'=>function (HasMany $query) {
+                return $query->orderByDesc('patients.id');
+            }])->orderByDesc('id')->first();
+        return ['status' => true, 'data' => $shift ];
 
     }public function shiftById(Request $request , Shift $shift)
     {
@@ -66,19 +66,19 @@ class ShiftController extends Controller
     }
 
     public function total(){
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         return ['status'=> true, 'total'=>$shift->totalPaid()];
     }
     public function totalService(){
          $user =  auth()->user();
         /** @var Shift $shift */
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         return ['status'=> true, 'total'=>$shift->totalPaidService($user->id)];
     }
     public function totalServiceBank(){
         $user =  auth()->user();
         /** @var Shift $shift */
-        $shift = Shift::latest()->first();
+        $shift = Shift::orderByDesc('id')->first();
         return ['status'=> true, 'total'=>$shift->totalPaidServiceBank($user->id)];
     }
 
