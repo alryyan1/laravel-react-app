@@ -68,6 +68,7 @@ use Illuminate\Support\Facades\DB;
  * @property-read mixed $total_deposit
  * @property-read mixed $total_out
  * @property-read mixed $total_remaining
+ * @property-read \App\Models\DepositItem|null $depositItem
  * @mixin \Eloquent
  */
 class Item extends Model

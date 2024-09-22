@@ -247,10 +247,14 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists','totalDeductsPostPaid'];
+    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists','totalDeductsPostPaid','totalDeductsPaid'];
     public function getTotalDeductsPriceAttribute()
     {
         return $this->totalDeductsPrice();
+    }
+    public function getTotalDeductsPaidAttribute()
+    {
+        return $this->totalDeductsPaid();
     }
     public function getTotalDeductsPostPaidAttribute(){
         return $this->totalDeductsPostPaid();
@@ -346,6 +350,17 @@ class Shift extends Model
 
         return $total;
     }
+    public function totalDeductsPaid()
+    {
+        $total = 0;
+
+        foreach ($this->deducts as $deduct){
+            if (!$deduct->complete || $deduct->is_sell ==0) continue;
+           $total += $deduct->total_paid();
+        }
+
+        return $total;
+    }
     public function totalDeductsPostPaid()
     {
         $total = 0;
@@ -378,7 +393,7 @@ class Shift extends Model
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             if ($deduct->payment_type_id == 3 ){
-                $total += $deduct->total_price();
+                $total += $deduct->total_paid();
 
             }
         }
@@ -393,7 +408,7 @@ class Shift extends Model
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             if ($deduct->payment_type_id == 2 ){
-                $total += $deduct->total_price();
+                $total += $deduct->total_paid();
 
             }
         }
@@ -408,7 +423,7 @@ class Shift extends Model
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             if ($deduct->payment_type_id == 1 && !$deduct->is_postpaid ){
-                $total += $deduct->total_price();
+                $total += $deduct->total_paid();
 
             }
         }

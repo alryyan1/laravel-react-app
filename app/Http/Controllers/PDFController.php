@@ -899,17 +899,16 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, 'Date ', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, $shift->created_at->format('Y/m/d').'   '.$shift->created_at->format('H:i A'), 1, 1, 'C');
 
-        $table_col_widht = ($page_width ) / 7;
+        $table_col_widht = ($page_width ) / 6;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht/2 , 5, 'Id', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht/2 , 5, 'S.No', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'Total', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht, 5, 'Paid', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht /2, 5, 'Type', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht  , 5, "Time", 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht  , 5, "profit", 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht * 2.5 , 5, 'Items', 1, 1, 'C', fill: 1);
+        $pdf->Cell($table_col_widht * 2 , 5, 'Items', 1, 1, 'C', fill: 1);
 
 
         $pdf->setFont($fontname, 'b', 12);
@@ -923,15 +922,14 @@ class PDFController extends Controller
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
-            $pdf->Cell($table_col_widht / 2 , 5, $deduct->id, 0, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->number, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->total_price() , 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->total_paid() , 0, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('H:i A'), 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->profit(), 0, 0, 'C');
             $pdf->setFont($fontname, '', 10);
 
-            $pdf->MultiCell($table_col_widht *2.5 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
+            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
 
 
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
@@ -941,13 +939,7 @@ class PDFController extends Controller
         }
 
         $pdf->Ln();
-        $pdf->Cell($table_col_widht/2 , 5, '', 0, 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht/2 , 5, '', 0, 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, '', 0, 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht /2, 5, '', 0, 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht  , 5, "", 0, 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht  , 5, number_format($shift->totalItemsProfit(),3), 0, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht * 2.5 , 5, '', 0, 1, 'C', fill: 0);
+
         $pdf->Ln();
 
         $table_col_widht = ($page_width) / 7;
@@ -956,7 +948,7 @@ class PDFController extends Controller
             $pdf->AddPage();
         }
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPrice() , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPaid() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceBank() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
@@ -1430,10 +1422,10 @@ class PDFController extends Controller
                     $table_col_widht = ($page_width) / 4;
                     $resultCellHeight = 5;
                     if ($is_columns){
-                        $pdf->cell($column_width, 5, ucfirst(strtolower($child_test->child_test_name)), 0, 0, 'C'); // test name
+                        $pdf->cell($column_width, 5, trim(ucfirst(strtolower($child_test->child_test_name))), 0, 0, 'C'); // test name
 
                     }else{
-                        $pdf->cell($table_col_widht, 5, ucfirst(strtolower($child_test->child_test_name) ), 0, 0, 'C'); // test name
+                        $pdf->cell($table_col_widht, 5, trim(ucfirst(strtolower($child_test->child_test_name) )), 0, 0, 'C'); // test name
 
                     }
                     $report_result = $result->result;

@@ -57,6 +57,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $sub_routes_count
  * @property int|null $doctor_id
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDoctorId($value)
+ * @property int $is_nurse
+ * @property-read \App\Models\Doctor|null $doctor
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsNurse($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

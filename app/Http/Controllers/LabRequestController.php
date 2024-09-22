@@ -42,6 +42,7 @@ class LabRequestController extends Controller
         return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh(),'data'=>$doctorVisit->fresh()];
     }
     public function hide(Request $request,LabRequest $labRequest){
+//        return $labRequest;
         $data = $request->all();
         return ['status'=>$labRequest->update(['hidden'=>$data['val']]),'data'=>$labRequest->patient->refresh()];
     }
@@ -53,6 +54,15 @@ class LabRequestController extends Controller
         $data = $request->all();
 
         return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$doctorVisit->fresh()];
+    }
+    public function editLab(Request $request,LabRequest $labRequest){
+        $user =  auth()->user();
+        if (!$user->can('التخفيض')) {
+            return  response(['message'=>'صلاحيه التخفيض غير مفعله'],400);
+        }
+        $data = $request->all();
+
+        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']])];
     }
     public function payment(Request $request,Doctorvisit $doctorVisit){
         $patient = $doctorVisit->patient;
@@ -145,6 +155,36 @@ class LabRequestController extends Controller
 
 
     }
+    public function cancelLab(Request $request,Patient $patient){
+        $user =  auth()->user();
+        if (!$user->can('الغاء سداد فحص')) {
+            return  response(['message'=>'صلاحيه الغاء السداد غير مفعله'],400);
+        }
+//        $user_deposited =  $patient->labrequests[0]->user_deposited ;
+//        if ($user->id != $user_deposited){
+//            return  response(['message'=>'يجب الغاء السداد من نفس المستخدم'],400);
+//
+//        }
+        try {
+
+            DB::transaction(function () use ($request, $patient) {
+                $patient->is_lab_paid = false;
+                $patient->lab_paid = 0;
+                foreach ($patient->labrequests as $labrequest) {
+                    $labrequest->update(['amount_paid' => 0]);
+                }
+            });
+        } catch (\Throwable $e) {
+            return ['status' => true, 'message' => $e->getMessage()];
+        }
+
+
+
+        return  ['status'=> $patient->save(),'data'=>$patient->fresh()];
+
+
+
+    }
     public function store(Request $request, Doctorvisit  $doctorVisit)
     {
         $patient = $doctorVisit->patient;
@@ -218,6 +258,25 @@ class LabRequestController extends Controller
             return ['status' => false, 'message' => $e->getMessage()];
         }
         return ['status' => true, 'data' => $labRequest->patient , 'patient'=>$doctorVisit->fresh()];
+
+
+    }
+    public function destroyLab(Request $request,LabRequest $labRequest)
+    {
+        try {
+            DB::transaction(function () use ($request, $labRequest) {
+                $result = $labRequest->delete();
+                if ($result) {
+                    $labRequest->requested_results()->delete();
+                }
+                $labRequest->load('patient');
+
+
+            });
+        } catch (\Throwable $e) {
+            return ['status' => false, 'message' => $e->getMessage()];
+        }
+        return ['status' => true, 'data' => $labRequest->patient ];
 
 
     }

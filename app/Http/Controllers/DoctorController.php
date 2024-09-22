@@ -38,20 +38,34 @@ class DoctorController extends Controller
        return ['status'=>$result,'doctor'=>$doctor_service->doctor];
 
     }
+//    public function all(){
+//        $doctors =  Doctor::with(['specialist','shifts'=>function(HasMany  $query){
+//            return $query->orderByDesc('id');
+//        }])->get();
+//        foreach ($doctors as $doctor){
+//            if (count($doctor->shifts) > 0){
+//                $shift = $doctor->shifts[0];
+//                $shift->load('visits');
+//                $doctor->last_shift= $shift;
+//            }else{
+//                $doctor->last_shift = null;
+//            }
+//
+//        }
+//        return $doctors;
+//    }
     public function all(){
-        $doctors =  Doctor::with(['specialist','shifts'=>function(HasMany  $query){
-            return $query->orderByDesc('id');
-        }])->get();
-        foreach ($doctors as $doctor){
-            if (count($doctor->shifts) > 0){
-                $shift = $doctor->shifts[0];
-                $shift->load('visits');
-                $doctor->last_shift= $shift;
-            }else{
-                $doctor->last_shift = null;
-            }
-
-        }
+        $doctors =  Doctor::all();
+//        foreach ($doctors as $doctor){
+//            if (count($doctor->shifts) > 0){
+//                $shift = $doctor->shifts[0];
+//                $shift->load('visits');
+//                $doctor->last_shift= $shift;
+//            }else{
+//                $doctor->last_shift = null;
+//            }
+//
+//        }
         return $doctors;
     }
 

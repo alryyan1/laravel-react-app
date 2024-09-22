@@ -53,6 +53,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereIsPostpaid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidComplete($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidDate($value)
+ * @property float $discount
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereDiscount($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
@@ -60,7 +62,7 @@ class Deduct extends Model
     protected $guarded = ['id'];
     use HasFactory;
     protected $with = ['deductedItems','paymentType','user','client'];
-    protected $appends = ['total_price','profit','total_price_unpaid'];
+    protected $appends = ['total_price','profit','total_price_unpaid','total_paid'];
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -121,6 +123,28 @@ class Deduct extends Model
         }
 
         return $total;
+
+    }
+    public function getTotalPaidAttribute(){
+        return $this->total_paid();
+    }
+    public function total_paid( )
+    {
+
+        $total = 0;
+        if (!$this->complete)  return 0;
+
+        foreach ($this->deductedItems as $item){
+
+
+            $strip_price = ($item->price/$item->item->strips);
+
+            $total +=  $item->strips  *   $strip_price ;
+
+
+        }
+
+        return $total - $this->discount;
 
     }
     public function total_price_unpaid( )
