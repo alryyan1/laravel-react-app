@@ -51,6 +51,7 @@ use phpDocumentor\Reflection\Types\This;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Specialist> $sepcialists
  * @property-read int|null $sepcialists_count
  * @property-read mixed $total_deducts_post_paid
+ * @property-read mixed $total_deducts_paid
  * @mixin \Eloquent
  */
 class Shift extends Model

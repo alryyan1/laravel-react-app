@@ -41,6 +41,10 @@ class LabRequestController extends Controller
 
         return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh(),'data'=>$doctorVisit->fresh()];
     }
+    public function bankLab(Request $request,LabRequest $labRequest){
+        $data = $request->all();
+        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh()];
+    }
     public function hide(Request $request,LabRequest $labRequest){
 //        return $labRequest;
         $data = $request->all();
@@ -55,14 +59,14 @@ class LabRequestController extends Controller
 
         return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$doctorVisit->fresh()];
     }
-    public function editLab(Request $request,LabRequest $labRequest){
+    public function labDiscount(Request $request, LabRequest $labRequest){
         $user =  auth()->user();
         if (!$user->can('التخفيض')) {
             return  response(['message'=>'صلاحيه التخفيض غير مفعله'],400);
         }
         $data = $request->all();
 
-        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']])];
+        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'patient'=>$labRequest->patient->fresh()];
     }
     public function payment(Request $request,Doctorvisit $doctorVisit){
         $patient = $doctorVisit->patient;
@@ -123,6 +127,66 @@ class LabRequestController extends Controller
             return ['status' => false,'message' => $e->getMessage()];
         }
         return ['status' =>   $patient->save(), 'data' => $doctorVisit->refresh()];
+    }
+    public function labPayment(Request $request,Patient $patient){
+
+        $user =  auth()->user();
+        if (!$user->can('سداد فحص')) {
+            return  response(['message'=>'صلاحيه سداد فحص غير مفعله'],400);
+        }
+        try {
+            DB::transaction(function () use ($request,$patient) {
+                $user = auth()->user();
+                    $data = $request->all();
+                    $patient_company = null;
+                    if ($patient->company_id != null) {
+                        /** @var Company $patient_company */
+                        $patient_company = $patient->company;
+                        $patient_company->load('tests');
+
+                    }
+                    /** @var LabRequest $requested */
+                    foreach ($patient->labrequests as $requested) {
+                        $price = null;
+                        if ($patient->company_id != null) {
+                            $id = $requested->mainTest->id;
+                            $test = $patient_company->tests->filter(function ($item) use ($id) {
+                                return $item->pivot->main_test_id == $id;
+                            })->first();
+                            $price = $requested->price;
+                            if ($test->pivot->endurance_static > 0) {
+                                // alert('s')
+                                $amount_paid =$test->pivot->endurance_static;
+
+                    }else{
+                                if($test->pivot->endurance_percentage > 0 ){
+                                    $amount_paid = ($price * $test->pivot->endurance_percentage) / 100;
+
+                                }else{
+                                    $amount_paid = ($price * $patient->company->lab_endurance) / 100;
+
+                                }
+                            }
+
+
+
+                        } else {
+                            $price = $requested->mainTest->price;
+                            $discount = $requested->discount_per;
+                            $discount_amount = ($requested->mainTest->price * $discount) / 100;
+                            $amount_paid = $requested->mainTest->price - $discount_amount;
+                        }
+                        $requested->update(['price' => $price, 'amount_paid' => $amount_paid, 'user_deposited' => $user->id]);
+                    }
+                    $patient->is_lab_paid = true;
+
+
+
+            });
+        } catch (\Throwable $e) {
+            return ['status' => false,'message' => $e->getMessage()];
+        }
+        return ['status' =>   $patient->save(), 'data' => $patient->refresh()];
     }
     public function cancel(Request $request,Doctorvisit $doctorVisit){
         $patient = $doctorVisit->patient;
@@ -239,6 +303,62 @@ class LabRequestController extends Controller
         }
 
         return ['status' => true,'patient'=>$doctorVisit->fresh()];
+
+    }
+    public function storeLab(Request $request, Patient  $patient)
+    {
+
+        try {
+            DB::transaction(function () use ($request, $patient) {
+                $user = auth()->user();
+                $data = $request->all();
+                if (is_array($data['main_test_id'])) {
+                    foreach ($data['main_test_id'] as $d) {
+                        //add test to requested tests
+                        $main = MainTest::with('childtests')->find($d);
+                        $price = $main->price;
+                        if ($patient->company_id != null){
+                            /** @var Company $patient_company */
+                            $patient_company =  $patient->company;
+                            $patient_company->load('tests');
+                            $service =  $patient_company->tests->filter(function($item) use($d){
+                                return $item->id == $d;
+                            })->first();
+                            $price =   $service->pivot->price;
+
+                        }
+                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $price, 'user_requested' => $user->id]);
+                        //                $patient->labrequests()->attach($d);
+                        //add test with their children to requested results
+                        /** @var ChildTest $childTest */
+                        foreach ($main->childTests as $childTest) {
+                            $id = $childTest->id;
+                            $normal_range = $childTest->normalRange;
+                            $requested_result = new RequestedResult(['child_test_id' => $id, 'normal_range' => $normal_range, 'patient_id' => $patient->id, 'main_test_id' => $d]);
+                            $lr->requested_results()->save($requested_result);
+                            //                    $patient->requestedResults()->attach($d,['child_test_id'=>$id,'normal_range'=>$normal_range]);
+                        }
+
+                    }
+                } else {
+                    $patient->labrequests()->attach($data['main_test_id']);
+                    //add test with their children to requested results
+                    $main = MainTest::with('childtests')->find($data['main_test_id']);
+                    /** @var ChildTest $childTest */
+                    foreach ($main->childTests as $childTest) {
+                        $id = $childTest->child_test_id;
+                        $normal_range = $childTest->normalRange;
+                        $patient->requestedResults()->attach($data['main_test_id'], ['child_test_id' => $id, 'normal_range' => $normal_range]);
+                    }
+
+                }
+            });
+        } catch (\Throwable $e) {
+            return ['status' => false, 'message' => $e->getMessage()];
+
+        }
+
+        return ['status' => true,'patient'=>$patient->fresh()];
 
     }
 

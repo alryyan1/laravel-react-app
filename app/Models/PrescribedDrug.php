@@ -36,7 +36,7 @@ class PrescribedDrug extends Model
     use HasFactory;
     protected $table = 'drugs_prescribed';
     protected $guarded = [];
-    protected $with =['item'];
+    protected $with =['item','medicalDrugRoute'];
     public function patient()
     {
         return $this->belongsTo(Patient::class);
@@ -45,6 +45,10 @@ class PrescribedDrug extends Model
     public function item()
     {
         return $this->belongsTo(Item::class);
+    }
+    public function medicalDrugRoute()
+    {
+        return $this->belongsTo(MedicalDrugRoute::class);
     }
 
 }

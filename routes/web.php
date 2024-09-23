@@ -48,6 +48,7 @@ Route::get('printLab',[\App\Http\Controllers\PDFController::class,'printLab']);
 Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale']);
 Route::get('printReceptionReceipt',[\App\Http\Controllers\PDFController::class,'printReceptionReceipt']);
 Route::get('printPrescribedMedsReceipt',[\App\Http\Controllers\PDFController::class,'printPrescribedMedsReceipt']);
+Route::get('sickleave',[\App\Http\Controllers\PDFController::class,'sickleave']);
 Route::get('printLabAndClinicReceipt',[\App\Http\Controllers\PDFController::class,'printLabAndClinicReceipt']);
 Route::get('patientsReport',[\App\Http\Controllers\PDFController::class,'patientsReport']);
 Route::get('printLabReceipt/{patient}/{user}',[\App\Http\Controllers\PDFController::class,'printLabReceipt']);

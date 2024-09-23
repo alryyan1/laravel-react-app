@@ -129,6 +129,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Hormone whereTsh($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Hormone whereVb12($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Hormone whereVitd($value)
+ * @property string $anti_tp
+ * @method static \Illuminate\Database\Eloquent\Builder|Hormone whereAntiTp($value)
  * @mixin \Eloquent
  */
 class Hormone extends Model

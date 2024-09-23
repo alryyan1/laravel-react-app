@@ -169,7 +169,7 @@ class Patient extends Model
     {
         return $this->total_lab_value_will_pay();
     }
-    protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient','country'];
+    protected  $with = ['labrequests','doctor','company','subcompany','relation','user','prescriptions','file_patient','country','sickleave'];
     public function getTotalLabValueUnpaidAttribute()
     {
         return $this->total_lab_value_unpaid();
@@ -225,6 +225,10 @@ class Patient extends Model
     public function getHasCbc5Attribute(){
         return $this->hasCbc();
 }
+  public function sickleave()
+  {
+      return $this->hasOne(Sickleave::class);
+  }
     public function paid_lab($user = null){
         $total = 0;
         /** @var LabRequest $labrequest */

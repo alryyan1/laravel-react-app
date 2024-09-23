@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePostpaidDate($value)
  * @property float $discount
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereDiscount($value)
+ * @property-read mixed $total_paid
  * @mixin \Eloquent
  */
 class Deduct extends Model

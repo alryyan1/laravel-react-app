@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientAddRequest;
 use App\Models\Complain;
+use App\Models\Diagnosis;
 use App\Models\Doctor;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
@@ -13,6 +14,7 @@ use App\Models\MainTest;
 use App\Models\Patient;
 use App\Models\PrescribedDrug;
 use App\Models\Shift;
+use App\Models\Sickleave;
 use App\Zebra;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,6 +26,24 @@ use PHPUnit\Exception;
 class PatientController extends Controller
 {
 
+    public function sickleave(Request $request , Patient $patient)
+    {
+        $today = Carbon::today();
+        $sickleave = Sickleave::create([
+            'patient_id'=>$patient->id,
+            'form'=>$today->format('Y-m-d'),
+            'to'=>$today->format('Y-m-d'),
+        ]);
+        return ['status'=> $sickleave , 'data'=>$patient->fresh()];
+    }
+    public function editSickLeave(Request $request , Sickleave $sickleave)
+    {
+
+        $data = $request->all();
+        return ['status'=>  $sickleave->update([$data['colName']=> $data['val']]) , 'data'=>$sickleave->patient];
+
+
+    }
     public function todayPatients(Request $request)
     {
         $today = Carbon::now()->format('Y-m-d').'%';
@@ -39,6 +59,10 @@ class PatientController extends Controller
     public function complains()
     {
         return Complain::all();
+    }
+    public function diagnosis()
+    {
+        return Diagnosis::all();
     }
     public function prescribedDrugUpdate(Request $request , PrescribedDrug $prescribedDrug)
     {
