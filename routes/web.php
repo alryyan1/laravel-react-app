@@ -49,6 +49,7 @@ Route::get('printSale',[\App\Http\Controllers\PDFController::class,'printSale'])
 Route::get('printReceptionReceipt',[\App\Http\Controllers\PDFController::class,'printReceptionReceipt']);
 Route::get('printPrescribedMedsReceipt',[\App\Http\Controllers\PDFController::class,'printPrescribedMedsReceipt']);
 Route::get('sickleave',[\App\Http\Controllers\PDFController::class,'sickleave']);
+Route::get('attendance',[\App\Http\Controllers\PDFController::class,'attendance']);
 Route::get('printLabAndClinicReceipt',[\App\Http\Controllers\PDFController::class,'printLabAndClinicReceipt']);
 Route::get('patientsReport',[\App\Http\Controllers\PDFController::class,'patientsReport']);
 Route::get('printLabReceipt/{patient}/{user}',[\App\Http\Controllers\PDFController::class,'printLabReceipt']);
@@ -82,38 +83,38 @@ Route::post('webhook',[WebhookController::class,'webhook']);
     Route::get('test',function (){
 
 
+        $data =      DB::table('newDrugs')->select('*')->get();
 
-//   $data =      DB::table('products_export_2024_07_10')->select('*')->get();
 
-
-//   foreach ($data as $item) {
-//       $pdo =   DB::getPdo();
-//       $result =   $pdo->prepare("select * from items where barcode = ? ");
-//       $result->execute([$item->barcode]);
-//       if ($result->rowCount() > 0){
-//           continue ;
+        foreach ($data as $item) {
+//            $pdo =   DB::getPdo();
+//            $result =   $pdo->prepare("select * from items where barcode = ? ");
+//            $result->execute([$item->barcode]);
+//            if ($result->rowCount() > 0){
+//                continue ;
 //
-//       }
-//       Item::create([
-//           'section_id' => NULL,
-//           'name' => '',
-//           'require_amount' => 0,
-//           'initial_balance' => 0,
-//           'initial_price' => 0,
-//           'tests' => 0,
-//           'expire' => '2024-07-01',
-//           'cost_price' => $item->purchase_price,
-//           'sell_price' => $item->selling_price,
-//           'drug_category_id' => NULL,
-//           'pharmacy_type_id' => NULL,
-//           'barcode' => $item->barcode,
-//           'strips' => 1,
-//           'sc_name' => $item->name,
-//           'market_name' => $item->name,
-//           'batch' => NULL,
-//           'unit' => '',
-//       ]);
-//   }
+//            }
+            Item::create([
+                'section_id' => NULL,
+                'name' => '',
+                'require_amount' => 0,
+                'initial_balance' => 0,
+                'initial_price' => 0,
+                'tests' => 0,
+                'expire' => '2024-07-01',
+                'cost_price' =>0,
+                'sell_price' => 0,
+                'drug_category_id' => NULL,
+                'pharmacy_type_id' => NULL,
+                'barcode' => null,
+                'strips' => 1,
+                'sc_name' => $item->name,
+                'market_name' => $item->name,
+                'batch' => NULL,
+                'unit' => '',
+            ]);
+        }
+
 
     });
 

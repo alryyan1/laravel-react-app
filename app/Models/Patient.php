@@ -282,6 +282,8 @@ class Patient extends Model
                 $price = $requested->mainTest->price;
                 $discount = $requested->discount_per;
                 $discount_amount = ($requested->mainTest->price * $discount) / 100;
+
+
                 $amount_paid = $requested->mainTest->price - $discount_amount;
 
                 $total+=$amount_paid;

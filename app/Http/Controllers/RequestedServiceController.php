@@ -100,6 +100,11 @@ class RequestedServiceController extends Controller
 
         return ['status'=>    $requestedService->update(['count'=>$data['serviceCount']]),'patient'=>$requestedService->doctorVisit->fresh()];
     }
+    public function editRequested(Request $request , RequestedService $requestedService){
+        $data = $request->all();
+
+        return ['status'=>    $requestedService->update([$data['colName']=>$data['val']]),'data'=>$requestedService->doctorVisit->fresh()];
+    }
     public function addService(Request $request , Doctorvisit $doctorvisit){
         $data = $request->all();
 

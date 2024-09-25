@@ -89,5 +89,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DebitEntriesTableSeeder::class);
         $this->call(CreditEntriesTableSeeder::class);
         $this->call(DiagnosisTableSeeder::class);
+        $this->call(NewDrugsTableSeeder::class);
     }
 }

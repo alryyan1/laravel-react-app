@@ -329,6 +329,7 @@ Route::middleware('auth:sanctum')->patch('requestedService/discount/{requestedSe
 Route::middleware('auth:sanctum')->patch('requestedService/cancel/{requestedService}', [RequestedServiceController::class, 'cancel']);
 Route::middleware('auth:sanctum')->post('patient/service/add/{doctorvisit}', [RequestedServiceController::class, 'addService']);
 Route::middleware('auth:sanctum')->patch('requestedService/count/{requestedService}',[RequestedServiceController::class,'count']);
+Route::middleware('auth:sanctum')->patch('editRequested/{requestedService}',[RequestedServiceController::class,'editRequested']);
 
 Route::get('serviceGroup/all', [ServiceGroupController::class, 'all']);
 Route::post('serviceGroup/create', [ServiceGroupController::class, 'create']);
@@ -340,6 +341,8 @@ Route::post('patient/search/phone', [PatientController::class, 'searchByphone'])
 Route::post('patient/copy/{doctor}/{patient_id}/{copy?}', [PatientController::class, 'book']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
+Route::get('patient/visit/{doctorvisit}', [PatientController::class, 'doctorVisit']);
+Route::get('doctorvisit/find', [PatientController::class, 'findDoctorVisit']);
 Route::middleware('auth:sanctum')->patch('patients/{patient}', [PatientController::class, 'update']);
 Route::get('patient/barcode/{patient}', [PatientController::class, 'printBarcode']);
 Route::middleware('auth:sanctum')->post('labRequest/add/{doctorVisit}', [LabRequestController::class, 'store']);

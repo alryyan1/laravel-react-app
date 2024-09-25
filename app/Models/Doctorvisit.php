@@ -172,6 +172,7 @@ class Doctorvisit extends Model
                  $price= $service->price ;
                 $discount = $service->discount;
                 $discounted_money = ($price * $discount ) / 100;
+
                 $total += $discounted_money;
 //                $patient_paid =   $price - $discounted_money ;
 //                $total+=$patient_paid;

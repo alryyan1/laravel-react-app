@@ -144,6 +144,14 @@ class PatientController extends Controller
     public function get(Request $request , Patient $patient){
         return $patient;
     }
+    public function doctorVisit(Request $request , Doctorvisit  $doctorvisit)
+    {
+        return $doctorvisit;
+    }
+    public function findDoctorVisit(Request $request )
+    {
+       return   Doctorvisit::where('patient_id','=',$request->get('pid'))->first();
+    }
     public function edit(PatientAddRequest  $request,Doctorvisit $doctorvisit){
 //        return $doctorvisit;
 //        return $request->validated();

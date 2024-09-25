@@ -56,6 +56,13 @@ class PatientAddRequest extends FormRequest
             'gov_id'=>'',
             'address'=>'',
             'country_id'=>'',
+            'drug_history'=>'',
+            'family_history'=>'',
+            'rbs'=>'',
+            'doctor_finish'=>'',
+            'result_auth'=>'',
+            'discount'=>'',
+
         ];
     }
 }
