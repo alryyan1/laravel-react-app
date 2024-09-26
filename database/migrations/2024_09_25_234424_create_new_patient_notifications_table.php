@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lab_finished_notifications', function (Blueprint $table) {
+        Schema::create('new_patient_notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Patient::class)->constrained();
             $table->boolean('sent')->default(false);
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lab_finished_notifications');
+        Schema::dropIfExists('new_patient_notifications');
     }
 };

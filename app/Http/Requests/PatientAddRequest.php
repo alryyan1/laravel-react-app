@@ -62,6 +62,7 @@ class PatientAddRequest extends FormRequest
             'doctor_finish'=>'',
             'result_auth'=>'',
             'discount'=>'',
+            'care_plan'=>'',
 
         ];
     }

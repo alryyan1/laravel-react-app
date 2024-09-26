@@ -1678,14 +1678,9 @@ class PDFController extends Controller
     }
     public function printBarcode(Request $request)
     {
-
         /** @var Patient $patient */
         $patient = Patient::find($request->get('pid'));
-//        $custom_layout = array(38, 25); visa medical
-        $custom_layout = array(30, 25);
-//        $page_width = 39; visa medical
-        $page_width = 30;
-
+        $custom_layout = array(38, 25);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('landscape', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -1700,8 +1695,9 @@ class PDFController extends Controller
         $pdf->setAuthor('alryyan mahjoob');
         $pdf->setTitle('ايصال المختبر');
         $pdf->setSubject('ايصال المختبر');
+        $page_width = 39;
         $pdf->setAutoPageBreak(TRUE, 0);
-        $pdf->setMargins(3, 3, 2);
+        $pdf->setMargins(0, 3, 2);
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $containers = $patient->labrequests->map(function(LabRequest $req){
             return $req->mainTest->container;
@@ -1744,8 +1740,8 @@ class PDFController extends Controller
                 'bgcolor' => false, //array(255,255,255),
                 'text' => false,
                 'font' => 'helvetica',
-                'fontsize' => 7,
-                'stretchtext' => 2
+                'fontsize' => 10,
+                'stretchtext' => 4
             );
 
             $pdf->SetFont('helvetica', '', 4, '', true);
@@ -1759,7 +1755,7 @@ class PDFController extends Controller
             $pdf->Cell($col * 1.5,5,$patient->name,0,1);
             $pdf->SetFont('helvetica', '', 7, '', true);
 
-            $pdf->write1DBarcode("$patient->id", 'C128', 100, '', 50, 10, 0.4, $style, 'N');
+            $pdf->write1DBarcode("$patient->id", 'C128', 100, '', 50, 10, 0.5, $style, 'N');
             $pdf->Cell(15,5,'PID '.$patient->id,0,0,'');
 
             $pdf->SetFont('helvetica', 'u', 4, '', true);
@@ -2533,11 +2529,11 @@ class PDFController extends Controller
 
 
         $pdf->Cell($colWidth,5,' Discount ',0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,$patient->discountAmount(),0,0,'C');
+        $pdf->Cell($colWidth,5,$patient->discountAmount() + $patient->discount,0,0,'C');
         $pdf->Cell($colWidth,5,' الخصم',0,1);
 
         $pdf->Cell($colWidth,5,'Paid Amount',0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,$patient->paid_lab()  ,0,0,'C');
+        $pdf->Cell($colWidth,5,$patient->paid_lab()  - $patient->discount ,0,0,'C');
         $pdf->Cell($colWidth,5,'المبلغ المدفوع',0,1);
 
         $pdf->selectColumn(0);

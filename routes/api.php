@@ -343,6 +343,17 @@ Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
 Route::get('patient/visit/{doctorvisit}', [PatientController::class, 'doctorVisit']);
 Route::get('doctorvisit/find', [PatientController::class, 'findDoctorVisit']);
+
+Route::get('resultFinished/{patient}', [PatientController::class, 'resultFinished']);
+Route::get('labFinishedNotifications', [PatientController::class, 'labFinishedNotifications']);
+Route::get('removeLabFinishedNotifications/{patient}', [PatientController::class, 'removeLabFinishedNotifications']);
+
+Route::get('newPatient/{patient}', [PatientController::class, 'newPatient']);
+Route::get('NewPatients', [PatientController::class, 'NewPatients']);
+Route::get('removeNewPatient/{patient}', [PatientController::class, 'removeNewPatients']);
+
+
+
 Route::middleware('auth:sanctum')->patch('patients/{patient}', [PatientController::class, 'update']);
 Route::get('patient/barcode/{patient}', [PatientController::class, 'printBarcode']);
 Route::middleware('auth:sanctum')->post('labRequest/add/{doctorVisit}', [LabRequestController::class, 'store']);

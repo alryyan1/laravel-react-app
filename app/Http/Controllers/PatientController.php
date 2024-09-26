@@ -9,8 +9,10 @@ use App\Models\Doctor;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
 use App\Models\File;
+use App\Models\LabFinishedNotification;
 use App\Models\LabRequest;
 use App\Models\MainTest;
+use App\Models\NewPatientNotification;
 use App\Models\Patient;
 use App\Models\PrescribedDrug;
 use App\Models\Shift;
@@ -25,6 +27,32 @@ use PHPUnit\Exception;
 
 class PatientController extends Controller
 {
+    public function newPatient(Request $request,Patient $patient)
+    {
+        NewPatientNotification::create(['patient_id'=>$patient->id]);
+    }
+    public function NewPatients(Request $request,Patient $patient)
+    {
+        return  NewPatientNotification::all();
+    }
+    public function removeNewPatients(Request $request,Patient $patient)
+    {
+        return  NewPatientNotification::where('patient_id',$patient->id)->delete();
+    }
+    public function resultFinished(Request $request,Patient $patient)
+    {
+        LabFinishedNotification::create(['patient_id'=>$patient->id]);
+    }
+   public function labFinishedNotifications(Request $request,Patient $patient)
+    {
+       return LabFinishedNotification::all();
+    }
+
+
+    public function removeLabFinishedNotifications(Request $request,Patient $patient)
+    {
+       return  LabFinishedNotification::where('patient_id',$patient->id)->delete();
+    }
 
     public function sickleave(Request $request , Patient $patient)
     {
@@ -129,7 +157,7 @@ class PatientController extends Controller
         $doctor_visit->patient_id = $patient_data['patient']->id;
         $doctor_visit->doctor_shift_id = $current_shift->id;
         $current_shift->visits()->save($doctor_visit);
-        return ['status'=>true];
+        return ['status'=>true,'patient'=>$patient_data['patient']->id];
     }
     public function search(Request $request){
        $data =  $request->all();
