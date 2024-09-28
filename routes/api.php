@@ -343,6 +343,7 @@ Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
 Route::get('patient/visit/{doctorvisit}', [PatientController::class, 'doctorVisit']);
 Route::get('doctorvisit/find', [PatientController::class, 'findDoctorVisit']);
+Route::get('findPatient/{patient}', [PatientController::class, 'findPatient']);
 
 Route::get('resultFinished/{patient}', [PatientController::class, 'resultFinished']);
 Route::get('labFinishedNotifications', [PatientController::class, 'labFinishedNotifications']);
