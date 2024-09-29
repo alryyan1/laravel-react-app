@@ -51,7 +51,7 @@ class DepositController extends Controller
         $data = $request->all();
 
 
-        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item'),'deposit'=>$depositItem->deposit->load('items')];
+        return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item'),'deposit'=>$depositItem->deposit->load(['items','items.item'])];
     }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
@@ -188,8 +188,8 @@ class DepositController extends Controller
 
 
         if ($user->can('حذف فاتوره')) {
-        $deposit->delete();
-        return ['status'=>true];
+
+        return ['status'=>$deposit->delete()];
         }else{
             return \response(['status' => false,'message'=>'صلاحيه حذف فاتوره  غير مفعله'],400);
         }
