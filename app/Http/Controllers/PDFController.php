@@ -926,8 +926,8 @@ class PDFController extends Controller
 
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht/2 , 5, $deduct->number, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->total_price() , 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->total_paid() , 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, number_format($deduct->total_price()) , 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, number_format($deduct->total_paid()) , 0, 0, 'C');
             $pdf->Cell($table_col_widht/2 , 5, $deduct->paymentType->name, 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('H:i A'), 0, 0, 'C');
             $pdf->setFont($fontname, '', 10);
@@ -951,13 +951,13 @@ class PDFController extends Controller
             $pdf->AddPage();
         }
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPaid() , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,number_format( $shift->totalDeductsPaid() ), 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceBank() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceTransfer() , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Cash', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceCash(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,number_format($shift->totalDeductsPriceCash()), 1, 1, 'C', fill: 0);
 
 
 
