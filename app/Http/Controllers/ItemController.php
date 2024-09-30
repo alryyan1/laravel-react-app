@@ -111,15 +111,30 @@ class ItemController extends Controller
         return ['month'=>$month,'start'=>$start_date,'end'=>$end_date,'data'=>$data];
 
     }
+    public function expiredItems(){
+        $items = Item::all();
+        $expired = [];
+        /** @var Item $item */
+        foreach ($items as $item) {
+            if (   ! \Carbon\Carbon::parse($item->expire)->lte(Carbon::now()))continue;
+            $expired[]= $item;
+
+        }
+        return $expired;
+    }
     public function balance()
     {
+
         $items = \App\Models\Item::all();
         foreach ($items as $item) {
-            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->value('total');
-            $item->totaldeposit = $total_deposit;
+            $total_deposit = DB::table('deposit_items')->select(Db::raw('sum(quantity) as total'))->where('item_id', $item->id)->where('return','=',0)->value('total');
+            $total_deduct = DB::table('deducted_items')->select(Db::raw('sum(box) as total'))->where('item_id', $item->id)->value('total');
+            $free_qtn = DB::table('deposit_items')->select(Db::raw('sum(free_quantity) as total'))->where('item_id', $item->id)->where('return','=',0)->value('total');
+
+            $item->totaldeposit = $total_deposit + $free_qtn;
+
             $item->totaldeduct = $total_deduct;
-            $item->remaining = $total_deposit - $total_deduct;
+            $item->remaining = $item->totaldeposit - $total_deduct;
         }
         return $items;
     }
@@ -236,6 +251,59 @@ class ItemController extends Controller
             $item->totaldeduct = $total_deduct;
             $item->remaining = $item->totaldeposit - $total_deduct;
         }
+        return $items;
+    }
+    public function profitAndLoss(Request $request,$page)
+    {
+
+        $data  = $request->all();
+
+
+        $data  = $request->all();
+        $pdo =   \Illuminate\Support\Facades\DB::getPdo();
+        $items =   $pdo->query("select Distinct item_id from deducted_items")->fetchAll();
+
+
+        $newArr = [];
+        /** @var Item $item */
+        foreach ($items as $code) {
+                $item = Item::whereId($code)->first();
+
+                $depositItems =  DepositItem::where('item_id','=',$item->id)->get();
+                $deductedItems  = DeductedItem::where('item_id','=',$item->id)->get();
+
+
+
+            if (count($depositItems)  == 0 && count($deductedItems) == 0 ) continue;
+            /** @var DepositItem $depositItem */
+            $totalCost = 0;
+            foreach ($depositItems as $depositItem){
+               $totalCost+= $depositItem->final_cost_price * $depositItem->quantity;
+            }
+            $totalSale = 0;
+            /** @var DepositItem $deductedItem */
+            foreach ($deductedItems as $deductedItem){
+                $totalSale += $deductedItem->strips * ($deductedItem->price / $item->strips);
+            }
+            $item->totalCost = $totalCost;
+
+            $item->totalSales = $totalSale;
+            $item->totalProfit = $totalSale - $totalCost;
+            $newArr[] = $item;
+        }
+        return $newArr;
+    }
+    public function topSales(Request $request)
+    {
+
+        $data  = $request->all();
+
+
+        $data  = $request->all();
+        $pdo =   \Illuminate\Support\Facades\DB::getPdo();
+        $items =   $pdo->query("SELECT DISTINCT i.id,i.barcode, i.market_name, COUNT(item_id) as topSales FROM `deducted_items` JOIN items i on i.id = deducted_items.item_id GROUP by item_id;
+")->fetchAll();
+
         return $items;
     }
     public function withItemRemaining()

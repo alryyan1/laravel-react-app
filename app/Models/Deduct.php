@@ -62,30 +62,38 @@ class Deduct extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
-    protected $with = ['deductedItems','paymentType','user','client'];
-    protected $appends = ['total_price','profit','total_price_unpaid','total_paid'];
+
+    protected $with = ['deductedItems', 'paymentType', 'user', 'client'];
+    protected $appends = ['total_price', 'profit', 'total_price_unpaid', 'total_paid'];
+
     public function client()
     {
         return $this->belongsTo(Client::class);
 
     }
+
     public function getTotalPriceAttribute()
     {
         return $this->total_price();
     }
+
     public function getTotalPriceUnpaidAttribute()
     {
         return $this->total_price_unpaid();
     }
+
     public function getProfitAttribute()
     {
         return $this->profit();
     }
-    public function items(){
-        return $this->belongsToMany(Item::class,'deducted_items','deduct_id','item_id')->withPivot(['client_id','quantity'])->using(ClientDeductPivot::class);
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'deducted_items', 'deduct_id', 'item_id')->withPivot(['client_id', 'quantity'])->using(ClientDeductPivot::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -103,22 +111,24 @@ class Deduct extends Model
     {
         return $this->belongsTo(Shift::class);
     }
+
     public function paymentType()
     {
         return $this->belongsTo(PaymentType::class);
     }
-    public function total_price( )
+
+    public function total_price()
     {
 
         $total = 0;
-        if (!$this->complete)  return 0;
+        if (!$this->complete) return 0;
 
-        foreach ($this->deductedItems as $item){
+        foreach ($this->deductedItems as $item) {
 
 
-            $strip_price = ($item->price/$item->item->strips);
+            $strip_price = ($item->price / $item->item->strips);
 
-            $total +=  $item->strips  *   $strip_price ;
+            $total += $item->strips * $strip_price;
 
 
         }
@@ -126,21 +136,24 @@ class Deduct extends Model
         return $total;
 
     }
-    public function getTotalPaidAttribute(){
+
+    public function getTotalPaidAttribute()
+    {
         return $this->total_paid();
     }
-    public function total_paid( )
+
+    public function total_paid()
     {
 
         $total = 0;
-        if (!$this->complete)  return 0;
+        if (!$this->complete) return 0;
 
-        foreach ($this->deductedItems as $item){
+        foreach ($this->deductedItems as $item) {
 
 
-            $strip_price = ($item->price/$item->item->strips);
+            $strip_price = ($item->price / $item->item->strips);
 
-            $total +=  $item->strips  *   $strip_price ;
+            $total += $item->strips * $strip_price;
 
 
         }
@@ -148,19 +161,19 @@ class Deduct extends Model
         return $total - $this->discount;
 
     }
-    public function total_price_unpaid( )
+
+    public function total_price_unpaid()
     {
 
         $total = 0;
 //        if (!$this->complete)  return 0;
 
-        foreach ($this->deductedItems as $item){
+        foreach ($this->deductedItems as $item) {
 
 
-            $strip_price = ($item->price/$item->item->strips);
+            $strip_price = ($item->price / $item->item->strips);
 
-            $total +=  $item->strips  *   $strip_price ;
-
+            $total += $item->strips * $strip_price;
 
 
         }
@@ -169,32 +182,28 @@ class Deduct extends Model
 
     }
 
-    public function profit( )
+    public function profit()
     {
 
         $total = 0;
         $cost = 0;
         if (!$this->complete) return 0;
-        foreach ($this->deductedItems as $item){
-
-
-
-                    $total +=  $item->strips  *  ($item->price/$item->item->strips)  ;
-                    $cost +=  $item->strips  *  ($item->item->last_deposit_item?->finalCostPrice/$item->item->strips)  ;
-
-
+        foreach ($this->deductedItems as $item) {
+            $total += $item->strips * ($item->price / $item->item->strips);
+            $cost += $item->strips * ($item->item->last_deposit_item?->finalCostPrice / $item->item->strips);
         }
 
         return $total - $cost;
 
     }
-    public function items_concatinated( )
+
+    public function items_concatinated()
     {
 
 
-       return $this->deductedItems->reduce(function ($prev,$current){
-           return $prev.'-'.$current->item->market_name.' x '.$current->box;
-        },'');
+        return $this->deductedItems->reduce(function ($prev, $current) {
+            return $prev . '-' . $current->item->market_name . ' x ' . $current->box;
+        }, '');
 
 
     }

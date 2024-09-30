@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 class ShiftController extends Controller
 {
 
+    public function all(Request $request){
+        return Shift::all();
+    }
     public function totalUserLab(Request $request){
         $user = auth()->user();
         $shift = Shift::orderByDesc('id')->first();

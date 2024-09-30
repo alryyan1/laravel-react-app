@@ -94,6 +94,7 @@ Route::post('addOrganism/{labRequest}',[LabRequestController::class,'addOrganism
 Route::patch('editOrganism/{requestedOrganism}',[LabRequestController::class,'editOrganism']);
 Route::delete('deleteOrganism/{requestedOrganism}',[LabRequestController::class,'deleteOrganism']);
 Route::get('expireMonthPanel',[ItemController::class,'expireMonthPanel']);
+Route::get('expiredItems',[ItemController::class,'expiredItems']);
 Route::get('complains',[PatientController::class,'complains']);
 Route::get('diagnosis',[PatientController::class,'diagnosis']);
 Route::middleware('auth:sanctum')-> patch('depositItems/update/{depositItem}',[DepositController::class,'updateDepositItem']);
@@ -199,10 +200,16 @@ Route::post('requestedResult/default/{labRequest}',[RequestedResultController::c
 Route::middleware('auth:sanctum')->post("cost",[CostController::class,'store']);
 Route::middleware('auth:sanctum')->delete("cost/{cost}",[CostController::class,'destroy']);
 Route::middleware('auth:sanctum')->post("cost/general",[CostController::class,'addGeneralCost']);
+Route::middleware('auth:sanctum')->get("costs",[CostController::class,'costs']);
+
+
+Route::middleware('auth:sanctum')->post("costCategory",[\App\Http\Controllers\CostCategoryController::class,'store']);
+Route::middleware('auth:sanctum')->get("costCategory",[\App\Http\Controllers\CostCategoryController::class,'index']);
 
 Route::get("users",[UserController::class,'all']);
 Route::patch("user/roles/{user}",[UserController::class,'editRole']);
 
+Route::get('shifts',[ShiftController::class,'all']);
 
 //roles
 Route::post("roles",[RoleController::class,'store']);
@@ -313,6 +320,12 @@ Route::get('company/all/pagination/{company}', [CompanyController::class, 'pagin
 Route::patch('company/{company}', [CompanyController::class, 'update']);
 Route::patch('company/test/{company}', [CompanyController::class, 'updatePivot']);
 Route::patch('company/service/{company}', [CompanyController::class, 'updatePivotService']);
+
+
+Route::get('profitAndLoss/{page}',[ItemController::class,'profitAndLoss']);
+Route::post('profitAndLoss/{page}',[ItemController::class,'profitAndLoss']);
+Route::get('topSales',[ItemController::class,'topSales']);
+
 
 
 Route::post('service/create', [ServiceController::class, 'create']);

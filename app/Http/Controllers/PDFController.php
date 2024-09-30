@@ -7,6 +7,7 @@ use App\Models\Cost;
 use App\Models\Deduct;
 use App\Models\DeductedItem;
 use App\Models\Deposit;
+use App\Models\DepositItem;
 use App\Models\DoctorShift;
 use App\Models\Doctorvisit;
 use App\Models\Item;
@@ -1020,18 +1021,14 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, $second, 1, 1, 'C');
 
 
-        $table_col_widht = ($page_width ) / 8;
+        $table_col_widht = ($page_width ) / 4;
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
 
-        $pdf->Cell($table_col_widht/2 , 5, 'id', 'TB', 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht /2, 5, 'sale id', 'TB', 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'profit', 'TB',  0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, 'id', 'TB', 0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, 'Date', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht, 5, 'Price', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, 'User', 'TB',  0, 'C', fill: 1);
         $pdf->Cell($table_col_widht , 5, 'Payment', 'TB',  0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht *2 , 5, "Items", 'TB',  1, 'C', fill: 1);
         $pdf->setFont($fontname, 'b', 10);
         $pdf->Ln();
         $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
@@ -1051,16 +1048,12 @@ class PDFController extends Controller
             $y = $pdf->GetY();
             $total+= $deduct->total_price();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
-            $pdf->Cell($table_col_widht/2 , 5, $deduct->id, 0, 0, 'C');
-            $pdf->Cell($table_col_widht/2 , 5, $deduct->number, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->profit(), 0, 0, 'C');
+            $pdf->Cell($table_col_widht , 5, $deduct->id, 0, 0, 'C');
 
             $pdf->Cell($table_col_widht , 5, $deduct->created_at->format('Y/m/d'), 0, 0, 'C');
             $pdf->Cell($table_col_widht , 5,intval($deduct->total_price() * 1e1) / 1e1 , 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->user->username, 0, 0, 'C');
-            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, 0, 0, 'C',stretch: 1);
+            $pdf->Cell($table_col_widht , 5, $deduct->paymentType->name, 0, 1, 'C',stretch: 1);
 
-            $pdf->MultiCell($table_col_widht *2 , 5, $deduct->items_concatinated(), 0, 0, ln: 1);
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $total_profit += $deduct->profit();
             $index++;
@@ -1529,6 +1522,87 @@ class PDFController extends Controller
 
         }
 
+    }
+    public function profitAndLoss(Request $request){
+        $settings= Setting::all()->first();
+        $pdf = new Pdf('portrait', PDF_UNIT, 'A4', true, 'UTF-8', false);
+        $lg = array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'fa';
+        $lg['w_page'] = 'page';
+//        $pdf->setLanguageArray($lg);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle(' Profit and Loss');
+        $pdf->setSubject(' Profit And loss');
+
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        $pdf->SetFont($arial, '', 7, '', true);
+        $pdf->SetFont($arial, '', 10, '', true);
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(10, 5, 10);
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->Ln();
+        $pdf->SetFont($arial, '', 11, '', true);
+        $pdo =   \Illuminate\Support\Facades\DB::getPdo();
+        $items =   $pdo->query("select Distinct item_id from deducted_items")->fetchAll();
+        $page_width = $pdf->getPageWidth() - 20;
+
+        $pdf->Cell($page_width, 5, 'Profit & Loss', 1, 1, 'C', fill: 1);
+        $pdf->Ln();
+
+        $table_col_widht = ($page_width  ) / 4;
+        $pdf->Ln();
+
+        $pdf->Cell($table_col_widht * 2, 5, 'Market Name', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2 , 5, 'Total Sales', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht/2  , 5, "Total Cost", 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht  , 5, 'Profit', 1, 1, 'C', fill: 1);
+        $pdf->Ln();
+        $newArr = [];
+        /** @var Item $item */
+        foreach ($items as $code) {
+            $item = Item::whereId($code)->first();
+
+            $depositItems =  DepositItem::where('item_id','=',$item->id)->get();
+            $deductedItems  = DeductedItem::where('item_id','=',$item->id)->get();
+
+
+
+            if (count($depositItems)  == 0 && count($deductedItems) == 0 ) continue;
+            /** @var DepositItem $depositItem */
+            $totalCost = 0;
+            foreach ($depositItems as $depositItem){
+                $totalCost+= $depositItem->final_cost_price * $depositItem->quantity;
+            }
+            $totalSale = 0;
+            /** @var DepositItem $deductedItem */
+            foreach ($deductedItems as $deductedItem){
+                $totalSale += $deductedItem->strips * ($deductedItem->price / $item->strips);
+            }
+            $item->totalCost = $totalCost;
+
+            $item->totalSales = $totalSale;
+            $item->totalProfit = $totalSale - $totalCost;
+            $newArr[] = $item;
+            $pdf->Cell($table_col_widht * 2, 5, $item->market_name, 1, 0, 'C', stretch: 1 );
+            $pdf->Cell($table_col_widht/2 , 5, $totalSale, 1, 0, 'C', );
+            $pdf->Cell($table_col_widht /2 , 5, $totalCost, 1, 0, 'C',);
+            $pdf->Cell($table_col_widht  , 5, $totalSale - $totalCost, 1, 1, 'C');
+        }
+//        return $newArr;
+
+        $pdf->Ln();
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
     }
     public function printLab(Request $request)
     {
