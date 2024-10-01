@@ -21,2568 +21,1957 @@ class DiagnosisTableSeeder extends Seeder
         \DB::table('diagnosis')->insert(array (
             0 => 
             array (
+                'id' => 2,
                 'name' => 'Achillies tendinopathy',
             ),
             1 => 
             array (
+                'id' => 3,
                 'name' => 'Acne',
             ),
             2 => 
             array (
+                'id' => 4,
                 'name' => 'Acute cholecystitis',
             ),
             3 => 
             array (
+                'id' => 5,
                 'name' => 'Acute lymphoblastic leukaemia',
             ),
             4 => 
             array (
+                'id' => 6,
                 'name' => 'Acute lymphoblastic leukaemia: Children',
             ),
             5 => 
             array (
+                'id' => 7,
                 'name' => 'Acute lymphoblastic leukaemia: Teenagers and young adults',
             ),
             6 => 
             array (
+                'id' => 8,
                 'name' => 'Acute myeloid leukaemia',
             ),
             7 => 
             array (
+                'id' => 9,
                 'name' => 'Acute myeloid leukaemia: Children',
             ),
             8 => 
             array (
+                'id' => 10,
                 'name' => 'Acute myeloid leukaemia: Teenagers and young adults',
             ),
             9 => 
             array (
+                'id' => 11,
                 'name' => 'Acute pancreatitis',
             ),
             10 => 
             array (
+                'id' => 12,
                 'name' => 'Addison’s disease',
             ),
             11 => 
             array (
+                'id' => 13,
                 'name' => 'Adenomyosis',
             ),
             12 => 
             array (
+                'id' => 14,
                 'name' => 'Alcohol-related liver disease',
             ),
             13 => 
             array (
+                'id' => 15,
                 'name' => 'Allergic rhinitis',
             ),
             14 => 
             array (
+                'id' => 16,
                 'name' => 'Allergies',
             ),
             15 => 
             array (
+                'id' => 17,
                 'name' => 'Alzheimer’s disease',
             ),
             16 => 
             array (
+                'id' => 18,
                 'name' => 'Anal cancer',
             ),
             17 => 
             array (
+                'id' => 19,
                 'name' => 'Anaphylaxis',
             ),
             18 => 
             array (
+                'id' => 20,
                 'name' => 'Angina',
             ),
             19 => 
             array (
+                'id' => 21,
                 'name' => 'Angioedema',
             ),
             20 => 
             array (
+                'id' => 22,
                 'name' => 'Ankle sprain',
             ),
             21 => 
             array (
+                'id' => 23,
                 'name' => 'Ankylosing spondylitis',
             ),
             22 => 
             array (
+                'id' => 24,
                 'name' => 'Anorexia nervosa',
             ),
             23 => 
             array (
+                'id' => 25,
                 'name' => 'Anxiety',
             ),
             24 => 
             array (
+                'id' => 26,
                 'name' => 'Anxiety disorders in children',
             ),
             25 => 
             array (
+                'id' => 27,
                 'name' => 'Appendicitis',
             ),
             26 => 
             array (
+                'id' => 28,
                 'name' => 'Arterial thrombosis',
             ),
             27 => 
             array (
+                'id' => 29,
                 'name' => 'Arthritis',
             ),
             28 => 
             array (
+                'id' => 30,
                 'name' => 'Asbestosis',
             ),
             29 => 
             array (
+                'id' => 31,
                 'name' => 'Asthma',
             ),
             30 => 
             array (
+                'id' => 32,
                 'name' => 'Ataxia',
             ),
             31 => 
             array (
+                'id' => 33,
                 'name' => 'Atopic eczema',
             ),
             32 => 
             array (
+                'id' => 34,
                 'name' => 'Atrial fibrillation',
             ),
             33 => 
             array (
+                'id' => 35,
             'name' => 'Attention deficit hyperactivity disorder (ADHD)',
             ),
             34 => 
             array (
+                'id' => 36,
             'name' => 'Autistic spectrum disorder (ASD)',
             ),
             35 => 
             array (
+                'id' => 37,
                 'name' => 'Bacterial vaginosis',
             ),
             36 => 
             array (
+                'id' => 38,
                 'name' => 'Benign prostate enlargement',
             ),
             37 => 
             array (
+                'id' => 39,
             'name' => 'Bile duct cancer (cholangiocarcinoma)',
             ),
             38 => 
             array (
+                'id' => 40,
                 'name' => 'Binge eating',
             ),
             39 => 
             array (
+                'id' => 41,
                 'name' => 'Bipolar disorder',
             ),
             40 => 
             array (
+                'id' => 42,
                 'name' => 'Bladder cancer',
             ),
             41 => 
             array (
+                'id' => 43,
             'name' => 'Blood poisoning (sepsis)',
             ),
             42 => 
             array (
+                'id' => 44,
                 'name' => 'Bone cancer',
             ),
             43 => 
             array (
+                'id' => 45,
                 'name' => 'Bone cancer: Teenagers and young adults',
             ),
             44 => 
             array (
+                'id' => 46,
                 'name' => 'Bowel cancer',
             ),
             45 => 
             array (
+                'id' => 47,
                 'name' => 'Bowel incontinence',
             ),
             46 => 
             array (
+                'id' => 48,
                 'name' => 'Bowel polyps',
             ),
             47 => 
             array (
+                'id' => 49,
                 'name' => 'Brain stem death',
             ),
             48 => 
             array (
+                'id' => 50,
                 'name' => 'Brain tumours',
             ),
             49 => 
             array (
+                'id' => 51,
                 'name' => 'Brain tumours: Children',
             ),
             50 => 
             array (
+                'id' => 52,
                 'name' => 'Brain tumours: Teenagers and young adults',
             ),
             51 => 
             array (
+                'id' => 53,
             'name' => 'Breast cancer (female)',
             ),
             52 => 
             array (
+                'id' => 54,
             'name' => 'Breast cancer (male)',
             ),
             53 => 
             array (
+                'id' => 55,
                 'name' => 'Bronchiectasis',
             ),
             54 => 
             array (
+                'id' => 56,
                 'name' => 'Bronchitis',
             ),
             55 => 
             array (
+                'id' => 57,
                 'name' => 'Bulimia',
             ),
             56 => 
             array (
+                'id' => 58,
                 'name' => 'Bunion',
             ),
             57 => 
             array (
+                'id' => 59,
                 'name' => 'Carcinoid syndrome and carcinoid tumours',
             ),
             58 => 
             array (
+                'id' => 60,
                 'name' => 'Cardiovascular disease',
             ),
             59 => 
             array (
+                'id' => 61,
                 'name' => 'Carpal tunnel syndrome',
             ),
             60 => 
             array (
+                'id' => 62,
                 'name' => 'Catarrh',
             ),
             61 => 
             array (
+                'id' => 63,
                 'name' => 'Cellulitis',
             ),
             62 => 
             array (
+                'id' => 64,
                 'name' => 'Cerebral palsy',
             ),
             63 => 
             array (
+                'id' => 65,
                 'name' => 'Cervical cancer',
             ),
             64 => 
             array (
+                'id' => 66,
                 'name' => 'Cervical spondylosis',
             ),
             65 => 
             array (
+                'id' => 67,
                 'name' => 'Chest and rib injury',
             ),
             66 => 
             array (
+                'id' => 68,
                 'name' => 'Chest infection',
             ),
             67 => 
             array (
+                'id' => 69,
                 'name' => 'Chickenpox',
             ),
             68 => 
             array (
+                'id' => 70,
                 'name' => 'Chilblains',
             ),
             69 => 
             array (
+                'id' => 71,
                 'name' => 'Chlamydia',
             ),
             70 => 
             array (
+                'id' => 72,
                 'name' => 'Chronic fatigue syndrome',
             ),
             71 => 
             array (
+                'id' => 73,
                 'name' => 'Chronic kidney disease',
             ),
             72 => 
             array (
+                'id' => 74,
                 'name' => 'Chronic lymphocytic leukaemia',
             ),
             73 => 
             array (
+                'id' => 75,
                 'name' => 'Chronic myeloid leukaemia',
             ),
             74 => 
             array (
+                'id' => 76,
             'name' => 'Chronic obstructive pulmonary disease (COPD)',
             ),
             75 => 
             array (
+                'id' => 77,
                 'name' => 'Chronic pain',
             ),
             76 => 
             array (
+                'id' => 78,
                 'name' => 'Chronic pancreatitis',
             ),
             77 => 
             array (
+                'id' => 79,
                 'name' => 'Cirrhosis',
             ),
             78 => 
             array (
+                'id' => 80,
                 'name' => 'Clostridium difficile',
             ),
             79 => 
             array (
+                'id' => 81,
                 'name' => 'Coeliac disease',
             ),
             80 => 
             array (
+                'id' => 82,
                 'name' => 'Cold sore',
             ),
             81 => 
             array (
+                'id' => 83,
                 'name' => 'Coma',
             ),
             82 => 
             array (
+                'id' => 84,
                 'name' => 'Common cold',
             ),
             83 => 
             array (
+                'id' => 85,
                 'name' => 'Congenital heart disease',
             ),
             84 => 
             array (
+                'id' => 86,
                 'name' => 'Conjunctivitis',
             ),
             85 => 
             array (
+                'id' => 87,
                 'name' => 'Constipation',
             ),
             86 => 
             array (
+                'id' => 88,
                 'name' => 'Coronary heart disease',
             ),
             87 => 
             array (
+                'id' => 89,
             'name' => 'Coronavirus (COVID-19)',
             ),
             88 => 
             array (
+                'id' => 90,
             'name' => 'Coronavirus (COVID-19): Longer-term effects (long COVID)',
             ),
             89 => 
             array (
+                'id' => 91,
                 'name' => 'Costochondritis',
             ),
             90 => 
             array (
+                'id' => 92,
                 'name' => 'Cough',
             ),
             91 => 
             array (
+                'id' => 93,
                 'name' => 'Crohn’s disease',
             ),
             92 => 
             array (
+                'id' => 94,
                 'name' => 'Croup',
             ),
             93 => 
             array (
+                'id' => 95,
                 'name' => 'Cystic fibrosis',
             ),
             94 => 
             array (
+                'id' => 96,
                 'name' => 'Cystitis',
             ),
             95 => 
             array (
+                'id' => 97,
                 'name' => 'Deafblindness',
             ),
             96 => 
             array (
+                'id' => 98,
                 'name' => 'Deep vein thrombosis',
             ),
             97 => 
             array (
+                'id' => 99,
                 'name' => 'Degenerative Cervical Myelopathy',
             ),
             98 => 
             array (
+                'id' => 100,
                 'name' => 'Dehydration',
             ),
             99 => 
             array (
+                'id' => 101,
                 'name' => 'Delirium',
             ),
             100 => 
             array (
+                'id' => 102,
                 'name' => 'Dementia',
             ),
             101 => 
             array (
+                'id' => 103,
                 'name' => 'Dental abscess',
             ),
             102 => 
             array (
+                'id' => 104,
                 'name' => 'Depression',
             ),
             103 => 
             array (
+                'id' => 105,
                 'name' => 'Dermatitis herpetiformis',
             ),
             104 => 
             array (
+                'id' => 106,
                 'name' => 'Diabetes',
             ),
             105 => 
             array (
+                'id' => 107,
                 'name' => 'Diabetic retinopathy',
             ),
             106 => 
             array (
+                'id' => 108,
                 'name' => 'Diarrhoea',
             ),
             107 => 
             array (
+                'id' => 109,
                 'name' => 'Discoid eczema',
             ),
             108 => 
             array (
+                'id' => 110,
                 'name' => 'Diverticular disease and diverticulitis',
             ),
             109 => 
             array (
+                'id' => 111,
             'name' => 'Dizziness (Lightheadedness)',
             ),
             110 => 
             array (
+                'id' => 112,
                 'name' => 'Down’s syndrome',
             ),
             111 => 
             array (
+                'id' => 113,
                 'name' => 'Dry mouth',
             ),
             112 => 
             array (
+                'id' => 114,
             'name' => 'Dysphagia (swallowing problems)',
             ),
             113 => 
             array (
+                'id' => 115,
                 'name' => 'Dystonia',
             ),
             114 => 
             array (
+                'id' => 116,
                 'name' => 'Earache',
             ),
             115 => 
             array (
+                'id' => 117,
                 'name' => 'Earwax build-up',
             ),
             116 => 
             array (
+                'id' => 118,
                 'name' => 'Ebola virus disease',
             ),
             117 => 
             array (
+                'id' => 119,
                 'name' => 'Ectopic pregnancy',
             ),
             118 => 
             array (
+                'id' => 120,
                 'name' => 'Edwards’ syndrome',
             ),
             119 => 
             array (
+                'id' => 121,
                 'name' => 'Endometriosis',
             ),
             120 => 
             array (
+                'id' => 122,
                 'name' => 'Epilepsy',
             ),
             121 => 
             array (
+                'id' => 123,
             'name' => 'Erectile dysfunction (impotence)',
             ),
             122 => 
             array (
+                'id' => 124,
             'name' => 'Escherichia coli (E. coli) O157',
             ),
             123 => 
             array (
+                'id' => 125,
                 'name' => 'Ewing sarcoma',
             ),
             124 => 
             array (
+                'id' => 126,
                 'name' => 'Ewing sarcoma: Children',
             ),
             125 => 
             array (
+                'id' => 127,
                 'name' => 'Eye cancer',
             ),
             126 => 
             array (
+                'id' => 128,
                 'name' => 'Farting',
             ),
             127 => 
             array (
+                'id' => 129,
                 'name' => 'Febrile seizures',
             ),
             128 => 
             array (
+                'id' => 130,
             'name' => 'Feeling of something in your throat (Globus)',
             ),
             129 => 
             array (
+                'id' => 131,
                 'name' => 'Fever in adults',
             ),
             130 => 
             array (
+                'id' => 132,
                 'name' => 'Fever in children',
             ),
             131 => 
             array (
+                'id' => 133,
                 'name' => 'Fibroids',
             ),
             132 => 
             array (
+                'id' => 134,
                 'name' => 'Fibromyalgia',
             ),
             133 => 
             array (
+                'id' => 135,
                 'name' => 'Flu',
             ),
             134 => 
             array (
+                'id' => 136,
                 'name' => 'Foetal alcohol syndrome',
             ),
             135 => 
             array (
+                'id' => 137,
                 'name' => 'Food allergy',
             ),
             136 => 
             array (
+                'id' => 138,
                 'name' => 'Food poisoning',
             ),
             137 => 
             array (
+                'id' => 139,
                 'name' => 'Frozen shoulder',
             ),
             138 => 
             array (
+                'id' => 140,
             'name' => 'Functional neurological disorder (FND)',
             ),
             139 => 
             array (
+                'id' => 141,
                 'name' => 'Fungal nail infection',
             ),
             140 => 
             array (
+                'id' => 142,
                 'name' => 'Gallbladder cancer',
             ),
             141 => 
             array (
+                'id' => 143,
                 'name' => 'Gallstones',
             ),
             142 => 
             array (
+                'id' => 144,
                 'name' => 'Ganglion cyst',
             ),
             143 => 
             array (
+                'id' => 145,
                 'name' => 'Gastroenteritis',
             ),
             144 => 
             array (
+                'id' => 146,
             'name' => 'Gastro-oesophageal reflux disease (GORD)',
             ),
             145 => 
             array (
+                'id' => 147,
                 'name' => 'Genital herpes',
             ),
             146 => 
             array (
+                'id' => 148,
                 'name' => 'Genital symptoms',
             ),
             147 => 
             array (
+                'id' => 149,
                 'name' => 'Genital warts',
             ),
             148 => 
             array (
+                'id' => 150,
                 'name' => 'Germ cell tumours',
             ),
             149 => 
             array (
+                'id' => 151,
                 'name' => 'Glandular fever',
             ),
             150 => 
             array (
+                'id' => 152,
                 'name' => 'Golfers elbow',
             ),
             151 => 
             array (
+                'id' => 153,
                 'name' => 'Gonorrhoea',
             ),
             152 => 
             array (
+                'id' => 154,
                 'name' => 'Gout',
             ),
             153 => 
             array (
+                'id' => 155,
                 'name' => 'Greater trochanteric pain syndrome',
             ),
             154 => 
             array (
+                'id' => 156,
                 'name' => 'Gum disease',
             ),
             155 => 
             array (
+                'id' => 157,
             'name' => 'Haemorrhoids (piles)',
             ),
             156 => 
             array (
+                'id' => 158,
                 'name' => 'Hand, foot and mouth disease',
             ),
             157 => 
             array (
+                'id' => 159,
                 'name' => 'Hay fever',
             ),
             158 => 
             array (
+                'id' => 160,
                 'name' => 'Head and neck cancer',
             ),
             159 => 
             array (
+                'id' => 161,
                 'name' => 'Head lice and nits',
             ),
             160 => 
             array (
+                'id' => 162,
                 'name' => 'Headaches',
             ),
             161 => 
             array (
+                'id' => 163,
                 'name' => 'Hearing loss',
             ),
             162 => 
             array (
+                'id' => 164,
                 'name' => 'Heart attack',
             ),
             163 => 
             array (
+                'id' => 165,
                 'name' => 'Heart block',
             ),
             164 => 
             array (
+                'id' => 166,
                 'name' => 'Heart failure',
             ),
             165 => 
             array (
+                'id' => 167,
                 'name' => 'Heart palpitations',
             ),
             166 => 
             array (
+                'id' => 168,
                 'name' => 'Hepatitis A',
             ),
             167 => 
             array (
+                'id' => 169,
                 'name' => 'Hepatitis B',
             ),
             168 => 
             array (
+                'id' => 170,
                 'name' => 'Hepatitis C',
             ),
             169 => 
             array (
+                'id' => 171,
                 'name' => 'Hiatus hernia',
             ),
             170 => 
             array (
+                'id' => 172,
             'name' => 'High blood pressure (hypertension)',
             ),
             171 => 
             array (
+                'id' => 173,
                 'name' => 'High cholesterol',
             ),
             172 => 
             array (
+                'id' => 174,
                 'name' => 'HIV',
             ),
             173 => 
             array (
+                'id' => 175,
                 'name' => 'Hodgkin lymphoma',
             ),
             174 => 
             array (
+                'id' => 176,
                 'name' => 'Hodgkin lymphoma: Children',
             ),
             175 => 
             array (
+                'id' => 177,
                 'name' => 'Hodgkin lymphoma: Teenagers and young adults',
             ),
             176 => 
             array (
+                'id' => 178,
                 'name' => 'Huntington’s disease',
             ),
             177 => 
             array (
+                'id' => 179,
             'name' => 'Hyperglycaemia (high blood sugar)',
             ),
             178 => 
             array (
+                'id' => 180,
                 'name' => 'Hyperhidrosis',
             ),
             179 => 
             array (
+                'id' => 181,
             'name' => 'Hypoglycaemia (low blood sugar)',
             ),
             180 => 
             array (
+                'id' => 182,
                 'name' => 'Idiopathic pulmonary fibrosis',
             ),
             181 => 
             array (
+                'id' => 183,
                 'name' => 'If your child has cold or flu symptoms',
             ),
             182 => 
             array (
+                'id' => 184,
                 'name' => 'Impetigo',
             ),
             183 => 
             array (
+                'id' => 185,
                 'name' => 'Indigestion',
             ),
             184 => 
             array (
+                'id' => 186,
                 'name' => 'Ingrown toenail',
             ),
             185 => 
             array (
+                'id' => 187,
                 'name' => 'Infertility',
             ),
             186 => 
             array (
+                'id' => 188,
             'name' => 'Inflammatory bowel disease (IBD)',
             ),
             187 => 
             array (
+                'id' => 189,
                 'name' => 'Inherited heart conditions',
             ),
             188 => 
             array (
+                'id' => 190,
                 'name' => 'Insomnia',
             ),
             189 => 
             array (
+                'id' => 191,
                 'name' => 'Iron deficiency anaemia',
             ),
             190 => 
             array (
+                'id' => 192,
             'name' => 'Irritable bowel syndrome (IBS)',
             ),
             191 => 
             array (
+                'id' => 193,
                 'name' => 'Itching',
             ),
             192 => 
             array (
+                'id' => 194,
                 'name' => 'Itchy bottom',
             ),
             193 => 
             array (
+                'id' => 195,
                 'name' => 'Itchy skin',
             ),
             194 => 
             array (
+                'id' => 196,
                 'name' => 'Joint hypermobility',
             ),
             195 => 
             array (
+                'id' => 197,
                 'name' => 'Kaposi’s sarcoma',
             ),
             196 => 
             array (
+                'id' => 198,
                 'name' => 'Kidney cancer',
             ),
             197 => 
             array (
+                'id' => 199,
                 'name' => 'Kidney infection',
             ),
             198 => 
             array (
+                'id' => 200,
                 'name' => 'Kidney stones',
             ),
             199 => 
             array (
+                'id' => 201,
                 'name' => 'Labyrinthitis',
             ),
             200 => 
             array (
+                'id' => 202,
                 'name' => 'Lactose intolerance',
             ),
             201 => 
             array (
+                'id' => 203,
             'name' => 'Laryngeal (larynx) cancer',
             ),
             202 => 
             array (
+                'id' => 204,
                 'name' => 'Laryngitis',
             ),
             203 => 
             array (
+                'id' => 205,
                 'name' => 'Leg cramps',
             ),
             204 => 
             array (
+                'id' => 206,
                 'name' => 'Lichen planus',
             ),
             205 => 
             array (
+                'id' => 207,
                 'name' => 'Lipoedema',
             ),
             206 => 
             array (
+                'id' => 208,
                 'name' => 'Liver cancer',
             ),
             207 => 
             array (
+                'id' => 209,
                 'name' => 'Liver disease',
             ),
             208 => 
             array (
+                'id' => 210,
                 'name' => 'Liver tumours',
             ),
             209 => 
             array (
+                'id' => 211,
                 'name' => 'Long-term effects of COVID-19',
             ),
             210 => 
             array (
+                'id' => 212,
                 'name' => 'Loss of libido',
             ),
             211 => 
             array (
+                'id' => 213,
             'name' => 'Low blood pressure (hypotension)',
             ),
             212 => 
             array (
+                'id' => 214,
                 'name' => 'Lumbar stenosis',
             ),
             213 => 
             array (
+                'id' => 215,
                 'name' => 'Lung cancer',
             ),
             214 => 
             array (
+                'id' => 216,
                 'name' => 'Lupus',
             ),
             215 => 
             array (
+                'id' => 217,
                 'name' => 'Lyme disease',
             ),
             216 => 
             array (
+                'id' => 218,
                 'name' => 'Lymphoedema',
             ),
             217 => 
             array (
+                'id' => 219,
             'name' => 'Lymphogranuloma venereum (LGV)',
             ),
             218 => 
             array (
+                'id' => 220,
                 'name' => 'Malaria',
             ),
             219 => 
             array (
+                'id' => 221,
             'name' => 'Malignant brain tumour (cancerous)',
             ),
             220 => 
             array (
+                'id' => 222,
                 'name' => 'Malnutrition',
             ),
             221 => 
             array (
+                'id' => 223,
                 'name' => 'Managing genital symptoms',
             ),
             222 => 
             array (
+                'id' => 224,
                 'name' => 'Measles',
             ),
             223 => 
             array (
+                'id' => 225,
                 'name' => 'Meningitis',
             ),
             224 => 
             array (
+                'id' => 226,
                 'name' => 'Meniere’s disease',
             ),
             225 => 
             array (
+                'id' => 227,
                 'name' => 'Menopause',
             ),
             226 => 
             array (
+                'id' => 228,
                 'name' => 'Mesothelioma',
             ),
             227 => 
             array (
+                'id' => 229,
             'name' => 'Middle ear infection (otitis media)',
             ),
             228 => 
             array (
+                'id' => 230,
                 'name' => 'Migraine',
             ),
             229 => 
             array (
+                'id' => 231,
                 'name' => 'Miscarriage',
             ),
             230 => 
             array (
+                'id' => 232,
             'name' => 'Motor neurone disease (MND)',
             ),
             231 => 
             array (
+                'id' => 233,
                 'name' => 'Mouth cancer',
             ),
             232 => 
             array (
+                'id' => 234,
                 'name' => 'Mouth ulcer',
             ),
             233 => 
             array (
+                'id' => 235,
                 'name' => 'Multiple myeloma',
             ),
             234 => 
             array (
+                'id' => 236,
             'name' => 'Multiple sclerosis (MS)',
             ),
             235 => 
             array (
+                'id' => 237,
             'name' => 'Multiple system atrophy (MSA)',
             ),
             236 => 
             array (
+                'id' => 238,
                 'name' => 'Mumps',
             ),
             237 => 
             array (
+                'id' => 239,
                 'name' => 'Munchausen’s syndrome',
             ),
             238 => 
             array (
+                'id' => 240,
             'name' => 'Myalgic encephalomyelitis (ME) or chronic fatigue syndrome (CFS)',
             ),
             239 => 
             array (
+                'id' => 241,
                 'name' => 'Myasthenia gravis',
             ),
             240 => 
             array (
+                'id' => 242,
                 'name' => 'Nasal and sinus cancer',
             ),
             241 => 
             array (
+                'id' => 243,
                 'name' => 'Nasopharyngeal cancer',
             ),
             242 => 
             array (
+                'id' => 244,
                 'name' => 'Neck problems',
             ),
             243 => 
             array (
+                'id' => 245,
                 'name' => 'Neuroblastoma: Children',
             ),
             244 => 
             array (
+                'id' => 246,
                 'name' => 'Neuroendocrine tumours',
             ),
             245 => 
             array (
+                'id' => 247,
             'name' => 'Non-alcoholic fatty liver disease (NAFLD)',
             ),
             246 => 
             array (
+                'id' => 248,
                 'name' => 'Non-Hodgkin lymphoma',
             ),
             247 => 
             array (
+                'id' => 249,
                 'name' => 'Non-Hodgkin lymphoma: Children',
             ),
             248 => 
             array (
+                'id' => 250,
                 'name' => 'Norovirus',
             ),
             249 => 
             array (
+                'id' => 251,
                 'name' => 'Nosebleed',
             ),
             250 => 
             array (
-                'name' => 'Achillies tendinopathy',
+                'id' => 252,
+                'name' => 'Obesity',
             ),
             251 => 
             array (
-                'name' => 'Acne',
+                'id' => 253,
+            'name' => 'Obsessive compulsive disorder (OCD)',
             ),
             252 => 
             array (
-                'name' => 'Acute cholecystitis',
+                'id' => 254,
+                'name' => 'Obstructive sleep apnoea',
             ),
             253 => 
             array (
-                'name' => 'Acute lymphoblastic leukaemia',
+                'id' => 255,
+                'name' => 'Oesophageal cancer',
             ),
             254 => 
             array (
-                'name' => 'Acute lymphoblastic leukaemia: Children',
+                'id' => 256,
+                'name' => 'Oral thrush in adults',
             ),
             255 => 
             array (
-                'name' => 'Acute lymphoblastic leukaemia: Teenagers and young adults',
+                'id' => 257,
+                'name' => 'Osteoarthritis',
             ),
             256 => 
             array (
-                'name' => 'Acute myeloid leukaemia',
+                'id' => 258,
+                'name' => 'Osteoarthritis of the hip',
             ),
             257 => 
             array (
-                'name' => 'Acute myeloid leukaemia: Children',
+                'id' => 259,
+                'name' => 'Osteoarthritis of the knee',
             ),
             258 => 
             array (
-                'name' => 'Acute myeloid leukaemia: Teenagers and young adults',
+                'id' => 260,
+                'name' => 'Osteoarthritis of the thumb',
             ),
             259 => 
             array (
-                'name' => 'Acute pancreatitis',
+                'id' => 261,
+                'name' => 'Osteoporosis',
             ),
             260 => 
             array (
-                'name' => 'Addison’s disease',
+                'id' => 262,
+                'name' => 'Osteosarcoma',
             ),
             261 => 
             array (
-                'name' => 'Adenomyosis',
+                'id' => 263,
+            'name' => 'Outer ear infection (otitis externa)',
             ),
             262 => 
             array (
-                'name' => 'Alcohol-related liver disease',
+                'id' => 264,
+                'name' => 'Ovarian cancer',
             ),
             263 => 
             array (
-                'name' => 'Allergic rhinitis',
+                'id' => 265,
+                'name' => 'Ovarian cancer: Teenagers and young adults',
             ),
             264 => 
             array (
-                'name' => 'Allergies',
+                'id' => 266,
+                'name' => 'Ovarian cyst',
             ),
             265 => 
             array (
-                'name' => 'Alzheimer’s disease',
+                'id' => 267,
+                'name' => 'Overactive thyroid',
             ),
             266 => 
             array (
-                'name' => 'Anal cancer',
+                'id' => 268,
+                'name' => 'Pain in the ball of the foot',
             ),
             267 => 
             array (
-                'name' => 'Anaphylaxis',
+                'id' => 269,
+                'name' => 'Paget’s disease of the nipple',
             ),
             268 => 
             array (
-                'name' => 'Angina',
+                'id' => 270,
+                'name' => 'Pancreatic cancer',
             ),
             269 => 
             array (
-                'name' => 'Angioedema',
+                'id' => 271,
+                'name' => 'Panic disorder',
             ),
             270 => 
             array (
-                'name' => 'Ankle sprain',
+                'id' => 272,
+                'name' => 'Parkinson’s disease',
             ),
             271 => 
             array (
-                'name' => 'Ankylosing spondylitis',
+                'id' => 273,
+                'name' => 'Patau’s syndrome',
             ),
             272 => 
             array (
-                'name' => 'Anorexia nervosa',
+                'id' => 274,
+                'name' => 'Patellofemoral pain syndrome',
             ),
             273 => 
             array (
-                'name' => 'Anxiety',
+                'id' => 275,
+                'name' => 'Pelvic inflammatory disease',
             ),
             274 => 
             array (
-                'name' => 'Anxiety disorders in children',
+                'id' => 276,
+                'name' => 'Pelvic organ prolapse',
             ),
             275 => 
             array (
-                'name' => 'Appendicitis',
+                'id' => 277,
+                'name' => 'Penile cancer',
             ),
             276 => 
             array (
-                'name' => 'Arterial thrombosis',
+                'id' => 278,
+                'name' => 'Peripheral neuropathy',
             ),
             277 => 
             array (
-                'name' => 'Arthritis',
+                'id' => 279,
+                'name' => 'Personality disorder',
             ),
             278 => 
             array (
-                'name' => 'Asbestosis',
+                'id' => 280,
+                'name' => 'PIMS',
             ),
             279 => 
             array (
-                'name' => 'Asthma',
+                'id' => 281,
+                'name' => 'Plantar heel pain',
             ),
             280 => 
             array (
-                'name' => 'Ataxia',
+                'id' => 282,
+                'name' => 'Pleurisy',
             ),
             281 => 
             array (
-                'name' => 'Atopic eczema',
+                'id' => 283,
+                'name' => 'Pneumonia',
             ),
             282 => 
             array (
-                'name' => 'Atrial fibrillation',
+                'id' => 284,
+                'name' => 'Polio',
             ),
             283 => 
             array (
-            'name' => 'Attention deficit hyperactivity disorder (ADHD)',
+                'id' => 285,
+            'name' => 'Polycystic ovary syndrome (PCOS)',
             ),
             284 => 
             array (
-            'name' => 'Autistic spectrum disorder (ASD)',
+                'id' => 286,
+                'name' => 'Polymyalgia rheumatica',
             ),
             285 => 
             array (
-                'name' => 'Bacterial vaginosis',
+                'id' => 287,
+                'name' => 'Post-polio syndrome',
             ),
             286 => 
             array (
-                'name' => 'Benign prostate enlargement',
+                'id' => 288,
+            'name' => 'Post-traumatic stress disorder (PTSD)',
             ),
             287 => 
             array (
-            'name' => 'Bile duct cancer (cholangiocarcinoma)',
+                'id' => 289,
+            'name' => 'Postural orthostatic tachycardia syndrome (PoTS)',
             ),
             288 => 
             array (
-                'name' => 'Binge eating',
+                'id' => 290,
+                'name' => 'Postnatal depression',
             ),
             289 => 
             array (
-                'name' => 'Bipolar disorder',
+                'id' => 291,
+                'name' => 'Pregnancy and baby',
             ),
             290 => 
             array (
-                'name' => 'Bladder cancer',
+                'id' => 292,
+                'name' => 'Pressure ulcers',
             ),
             291 => 
             array (
-            'name' => 'Blood poisoning (sepsis)',
+                'id' => 293,
+            'name' => 'Progressive supranuclear palsy (PSP)',
             ),
             292 => 
             array (
-                'name' => 'Bone cancer',
+                'id' => 294,
+                'name' => 'Prostate cancer',
             ),
             293 => 
             array (
-                'name' => 'Bone cancer: Teenagers and young adults',
+                'id' => 295,
+                'name' => 'Psoriasis',
             ),
             294 => 
             array (
-                'name' => 'Bowel cancer',
+                'id' => 296,
+                'name' => 'Psoriatic arthritis',
             ),
             295 => 
             array (
-                'name' => 'Bowel incontinence',
+                'id' => 297,
+                'name' => 'Psychosis',
             ),
             296 => 
             array (
-                'name' => 'Bowel polyps',
+                'id' => 298,
+                'name' => 'Pubic lice',
             ),
             297 => 
             array (
-                'name' => 'Brain stem death',
+                'id' => 299,
+                'name' => 'Pulmonary hypertension',
             ),
             298 => 
             array (
-                'name' => 'Brain tumours',
+                'id' => 300,
+                'name' => 'Rare conditions',
             ),
             299 => 
             array (
-                'name' => 'Brain tumours: Children',
+                'id' => 301,
+                'name' => 'Rare tumours',
             ),
             300 => 
             array (
-                'name' => 'Brain tumours: Teenagers and young adults',
+                'id' => 302,
+                'name' => 'Raynaud’s phenomenon',
             ),
             301 => 
             array (
-            'name' => 'Breast cancer (female)',
+                'id' => 303,
+                'name' => 'Reactive arthritis',
             ),
             302 => 
             array (
-            'name' => 'Breast cancer (male)',
+                'id' => 304,
+                'name' => 'Restless legs syndrome',
             ),
             303 => 
             array (
-                'name' => 'Bronchiectasis',
+                'id' => 305,
+            'name' => 'Respiratory syncytial virus (RSV)',
             ),
             304 => 
             array (
-                'name' => 'Bronchitis',
+                'id' => 306,
+                'name' => 'Retinoblastoma: Children',
             ),
             305 => 
             array (
-                'name' => 'Bulimia',
+                'id' => 307,
+                'name' => 'Rhabdomyosarcoma',
             ),
             306 => 
             array (
-                'name' => 'Bunion',
+                'id' => 308,
+                'name' => 'Rheumatoid arthritis',
             ),
             307 => 
             array (
-                'name' => 'Carcinoid syndrome and carcinoid tumours',
+                'id' => 309,
+                'name' => 'Ringworm and other fungal infections',
             ),
             308 => 
             array (
-                'name' => 'Cardiovascular disease',
+                'id' => 310,
+                'name' => 'Rosacea',
             ),
             309 => 
             array (
-                'name' => 'Carpal tunnel syndrome',
+                'id' => 311,
+                'name' => 'Scabies',
             ),
             310 => 
             array (
-                'name' => 'Catarrh',
+                'id' => 312,
+                'name' => 'Scarlet fever',
             ),
             311 => 
             array (
-                'name' => 'Cellulitis',
+                'id' => 313,
+                'name' => 'Schizophrenia',
             ),
             312 => 
             array (
-                'name' => 'Cerebral palsy',
+                'id' => 314,
+                'name' => 'Sciatica',
             ),
             313 => 
             array (
-                'name' => 'Cervical cancer',
+                'id' => 315,
+                'name' => 'Scoliosis',
             ),
             314 => 
             array (
-                'name' => 'Cervical spondylosis',
+                'id' => 316,
+            'name' => 'Seasonal affective disorder (SAD)',
             ),
             315 => 
             array (
-                'name' => 'Chest and rib injury',
+                'id' => 317,
+                'name' => 'Sepsis',
             ),
             316 => 
             array (
-                'name' => 'Chest infection',
+                'id' => 318,
+                'name' => 'Septic shock',
             ),
             317 => 
             array (
-                'name' => 'Chickenpox',
+                'id' => 319,
+                'name' => 'Shingles',
             ),
             318 => 
             array (
-                'name' => 'Chilblains',
+                'id' => 320,
+                'name' => 'Shortness of breath',
             ),
             319 => 
             array (
-                'name' => 'Chlamydia',
+                'id' => 321,
+                'name' => 'Sickle cell disease',
             ),
             320 => 
             array (
-                'name' => 'Chronic fatigue syndrome',
+                'id' => 322,
+                'name' => 'Sinusitis',
             ),
             321 => 
             array (
-                'name' => 'Chronic kidney disease',
+                'id' => 323,
+                'name' => 'Sjogren’s syndrome',
             ),
             322 => 
             array (
-                'name' => 'Chronic lymphocytic leukaemia',
+                'id' => 324,
+            'name' => 'Skin cancer (melanoma)',
             ),
             323 => 
             array (
-                'name' => 'Chronic myeloid leukaemia',
+                'id' => 325,
+            'name' => 'Skin cancer (non-melanoma)',
             ),
             324 => 
             array (
-            'name' => 'Chronic obstructive pulmonary disease (COPD)',
+                'id' => 326,
+            'name' => 'Skin light sensitivity (photosensitivity)',
             ),
             325 => 
             array (
-                'name' => 'Chronic pain',
+                'id' => 327,
+                'name' => 'Skin rashes in children',
             ),
             326 => 
             array (
-                'name' => 'Chronic pancreatitis',
+                'id' => 328,
+                'name' => 'Slapped cheek syndrome',
             ),
             327 => 
             array (
-                'name' => 'Cirrhosis',
+                'id' => 329,
+                'name' => 'Soft tissue sarcomas',
             ),
             328 => 
             array (
-                'name' => 'Clostridium difficile',
+                'id' => 330,
+                'name' => 'Soft tissue sarcomas: Teenagers and young adults',
             ),
             329 => 
             array (
-                'name' => 'Coeliac disease',
+                'id' => 331,
+                'name' => 'Sore throat',
             ),
             330 => 
             array (
-                'name' => 'Cold sore',
+                'id' => 332,
+                'name' => 'Spleen problems and spleen removal',
             ),
             331 => 
             array (
-                'name' => 'Coma',
+                'id' => 333,
+                'name' => 'Stillbirth',
             ),
             332 => 
             array (
-                'name' => 'Common cold',
+                'id' => 334,
+                'name' => 'Stomach ache and abdominal pain',
             ),
             333 => 
             array (
-                'name' => 'Congenital heart disease',
+                'id' => 335,
+                'name' => 'Stomach cancer',
             ),
             334 => 
             array (
-                'name' => 'Conjunctivitis',
+                'id' => 336,
+                'name' => 'Stomach ulcer',
             ),
             335 => 
             array (
-                'name' => 'Constipation',
+                'id' => 337,
+            'name' => 'Streptococcus A (strep A)',
             ),
             336 => 
             array (
-                'name' => 'Coronary heart disease',
+                'id' => 338,
+                'name' => 'Stress, anxiety and low mood',
             ),
             337 => 
             array (
-            'name' => 'Coronavirus (COVID-19)',
+                'id' => 339,
+                'name' => 'Stroke',
             ),
             338 => 
             array (
-            'name' => 'Coronavirus (COVID-19): Longer-term effects (long COVID)',
+                'id' => 340,
+                'name' => 'Subacromial pain syndrome',
             ),
             339 => 
             array (
-                'name' => 'Costochondritis',
+                'id' => 341,
+            'name' => 'Sudden infant death syndrome (SIDS)',
             ),
             340 => 
             array (
-                'name' => 'Cough',
+                'id' => 342,
+                'name' => 'Suicide',
             ),
             341 => 
             array (
-                'name' => 'Crohn’s disease',
+                'id' => 343,
+                'name' => 'Sunburn',
             ),
             342 => 
             array (
-                'name' => 'Croup',
+                'id' => 344,
+                'name' => 'Supraventricular tachycardia',
             ),
             343 => 
             array (
-                'name' => 'Cystic fibrosis',
+                'id' => 345,
+                'name' => 'Swollen glands',
             ),
             344 => 
             array (
-                'name' => 'Cystitis',
+                'id' => 346,
+                'name' => 'Syphilis',
             ),
             345 => 
             array (
-                'name' => 'Deafblindness',
+                'id' => 347,
+                'name' => 'Tennis elbow',
             ),
             346 => 
             array (
-                'name' => 'Deep vein thrombosis',
+                'id' => 348,
+                'name' => 'Testicular cancer',
             ),
             347 => 
             array (
-                'name' => 'Degenerative Cervical Myelopathy',
+                'id' => 349,
+                'name' => 'Testicular cancer: Teenagers and young adults',
             ),
             348 => 
             array (
-                'name' => 'Dehydration',
+                'id' => 350,
+                'name' => 'Testicular lumps and swellings',
             ),
             349 => 
             array (
-                'name' => 'Delirium',
+                'id' => 351,
+                'name' => 'Thirst',
             ),
             350 => 
             array (
-                'name' => 'Dementia',
+                'id' => 352,
+                'name' => 'Threadworms',
             ),
             351 => 
             array (
-                'name' => 'Dental abscess',
+                'id' => 353,
+                'name' => 'Thrush',
             ),
             352 => 
             array (
-                'name' => 'Depression',
+                'id' => 354,
+                'name' => 'Thyroid cancer',
             ),
             353 => 
             array (
-                'name' => 'Dermatitis herpetiformis',
+                'id' => 355,
+                'name' => 'Thyroid cancer: Teenagers and young adults',
             ),
             354 => 
             array (
-                'name' => 'Diabetes',
+                'id' => 356,
+                'name' => 'Tick bites',
             ),
             355 => 
             array (
-                'name' => 'Diabetic retinopathy',
+                'id' => 357,
+                'name' => 'Tinnitus',
             ),
             356 => 
             array (
-                'name' => 'Diarrhoea',
+                'id' => 358,
+                'name' => 'Tonsillitis',
             ),
             357 => 
             array (
-                'name' => 'Discoid eczema',
+                'id' => 359,
+                'name' => 'Tooth decay',
             ),
             358 => 
             array (
-                'name' => 'Diverticular disease and diverticulitis',
+                'id' => 360,
+                'name' => 'Toothache',
             ),
             359 => 
             array (
-            'name' => 'Dizziness (Lightheadedness)',
+                'id' => 361,
+                'name' => 'Tourette’s syndrome',
             ),
             360 => 
             array (
-                'name' => 'Down’s syndrome',
+                'id' => 362,
+            'name' => 'Transient ischaemic attack (TIA)',
             ),
             361 => 
             array (
-                'name' => 'Dry mouth',
+                'id' => 363,
+                'name' => 'Transverse myelitis',
             ),
             362 => 
             array (
-            'name' => 'Dysphagia (swallowing problems)',
+                'id' => 364,
+                'name' => 'Trichomonas infection',
             ),
             363 => 
             array (
-                'name' => 'Dystonia',
+                'id' => 365,
+                'name' => 'Trigeminal neuralgia',
             ),
             364 => 
             array (
-                'name' => 'Earache',
+                'id' => 366,
+            'name' => 'Tuberculosis (TB)',
             ),
             365 => 
             array (
-                'name' => 'Earwax build-up',
+                'id' => 367,
+                'name' => 'Type 1 diabetes',
             ),
             366 => 
             array (
-                'name' => 'Ebola virus disease',
+                'id' => 368,
+                'name' => 'Type 2 diabetes',
             ),
             367 => 
             array (
-                'name' => 'Ectopic pregnancy',
+                'id' => 369,
+                'name' => 'Ulcerative colitis',
             ),
             368 => 
             array (
-                'name' => 'Edwards’ syndrome',
+                'id' => 370,
+                'name' => 'Underactive thyroid',
             ),
             369 => 
             array (
-                'name' => 'Endometriosis',
+                'id' => 371,
+                'name' => 'Urinary incontinence',
             ),
             370 => 
             array (
-                'name' => 'Epilepsy',
+                'id' => 372,
+                'name' => 'Urinary incontinence in women',
             ),
             371 => 
             array (
-            'name' => 'Erectile dysfunction (impotence)',
+                'id' => 373,
+            'name' => 'Urinary tract infection (UTI)',
             ),
             372 => 
             array (
-            'name' => 'Escherichia coli (E. coli) O157',
+                'id' => 374,
+            'name' => 'Urinary tract infection (UTI) in children',
             ),
             373 => 
             array (
-                'name' => 'Ewing sarcoma',
+                'id' => 375,
+            'name' => 'Urticaria (hives)',
             ),
             374 => 
             array (
-                'name' => 'Ewing sarcoma: Children',
+                'id' => 376,
+                'name' => 'Vaginal cancer',
             ),
             375 => 
             array (
-                'name' => 'Eye cancer',
+                'id' => 377,
+                'name' => 'Vaginal discharge',
             ),
             376 => 
             array (
-                'name' => 'Farting',
+                'id' => 378,
+                'name' => 'Varicose eczema',
             ),
             377 => 
             array (
-                'name' => 'Febrile seizures',
+                'id' => 379,
+                'name' => 'Varicose veins',
             ),
             378 => 
             array (
-            'name' => 'Feeling of something in your throat (Globus)',
+                'id' => 380,
+                'name' => 'Venous leg ulcer',
             ),
             379 => 
             array (
-                'name' => 'Fever in adults',
+                'id' => 381,
+                'name' => 'Vertigo',
             ),
             380 => 
             array (
-                'name' => 'Fever in children',
+                'id' => 382,
+                'name' => 'Vitamin B12 or folate deficiency anaemia',
             ),
             381 => 
             array (
-                'name' => 'Fibroids',
+                'id' => 383,
+                'name' => 'Vomiting in adults',
             ),
             382 => 
             array (
-                'name' => 'Fibromyalgia',
+                'id' => 384,
+                'name' => 'Vomiting in children and babies',
             ),
             383 => 
             array (
-                'name' => 'Flu',
+                'id' => 385,
+                'name' => 'Vulval cancer',
             ),
             384 => 
             array (
-                'name' => 'Foetal alcohol syndrome',
+                'id' => 386,
+                'name' => 'Warts and verrucas',
             ),
             385 => 
             array (
-                'name' => 'Food allergy',
+                'id' => 387,
+                'name' => 'Whiplash',
             ),
             386 => 
             array (
-                'name' => 'Food poisoning',
+                'id' => 388,
+                'name' => 'Whooping cough',
             ),
             387 => 
             array (
-                'name' => 'Frozen shoulder',
+                'id' => 389,
+                'name' => 'Wilms’ tumour',
             ),
             388 => 
             array (
-            'name' => 'Functional neurological disorder (FND)',
+                'id' => 390,
+                'name' => 'Wolff-Parkinson-White syndrome',
             ),
             389 => 
             array (
-                'name' => 'Fungal nail infection',
+                'id' => 391,
+            'name' => 'Womb (uterus) cancer',
             ),
             390 => 
             array (
-                'name' => 'Gallbladder cancer',
-            ),
-            391 => 
-            array (
-                'name' => 'Gallstones',
-            ),
-            392 => 
-            array (
-                'name' => 'Ganglion cyst',
-            ),
-            393 => 
-            array (
-                'name' => 'Gastroenteritis',
-            ),
-            394 => 
-            array (
-            'name' => 'Gastro-oesophageal reflux disease (GORD)',
-            ),
-            395 => 
-            array (
-                'name' => 'Genital herpes',
-            ),
-            396 => 
-            array (
-                'name' => 'Genital symptoms',
-            ),
-            397 => 
-            array (
-                'name' => 'Genital warts',
-            ),
-            398 => 
-            array (
-                'name' => 'Germ cell tumours',
-            ),
-            399 => 
-            array (
-                'name' => 'Glandular fever',
-            ),
-            400 => 
-            array (
-                'name' => 'Golfers elbow',
-            ),
-            401 => 
-            array (
-                'name' => 'Gonorrhoea',
-            ),
-            402 => 
-            array (
-                'name' => 'Gout',
-            ),
-            403 => 
-            array (
-                'name' => 'Greater trochanteric pain syndrome',
-            ),
-            404 => 
-            array (
-                'name' => 'Gum disease',
-            ),
-            405 => 
-            array (
-            'name' => 'Haemorrhoids (piles)',
-            ),
-            406 => 
-            array (
-                'name' => 'Hand, foot and mouth disease',
-            ),
-            407 => 
-            array (
-                'name' => 'Hay fever',
-            ),
-            408 => 
-            array (
-                'name' => 'Head and neck cancer',
-            ),
-            409 => 
-            array (
-                'name' => 'Head lice and nits',
-            ),
-            410 => 
-            array (
-                'name' => 'Headaches',
-            ),
-            411 => 
-            array (
-                'name' => 'Hearing loss',
-            ),
-            412 => 
-            array (
-                'name' => 'Heart attack',
-            ),
-            413 => 
-            array (
-                'name' => 'Heart block',
-            ),
-            414 => 
-            array (
-                'name' => 'Heart failure',
-            ),
-            415 => 
-            array (
-                'name' => 'Heart palpitations',
-            ),
-            416 => 
-            array (
-                'name' => 'Hepatitis A',
-            ),
-            417 => 
-            array (
-                'name' => 'Hepatitis B',
-            ),
-            418 => 
-            array (
-                'name' => 'Hepatitis C',
-            ),
-            419 => 
-            array (
-                'name' => 'Hiatus hernia',
-            ),
-            420 => 
-            array (
-            'name' => 'High blood pressure (hypertension)',
-            ),
-            421 => 
-            array (
-                'name' => 'High cholesterol',
-            ),
-            422 => 
-            array (
-                'name' => 'HIV',
-            ),
-            423 => 
-            array (
-                'name' => 'Hodgkin lymphoma',
-            ),
-            424 => 
-            array (
-                'name' => 'Hodgkin lymphoma: Children',
-            ),
-            425 => 
-            array (
-                'name' => 'Hodgkin lymphoma: Teenagers and young adults',
-            ),
-            426 => 
-            array (
-                'name' => 'Huntington’s disease',
-            ),
-            427 => 
-            array (
-            'name' => 'Hyperglycaemia (high blood sugar)',
-            ),
-            428 => 
-            array (
-                'name' => 'Hyperhidrosis',
-            ),
-            429 => 
-            array (
-            'name' => 'Hypoglycaemia (low blood sugar)',
-            ),
-            430 => 
-            array (
-                'name' => 'Idiopathic pulmonary fibrosis',
-            ),
-            431 => 
-            array (
-                'name' => 'If your child has cold or flu symptoms',
-            ),
-            432 => 
-            array (
-                'name' => 'Impetigo',
-            ),
-            433 => 
-            array (
-                'name' => 'Indigestion',
-            ),
-            434 => 
-            array (
-                'name' => 'Ingrown toenail',
-            ),
-            435 => 
-            array (
-                'name' => 'Infertility',
-            ),
-            436 => 
-            array (
-            'name' => 'Inflammatory bowel disease (IBD)',
-            ),
-            437 => 
-            array (
-                'name' => 'Inherited heart conditions',
-            ),
-            438 => 
-            array (
-                'name' => 'Insomnia',
-            ),
-            439 => 
-            array (
-                'name' => 'Iron deficiency anaemia',
-            ),
-            440 => 
-            array (
-            'name' => 'Irritable bowel syndrome (IBS)',
-            ),
-            441 => 
-            array (
-                'name' => 'Itching',
-            ),
-            442 => 
-            array (
-                'name' => 'Itchy bottom',
-            ),
-            443 => 
-            array (
-                'name' => 'Itchy skin',
-            ),
-            444 => 
-            array (
-                'name' => 'Joint hypermobility',
-            ),
-            445 => 
-            array (
-                'name' => 'Kaposi’s sarcoma',
-            ),
-            446 => 
-            array (
-                'name' => 'Kidney cancer',
-            ),
-            447 => 
-            array (
-                'name' => 'Kidney infection',
-            ),
-            448 => 
-            array (
-                'name' => 'Kidney stones',
-            ),
-            449 => 
-            array (
-                'name' => 'Labyrinthitis',
-            ),
-            450 => 
-            array (
-                'name' => 'Lactose intolerance',
-            ),
-            451 => 
-            array (
-            'name' => 'Laryngeal (larynx) cancer',
-            ),
-            452 => 
-            array (
-                'name' => 'Laryngitis',
-            ),
-            453 => 
-            array (
-                'name' => 'Leg cramps',
-            ),
-            454 => 
-            array (
-                'name' => 'Lichen planus',
-            ),
-            455 => 
-            array (
-                'name' => 'Lipoedema',
-            ),
-            456 => 
-            array (
-                'name' => 'Liver cancer',
-            ),
-            457 => 
-            array (
-                'name' => 'Liver disease',
-            ),
-            458 => 
-            array (
-                'name' => 'Liver tumours',
-            ),
-            459 => 
-            array (
-                'name' => 'Long-term effects of COVID-19',
-            ),
-            460 => 
-            array (
-                'name' => 'Loss of libido',
-            ),
-            461 => 
-            array (
-            'name' => 'Low blood pressure (hypotension)',
-            ),
-            462 => 
-            array (
-                'name' => 'Lumbar stenosis',
-            ),
-            463 => 
-            array (
-                'name' => 'Lung cancer',
-            ),
-            464 => 
-            array (
-                'name' => 'Lupus',
-            ),
-            465 => 
-            array (
-                'name' => 'Lyme disease',
-            ),
-            466 => 
-            array (
-                'name' => 'Lymphoedema',
-            ),
-            467 => 
-            array (
-            'name' => 'Lymphogranuloma venereum (LGV)',
-            ),
-            468 => 
-            array (
-                'name' => 'Malaria',
-            ),
-            469 => 
-            array (
-            'name' => 'Malignant brain tumour (cancerous)',
-            ),
-            470 => 
-            array (
-                'name' => 'Malnutrition',
-            ),
-            471 => 
-            array (
-                'name' => 'Managing genital symptoms',
-            ),
-            472 => 
-            array (
-                'name' => 'Measles',
-            ),
-            473 => 
-            array (
-                'name' => 'Meningitis',
-            ),
-            474 => 
-            array (
-                'name' => 'Meniere’s disease',
-            ),
-            475 => 
-            array (
-                'name' => 'Menopause',
-            ),
-            476 => 
-            array (
-                'name' => 'Mesothelioma',
-            ),
-            477 => 
-            array (
-            'name' => 'Middle ear infection (otitis media)',
-            ),
-            478 => 
-            array (
-                'name' => 'Migraine',
-            ),
-            479 => 
-            array (
-                'name' => 'Miscarriage',
-            ),
-            480 => 
-            array (
-            'name' => 'Motor neurone disease (MND)',
-            ),
-            481 => 
-            array (
-                'name' => 'Mouth cancer',
-            ),
-            482 => 
-            array (
-                'name' => 'Mouth ulcer',
-            ),
-            483 => 
-            array (
-                'name' => 'Multiple myeloma',
-            ),
-            484 => 
-            array (
-            'name' => 'Multiple sclerosis (MS)',
-            ),
-            485 => 
-            array (
-            'name' => 'Multiple system atrophy (MSA)',
-            ),
-            486 => 
-            array (
-                'name' => 'Mumps',
-            ),
-            487 => 
-            array (
-                'name' => 'Munchausen’s syndrome',
-            ),
-            488 => 
-            array (
-            'name' => 'Myalgic encephalomyelitis (ME) or chronic fatigue syndrome (CFS)',
-            ),
-            489 => 
-            array (
-                'name' => 'Myasthenia gravis',
-            ),
-            490 => 
-            array (
-                'name' => 'Nasal and sinus cancer',
-            ),
-            491 => 
-            array (
-                'name' => 'Nasopharyngeal cancer',
-            ),
-            492 => 
-            array (
-                'name' => 'Neck problems',
-            ),
-            493 => 
-            array (
-                'name' => 'Neuroblastoma: Children',
-            ),
-            494 => 
-            array (
-                'name' => 'Neuroendocrine tumours',
-            ),
-            495 => 
-            array (
-            'name' => 'Non-alcoholic fatty liver disease (NAFLD)',
-            ),
-            496 => 
-            array (
-                'name' => 'Non-Hodgkin lymphoma',
-            ),
-            497 => 
-            array (
-                'name' => 'Non-Hodgkin lymphoma: Children',
-            ),
-            498 => 
-            array (
-                'name' => 'Norovirus',
-            ),
-            499 => 
-            array (
-                'name' => 'Nosebleed',
-            ),
-        ));
-        \DB::table('diagnosis')->insert(array (
-            0 => 
-            array (
-                'name' => 'Obesity',
-            ),
-            1 => 
-            array (
-            'name' => 'Obsessive compulsive disorder (OCD)',
-            ),
-            2 => 
-            array (
-                'name' => 'Obstructive sleep apnoea',
-            ),
-            3 => 
-            array (
-                'name' => 'Oesophageal cancer',
-            ),
-            4 => 
-            array (
-                'name' => 'Oral thrush in adults',
-            ),
-            5 => 
-            array (
-                'name' => 'Osteoarthritis',
-            ),
-            6 => 
-            array (
-                'name' => 'Osteoarthritis of the hip',
-            ),
-            7 => 
-            array (
-                'name' => 'Osteoarthritis of the knee',
-            ),
-            8 => 
-            array (
-                'name' => 'Osteoarthritis of the thumb',
-            ),
-            9 => 
-            array (
-                'name' => 'Osteoporosis',
-            ),
-            10 => 
-            array (
-                'name' => 'Osteosarcoma',
-            ),
-            11 => 
-            array (
-            'name' => 'Outer ear infection (otitis externa)',
-            ),
-            12 => 
-            array (
-                'name' => 'Ovarian cancer',
-            ),
-            13 => 
-            array (
-                'name' => 'Ovarian cancer: Teenagers and young adults',
-            ),
-            14 => 
-            array (
-                'name' => 'Ovarian cyst',
-            ),
-            15 => 
-            array (
-                'name' => 'Overactive thyroid',
-            ),
-            16 => 
-            array (
-                'name' => 'Pain in the ball of the foot',
-            ),
-            17 => 
-            array (
-                'name' => 'Paget’s disease of the nipple',
-            ),
-            18 => 
-            array (
-                'name' => 'Pancreatic cancer',
-            ),
-            19 => 
-            array (
-                'name' => 'Panic disorder',
-            ),
-            20 => 
-            array (
-                'name' => 'Parkinson’s disease',
-            ),
-            21 => 
-            array (
-                'name' => 'Patau’s syndrome',
-            ),
-            22 => 
-            array (
-                'name' => 'Patellofemoral pain syndrome',
-            ),
-            23 => 
-            array (
-                'name' => 'Pelvic inflammatory disease',
-            ),
-            24 => 
-            array (
-                'name' => 'Pelvic organ prolapse',
-            ),
-            25 => 
-            array (
-                'name' => 'Penile cancer',
-            ),
-            26 => 
-            array (
-                'name' => 'Peripheral neuropathy',
-            ),
-            27 => 
-            array (
-                'name' => 'Personality disorder',
-            ),
-            28 => 
-            array (
-                'name' => 'PIMS',
-            ),
-            29 => 
-            array (
-                'name' => 'Plantar heel pain',
-            ),
-            30 => 
-            array (
-                'name' => 'Pleurisy',
-            ),
-            31 => 
-            array (
-                'name' => 'Pneumonia',
-            ),
-            32 => 
-            array (
-                'name' => 'Polio',
-            ),
-            33 => 
-            array (
-            'name' => 'Polycystic ovary syndrome (PCOS)',
-            ),
-            34 => 
-            array (
-                'name' => 'Polymyalgia rheumatica',
-            ),
-            35 => 
-            array (
-                'name' => 'Post-polio syndrome',
-            ),
-            36 => 
-            array (
-            'name' => 'Post-traumatic stress disorder (PTSD)',
-            ),
-            37 => 
-            array (
-            'name' => 'Postural orthostatic tachycardia syndrome (PoTS)',
-            ),
-            38 => 
-            array (
-                'name' => 'Postnatal depression',
-            ),
-            39 => 
-            array (
-                'name' => 'Pregnancy and baby',
-            ),
-            40 => 
-            array (
-                'name' => 'Pressure ulcers',
-            ),
-            41 => 
-            array (
-            'name' => 'Progressive supranuclear palsy (PSP)',
-            ),
-            42 => 
-            array (
-                'name' => 'Prostate cancer',
-            ),
-            43 => 
-            array (
-                'name' => 'Psoriasis',
-            ),
-            44 => 
-            array (
-                'name' => 'Psoriatic arthritis',
-            ),
-            45 => 
-            array (
-                'name' => 'Psychosis',
-            ),
-            46 => 
-            array (
-                'name' => 'Pubic lice',
-            ),
-            47 => 
-            array (
-                'name' => 'Pulmonary hypertension',
-            ),
-            48 => 
-            array (
-                'name' => 'Rare conditions',
-            ),
-            49 => 
-            array (
-                'name' => 'Rare tumours',
-            ),
-            50 => 
-            array (
-                'name' => 'Raynaud’s phenomenon',
-            ),
-            51 => 
-            array (
-                'name' => 'Reactive arthritis',
-            ),
-            52 => 
-            array (
-                'name' => 'Restless legs syndrome',
-            ),
-            53 => 
-            array (
-            'name' => 'Respiratory syncytial virus (RSV)',
-            ),
-            54 => 
-            array (
-                'name' => 'Retinoblastoma: Children',
-            ),
-            55 => 
-            array (
-                'name' => 'Rhabdomyosarcoma',
-            ),
-            56 => 
-            array (
-                'name' => 'Rheumatoid arthritis',
-            ),
-            57 => 
-            array (
-                'name' => 'Ringworm and other fungal infections',
-            ),
-            58 => 
-            array (
-                'name' => 'Rosacea',
-            ),
-            59 => 
-            array (
-                'name' => 'Scabies',
-            ),
-            60 => 
-            array (
-                'name' => 'Scarlet fever',
-            ),
-            61 => 
-            array (
-                'name' => 'Schizophrenia',
-            ),
-            62 => 
-            array (
-                'name' => 'Sciatica',
-            ),
-            63 => 
-            array (
-                'name' => 'Scoliosis',
-            ),
-            64 => 
-            array (
-            'name' => 'Seasonal affective disorder (SAD)',
-            ),
-            65 => 
-            array (
-                'name' => 'Sepsis',
-            ),
-            66 => 
-            array (
-                'name' => 'Septic shock',
-            ),
-            67 => 
-            array (
-                'name' => 'Shingles',
-            ),
-            68 => 
-            array (
-                'name' => 'Shortness of breath',
-            ),
-            69 => 
-            array (
-                'name' => 'Sickle cell disease',
-            ),
-            70 => 
-            array (
-                'name' => 'Sinusitis',
-            ),
-            71 => 
-            array (
-                'name' => 'Sjogren’s syndrome',
-            ),
-            72 => 
-            array (
-            'name' => 'Skin cancer (melanoma)',
-            ),
-            73 => 
-            array (
-            'name' => 'Skin cancer (non-melanoma)',
-            ),
-            74 => 
-            array (
-            'name' => 'Skin light sensitivity (photosensitivity)',
-            ),
-            75 => 
-            array (
-                'name' => 'Skin rashes in children',
-            ),
-            76 => 
-            array (
-                'name' => 'Slapped cheek syndrome',
-            ),
-            77 => 
-            array (
-                'name' => 'Soft tissue sarcomas',
-            ),
-            78 => 
-            array (
-                'name' => 'Soft tissue sarcomas: Teenagers and young adults',
-            ),
-            79 => 
-            array (
-                'name' => 'Sore throat',
-            ),
-            80 => 
-            array (
-                'name' => 'Spleen problems and spleen removal',
-            ),
-            81 => 
-            array (
-                'name' => 'Stillbirth',
-            ),
-            82 => 
-            array (
-                'name' => 'Stomach ache and abdominal pain',
-            ),
-            83 => 
-            array (
-                'name' => 'Stomach cancer',
-            ),
-            84 => 
-            array (
-                'name' => 'Stomach ulcer',
-            ),
-            85 => 
-            array (
-            'name' => 'Streptococcus A (strep A)',
-            ),
-            86 => 
-            array (
-                'name' => 'Stress, anxiety and low mood',
-            ),
-            87 => 
-            array (
-                'name' => 'Stroke',
-            ),
-            88 => 
-            array (
-                'name' => 'Subacromial pain syndrome',
-            ),
-            89 => 
-            array (
-            'name' => 'Sudden infant death syndrome (SIDS)',
-            ),
-            90 => 
-            array (
-                'name' => 'Suicide',
-            ),
-            91 => 
-            array (
-                'name' => 'Sunburn',
-            ),
-            92 => 
-            array (
-                'name' => 'Supraventricular tachycardia',
-            ),
-            93 => 
-            array (
-                'name' => 'Swollen glands',
-            ),
-            94 => 
-            array (
-                'name' => 'Syphilis',
-            ),
-            95 => 
-            array (
-                'name' => 'Tennis elbow',
-            ),
-            96 => 
-            array (
-                'name' => 'Testicular cancer',
-            ),
-            97 => 
-            array (
-                'name' => 'Testicular cancer: Teenagers and young adults',
-            ),
-            98 => 
-            array (
-                'name' => 'Testicular lumps and swellings',
-            ),
-            99 => 
-            array (
-                'name' => 'Thirst',
-            ),
-            100 => 
-            array (
-                'name' => 'Threadworms',
-            ),
-            101 => 
-            array (
-                'name' => 'Thrush',
-            ),
-            102 => 
-            array (
-                'name' => 'Thyroid cancer',
-            ),
-            103 => 
-            array (
-                'name' => 'Thyroid cancer: Teenagers and young adults',
-            ),
-            104 => 
-            array (
-                'name' => 'Tick bites',
-            ),
-            105 => 
-            array (
-                'name' => 'Tinnitus',
-            ),
-            106 => 
-            array (
-                'name' => 'Tonsillitis',
-            ),
-            107 => 
-            array (
-                'name' => 'Tooth decay',
-            ),
-            108 => 
-            array (
-                'name' => 'Toothache',
-            ),
-            109 => 
-            array (
-                'name' => 'Tourette’s syndrome',
-            ),
-            110 => 
-            array (
-            'name' => 'Transient ischaemic attack (TIA)',
-            ),
-            111 => 
-            array (
-                'name' => 'Transverse myelitis',
-            ),
-            112 => 
-            array (
-                'name' => 'Trichomonas infection',
-            ),
-            113 => 
-            array (
-                'name' => 'Trigeminal neuralgia',
-            ),
-            114 => 
-            array (
-            'name' => 'Tuberculosis (TB)',
-            ),
-            115 => 
-            array (
-                'name' => 'Type 1 diabetes',
-            ),
-            116 => 
-            array (
-                'name' => 'Type 2 diabetes',
-            ),
-            117 => 
-            array (
-                'name' => 'Ulcerative colitis',
-            ),
-            118 => 
-            array (
-                'name' => 'Underactive thyroid',
-            ),
-            119 => 
-            array (
-                'name' => 'Urinary incontinence',
-            ),
-            120 => 
-            array (
-                'name' => 'Urinary incontinence in women',
-            ),
-            121 => 
-            array (
-            'name' => 'Urinary tract infection (UTI)',
-            ),
-            122 => 
-            array (
-            'name' => 'Urinary tract infection (UTI) in children',
-            ),
-            123 => 
-            array (
-            'name' => 'Urticaria (hives)',
-            ),
-            124 => 
-            array (
-                'name' => 'Vaginal cancer',
-            ),
-            125 => 
-            array (
-                'name' => 'Vaginal discharge',
-            ),
-            126 => 
-            array (
-                'name' => 'Varicose eczema',
-            ),
-            127 => 
-            array (
-                'name' => 'Varicose veins',
-            ),
-            128 => 
-            array (
-                'name' => 'Venous leg ulcer',
-            ),
-            129 => 
-            array (
-                'name' => 'Vertigo',
-            ),
-            130 => 
-            array (
-                'name' => 'Vitamin B12 or folate deficiency anaemia',
-            ),
-            131 => 
-            array (
-                'name' => 'Vomiting in adults',
-            ),
-            132 => 
-            array (
-                'name' => 'Vomiting in children and babies',
-            ),
-            133 => 
-            array (
-                'name' => 'Vulval cancer',
-            ),
-            134 => 
-            array (
-                'name' => 'Warts and verrucas',
-            ),
-            135 => 
-            array (
-                'name' => 'Whiplash',
-            ),
-            136 => 
-            array (
-                'name' => 'Whooping cough',
-            ),
-            137 => 
-            array (
-                'name' => 'Wilms’ tumour',
-            ),
-            138 => 
-            array (
-                'name' => 'Wolff-Parkinson-White syndrome',
-            ),
-            139 => 
-            array (
-            'name' => 'Womb (uterus) cancer',
-            ),
-            140 => 
-            array (
+                'id' => 392,
                 'name' => 'Yellow fever',
             ),
         ));

@@ -176,6 +176,9 @@ class PatientController extends Controller
     {
         return $doctorvisit;
     }
+    public function updateDoctorVisit(Request $request , Doctorvisit $doctorVisit){
+        return ['status'=>$doctorVisit->update($request->all())];
+    }
     public function findDoctorVisit(Request $request )
     {
        return   Doctorvisit::where('patient_id','=',$request->get('pid'))->first();

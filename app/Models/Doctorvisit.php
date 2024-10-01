@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Doctorvisit extends Model
 {
+    protected $guarded = ['id'];
     use HasFactory;
     protected $with = ['patient','services'];
     protected $table = 'doctor_visit';

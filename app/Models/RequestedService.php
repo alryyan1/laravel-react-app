@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\Model;
 class RequestedService extends Model
 {
     protected $guarded =['id'];
+
     protected $with = ['service'];
     public function doctorVisit()
     {
