@@ -59,7 +59,7 @@ class DoctorShiftController extends Controller
        }
       $shifts =  DoctorShift::with(['doctor','visits'=>function( $query){
             return $query->orderByDesc('doctor_visit.id');
-        }])->where('user_id',$user_id)->where('status',$open)->where('shift_id',$shift_id)->get();
+        }])->where('status',$open)->where('shift_id',$shift_id)->get();
       return  $shifts;
     }
     public function  openedDoctorsShifts(Request $request, $shift_id, $last = true ,$open = 1){

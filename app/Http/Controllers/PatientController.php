@@ -178,7 +178,7 @@ class PatientController extends Controller
     }
     public function findDoctorVisit(Request $request )
     {
-       return   Doctorvisit::where('patient_id','=',$request->get('pid'))->first()->fresh();
+       return   Doctorvisit::where('patient_id','=',$request->get('pid'))->first();
     }
     public function findPatient(Request $request , Patient $patient)
     {

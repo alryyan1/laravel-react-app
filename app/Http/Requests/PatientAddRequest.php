@@ -63,6 +63,8 @@ class PatientAddRequest extends FormRequest
             'result_auth'=>'',
             'discount'=>'',
             'care_plan'=>'',
+            'doctor_lab_urgent_confirm'=>'',
+            'doctor_lab_request_confirm'=>'',
 
         ];
     }
