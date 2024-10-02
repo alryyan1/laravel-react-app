@@ -27,6 +27,17 @@ use PHPUnit\Exception;
 
 class PatientController extends Controller
 {
+    public function updateTable(Request $request){
+        $table  = $request->table;
+        foreach ($request->val as $val){
+           $pdo = DB::getPdo();
+          $rows =  $pdo->query("select * from $table where name = '$val '")->rowCount();
+          if ($rows == 0){
+              $pdo->query("INSERT INTO $table (`id`, `name`) VALUES (NULL, '$val');");
+          }
+        }
+        return DB::table($table)->get();
+    }
     public function newPatient(Request $request,Patient $patient)
     {
         NewPatientNotification::create(['patient_id'=>$patient->id]);

@@ -367,7 +367,7 @@ Route::get('newPatient/{patient}', [PatientController::class, 'newPatient']);
 Route::get('NewPatients', [PatientController::class, 'NewPatients']);
 Route::get('removeNewPatient/{patient}', [PatientController::class, 'removeNewPatients']);
 
-
+Route::patch('updateTable',[PatientController::class,'updateTable']);
 
 Route::middleware('auth:sanctum')->patch('patients/{patient}', [PatientController::class, 'update']);
 Route::get('patient/barcode/{patient}', [PatientController::class, 'printBarcode']);
