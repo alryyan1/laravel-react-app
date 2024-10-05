@@ -68,6 +68,9 @@ class Doctor extends Model
         return $this->hasMany(DoctorShift::class)->orderByDesc('id');
     }
 
+    public function getLastShift(){
+      return  DoctorShift::whereDoctorId($this->id)->orderByDesc('id')->first();
+    }
 
     public function services()
     {

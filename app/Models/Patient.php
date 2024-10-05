@@ -149,7 +149,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $discount_amount
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereHeartRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSpo2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

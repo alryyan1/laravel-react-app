@@ -1235,6 +1235,13 @@ class PDFController extends Controller
                 $pdf->Line(205, 43, 205, 280); //line between 2 points
             }
         };
+        // Define the path to the image that you want to use as watermark.
+
+
+//        var_dump($img_file);
+
+        // Render the image
+//        $pdf->Image($img_file, 0, 0, 223, 280, '', '', '', false, 300, '', false, false, 0);
         $pdf->foot = function ($pdf) use ($patient, $page_width, $arial,$settings) {
             $pdf->SetFont($arial, '', 10, '', true);
             $col = $page_width / 6;
@@ -1254,6 +1261,16 @@ class PDFController extends Controller
             }
         };
             $pdf->AddPage();
+            if ($settings->show_water_mark){
+                $img_file = public_path('water_mark.png');
+
+                $pdf->SetAlpha(0.2); // Transparency for watermark
+
+                $pdf->Image("@".$img, 30, 100, 150,150); // Image watermark
+
+                $pdf->SetAlpha(1); // Reset transparency
+            }
+
         //$pdf->Ln(25);
         $pdf->SetFillColor(240, 240, 240);
         $page_height = $pdf->getPageHeight() - PDF_MARGIN_TOP;

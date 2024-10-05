@@ -60,7 +60,7 @@ class Pdf extends \TCPDF {
     // Page footer
     public function Footer() {
         // Position at 15 mm from bottom
-        $this->setY(-25);
+        $this->setY(-30);
         $this->setFont('helvetica', 'I', 8);
 
         $func = $this->foot;

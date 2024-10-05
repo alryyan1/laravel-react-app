@@ -275,6 +275,7 @@ Route::patch('doctors/{doctor}', [DoctorController::class, 'update']);
 Route::post('doctors/add', [DoctorController::class, 'create']);
 Route::get('doctors/pagination/{page_size}', [DoctorController::class, 'pagination']);
 Route::get('doctors/find/{doctor}', [DoctorController::class, 'find']);
+Route::get('doctorShift/find', [DoctorShiftController::class, 'find']);
 
 
 //specialists

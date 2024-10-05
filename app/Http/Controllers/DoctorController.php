@@ -98,12 +98,9 @@ class DoctorController extends Controller
 
     public function find(Request $request,Doctor $doctor)
     {
-        return $doctor->load(['shifts'=>function (HasMany $query){
-            return $query->orderByDesc('id')->with(['visits'=>function ($query) {
-                return $query->orderByDesc('id');
-            }]);
+        return $doctor->getLastShift();
 
-        }]);
+
     }
 
 

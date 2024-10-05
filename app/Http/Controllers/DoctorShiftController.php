@@ -73,6 +73,9 @@ class DoctorShiftController extends Controller
         }])->where('status',$open)->where('shift_id',$shift_id)->get();
       return  $shifts;
     }
+    public function find(Request $request){
+        return DoctorShift::whereDoctorId($request->get('id'))->where('id','<',$request->get('currentShiftId'))->orderByDesc('id')->first();
+    }
     public function  doctorVisitsByDate(Request $request){
 
         $first = $request->get('first');

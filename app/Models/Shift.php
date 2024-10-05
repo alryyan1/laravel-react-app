@@ -249,6 +249,7 @@ class Shift extends Model
         return $total;
     }
     protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists','totalDeductsPostPaid','totalDeductsPaid'];
+//    protected $appends = ['maxShiftId','specialists'];
     public function getTotalDeductsPriceAttribute()
     {
         return $this->totalDeductsPrice();
