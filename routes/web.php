@@ -84,7 +84,7 @@ Route::post('webhook',[WebhookController::class,'webhook']);
     Route::get('test',function (){
 
 
-        $data =      DB::table('newDrugs')->select('*')->get();
+        $data =      DB::table('price_list_last_update_03_07_2016')->select('*')->get();
 
 
         foreach ($data as $item) {
@@ -95,6 +95,7 @@ Route::post('webhook',[WebhookController::class,'webhook']);
 //                continue ;
 //
 //            }
+//            dd($item);
             Item::create([
                 'section_id' => NULL,
                 'name' => '',
@@ -102,17 +103,21 @@ Route::post('webhook',[WebhookController::class,'webhook']);
                 'initial_balance' => 0,
                 'initial_price' => 0,
                 'tests' => 0,
-                'expire' => '2024-07-01',
+                'expire' => '1999-01-01',
                 'cost_price' =>0,
                 'sell_price' => 0,
                 'drug_category_id' => NULL,
                 'pharmacy_type_id' => NULL,
                 'barcode' => null,
                 'strips' => 1,
-                'sc_name' => $item->name,
-                'market_name' => $item->name,
+                'sc_name' => '',
+                'market_name' => $item->TRADE_NAME,
                 'batch' => NULL,
-                'unit' => '',
+                'active1' => $item->ACTIVE_1 ?? '',
+                'active2' => $item->ACTIVE_2?? '',
+                'active3' => $item->ACTIVE_3 ?? '',
+                'pack_size' => $item->PACK_SIZE,
+                'approved_rp' => $item->APPROVED_R_P,
             ]);
         }
 

@@ -467,6 +467,251 @@ class PharmacyTypesTableSeeder extends Seeder
                 'created_at' => '2024-09-19 01:09:34',
                 'updated_at' => '2024-09-19 01:09:34',
             ),
+            64 => 
+            array (
+                'id' => 65,
+                'name' => 'supplment',
+                'created_at' => '2024-09-21 15:33:45',
+                'updated_at' => '2024-09-21 15:33:45',
+            ),
+            65 => 
+            array (
+                'id' => 66,
+                'name' => 'roll on',
+                'created_at' => '2024-09-21 16:36:10',
+                'updated_at' => '2024-09-21 16:36:10',
+            ),
+            66 => 
+            array (
+                'id' => 67,
+                'name' => 'nail conditioner',
+                'created_at' => '2024-09-21 17:05:16',
+                'updated_at' => '2024-09-21 17:05:16',
+            ),
+            67 => 
+            array (
+                'id' => 68,
+                'name' => 'hair removal cream',
+                'created_at' => '2024-09-21 17:13:29',
+                'updated_at' => '2024-09-21 17:13:29',
+            ),
+            68 => 
+            array (
+                'id' => 69,
+                'name' => 'bb cream',
+                'created_at' => '2024-09-21 17:17:56',
+                'updated_at' => '2024-09-21 17:17:56',
+            ),
+            69 => 
+            array (
+                'id' => 70,
+                'name' => 'hair protien',
+                'created_at' => '2024-09-21 18:57:46',
+                'updated_at' => '2024-09-21 18:57:46',
+            ),
+            70 => 
+            array (
+                'id' => 71,
+                'name' => 'STARTER KIT',
+                'created_at' => '2024-09-21 19:27:57',
+                'updated_at' => '2024-09-21 19:27:57',
+            ),
+            71 => 
+            array (
+                'id' => 72,
+                'name' => 'HAIR BOTOX',
+                'created_at' => '2024-09-22 23:58:43',
+                'updated_at' => '2024-09-22 23:58:43',
+            ),
+            72 => 
+            array (
+                'id' => 73,
+                'name' => 'ANTIBIOTICS',
+                'created_at' => '2024-09-23 23:52:58',
+                'updated_at' => '2024-09-23 23:52:58',
+            ),
+            73 => 
+            array (
+                'id' => 74,
+                'name' => 'CLEANSING TISSUE',
+                'created_at' => '2024-09-24 23:48:09',
+                'updated_at' => '2024-09-24 23:48:09',
+            ),
+            74 => 
+            array (
+                'id' => 75,
+                'name' => 'EYE CREAM',
+                'created_at' => '2024-09-25 00:38:00',
+                'updated_at' => '2024-09-25 00:38:00',
+            ),
+            75 => 
+            array (
+                'id' => 76,
+                'name' => 'PATCHES',
+                'created_at' => '2024-09-25 01:31:30',
+                'updated_at' => '2024-09-25 01:31:30',
+            ),
+            76 => 
+            array (
+                'id' => 77,
+                'name' => 'EFFERVESCENT TABLET',
+                'created_at' => '2024-09-25 01:38:29',
+                'updated_at' => '2024-09-25 01:38:29',
+            ),
+            77 => 
+            array (
+                'id' => 78,
+                'name' => 'ointment',
+                'created_at' => '2024-09-25 02:11:45',
+                'updated_at' => '2024-09-25 02:11:45',
+            ),
+            78 => 
+            array (
+                'id' => 79,
+                'name' => 'pad',
+                'created_at' => '2024-09-25 14:46:22',
+                'updated_at' => '2024-09-25 14:46:22',
+            ),
+            79 => 
+            array (
+                'id' => 80,
+                'name' => 'makeup remover',
+                'created_at' => '2024-09-25 14:48:25',
+                'updated_at' => '2024-09-25 14:48:25',
+            ),
+            80 => 
+            array (
+                'id' => 81,
+                'name' => 'PEELING',
+                'created_at' => '2024-09-25 15:40:05',
+                'updated_at' => '2024-09-25 15:40:05',
+            ),
+            81 => 
+            array (
+                'id' => 82,
+                'name' => 'spray',
+                'created_at' => '2024-09-25 15:56:29',
+                'updated_at' => '2024-09-25 15:56:29',
+            ),
+            82 => 
+            array (
+                'id' => 83,
+                'name' => 'SOLUTION',
+                'created_at' => '2024-09-26 18:51:38',
+                'updated_at' => '2024-09-26 18:51:38',
+            ),
+            83 => 
+            array (
+                'id' => 84,
+                'name' => 'EYE ROLLER',
+                'created_at' => '2024-09-26 18:59:31',
+                'updated_at' => '2024-09-26 18:59:31',
+            ),
+            84 => 
+            array (
+                'id' => 85,
+                'name' => 'CLEANSING OIL',
+                'created_at' => '2024-09-26 20:12:02',
+                'updated_at' => '2024-09-26 20:12:02',
+            ),
+            85 => 
+            array (
+                'id' => 86,
+                'name' => 'SUN STICK',
+                'created_at' => '2024-09-26 20:12:57',
+                'updated_at' => '2024-09-26 20:12:57',
+            ),
+            86 => 
+            array (
+                'id' => 87,
+                'name' => 'EYE SERUM',
+                'created_at' => '2024-09-26 20:15:25',
+                'updated_at' => '2024-09-26 20:15:25',
+            ),
+            87 => 
+            array (
+                'id' => 88,
+                'name' => 'ESSENCE WATER',
+                'created_at' => '2024-09-26 20:19:18',
+                'updated_at' => '2024-09-26 20:19:18',
+            ),
+            88 => 
+            array (
+                'id' => 89,
+                'name' => 'TRIAL KIT',
+                'created_at' => '2024-09-26 20:24:35',
+                'updated_at' => '2024-09-26 20:24:35',
+            ),
+            89 => 
+            array (
+                'id' => 90,
+                'name' => 'CLEANSING GEL',
+                'created_at' => '2024-09-26 21:21:59',
+                'updated_at' => '2024-09-26 21:21:59',
+            ),
+            90 => 
+            array (
+                'id' => 91,
+                'name' => 'SUN SCREEN',
+                'created_at' => '2024-09-26 21:23:03',
+                'updated_at' => '2024-09-26 21:23:03',
+            ),
+            91 => 
+            array (
+                'id' => 92,
+                'name' => 'PERFUME',
+                'created_at' => '2024-09-29 01:07:48',
+                'updated_at' => '2024-09-29 01:07:48',
+            ),
+            92 => 
+            array (
+                'id' => 93,
+                'name' => 'SOFTGEL',
+                'created_at' => '2024-09-29 15:54:18',
+                'updated_at' => '2024-09-29 15:54:18',
+            ),
+            93 => 
+            array (
+                'id' => 94,
+                'name' => 'PASTE',
+                'created_at' => '2024-09-29 18:18:43',
+                'updated_at' => '2024-09-29 18:18:43',
+            ),
+            94 => 
+            array (
+                'id' => 95,
+                'name' => 'EYE DROP',
+                'created_at' => '2024-09-30 17:51:31',
+                'updated_at' => '2024-09-30 17:51:31',
+            ),
+            95 => 
+            array (
+                'id' => 96,
+                'name' => 'FOUNDATION',
+                'created_at' => '2024-10-02 23:34:04',
+                'updated_at' => '2024-10-02 23:34:04',
+            ),
+            96 => 
+            array (
+                'id' => 97,
+                'name' => 'LENSES',
+                'created_at' => '2024-10-03 00:49:54',
+                'updated_at' => '2024-10-03 00:49:54',
+            ),
+            97 => 
+            array (
+                'id' => 98,
+                'name' => 'FAIRT AID',
+                'created_at' => '2024-10-03 00:55:37',
+                'updated_at' => '2024-10-03 00:55:37',
+            ),
+            98 => 
+            array (
+                'id' => 99,
+                'name' => 'FIRST AID',
+                'created_at' => '2024-10-03 00:56:01',
+                'updated_at' => '2024-10-03 00:56:01',
+            ),
         ));
         
         

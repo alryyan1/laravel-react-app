@@ -179,6 +179,41 @@ class DrugCategoriesTableSeeder extends Seeder
                 'id' => 32,
                 'name' => 'BABIES',
             ),
+            32 => 
+            array (
+                'id' => 33,
+                'name' => 'HYPOTHYROIDE',
+            ),
+            33 => 
+            array (
+                'id' => 34,
+                'name' => 'CONTRACEPTIVE',
+            ),
+            34 => 
+            array (
+                'id' => 35,
+                'name' => 'ANTI COUGH',
+            ),
+            35 => 
+            array (
+                'id' => 36,
+                'name' => 'eye care',
+            ),
+            36 => 
+            array (
+                'id' => 37,
+                'name' => 'BABY CARE',
+            ),
+            37 => 
+            array (
+                'id' => 38,
+                'name' => 'تجميل',
+            ),
+            38 => 
+            array (
+                'id' => 39,
+                'name' => 'FIRST AID',
+            ),
         ));
         
         
