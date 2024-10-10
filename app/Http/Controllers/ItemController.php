@@ -13,6 +13,7 @@ use App\Models\PrescribedDrug;
 use App\Models\Shift;
 use DB;
 use http\Env\Response;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use PDF;
@@ -395,6 +396,25 @@ class ItemController extends Controller
         }
 
 
+        return  $items;
+    }
+    public function depositItemsPagination(Request $request,Deposit $deposit)
+    {
+
+        $count =  $request->query('rows');
+//        ->orWhere('item.sc_name','like',"%$word%")->orWhere('item.market_name','like',"%$word%")->
+        if ( $request->query('word') && $request->query('word') != ''){
+            $word = $request->query('word');
+            $items =   DepositItem::with('item')->where('deposit_id','=',$deposit->id)->WhereHas('item',function ( $query) use ($word){
+                 $query->where('barcode','like',"%$word%")->orWhere('market_name','like',"%$word%");
+            })->paginate($count);
+//            return ['fineded'=>$items];
+
+        }else{
+            $items =   DepositItem::with('item')->where('deposit_id',$deposit->id)->paginate($count);
+
+
+        }
         return  $items;
     }
 

@@ -413,6 +413,7 @@ Route::post('item/stateByMonth/{item_id}', [ItemController::class, 'stateByMonth
 Route::middleware('auth:sanctum')->patch('items/{item}', [ItemController::class, 'update']);
 Route::get('items/all', [ItemController::class, 'all']);
 Route::middleware('auth:sanctum')->get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
+Route::middleware('auth:sanctum')->get('deposit/items/all/pagination/{deposit}', [ItemController::class, 'depositItemsPagination']);
 Route::get('items/balance', [ItemController::class, 'balance']);
 Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);
 Route::get('items/all/pie/{section}', [ItemController::class, 'pie']);

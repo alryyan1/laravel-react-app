@@ -40,6 +40,7 @@ use Spatie\Permission\Models\Role;
 */
 
 Route::get('expired/items',[\App\Http\Controllers\PDFController::class,'balancebyExpire']);
+Route::post('previewLabel',[\App\Http\Controllers\PDFController::class,'previewLabel']);
 Route::get('labPrices',[\App\Http\Controllers\PDFController::class,'labprice']);
 Route::get('excel/items',[\App\Http\Controllers\ExcelController::class,'items']);
 Route::get('excel/labPrices',[\App\Http\Controllers\ExcelController::class,'lapPrices']);
@@ -84,17 +85,17 @@ Route::post('webhook',[WebhookController::class,'webhook']);
     Route::get('test',function (){
 
 
-        $data =      DB::table('price_list_last_update_03_07_2016')->select('*')->get();
+        $data =      DB::table('stock_1')->select('*')->get();
 
 
         foreach ($data as $item) {
-//            $pdo =   DB::getPdo();
-//            $result =   $pdo->prepare("select * from items where barcode = ? ");
-//            $result->execute([$item->barcode]);
-//            if ($result->rowCount() > 0){
-//                continue ;
-//
-//            }
+            $pdo =   DB::getPdo();
+            $result =   $pdo->prepare("select * from items where barcode = ? ");
+            $result->execute([$item->barcode]);
+            if ($result->rowCount() > 0){
+                continue ;
+
+            }
 //            dd($item);
             Item::create([
                 'section_id' => NULL,
@@ -104,20 +105,20 @@ Route::post('webhook',[WebhookController::class,'webhook']);
                 'initial_price' => 0,
                 'tests' => 0,
                 'expire' => '1999-01-01',
-                'cost_price' =>0,
-                'sell_price' => 0,
+                'cost_price' =>$item->cost,
+                'sell_price' => $item->sell ?? 0,
                 'drug_category_id' => NULL,
                 'pharmacy_type_id' => NULL,
-                'barcode' => null,
+                'barcode' => $item->barcode,
                 'strips' => 1,
                 'sc_name' => '',
-                'market_name' => $item->TRADE_NAME,
+                'market_name' => $item->market_name,
                 'batch' => NULL,
                 'active1' => $item->ACTIVE_1 ?? '',
                 'active2' => $item->ACTIVE_2?? '',
                 'active3' => $item->ACTIVE_3 ?? '',
-                'pack_size' => $item->PACK_SIZE,
-                'approved_rp' => $item->APPROVED_R_P,
+                'pack_size' => $item->PACK_SIZE ?? '',
+                'approved_rp' => $item->APPROVED_R_P ?? 0,
             ]);
         }
 

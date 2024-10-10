@@ -1789,6 +1789,33 @@ class PDFController extends Controller
         }
 
     }
+    public function previewLabel(Request $request)
+    {
+        $custom_layout = array($request->get('width'), $request->get('height'));
+        $settings= Setting::all()->first();
+
+        $pdf = new Pdf($request->get('orientation'), PDF_UNIT, $custom_layout, true, 'UTF-8', false);
+        $pdf->setCreator(PDF_CREATOR);
+        $pdf->setAuthor('alryyan mahjoob');
+        $pdf->setTitle('Label');
+        $pdf->setSubject('Label');
+        $page_width = $request->get('width');
+        $pdf->setAutoPageBreak(TRUE, 0);
+        $pdf->setMargins(0, 3, 2);
+        $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
+        $pdf->AddPage();
+        $pdf->MultiCell($page_width - 4,$request->get('height') - 4,$request->get('data'),ln: 1);
+
+        if ($request->has('base64')) {
+            $result_as_bs64 = $pdf->output('name.pdf', 'E');
+            return $result_as_bs64;
+
+        } else {
+            $pdf->output();
+
+        }
+
+    }
     public function printReception(Request $request)
     {
         $patient = Doctorvisit::find($request->get('doctor_visit'));

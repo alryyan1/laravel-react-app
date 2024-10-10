@@ -60,7 +60,7 @@ class DepositController extends Controller
        $items =  Item::all();
        /** @var Item $item */
         foreach ($items as $item) {
-
+            if (!$item->id > 140) continue;
             $pdo =   DB::getPdo();
              $result =   $pdo->prepare("select * from deposit_items where item_id = ? and deposit_id = ? ");
               $result->execute([$item->id,$deposit->id]);
@@ -75,7 +75,7 @@ class DepositController extends Controller
                 'free_quantity'=>0,
                 'vat_cost'=>0,
                 'vat_sell'=>0,
-                'sell_price'=>$item->sell_price,
+                'sell_price'=>$item->sell_price ?? 0,
 
                 'notes'=>'',
                 'expire'=>$item->expire,
