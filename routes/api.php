@@ -416,6 +416,7 @@ Route::middleware('auth:sanctum')->get('items/all/pagination/{item}', [ItemContr
 Route::middleware('auth:sanctum')->get('deposit/items/all/pagination/{deposit}', [ItemController::class, 'depositItemsPagination']);
 Route::get('items/balance', [ItemController::class, 'balance']);
 Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);
+Route::middleware('auth:sanctum')->post('uploadExcelToDeposit/{deposit}', [DepositController::class, 'uploadExcelToDeposit']);
 Route::get('items/all/pie/{section}', [ItemController::class, 'pie']);
 Route::get('items/all/withItemRemaining', [ItemController::class, 'withItemRemaining']);
 

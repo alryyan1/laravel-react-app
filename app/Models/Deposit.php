@@ -45,7 +45,7 @@ class Deposit extends Model
 {
     use HasFactory;
 
-    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid','discount'];
+    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid','discount','vat_sell','vat_cost','is_locked'];
 
     public function user()
     {

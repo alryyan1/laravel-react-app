@@ -34,18 +34,28 @@ class DrugController extends Controller
                if ($request->has('deposit') && $request->get('deposit' ) != null ) {
                    $deposit = Deposit::find($data['deposit']);
                    if ($deposit){
-                       $deposit_item = new DepositItem([
+
+
+
+                       DepositItem::create([
                            'item_id' => $item->id,
-                           'price'=>$item->cost_price,
-                           'quantity'=>$item->require_amount,
+                           'cost'=>$item->cost_price,
+                           'quantity'=>0,
                            'notes'=>'',
-                           'expire'=>$item->expire,
+                           'expire'=>'1999-01-01',
                            'barcode'=>$item->barcode,
                            'batch'=>$item->batch,
+                           'free_quantity'=>0,
+                           'vat_cost'=>0,
+                           'vat_sell'=>0,
+                           'sell_price'=>$item->sell_price,
                            'user_id'=>\Auth::user()->id,
-                           'created_at'=>now()
+                           'created_at'=>now(),
+                           'deposit_id'=>$deposit->id
                        ]);
-                       $deposit->items()->save($deposit_item);               }
+
+
+                   }
 
                }
 

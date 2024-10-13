@@ -53,6 +53,84 @@ class DepositController extends Controller
 
         return ['status'=>$depositItem->update([$data['colName']=>$data['val']]),'data'=>$depositItem->load('item'),'deposit'=>$depositItem->deposit->load(['items','items.item'])];
     }
+    public function uploadExcelToDeposit(Request $request,Deposit $deposit){
+        $data =  collect($request->get('jsonData'));
+        foreach ($data as $d){
+            $barcode =  $d['barcode'] ?? null;
+            $market_name =  $d['market_name'];
+            $cost =  $d['cost'] ?? 0;
+            if (isset($d['approved_rp'])){
+                $sell =  $d['approved_rp'];
+
+            }else{
+                $sell =  $d['sell'] ?? 0;
+
+            }
+            $expire =  $d['expire'] ?? '2025-05-01';
+            $active_1 =  $d['active_1'] ?? '';
+            $active_2 =  $d['active_2'] ?? '';
+            $active_3 =  $d['active_3'] ?? '';
+            //check if item exists
+            $item = false;
+            if ($barcode != null){
+                $item =  Item::where('barcode','=',$barcode)->first();
+
+            }else{
+                //اذا كان الدواء مافيه باركود نبحث بالاسم
+                $item =  Item::where('market_name','=',$market_name)->first();
+
+            }
+
+            if ($item){
+               //item is exists
+               //add item to  selected deposit
+               $deposit_item = new DepositItem([
+                   'item_id' => $item->id,
+                   'cost'=>$cost ?? 0,
+                   'quantity'=>0,
+                   'free_quantity'=>0,
+                   'vat_cost'=>0,
+                   'vat_sell'=>0,
+                   'sell_price'=>$sell ?? 0,
+                   'notes'=>'',
+                   'expire'=> $expire ,
+                   'barcode'=>$barcode,
+                   'batch'=>'',
+                   'user_id'=>\Auth::user()->id,
+                   'created_at'=>now()
+               ]);
+               $deposit->items()->save($deposit_item);
+           }else{
+
+
+               // نشوف التشابه
+
+               /** @var Item $item */
+               $item = Item::create(['market_name' => $market_name, 'section_id' => null, 'require_amount' => 0, 'initial_balance' => 0, 'tests' => 0, 'unit' => 0, 'active1' => $active_1 , 'active2' => $active_2 , 'active3' => $active_3
+                   , 'initial_price' =>0 , 'approved_rp'=>$sell,'strips'=>1]);
+               $deposit_item = new DepositItem([
+                   'item_id' => $item->id,
+                   'cost'=>$cost ?? 0,
+                   'quantity'=>0,
+                   'free_quantity'=>0,
+                   'vat_cost'=>0,
+                   'vat_sell'=>0,
+                   'sell_price'=>$sell ?? 0,
+                   'notes'=>'',
+                   'expire'=>$expire ,
+                   'barcode'=>$barcode,
+                   'batch'=>'',
+                   'user_id'=>\Auth::user()->id,
+                   'created_at'=>now()
+               ]);
+               $deposit->items()->save($deposit_item);
+
+           }
+
+        }
+         $data =  DepositItem::with('item')-> where('deposit_id','=',$deposit->id)->paginate(7);
+        return ['status'=>true,'data'=>$data];
+    }
     public function defineAllItemsToDeposit(Request $request , Deposit $deposit)
     {
 
@@ -87,7 +165,9 @@ class DepositController extends Controller
             $deposit->items()->save($deposit_item);
 
         }
-        return ['success'=>true,'deposit'=>$deposit->load('items','items.item')];
+        $data =             DepositItem::with('item')->where('deposit_id',$deposit->id)->paginate(7);
+
+        return ['success'=>true,'deposit'=>$data];
     }
     public function allDeposits(){
 //        return Deposit::with(['items','items.item'])->orderByDesc('id')->with('supplier')->get();
@@ -129,9 +209,8 @@ class DepositController extends Controller
 
 
         if ($user->can('انشاء فاتوره')) {
-
-//        return $data;
-        return ['status' => Deposit::create(['bill_number'=>$data['bill_number'],'bill_date'=>$data['bill_date'],'supplier_id'=>$data['supplier_id'] ,'complete'=>false,'user_id'=>$user->id])] ;
+            $data  =  Deposit::create(['bill_number'=>$data['bill_number'],'bill_date'=>$data['bill_date'],'supplier_id'=>$data['supplier_id'] ,'complete'=>false,'user_id'=>$user->id]);
+        return ['status' =>$data , 'data'=>  $data->fresh()->load('supplier')] ;
         }else{
             return \response(['status' => false,'message'=>'صلاحيه انشاء فاتوره  غير مفعله'],400);
         }
@@ -156,7 +235,8 @@ class DepositController extends Controller
         $item =  Item::find($data['item_id']);
 //        return $data['expire'];
         $expire_date =  $data['expire'];
-        $deposit_item = new DepositItem([
+        $deposit_item = new DepositItem();
+        $depositItem=   DepositItem::create([
             'item_id' => $data['item_id'],
             'cost'=>$item->cost_price,
             'quantity'=>$data['quantity'],
@@ -169,11 +249,12 @@ class DepositController extends Controller
             'vat_sell'=>0,
             'sell_price'=>$item->sell_price,
             'user_id'=>\Auth::user()->id,
-            'created_at'=>now()
+            'created_at'=>now(),
+            'deposit_id'=>$deposit->id
         ]);
-        $deposit->items()->save($deposit_item);
+//        $deposit->items()->save($deposit_item);
 
-        return ['status'=>true,'deposit'=>$deposit->load(['items.item'])];
+        return ['status'=>true,'data'=>$depositItem->load('item')];
         }else{
             return \response(['status' => false,'message'=>'صلاحيه اضافه للمخزون  غير مفعله'],400);
         }
