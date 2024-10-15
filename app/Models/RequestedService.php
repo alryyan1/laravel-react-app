@@ -43,6 +43,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedService whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedService whereUserDeposited($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RequestedService whereUserId($value)
+ * @property string $doctor_note
+ * @property string $nurse_note
+ * @property int $done
+ * @method static \Illuminate\Database\Eloquent\Builder|RequestedService whereDoctorNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RequestedService whereDone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RequestedService whereNurseNote($value)
  * @mixin \Eloquent
  */
 class RequestedService extends Model

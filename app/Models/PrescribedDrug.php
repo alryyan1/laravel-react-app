@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PrescribedDrug whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PrescribedDrug wherePatientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PrescribedDrug whereUpdatedAt($value)
+ * @property-read \App\Models\MedicalDrugRoute|null $medicalDrugRoute
  * @mixin \Eloquent
  */
 class PrescribedDrug extends Model

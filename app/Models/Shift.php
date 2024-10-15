@@ -66,7 +66,7 @@ class Shift extends Model
         return $this->hasMany(DoctorShift::class);
     }
 
-    protected $with = ['patients','cost','deducts'];
+//    protected $with = ['patients','cost','deducts'];
 
     /**
      * cash + insurance test prices values only paid
@@ -248,8 +248,9 @@ class Shift extends Model
 
         return $total;
     }
-    protected $appends = ['totalPaid','paidLab','bankak','maxShiftId','totalDeductsPrice','totalDeductsPriceCash','totalDeductsPriceTransfer','totalDeductsPriceBank','specialists','totalDeductsPostPaid','totalDeductsPaid'];
+    protected $appends = ['maxShiftId','specialists'];
 //    protected $appends = ['maxShiftId','specialists'];
+
     public function getTotalDeductsPriceAttribute()
     {
         return $this->totalDeductsPrice();
@@ -258,36 +259,13 @@ class Shift extends Model
     {
         return $this->totalDeductsPaid();
     }
-    public function getTotalDeductsPostPaidAttribute(){
-        return $this->totalDeductsPostPaid();
-    }
-    public function getTotalDeductsPriceCashAttribute()
-    {
-        return $this->totalDeductsPriceCash();
-    }
-    public function getTotalDeductsPriceTransferAttribute()
-    {
-        return $this->totalDeductsPriceTransfer();
-    }
-    public function getTotalDeductsPriceBankAttribute()
-    {
-        return $this->totalDeductsPriceBank();
-    }
-    function getTotalPaidAttribute()
-    {
-        return $this->totalPaid();
-    }
+
     function getMaxShiftIdAttribute()
     {
         return self::max('id');
     }
 
-    public function getPaidLabAttribute(){
-        return $this->paidLab();
-    }
-    public function getBankakAttribute(){
-        return $this->bankakLab();
-    }
+
 
     public function paidLab($user = null){
         $total = 0;
@@ -335,71 +313,48 @@ class Shift extends Model
     {
         return $this->hasMany(Cost::class);
     }
+    public function totalCost(){
+        $total = 0;
+        foreach ($this->cost as $cost){
+            $total+= $cost->amount;
+        }
+        return $total;
+    }
     public function deducts()
     {
         return $this->hasMany(Deduct::class)->orderByDesc('id');
     }
 
 
-    public function totalDeductsPrice()
+    public function deductSummary()
     {
-        $total = 0;
-
+        $totalDeductsPrice = 0;
+        $totalDeductsPaid = 0;
+        $totalDeductsPriceBank = 0;
+        $totalDeductsPriceCash = 0;
         foreach ($this->deducts as $deduct){
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
-           $total += $deduct->total_price();
+            $totalDeductsPrice += $deduct->total_price();
+            $totalDeductsPaid += $deduct->total_paid();
+
+            if ($deduct->payment_type_id == 1 && !$deduct->is_postpaid ){
+                $totalDeductsPriceCash += $deduct->total_paid();
+
+            }
+            if ($deduct->payment_type_id == 3 ){
+                $totalDeductsPriceBank += $deduct->total_paid();
+            }
         }
-
-        return $total;
+        return ['totalDeductsPrice' => $totalDeductsPrice,'totalDeductsPaid'=>$totalDeductsPaid,'totalDeductsPriceBank'=>$totalDeductsPriceBank,'totalDeductsPriceCash'=>$totalDeductsPriceCash];
     }
-    public function totalDeductsPaid()
-    {
-        $total = 0;
 
-        foreach ($this->deducts as $deduct){
-            if (!$deduct->complete || $deduct->is_sell ==0) continue;
-           $total += $deduct->total_paid();
-        }
-
-        return $total;
-    }
-    public function totalDeductsPostPaid()
-    {
-        $total = 0;
-
-        foreach ($this->deducts as $deduct){
-            if (!$deduct->is_postpaid ) continue;
-            $total += $deduct->total_price();
-        }
-
-        return $total;
-    }
     public function totalItemsProfit(){
         $total = 0;
-
         foreach ($this->deducts as $deduct){
             if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
                 $total += $deduct->profit();
-
-
         }
-
-        return $total;
-    }
-    public function totalDeductsPriceBank()
-    {
-        $total = 0;
-
-        foreach ($this->deducts as $deduct){
-            if (!$deduct->complete || $deduct->is_sell ==0) continue;
-
-            if ($deduct->payment_type_id == 3 ){
-                $total += $deduct->total_paid();
-
-            }
-        }
-
         return $total;
     }
     public function totalDeductsPriceTransfer()
@@ -417,19 +372,7 @@ class Shift extends Model
 
         return $total;
     }
-    public function totalDeductsPriceCash()
-    {
-        $total = 0;
 
-        foreach ($this->deducts as $deduct){
-            if (!$deduct->complete || $deduct->is_sell ==0) continue;
 
-            if ($deduct->payment_type_id == 1 && !$deduct->is_postpaid ){
-                $total += $deduct->total_paid();
 
-            }
-        }
-
-        return $total;
-    }
 }

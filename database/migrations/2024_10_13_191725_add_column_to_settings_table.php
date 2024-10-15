@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('deposits', function (Blueprint $table) {
-            $table->double('vat_sell')->default(0);
-            $table->double('vat_cost')->default(0);
+        Schema::table('settings', function (Blueprint $table) {
+            $table->string('vatin');
+            $table->string('cr');
+            $table->string('email');
         });
     }
 
@@ -22,9 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('deposits', function (Blueprint $table) {
-            $table->dropColumn('vat_sell');
-            $table->dropColumn('vat_cost');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn('vatin');
+            $table->dropColumn('cr');
+            $table->dropColumn('email');
         });
     }
 };

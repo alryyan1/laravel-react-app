@@ -14,10 +14,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('backup:clean')->daily()->at('03:42');
-        $schedule->command('backup:run')->daily()->at('03:42')->onSuccess(function (){
-            Whatsapp::sendMsgWb('249991961111','backup had completed');
-        });
+//        $schedule->command('backup:clean')->daily()->at('03:42');
+        $schedule->command('backup:run --only-db');
+        $schedule->call(function () {
+            \Log::info('Scheduler is working!');
+        })->everyMinute();
+
+//        $schedule->command('backup:run')->daily()->at('03:42')->onSuccess(function (){
+//            Whatsapp::sendMsgWb('249991961111','backup had completed');
+//        });
     }
 
     /**

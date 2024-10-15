@@ -67,11 +67,12 @@ class PatientController extends Controller
 
     public function sickleave(Request $request , Patient $patient)
     {
-        $today = Carbon::today();
+        $today = new \DateTime();
+        $today = $today->format('Y-m-d');
         $sickleave = Sickleave::create([
             'patient_id'=>$patient->id,
-            'form'=>$today->format('Y-m-d'),
-            'to'=>$today->format('Y-m-d'),
+            'from'=>$today,
+            'to'=>$today,
         ]);
         return ['status'=> $sickleave , 'data'=>$patient->fresh()];
     }
@@ -79,7 +80,7 @@ class PatientController extends Controller
     {
 
         $data = $request->all();
-        return ['status'=>  $sickleave->update([$data['colName']=> $data['val']]) , 'data'=>$sickleave->patient];
+        return ['status'=>  $sickleave->update($request->all()) , 'data'=>$sickleave->patient];
 
 
     }

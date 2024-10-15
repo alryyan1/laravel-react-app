@@ -33,6 +33,6 @@ class deductedItemController extends Controller
     public function destroy(Request $request , DeductedItem $deductedItem)
     {
 
-        return ['status'=>$deductedItem->delete(),'data'=>$deductedItem->deduct,'shift'=>$deductedItem->deduct->shift];
+        return ['status'=>$deductedItem->delete(),'data'=>$deductedItem->deduct];
     }
 }

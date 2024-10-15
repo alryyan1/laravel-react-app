@@ -152,7 +152,8 @@ return [
              */
             'disks' => [
                 'local',
-                'localBackup'
+                'localBackup',
+                'd_drive'
             ],
         ],
 

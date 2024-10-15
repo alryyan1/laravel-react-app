@@ -69,6 +69,16 @@ use Illuminate\Support\Facades\DB;
  * @property-read mixed $total_out
  * @property-read mixed $total_remaining
  * @property-read \App\Models\DepositItem|null $depositItem
+ * @property string $active1
+ * @property string $active2
+ * @property string $active3
+ * @property string $pack_size
+ * @property float $approved_rp
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereActive1($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereActive2($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereActive3($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item whereApprovedRp($value)
+ * @method static \AjCastro\EagerLoadPivotRelations\EagerLoadPivotBuilder|Item wherePackSize($value)
  * @mixin \Eloquent
  */
 class Item extends Model

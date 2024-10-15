@@ -39,13 +39,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit wherePaymentMethod($value)
  * @property-read mixed $total_amount_paid
+ * @property float $vat_sell
+ * @property float $vat_cost
+ * @property int $is_locked
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereIsLocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereVatCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereVatSell($value)
  * @mixin \Eloquent
  */
 class Deposit extends Model
 {
     use HasFactory;
 
-    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid','discount','vat_sell','vat_cost','is_locked'];
+    protected $fillable =['bill_number','bill_date','complete','supplier_id','user_id','paid','discount','vat_sell','vat_cost','is_locked','showAll'];
 
     public function user()
     {

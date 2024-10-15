@@ -31,6 +31,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $total_paid_services
  * @property-read mixed $total_discounted
  * @property-read mixed $total_services
+ * @property int $is_new
+ * @property int $number
+ * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereIsNew($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereNumber($value)
  * @mixin \Eloquent
  */
 class Doctorvisit extends Model

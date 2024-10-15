@@ -81,47 +81,85 @@ Route::get('/home', function () {
 });
 
 Route::post('webhook',[WebhookController::class,'webhook']);
-
+    Route::get('migrate',function (){
+      $items = \App\Models\DepositItem::all();
+      $count = 0;
+      /** @var \App\Models\DepositItem $item */
+        foreach ($items as $item){
+          $sell_price = $item->item->sell_price;
+          $updated = $item->update(['sell_price'=>$sell_price]);
+          if ($updated){
+              $count++;
+          }
+      }
+        return ['status'=>true,'count'=>$count];
+    });
     Route::get('test',function (){
 
+       $items =  Item::all();
+       $deletedCount = 0;
+       /** @var Item $item */
+        foreach ($items as  $item){
+          $depositItem =  \App\Models\DepositItem::where('item_id','=',$item->id)->first();
+          if ($depositItem){
+              continue;
+          }
+          //if this item has multiples
+           $duplicatedItems =  Item::where('market_name','=',$item->market_name)->get();
+          if (count($duplicatedItems) > 0){
+              foreach ($duplicatedItems as $duplicatedItem){
+                  $depositItem =  \App\Models\DepositItem::where('item_id','=',$duplicatedItem->id)->first();
+                  if ($depositItem){
+                      continue;
+                  }
+                  $item->delete();
+                  $deletedCount++;
 
-        $data =      DB::table('stock_1')->select('*')->get();
+              }
+          }
 
 
-        foreach ($data as $item) {
-            $pdo =   DB::getPdo();
-            $result =   $pdo->prepare("select * from items where barcode = ? ");
-            $result->execute([$item->barcode]);
-            if ($result->rowCount() > 0){
-                continue ;
+       }
 
-            }
-//            dd($item);
-            Item::create([
-                'section_id' => NULL,
-                'name' => '',
-                'require_amount' => 0,
-                'initial_balance' => 0,
-                'initial_price' => 0,
-                'tests' => 0,
-                'expire' => '1999-01-01',
-                'cost_price' =>$item->cost,
-                'sell_price' => $item->sell ?? 0,
-                'drug_category_id' => NULL,
-                'pharmacy_type_id' => NULL,
-                'barcode' => $item->barcode,
-                'strips' => 1,
-                'sc_name' => '',
-                'market_name' => $item->market_name,
-                'batch' => NULL,
-                'active1' => $item->ACTIVE_1 ?? '',
-                'active2' => $item->ACTIVE_2?? '',
-                'active3' => $item->ACTIVE_3 ?? '',
-                'pack_size' => $item->PACK_SIZE ?? '',
-                'approved_rp' => $item->APPROVED_R_P ?? 0,
-            ]);
-        }
+        echo  'deleted items'.$deletedCount;
 
+//        $data =      DB::table('stock_1')->select('*')->get();
+//
+//
+//        foreach ($data as $item) {
+//            $pdo =   DB::getPdo();
+//            $result =   $pdo->prepare("select * from items where barcode = ? ");
+//            $result->execute([$item->barcode]);
+//            if ($result->rowCount() > 0){
+//                continue ;
+//
+//            }
+////            dd($item);
+//            Item::create([
+//                'section_id' => NULL,
+//                'name' => '',
+//                'require_amount' => 0,
+//                'initial_balance' => 0,
+//                'initial_price' => 0,
+//                'tests' => 0,
+//                'expire' => '1999-01-01',
+//                'cost_price' =>$item->cost,
+//                'sell_price' => $item->sell ?? 0,
+//                'drug_category_id' => NULL,
+//                'pharmacy_type_id' => NULL,
+//                'barcode' => $item->barcode,
+//                'strips' => 1,
+//                'sc_name' => '',
+//                'market_name' => $item->market_name,
+//                'batch' => NULL,
+//                'active1' => $item->ACTIVE_1 ?? '',
+//                'active2' => $item->ACTIVE_2?? '',
+//                'active3' => $item->ACTIVE_3 ?? '',
+//                'pack_size' => $item->PACK_SIZE ?? '',
+//                'approved_rp' => $item->APPROVED_R_P ?? 0,
+//            ]);
+//        }
+//
 
     });
 

@@ -13,12 +13,16 @@ use Illuminate\Support\Carbon;
 
 class DeductController extends Controller
 {
+    public function find(Request $request, Deduct $deduct){
+        return $deduct;
+    }
     public function searchDeductsByDate(Request $request){
         $data = $request->all();
         $first = Carbon::createFromFormat('Y/m/d', $data['first'])->startOfDay();
         $second = Carbon::createFromFormat('Y/m/d', $data['second'])->endOfDay();
         return Deduct::whereBetween('created_at',[$first,$second])->get();
     }
+
     public function update(Request $request,Deduct $deduct){
         $data = $request->all();
 
@@ -91,7 +95,8 @@ class DeductController extends Controller
     }
     public function complete(Request $request ,Deduct $deduct){
         $id =  Deduct::max('id');
-        $deduct->update(['complete'=>1]);
+
+        $deduct->update(['complete'=>1,'paid'=>   $deduct->total_paid()]);
 
         if ($id == $deduct->id){
             return $this->newDeduct($request);
@@ -104,12 +109,12 @@ class DeductController extends Controller
     }
     public function payment(Request $request ,Deduct $deduct){
         $deduct->update(['payment_type_id'=>$request->payment]);
-        return ['status' =>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift->fresh()] ;
+        return ['status' =>true,'data'=> $deduct->fresh()] ;
 
     }
     public function cancel(Request $request ,Deduct $deduct){
-        $deduct->update(['complete'=>0]);
-        return ['status' =>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift->fresh()] ;
+        $deduct->update(['complete'=>0,'paid'=>0]);
+        return ['status' =>true,'data'=> $deduct->fresh()] ;
 
     }
     public function newDeduct(Request $request )
@@ -134,7 +139,7 @@ class DeductController extends Controller
 
             $deduct->save();
         }
-        return ['status' => true, 'data' => $deduct->fresh(), 'shift' => $deduct->shift];
+        return ['status' => true, 'data' => $deduct->fresh()];
 
     }
 

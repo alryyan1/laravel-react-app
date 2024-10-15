@@ -149,6 +149,24 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $discount_amount
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereHeartRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSpo2($value)
+ * @property float $discount
+ * @property string $drug_history
+ * @property string $family_history
+ * @property string $rbs
+ * @property int $doctor_finish
+ * @property string $care_plan
+ * @property int $doctor_lab_request_confirm
+ * @property int $doctor_lab_urgent_confirm
+ * @property-read \App\Models\Sickleave|null $sickleave
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereCarePlan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDoctorFinish($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDoctorLabRequestConfirm($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDoctorLabUrgentConfirm($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDrugHistory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereFamilyHistory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereRbs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

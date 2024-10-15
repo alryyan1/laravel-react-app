@@ -63,7 +63,7 @@ class ItemController extends Controller
             }
 
 
-            return ['status'=>true,'data'=> $deduct->fresh(),'shift'=>$deduct->shift];
+            return ['status'=>true,'data'=> $deduct->fresh(),];
     }
     public function addPrescribtion(Request $request,Patient $patient)
     {
@@ -398,20 +398,53 @@ class ItemController extends Controller
 
         return  $items;
     }
-    public function depositItemsPagination(Request $request,Deposit $deposit)
+    public function search(Request $request)
     {
 
+            $word = $request->query('word');
+            if ($request->has('barcode')){
+                $barcode = $request->get('barcode');
+                /** @var Item $item */
+                $item=   Item::with('section','category','type')->Where('barcode','=',"$barcode")->first();
+                $item->getLastDepositItem();
+                return  $item;
+
+            }
+            $items =   Item::with('section','category','type')->orderByDesc('id')->Where('market_name','like',"%$word%")->orWhere('active1','like',"%$word%")->orWhere('active2','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->limit(30)->get();
+            /** @var Item $item */
+            foreach ($items as $item){
+                $item->getLastDepositItem();
+            }
+            $items = collect($items);
+
+
+
+
+        return  $items;
+    }
+    public function depositItemsPagination(Request $request,Deposit $deposit)
+    {
         $count =  $request->query('rows');
+
 //        ->orWhere('item.sc_name','like',"%$word%")->orWhere('item.market_name','like',"%$word%")->
         if ( $request->query('word') && $request->query('word') != ''){
             $word = $request->query('word');
-            $items =   DepositItem::with('item')->where('deposit_id','=',$deposit->id)->WhereHas('item',function ( $query) use ($word){
-                 $query->where('barcode','like',"%$word%")->orWhere('market_name','like',"%$word%");
-            })->paginate($count);
+
+                $items =   DepositItem::with('item')->where('deposit_id','=',$deposit->id)->WhereHas('item',function ( $query) use ($word){
+                    $query->where('barcode','=',$word)->orWhere('market_name','like',"%$word%");
+                })->paginate($count);
+
+
 //            return ['fineded'=>$items];
 
         }else{
-            $items =   DepositItem::with('item')->where('deposit_id',$deposit->id)->paginate($count);
+            if ($deposit->showAll == 0){
+                $items =   DepositItem::with('item')->orWhere('quantity','!=',0)->where('deposit_id',$deposit->id)->paginate($count);
+
+            }else{
+                $items =   DepositItem::with('item')->where('deposit_id',$deposit->id)->paginate($count);
+
+            }
 
 
         }

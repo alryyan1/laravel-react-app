@@ -55,6 +55,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereCurrency($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereDisableDoctorServiceCheck($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePhone($value)
+ * @property int $gov
+ * @property int $country
+ * @property int $barcode
+ * @property int $show_water_mark
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereBarcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereGov($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereShowWaterMark($value)
  * @mixin \Eloquent
  */
 class Setting extends Model

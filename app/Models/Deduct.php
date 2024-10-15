@@ -56,6 +56,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $discount
  * @method static \Illuminate\Database\Eloquent\Builder|Deduct whereDiscount($value)
  * @property-read mixed $total_paid
+ * @property float $paid
+ * @property-read mixed $calculate_tax
+ * @method static \Illuminate\Database\Eloquent\Builder|Deduct wherePaid($value)
  * @mixin \Eloquent
  */
 class Deduct extends Model
@@ -64,7 +67,7 @@ class Deduct extends Model
     use HasFactory;
 
     protected $with = ['deductedItems', 'paymentType', 'user', 'client'];
-    protected $appends = ['total_price', 'profit', 'total_price_unpaid', 'total_paid'];
+    protected $appends = ['total_price', 'profit', 'total_price_unpaid', 'total_paid','calculateTax'];
 
     public function client()
     {
@@ -75,6 +78,10 @@ class Deduct extends Model
     public function getTotalPriceAttribute()
     {
         return $this->total_price();
+    }
+    public function getCalculateTaxAttribute()
+    {
+        return $this->calculateTax();
     }
 
     public function getTotalPriceUnpaidAttribute()
@@ -121,7 +128,6 @@ class Deduct extends Model
     {
 
         $total = 0;
-        if (!$this->complete) return 0;
 
         foreach ($this->deductedItems as $item) {
 
@@ -144,22 +150,12 @@ class Deduct extends Model
 
     public function total_paid()
     {
-
         $total = 0;
-        if (!$this->complete) return 0;
-
         foreach ($this->deductedItems as $item) {
-
-
             $strip_price = ($item->price / $item->item->strips);
-
             $total += $item->strips * $strip_price;
-
-
         }
-
-        return $total - $this->discount;
-
+        return $total - $this->discount + $this->calculate_tax;
     }
 
     public function total_price_unpaid()
@@ -174,6 +170,32 @@ class Deduct extends Model
             $strip_price = ($item->price / $item->item->strips);
 
             $total += $item->strips * $strip_price;
+
+
+        }
+
+        return $total;
+
+    }
+    public function calculateTax()
+    {
+
+        $total = 0;
+//        if (!$this->complete)  return 0;
+
+        foreach ($this->deductedItems as $item) {
+
+            $tax = $item->item?->last_deposit_item?->vat_sell;
+            if ($tax == 0){
+                $tax = $item->item?->last_deposit_item?->deposit->vat_sell;
+
+            }
+            $strip_price = ($item->price / $item->item->strips);
+
+            $total_price = $item->strips * $strip_price;
+            $tax_amount = $tax * $total_price / 100;
+
+            $total += $tax_amount;
 
 
         }

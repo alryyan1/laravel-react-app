@@ -43,6 +43,11 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'd_drive' => [
+            'driver' => 'local',
+            'root' => 'H:/backups',  // Specify the folder on D drive where backups will be stored
+            'visibility' => 'private',
+        ],
 
         's3' => [
             'driver' => 's3',

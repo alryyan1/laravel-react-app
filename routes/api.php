@@ -102,6 +102,7 @@ Route::middleware('auth:sanctum')-> post('income-item/bulk/{deposit}',[DepositCo
 
 Route::post('generateSickLeave/{patient}',[PatientController::class,'sickleave']);
 Route::patch('sickleave/{sickleave}',[PatientController::class,'editSickLeave']);
+Route::get('printPrescribedMedsReceipt',[PDFController::class,'printPrescribedMedsReceipt']);
 
 
 Route::middleware('auth:sanctum')-> post('addStateToContract',[ContractController::class,'addStateToContract']);
@@ -117,6 +118,7 @@ Route::middleware('auth:sanctum')-> patch('subRoutes',[UserController::class,'ed
 Route::middleware('auth:sanctum')-> get('routes',[UserController::class,'routes']);
 Route::middleware('auth:sanctum')-> get('totalUserLabTotalAndBank',[ShiftController::class,'totalUserLabTotalAndBank']);
 Route::middleware('auth:sanctum')-> get('monthlyIncome',[ShiftController::class,'monthlyIncome']);
+Route::middleware('auth:sanctum')-> get('insuranceReclaim',[ShiftController::class,'insuranceReclaim']);
 Route::middleware('auth:sanctum')->get('getUserTotalLabBank',[ShiftController::class,'totalUserLabBank']);
 Route::middleware('auth:sanctum')->get('getShiftByDate',[ShiftController::class,'getShiftByDate']);
 
@@ -124,6 +126,7 @@ Route::middleware('auth:sanctum')->delete('items/{item}', [ItemController::class
 Route::middleware('auth:sanctum')->delete('deduct/{deduct}', [DeductController::class, 'deleteDeduct']);
 Route::middleware('auth:sanctum')->post('searchDeductsByDate', [DeductController::class, 'searchDeductsByDate']);
 
+Route::middleware('auth:sanctum')->get('sells/find/{deduct}', [DeductController::class, 'find']);
 Route::middleware('auth:sanctum')->patch('deduct/payment/{deduct}', [DeductController::class, 'payment']);
 Route::middleware('auth:sanctum')->get('inventory/deduct/complete/{deduct}', [DeductController::class, 'complete']);
 Route::middleware('auth:sanctum')->get('inventory/deduct/cancel/{deduct}', [DeductController::class, 'cancel']);
@@ -210,6 +213,7 @@ Route::get("users",[UserController::class,'all']);
 Route::patch("user/roles/{user}",[UserController::class,'editRole']);
 
 Route::get('shifts',[ShiftController::class,'all']);
+Route::middleware('auth:sanctum')->post('deduct/summary/{shift}', [ShiftController::class, 'deductSummery']);
 
 //roles
 Route::post("roles",[RoleController::class,'store']);
@@ -287,6 +291,7 @@ Route::patch('specialists/{specialist}', [SpecialistController::class, 'update']
 Route::middleware('auth:sanctum')->get('service/money', [ShiftController::class, 'totalService']);
 Route::middleware('auth:sanctum')->get('service/money/bank', [ShiftController::class, 'totalServiceBank']);
 Route::get('shift/last', [ShiftController::class, 'last']);
+Route::get('shiftWith', [ShiftController::class, 'shiftWith']);
 Route::get('shiftById/{shift}', [ShiftController::class, 'shiftById']);
 Route::post('shift/status/{shift}', [ShiftController::class, 'status']);
 
@@ -413,6 +418,7 @@ Route::post('item/stateByMonth/{item_id}', [ItemController::class, 'stateByMonth
 Route::middleware('auth:sanctum')->patch('items/{item}', [ItemController::class, 'update']);
 Route::get('items/all', [ItemController::class, 'all']);
 Route::middleware('auth:sanctum')->get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
+Route::middleware('auth:sanctum')->get('items/search', [ItemController::class, 'search']);
 Route::middleware('auth:sanctum')->get('deposit/items/all/pagination/{deposit}', [ItemController::class, 'depositItemsPagination']);
 Route::get('items/balance', [ItemController::class, 'balance']);
 Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);
