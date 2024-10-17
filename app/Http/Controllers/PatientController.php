@@ -139,29 +139,31 @@ class PatientController extends Controller
         return ['status'=>$patient->update(['sample_collected'=>1,'sample_collect_time'=>now()]),'patient'=>$patient->fresh(),'shift'=>$patient->shift];
     }
 
-    public function saveByHistoryLab(Patient $patient , Doctor|null $doctor){
+    public function saveByHistoryLab(Patient $patient , Doctor|null $doctor,Request $request){
         if ($doctor == null){
             $patient->doctor_id = $doctor->id;
 
         }else{
-            $this->store(null,false,$patient);
+            $this->store(null,false,$patient,company_id:  $request->get('company_id'));
 
         }
 //        return ['status'=>$patient];
     }
 
 
+    public function copy(Request $request,Doctor $doctor){
+        $patient_id = $request->get('patient_id');
+        $current_shift =   $doctor->getLastShift();
+        $doctor_visit = new Doctorvisit();
+        $doctor_visit->patient_id = $patient_id;
+        $doctor_visit->doctor_shift_id = $current_shift->id;
+        $current_shift->visits()->save($doctor_visit);
+        return ['status'=>true];
+    }
+
     public  function book(PatientAddRequest $request ,Doctor $doctor , $patient_id = null,$copy = false){
         $data = $request->all();
-        $current_shift =   $doctor->shiftsByOrder[0];
-
-        if ($copy){
-            $doctor_visit = new Doctorvisit();
-            $doctor_visit->patient_id = $patient_id;
-            $doctor_visit->doctor_shift_id = $current_shift->id;
-            $current_shift->visits()->save($doctor_visit);
-            return ['status'=>true];
-        }
+        $current_shift =   $doctor->getLastShift();
         /** @var DoctorShift $current_shift */
         $old_patient = Patient::find($patient_id);
         $patient_data =  $this->store($request,false,$old_patient,$doctor->id);
@@ -275,7 +277,7 @@ class PatientController extends Controller
         }
 
     }
-    public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null){
+    public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null,$company_id = null){
 
         //اخر ورديه موحده
         $shift = Shift::orderByDesc('id')->first();
@@ -303,6 +305,11 @@ class PatientController extends Controller
             }else{
                 $patient->doctor_id = $patient_from_history->doctor_id;
 
+            }
+            if ($company_id){
+                $patient->company_id = $company_id;
+            }else{
+                $patient->company_id = $patient_from_history->company_id;
             }
         }else{
             $patient = new Patient($request->validated());

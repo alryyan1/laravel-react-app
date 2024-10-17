@@ -118,7 +118,7 @@ Route::middleware('auth:sanctum')-> patch('subRoutes',[UserController::class,'ed
 Route::middleware('auth:sanctum')-> get('routes',[UserController::class,'routes']);
 Route::middleware('auth:sanctum')-> get('totalUserLabTotalAndBank',[ShiftController::class,'totalUserLabTotalAndBank']);
 Route::middleware('auth:sanctum')-> get('monthlyIncome',[ShiftController::class,'monthlyIncome']);
-Route::middleware('auth:sanctum')-> get('insuranceReclaim',[ShiftController::class,'insuranceReclaim']);
+Route::middleware('auth:sanctum')-> post('insuranceReclaim',[\App\Http\Controllers\InsuranceController::class,'insuranceReclaim']);
 Route::middleware('auth:sanctum')->get('getUserTotalLabBank',[ShiftController::class,'totalUserLabBank']);
 Route::middleware('auth:sanctum')->get('getShiftByDate',[ShiftController::class,'getShiftByDate']);
 
@@ -357,7 +357,7 @@ Route::patch('serviceGroup/{serviceGroup}', [ServiceGroupController::class, 'upd
 Route::patch('patient/service/count/{patient}',[ServiceController::class,'count']);
 Route::post('patient/search', [PatientController::class, 'search']);
 Route::post('patient/search/phone', [PatientController::class, 'searchByphone']);
-Route::post('patient/copy/{doctor}/{patient_id}/{copy?}', [PatientController::class, 'book']);
+Route::post('patient/copy/{doctor}', [PatientController::class, 'copy']);
 Route::get('patient/{patient}', [PatientController::class, 'get']);
 Route::patch('patients/edit/{doctorvisit}', [PatientController::class, 'edit']);
 Route::get('patient/visit/{doctorvisit}', [PatientController::class, 'doctorVisit']);

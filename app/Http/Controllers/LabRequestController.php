@@ -317,17 +317,29 @@ class LabRequestController extends Controller
                         //add test to requested tests
                         $main = MainTest::with('childtests')->find($d);
                         $price = $main->price;
+                        $endurance = 0;
                         if ($patient->company_id != null){
                             /** @var Company $patient_company */
                             $patient_company =  $patient->company;
                             $patient_company->load('tests');
-                            $service =  $patient_company->tests->filter(function($item) use($d){
+                            $test =  $patient_company->tests->filter(function($item) use($d){
                                 return $item->id == $d;
                             })->first();
-                            $price =   $service->pivot->price;
+                            $price =   $test->pivot->price;
+                            if ($test->pivot->endurance_static > 0) {
+                                // alert('s')
+                                $endurance = $test->pivot->endurance_static;
+                            } else {
+                                if ($test->pivot->endurance_percentage > 0) {
+                                    $endurance =
+                                        ($price * $test->pivot->endurance_percentage) / 100;
+                                } else {
+                                    $endurance = ($price * $patient_company->lab_endurance) / 100;
+                                }
+                            }
 
                         }
-                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $price, 'user_requested' => $user->id]);
+                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $price, 'user_requested' => $user->id,'endurance'=>$endurance]);
                         //                $patient->labrequests()->attach($d);
                         //add test with their children to requested results
                         /** @var ChildTest $childTest */

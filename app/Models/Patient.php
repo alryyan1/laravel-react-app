@@ -166,7 +166,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDrugHistory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereFamilyHistory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereRbs($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -176,6 +175,9 @@ class Patient extends Model
     public function prescriptions()
     {
         return $this->hasMany(PrescribedDrug::class);
+    }
+    public function requestedServices(){
+        return $this->hasMany(RequestedService::class);
     }
     protected function name() : Attribute {
         return Attribute::make(

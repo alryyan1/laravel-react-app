@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Deduct;
 use App\Models\DoctorShift;
+use App\Models\Patient;
 use App\Models\Shift;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -145,45 +146,6 @@ class ShiftController extends Controller
         return ['month'=>$month,'start'=>$start_date,'end'=>$end_date,'summary'=>$summary,'date_formated'=>$start_date_f];
 
     }
-    public function insuranceReclaim(Request $request)
-    {
-//        $request->get('first')
-        $start_date_f = $start_date->format('Ymd');
-        $dates = [];
-        $summary = [];
-            $pdo = DB::getPdo();
-        while ($start_date <= $end_date) {
-            $start_date_f = $start_date->format('Ymd');
 
-            $rows = $pdo->query("select * from shifts where date(created_at) = '$start_date_f' ")->rowCount();
-
-            $data = $pdo->query("select * from shifts where date(created_at) = '$start_date_f' ")->fetchAll();
-            $total_clinic = 0 ;
-            $total_lab = 0 ;
-            $total_cost = 0;
-            $obj = [];
-            foreach ($data as $da) {
-
-                $id = $da['id'];
-                $shift = Shift::find($id);
-                $total_cost = $shift->totalCost();
-                $total_lab+= $shift->totalLab();
-                $total_clinic += $shift->totalPaidService();
-
-
-            }
-            $obj['totalLab'] = $total_lab;
-            $obj['totalClinic'] = $total_clinic;
-            $obj['total_cost'] = $total_cost;
-            $obj['shifts'] = $rows;
-            $obj['date'] = $start_date->format('Y-m-d');
-            $summary[] = $obj;
-            $start_date->addDay();
-
-
-        }
-        return ['month'=>$month,'start'=>$start_date,'end'=>$end_date,'summary'=>$summary,'date_formated'=>$start_date_f];
-
-    }
 
 }
