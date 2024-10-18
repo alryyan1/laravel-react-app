@@ -41,7 +41,7 @@ class DoctorShift extends Model
     protected $fillable = ['user_id','doctor_id','status','shift_id'];
 //    protected $with = ['visits','cost'];
     protected $with = ['visits','cost'];
-    protected $appends  = ['total','doctor_credit_cash','doctor_credit_company'];
+//    protected $appends  = ['total','doctor_credit_cash','doctor_credit_company'];
     public function getTotalAttribute()
     {
         return $this->total_paid_services();

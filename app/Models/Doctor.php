@@ -53,9 +53,9 @@ class Doctor extends Model
     {
        return $this->belongsTo(Specialist::class);
     }
-//    protected $appends = ['lastShift'];
+    protected $appends = ['lastShift'];
     public function getLastShiftAttribute(){
-        return $this->shiftsByOrder()->first();
+        return $this->getLastShift();
     }
     public  function  patients(){
         return $this->hasMany(Patient::class);
@@ -68,8 +68,9 @@ class Doctor extends Model
         return $this->hasMany(DoctorShift::class)->orderByDesc('id');
     }
 
+
     public function getLastShift(){
-      return  DoctorShift::whereDoctorId($this->id)->orderByDesc('id')->first();
+      return  DoctorShift::without('visits','cost')->whereDoctorId($this->id)->orderByDesc('id')->first();
     }
 
     public function services()
