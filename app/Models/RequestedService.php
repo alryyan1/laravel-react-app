@@ -64,5 +64,6 @@ class RequestedService extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
     use HasFactory;
 }

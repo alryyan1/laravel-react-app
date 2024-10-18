@@ -955,14 +955,15 @@ class PDFController extends Controller
         if ($y > 160 ){
             $pdf->AddPage();
         }
+        $totalDeductsPrice =   $shift->deductSummary();
         $pdf->Cell($table_col_widht , 5, 'Total income', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPrice() , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, $totalDeductsPrice['totalDeductsPrice'] , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5, 'Paid', 1, 0, 'C', fill: 1);
+        $pdf->Cell($table_col_widht , 5, $totalDeductsPrice['totalDeductsPaid']  , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Bank', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceBank() , 1, 1, 'C', fill: 0);
-        $pdf->Cell($table_col_widht , 5, 'Transfer', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5, $shift->totalDeductsPriceTransfer() , 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,$totalDeductsPrice['totalDeductsPriceBank'] , 1, 1, 'C', fill: 0);
         $pdf->Cell($table_col_widht , 5, 'Cash', 1, 0, 'C', fill: 1);
-        $pdf->Cell($table_col_widht , 5,$shift->totalDeductsPriceCash(), 1, 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht , 5,$totalDeductsPrice['totalDeductsPriceCash'], 1, 1, 'C', fill: 0);
 
 
 

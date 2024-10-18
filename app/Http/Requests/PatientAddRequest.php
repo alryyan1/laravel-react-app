@@ -28,7 +28,7 @@ class PatientAddRequest extends FormRequest
             'age_day' => '',
             'age_month' => '',
             'gender' => '',
-            'company_id' => 'numeric',
+            'company_id' => '',
             'subcompany_id' => 'numeric',
             'company_relation_id' => 'numeric',
             'age_year' => 'numeric',

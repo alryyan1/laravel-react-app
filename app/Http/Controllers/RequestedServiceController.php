@@ -97,8 +97,12 @@ class RequestedServiceController extends Controller
 
     public function count(Request $request , RequestedService $requestedService){
         $data = $request->all();
+        $endurance = 0;
+        if ($requestedService->doctorVisit->patient->company != null){
+            $endurance = $requestedService->endurance * $data['serviceCount'];
+        }
 
-        return ['status'=>    $requestedService->update(['count'=>$data['serviceCount']]),'patient'=>$requestedService->doctorVisit->fresh()];
+        return ['status'=>    $requestedService->update(['count'=>$data['serviceCount'],'endurance'=>$endurance]),'patient'=>$requestedService->doctorVisit->fresh()];
     }
     public function editRequested(Request $request , RequestedService $requestedService){
         $data = $request->all();
@@ -115,6 +119,8 @@ class RequestedServiceController extends Controller
                 /** @var Service $service */
                 $service = Service::find($d);
                 $price = $service->price;
+                $endurance = 0;
+
                 if ($doctorvisit->patient->company_id != null){
                     /** @var Company $patient_company */
                     $patient_company =  $doctorvisit->patient->company;
@@ -124,11 +130,19 @@ class RequestedServiceController extends Controller
                     $service =  $patient_company->services->filter(function($item) use($d){
                         return $item->id == $d;
                     })->first();
-//            return $service;
-
-
                     $price =   $service->pivot->price;
+                    if ($service->pivot->static_endurance > 0) {
+                        $endurance =  $service->pivot->static_endurance;
+                    } else {
+                        if ($service->pivot->percentage_endurance > 0) {
+                            // alert(companyService.percentage_endurance)
+                            $endurance = ($price * $service->pivot->percentage_endurance) / 100;
+                        } else {
 
+                            $endurance = ($price* $patient_company->service_endurance) / 100;
+
+                        }
+                    }
                 }
                 $requested_service = new RequestedService([
                     'user_id'=>auth()->user()->id,
@@ -140,6 +154,7 @@ class RequestedServiceController extends Controller
                     'amount_paid'=>0,
                     'count'=>1,
                     'service_id'=>$d,
+                    'endurance'=>$endurance
 
                 ]);
                 $doctorvisit->services()->save($requested_service);

@@ -144,7 +144,7 @@ class PatientController extends Controller
             $patient->doctor_id = $doctor->id;
 
         }else{
-            $this->store(null,false,$patient,company_id:  $request->get('company_id'));
+            $this->store(null,false,$patient);
 
         }
 //        return ['status'=>$patient];
@@ -156,6 +156,11 @@ class PatientController extends Controller
         $current_shift =   $doctor->getLastShift();
         $doctor_visit = new Doctorvisit();
         $doctor_visit->patient_id = $patient_id;
+        $count = $current_shift->visits->filter(function ($visit){
+            return $visit->only_lab == 0;
+        })->count();
+        $doctor_visit->number = $count +1;
+
         $doctor_visit->doctor_shift_id = $current_shift->id;
         $current_shift->visits()->save($doctor_visit);
         return ['status'=>true];
@@ -164,10 +169,19 @@ class PatientController extends Controller
     public  function book(PatientAddRequest $request ,Doctor $doctor , $patient_id = null,$copy = false){
         $data = $request->all();
         $current_shift =   $doctor->getLastShift();
+        if ($current_shift == null){
+            $doctorShiftController = new DoctorShiftController();
+         $current_shift =   $doctorShiftController->open($request,$doctor)['shift'];
+        }
+        $count = $current_shift->visits->filter(function ($visit){
+            return $visit->only_lab == 0;
+        })->count();
         /** @var DoctorShift $current_shift */
         $old_patient = Patient::find($patient_id);
         $patient_data =  $this->store($request,false,$old_patient,$doctor->id);
         $doctor_visit = new Doctorvisit();
+        $doctor_visit->only_lab = $data['onlyLab'] ?? 0;
+        $doctor_visit->number = $count +1;
         $doctor_visit->patient_id = $patient_data['patient']->id;
         $doctor_visit->doctor_shift_id = $current_shift->id;
         $current_shift->visits()->save($doctor_visit);
@@ -176,12 +190,12 @@ class PatientController extends Controller
     public function search(Request $request){
        $data =  $request->all();
        if ($data['name'] =='') return  [];
-       return Patient::where('name','like',"%".$data['name']."%")->limit(10)->get();
+       return Patient::where('name','like',"%".$data['name']."%")->orderByDesc('id')->limit(10)->get();
     }
     public function searchByphone(Request $request){
         $data =  $request->all();
         if ($data['phone'] =='') return  [];
-        return Patient::where('phone','like',"%".$data['phone']."%")->limit(10)->get();
+        return Patient::where('phone','like',"%".$data['phone']."%")->orderByDesc('id')->limit(10)->get();
     }
     public function get(Request $request , Patient $patient){
         return $patient;
@@ -277,7 +291,7 @@ class PatientController extends Controller
         }
 
     }
-    public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null,$company_id = null){
+    public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null){
 
         //اخر ورديه موحده
         $shift = Shift::orderByDesc('id')->first();
@@ -306,8 +320,8 @@ class PatientController extends Controller
                 $patient->doctor_id = $patient_from_history->doctor_id;
 
             }
-            if ($company_id){
-                $patient->company_id = $company_id;
+            if ($request->get('company_id') != null){
+                $patient->company_id = $request->get('company_id');
             }else{
                 $patient->company_id = $patient_from_history->company_id;
             }
