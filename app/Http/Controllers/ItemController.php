@@ -14,6 +14,7 @@ use App\Models\Shift;
 use DB;
 use http\Env\Response;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use PDF;
@@ -54,8 +55,9 @@ class ItemController extends Controller
                     if ($deductedItem){
                         $deductedItem->update(['strips'=>Db::raw("`strips` +     $item->strips"),'box'=>Db::raw("`box` +     1")]);
                     }else{
-
-                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$item->last_deposit_item->finalSellPrice,'box'=>1]);
+                        $price = $item->last_deposit_item->finalSellPrice;
+//                        return ['item->last_deposit_item->finalSellPrice'=>$price];
+                        DeductedItem::create(['deduct_id'=>$deduct->id,'item_id'=>$drug_id,'strips'=>   $item->strips,'shift_id'=>$id,'user_id'=>$user->id,'price'=>$price,'box'=>1]);
 
                     }
 
@@ -236,10 +238,14 @@ class ItemController extends Controller
         $data  = $request->all();
         if (isset($data['word'])){
             $name  = $data['word'];
-            $items = \App\Models\Item::where('name','like',"%$name%")->orWhere('sc_name','like',"%$name%")->orWhere('market_name','like',"%$name%")->orWhere('barcode','like',"%$name%")->paginate($page);
+            $items = \App\Models\Item::whereHas('depositItem',function ( $query){
+                $query->where('quantity','>',0);
+            })->where('market_name','like',"%$name%")->orWhere('sc_name','like',"%$name%")->orWhere('active1','like',"%$name%")->orWhere('barcode','like',"%$name%")->paginate($page);
 
         }else{
-            $items = \App\Models\Item::orderByDesc('id')->paginate($page);
+            $items = \App\Models\Item::whereHas('depositItem',function ( $query){
+                $query->where('quantity','>',0);
+            })->orderByDesc('id')->paginate($page);
 
         }
         /** @var Item $item */
@@ -410,7 +416,9 @@ class ItemController extends Controller
                 return  $item;
 
             }
-            $items =   Item::with('section','category','type')->orderByDesc('id')->Where('market_name','like',"%$word%")->orWhere('active1','like',"%$word%")->orWhere('active2','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->limit(30)->get();
+            $items =   Item::whereHas('depositItem',function ( $query){
+                $query->where('quantity','>',0);
+            })->with('section','category','type')->orderByDesc('id')->Where('market_name','like',"%$word%")->orWhere('active1','like',"%$word%")->orWhere('active2','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('barcode','like',"%$word%")->limit(30)->get();
             /** @var Item $item */
             foreach ($items as $item){
                 $item->getLastDepositItem();
@@ -421,6 +429,21 @@ class ItemController extends Controller
 
 
         return  $items;
+    }
+    public function searchDepositItems(Request $request)
+    {
+
+            $word = $request->query('word');
+
+                /** @var Item $item */
+//                $items =   DepositItem::with('item')-> whereHas('item',function ( $query) use($word){
+//                    $query->orWhere('market_name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('active1','like',"%$word%")->orWhere('barcode','=',"%$word%");
+//                })->get();
+
+                $items =   DepositItem::with(['item','deposit'])->whereHas('item',function ( $query) use($word){
+                    $query->where('market_name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('active1','like',"%$word%");
+                })->paginate(50);
+            return collect($items);
     }
     public function depositItemsPagination(Request $request,Deposit $deposit)
     {

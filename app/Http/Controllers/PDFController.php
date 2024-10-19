@@ -25,6 +25,7 @@ use App\Models\User;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
 use Elibyy\TCPDF\Facades\TCPDF;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use App\Mypdf\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +48,7 @@ class PDFController extends Controller
     {
 
 
-        $pdf = new Pdf('landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new Pdf('p', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
         $lg = array();
         $lg['a_meta_charset'] = 'UTF-8';
@@ -95,38 +96,39 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, '', 0, 1, 'C');
         $table_col_widht = $page_width / 7;
         $pdf->Ln();
+        $pdf->setFont($fontname, 'b', 10);
 
         $pdf->Cell($table_col_widht/2, 5, 'كود ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht*3, 5, 'الاسم ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht/2, 5, 'سعر البيع ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht/2, 5, ' الاجمالي ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht/2, 5, "الوارد  ", 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, "المنصرف  ", 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, "الرصيد  ", 'T,B', 1, 'C', fill: 0);
+        $pdf->Cell($table_col_widht*4, 5, 'الاسم ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht/1.5, 5, ' س.البيع', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht/1.5, 5, "وارد", 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht/1.5, 5, "منصرف", 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht/1.5, 5, "الرصيد  ", 'T,B', 1, 'C', fill: 0);
         $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 14);
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->head = function () use ($pdf,$table_col_widht,$arial,$page_width){
-            $pdf->SetFont($arial, '', 12, '', true);
+            $pdf->SetFont($arial, '', 10, '', true);
 
             $pdf->setFillColor(200, 200, 200);
             $pdf->Cell($table_col_widht/2, 5, 'كود ', 'T,B', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht*3, 5, 'الاسم ', 'T,B', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht/2, 5, 'سعر البيع ', 'T,B', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht/2, 5, ' الاجمالي ', 'T,B', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht/2, 5, "الوارد  ", 'T,B', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht, 5, "المنصرف  ", 'T,B', 0, 'C', fill: 0);
-            $pdf->Cell($table_col_widht, 5, "الرصيد  ", 'T,B', 1, 'C', fill: 0);
+            $pdf->Cell($table_col_widht*4, 5, 'الاسم ', 'T,B', 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht/1.5, 5, 'س.البيع', 'T,B', 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht/1.5, 5, "وارد", 'T,B', 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht/1.5, 5, "المنصرف  ", 'T,B', 0, 'C', fill: 0);
+            $pdf->Cell($table_col_widht/1.5, 5, "الرصيد  ", 'T,B', 1, 'C', fill: 0);
             $pdf->Ln();
 
         };
 
 
-        $pdf->setFont($fontname, 'b', 12);
+        $pdf->setFont($fontname, 'b', 10);
         $total = 0;
-        $items = \App\Models\Item::orderByDesc('id')->get();
+        $items = \App\Models\Item::whereHas('depositItem',function ( $query){
+            $query->where('quantity','>',0);
+        })->get();
         $index = 0;
         /** @var Item $item */
+        $code_num = 1;
         foreach ($items as $item) {
             $fill =   $index % 2 ;
             $y = $pdf->GetY();
@@ -138,16 +140,17 @@ class PDFController extends Controller
             $item->totaldeposit = $total_deposit;
             $item->totaldeduct = $total_deduct;
             $item->remaining = $total_deposit - $total_deduct;
-            $pdf->Cell($table_col_widht/2, 5, $item->id, 0, 0, 'C',fill: $fill);
-            $pdf->Cell($table_col_widht * 3, 5, $item->market_name, 0, 0, 'C', stretch: 1,fill: $fill);
-            $pdf->Cell($table_col_widht/2, 5, $item->sell_price, 0, 0, 'C', stretch: 1,fill: $fill);
-            $pdf->Cell($table_col_widht/2, 5, $item->sell_price * $item->remaining, 0, 0, 'C', stretch: 1,fill: $fill);
+            $pdf->Cell($table_col_widht/2, 5, $code_num, 0, 0, 'C',fill: $fill);
+            $pdf->Cell($table_col_widht * 4, 5, $item->market_name, 0, 0, 'C', stretch: 1,fill: $fill);
+            $pdf->Cell($table_col_widht/1.5, 5, $item->last_deposit_item->sell_price, 0, 0, 'C', stretch: 1,fill: $fill);
+//            $pdf->Cell($table_col_widht/2, 5, $item->last_deposit_item->sell_price * $item->remaining, 0, 0, 'C', stretch: 1,fill: $fill);
             $total+= $item->sell_price * $item->remaining;
-            $pdf->Cell($table_col_widht/2, 5, $total_deposit, 0, 0, 'C',fill: $fill);
-            $pdf->Cell($table_col_widht, 5, $total_deduct, 0, 0, 'C',fill: $fill);
-            $pdf->Cell($table_col_widht, 5, $item->remaining, 0, 1, 'C',fill: $fill);
+            $pdf->Cell($table_col_widht/1.5, 5, $total_deposit, 0, 0, 'C',fill: $fill);
+            $pdf->Cell($table_col_widht/1.5, 5, $total_deduct, 0, 0, 'C',fill: $fill);
+            $pdf->Cell($table_col_widht/1.5, 5, $item->remaining, 0, 1, 'C',fill: $fill);
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $index++;
+            $code_num++;
 
         }
 
@@ -160,6 +163,7 @@ class PDFController extends Controller
         $pdf->Cell($table_col_widht, 5, '', 1, 0, 'C');
         $pdf->Cell($table_col_widht, 5,'', 1, 1, 'C');
         $pdf->Output('example_003.pdf', 'I');
+        $code_num++;
     }
     public function balancebyExpire(Request $request)
     {
@@ -505,33 +509,60 @@ class PDFController extends Controller
         $pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setFont('times', 'BI', 12);
         $pdf->AddPage();
-
         $page_width = $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT;
+
+
         $fontname = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
-        $pdf->setFont($fontname, 'b', 22);
         $settings= Setting::all()->first();
+
+        $pdf->foot = function ($pdf) use ($page_width, $fontname,$settings) {
+            $pdf->SetFont($fontname, '', 10, '', true);
+            $col = $page_width / 6;
+            if ($settings->footer_content != null){
+                $pdf->SetFont($fontname, '', 10, '', true);
+
+
+                $pdf->MultiCell($page_width - 25, 5, $settings->footer_content, 0, 'C', 0, 1, '', '', true);
+
+            }
+        };
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, 125  , 0, 60, 40,align: 'C',);
+            $pdf->Image("@".$img, 155  , 0, 40, 40,align: 'C',);
+            $pdf->Image("@".$img, 10  , 0, 40, 40,align: 'C',);
 
         }
+        $pdf->setFont($fontname, 'b', 22);
 
         $table_col_widht = $page_width / 4;
 //        $arr = array('LR' => array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
 
-//        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
-        $pdf->Ln(15);
+        $pdf->Cell($page_width, 5, $settings->hospital_name, 0, 1, 'C');
+        $pdf->setFont($fontname, 'u', 17);
+
+        $pdf->Cell($page_width, 5, $settings->address, 0, 1, 'C');
+        $pdf->setFont($fontname, '', 10);
+        $pdf->Ln();
+        $pdf->Cell(30, 5, 'الرقم التعريفي', 0, 1, 'C');
+
+        $pdf->Cell(30, 5, $settings->vatin , 0, 1, 'C');
+
+        $pdf->Ln(10);
+        $pdf->setFont($fontname, '', 17);
+
         $pdf->Cell($page_width, 5, 'Invoice', 0, 1, 'C');
         $pdf->Ln();
-        $pdf->setFont($fontname, 'b', 12);
+        $pdf->setFont($fontname, 'b', 16);
         $pdf->Cell($table_col_widht/2, 5, 'Bill To', 0, 0, 'L');
         $pdf->Cell($table_col_widht*1.5, 5, $deduct?->client?->name , 0, 0, 'L',stretch: 1);
+        $pdf->setFont($fontname, 'b', 12);
+
         $pdf->Cell($table_col_widht*1.5, 5, ' Invoice No #', 0, 0, 'R');
         $pdf->Cell($table_col_widht/2, 5, $deduct->id, 0, 1, 'C');
 
         $pdf->Cell($table_col_widht/2, 5, 'Date', 0, 0, 'L');
-        $pdf->Cell($table_col_widht*1.5, 5, $deduct->created_at->format('Y-m-d H:m A') , 0, 0, 'L');
+        $pdf->Cell($table_col_widht*1.5, 5, $deduct->created_at->format('Y-m-d') , 0, 0, 'L');
         $pdf->Cell($table_col_widht, 5, "   ", 0, 1, 'C');
 //        $pdf->Cell($table_col_widht, 5, $deduct->created_at->format('Y-m-d'), 0, 0, 'C');
         $pdf->Cell($table_col_widht, 5, ' ', 0, 0, 'C');
@@ -539,12 +570,13 @@ class PDFController extends Controller
         $pdf->setFillColor(200, 200, 200);
         $pdf->Ln();
         $pdf->setFont($fontname, 'b', 14);
-        $table_col_widht = $page_width / 5;
+        $table_col_widht = $page_width / 6;
 
         $pdf->Cell($table_col_widht/2, 5, 'No', 'T,B', 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht*1.5, 5, 'Item ', 'T,B', 0, 'C', fill: 0);
-        $pdf->Cell($table_col_widht, 5, 'Box Price ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Unit Price ', 'T,B', 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, 'Quantity ', 'T,B', 0, 'C', fill: 0);
+        $pdf->Cell($table_col_widht, 5, 'Unit ', 'T,B', 0, 'C', fill: 0);
         $pdf->Cell($table_col_widht, 5, 'Amount ', 'T,B', 1, 'C', fill: 0);
         $pdf->setFont($fontname, 'b', 12);
         $pdf->Ln();
@@ -559,6 +591,7 @@ class PDFController extends Controller
             $pdf->Cell($table_col_widht*1.5, 5, $item->item->market_name, 0, 0, 'C', stretch: 1);
             $pdf->Cell($table_col_widht, 5, $item->price, 0, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $item->box, 0, 0, 'C');
+            $pdf->Cell($table_col_widht, 5, $item->item?->type?->name, 0, 0, 'C');
             $pdf->Cell($table_col_widht, 5, $item->box * $item->price, 0, 1, 'C');
             $y = $pdf->GetY();
 

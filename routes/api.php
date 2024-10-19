@@ -419,6 +419,7 @@ Route::middleware('auth:sanctum')->patch('items/{item}', [ItemController::class,
 Route::get('items/all', [ItemController::class, 'all']);
 Route::middleware('auth:sanctum')->get('items/all/pagination/{item}', [ItemController::class, 'pagination']);
 Route::middleware('auth:sanctum')->get('items/search', [ItemController::class, 'search']);
+Route::middleware('auth:sanctum')->get('depositItems/search', [ItemController::class, 'searchDepositItems']);
 Route::middleware('auth:sanctum')->get('deposit/items/all/pagination/{deposit}', [ItemController::class, 'depositItemsPagination']);
 Route::get('items/balance', [ItemController::class, 'balance']);
 Route::post('items/all/balance/paginate/{page}', [ItemController::class, 'paginate']);

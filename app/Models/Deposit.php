@@ -45,6 +45,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereIsLocked($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereVatCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereVatSell($value)
+ * @property int $showAll
+ * @method static \Illuminate\Database\Eloquent\Builder|Deposit whereShowAll($value)
  * @mixin \Eloquent
  */
 class Deposit extends Model

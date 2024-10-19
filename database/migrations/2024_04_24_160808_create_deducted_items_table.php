@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('strips');
             $table->float('box');
             $table->integer('discount');
-            $table->float('price',8,3);
+            $table->float('price',11,3);
             $table->timestamps();
         });
     }

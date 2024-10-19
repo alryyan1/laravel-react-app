@@ -166,6 +166,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereDrugHistory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereFamilyHistory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereRbs($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedService> $requestedServices
+ * @property-read int|null $requested_services_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model

@@ -63,6 +63,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereGov($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereShowWaterMark($value)
+ * @property string $vatin
+ * @property string $cr
+ * @property string $email
+ * @property string $address
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereCr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereVatin($value)
  * @mixin \Eloquent
  */
 class Setting extends Model

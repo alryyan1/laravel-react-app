@@ -170,9 +170,9 @@ Route::get('deduct/invoice',[\App\Http\Controllers\PDFController::class,'deductI
 Route::get('shippings',[\App\Http\Controllers\PDFController::class,'shipping']);
 
 
-Route::group(['middleware' => ['can:reports']], function () {
-    Route::middleware('auth:sanctum')->get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
-});
+
+    Route::get('balance',[\App\Http\Controllers\PDFController::class,'balance']);
+
 
 //lab
 Route::get('insurance/report',[\App\Http\Controllers\PDFController::class,'insuranceReport']);

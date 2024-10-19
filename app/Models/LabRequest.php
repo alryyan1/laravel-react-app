@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $approve
  * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereApprove($value)
  * @property-read \App\Models\User|null $userRequested
+ * @property float $endurance
+ * @method static \Illuminate\Database\Eloquent\Builder|LabRequest whereEndurance($value)
  * @mixin \Eloquent
  */
 class LabRequest extends Model

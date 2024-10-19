@@ -35,6 +35,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $number
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereIsNew($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereNumber($value)
+ * @property int $only_lab
+ * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereOnlyLab($value)
  * @mixin \Eloquent
  */
 class Doctorvisit extends Model
