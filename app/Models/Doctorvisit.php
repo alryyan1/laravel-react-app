@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereNumber($value)
  * @property int $only_lab
  * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereOnlyLab($value)
+ * @property int $shift_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Doctorvisit whereShiftId($value)
  * @mixin \Eloquent
  */
 class Doctorvisit extends Model
@@ -149,22 +151,13 @@ class Doctorvisit extends Model
         return $total;
     }
     public function bankak_service(){
-
         $total = 0;
         foreach ($this->services as $service){
             if ($service->is_paid && $service->bank == 1){
-
                  $total += $service->amount_paid ;
-//                $discount = $service->discount;
-//                $discounted_money = ($price * $discount ) / 100;
-//                $patient_paid =   $price - $discounted_money ;
-//                $total+=$patient_paid;
-
             }
-
         }
         return $total;
-
     }
     public function getTotalDiscountedAttribute()
     {

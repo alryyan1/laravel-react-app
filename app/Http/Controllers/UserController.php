@@ -57,13 +57,20 @@ class UserController extends Controller
     public function updateDenoUser(Request $request)
     {
         $data = $request->all();
-        $max_shift_id = Shift::max('id');
-        /** @var User $user */
         $user =  auth()->user();
-//        $user->denos()->updateExistingPivot($data['deno_id'], ['amount' => $data['val']]);
-         $pdo=        DB::connection()->getPdo();
-         $pdo->prepare('update denos_users set amount = amount + ? where shift_id = ? and deno_id = ?')->execute([$data['val'],  $max_shift_id,$data['deno_id']]);
-         return ['status'=>true,'data'=>$user->user_denos_by_shift];
+        $pdo=        DB::connection()->getPdo();
+
+        $max_shift_id = Shift::max('id');
+        $colName= $data['colName'];
+        $add= $data['add'] ?? null;
+        if ($add == null){
+            $pdo->prepare("update denos_users set $colName = ? where shift_id = ? and deno_id = ?")->execute([$data['val'],  $max_shift_id,$data['deno_id']]);
+
+        }else{
+            $pdo->prepare('update denos_users set amount = amount + ? where shift_id = ? and deno_id = ?')->execute([$data['val'],  $max_shift_id,$data['deno_id']]);
+
+        }
+        return ['status'=>true,'data'=>$user->user_denos_by_shift];
 
     }
     public function all()

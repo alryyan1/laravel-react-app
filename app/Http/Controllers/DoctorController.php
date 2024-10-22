@@ -98,7 +98,7 @@ class DoctorController extends Controller
 
     public function find(Request $request,Doctor $doctor)
     {
-        return $doctor->getLastShift();
+        return $doctor->getLastShift(true);
 
 
     }

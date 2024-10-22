@@ -69,8 +69,14 @@ class Doctor extends Model
     }
 
 
-    public function getLastShift(){
-      return  DoctorShift::without('visits','cost')->whereDoctorId($this->id)->orderByDesc('id')->first();
+    public function getLastShift($with = false){
+        if ($with){
+            return  DoctorShift::whereDoctorId($this->id)->orderByDesc('id')->first();
+
+        }else{
+            return  DoctorShift::without('visits','cost')->whereDoctorId($this->id)->orderByDesc('id')->first();
+
+        }
     }
 
     public function services()

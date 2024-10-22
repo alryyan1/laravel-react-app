@@ -85,7 +85,7 @@ class RequestedResultController extends Controller
 
         }
 
-        return ['status'=>true,'patient'=>$patient->refresh(),'cbcObj'=>$object];
+        return ['status'=>true,'data'=>$patient->doctorVisit(),'cbcObj'=>$object];
     }
     public function populatePatientHormoneData(Request $request,Patient $patient){
         $main_test_id = $request->get('main_test_id');
@@ -177,7 +177,7 @@ class RequestedResultController extends Controller
             $result->update(['result'=> $result->childTest->defval]);
         }
 
-        return ['status'=>true,'patient'=>$labRequest->patient];
+        return ['status'=>true,'data'=>$labRequest->patient->doctorVisit()];
     }
 
     public function save(Request $request , RequestedResult $requestedResult){

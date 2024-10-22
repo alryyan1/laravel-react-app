@@ -39,7 +39,7 @@ class LabRequestController extends Controller
         $data = $request->all();
         $test_id =  $data['id'];
 
-        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'patient'=>$labRequest->patient->refresh(),'data'=>$doctorVisit->fresh()];
+        return ['status'=>$labRequest->update(['is_bankak'=>$data['val']]),'data'=>$doctorVisit->fresh()];
     }
     public function bankLab(Request $request,LabRequest $labRequest){
         $data = $request->all();
@@ -59,15 +59,7 @@ class LabRequestController extends Controller
 
         return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'data'=>$doctorVisit->fresh()];
     }
-    public function labDiscount(Request $request, LabRequest $labRequest){
-        $user =  auth()->user();
-        if (!$user->can('التخفيض')) {
-            return  response(['message'=>'صلاحيه التخفيض غير مفعله'],400);
-        }
-        $data = $request->all();
 
-        return ['status'=>$labRequest->update(['discount_per'=>$data['discount']]),'patient'=>$labRequest->patient->fresh()];
-    }
     public function payment(Request $request,Doctorvisit $doctorVisit){
         $patient = $doctorVisit->patient;
         $user =  auth()->user();
@@ -305,74 +297,74 @@ class LabRequestController extends Controller
         return ['status' => true,'patient'=>$doctorVisit->fresh()];
 
     }
-    public function storeLab(Request $request, Patient  $patient)
-    {
-
-        try {
-            DB::transaction(function () use ($request, $patient) {
-                $user = auth()->user();
-                $data = $request->all();
-                if (is_array($data['main_test_id'])) {
-                    foreach ($data['main_test_id'] as $d) {
-                        //add test to requested tests
-                        $main = MainTest::with('childtests')->find($d);
-                        $price = $main->price;
-                        $endurance = 0;
-                        if ($patient->company_id != null){
-                            /** @var Company $patient_company */
-                            $patient_company =  $patient->company;
-                            $patient_company->load('tests');
-                            $test =  $patient_company->tests->filter(function($item) use($d){
-                                return $item->id == $d;
-                            })->first();
-                            $price =   $test->pivot->price;
-                            if ($test->pivot->endurance_static > 0) {
-                                // alert('s')
-                                $endurance = $test->pivot->endurance_static;
-                            } else {
-                                if ($test->pivot->endurance_percentage > 0) {
-                                    $endurance =
-                                        ($price * $test->pivot->endurance_percentage) / 100;
-                                } else {
-                                    $endurance = ($price * $patient_company->lab_endurance) / 100;
-                                }
-                            }
-
-                        }
-                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $price, 'user_requested' => $user->id,'endurance'=>$endurance]);
-                        //                $patient->labrequests()->attach($d);
-                        //add test with their children to requested results
-                        /** @var ChildTest $childTest */
-                        foreach ($main->childTests as $childTest) {
-                            $id = $childTest->id;
-                            $normal_range = $childTest->normalRange;
-                            $requested_result = new RequestedResult(['child_test_id' => $id, 'normal_range' => $normal_range, 'patient_id' => $patient->id, 'main_test_id' => $d]);
-                            $lr->requested_results()->save($requested_result);
-                            //                    $patient->requestedResults()->attach($d,['child_test_id'=>$id,'normal_range'=>$normal_range]);
-                        }
-
-                    }
-                } else {
-                    $patient->labrequests()->attach($data['main_test_id']);
-                    //add test with their children to requested results
-                    $main = MainTest::with('childtests')->find($data['main_test_id']);
-                    /** @var ChildTest $childTest */
-                    foreach ($main->childTests as $childTest) {
-                        $id = $childTest->child_test_id;
-                        $normal_range = $childTest->normalRange;
-                        $patient->requestedResults()->attach($data['main_test_id'], ['child_test_id' => $id, 'normal_range' => $normal_range]);
-                    }
-
-                }
-            });
-        } catch (\Throwable $e) {
-            return ['status' => false, 'message' => $e->getMessage()];
-
-        }
-
-        return ['status' => true,'patient'=>$patient->fresh()];
-
-    }
+//    public function storeLab(Request $request, Patient  $patient)
+//    {
+//
+//        try {
+//            DB::transaction(function () use ($request, $patient) {
+//                $user = auth()->user();
+//                $data = $request->all();
+//                if (is_array($data['main_test_id'])) {
+//                    foreach ($data['main_test_id'] as $d) {
+//                        //add test to requested tests
+//                        $main = MainTest::with('childtests')->find($d);
+//                        $price = $main->price;
+//                        $endurance = 0;
+//                        if ($patient->company_id != null){
+//                            /** @var Company $patient_company */
+//                            $patient_company =  $patient->company;
+//                            $patient_company->load('tests');
+//                            $test =  $patient_company->tests->filter(function($item) use($d){
+//                                return $item->id == $d;
+//                            })->first();
+//                            $price =   $test->pivot->price;
+//                            if ($test->pivot->endurance_static > 0) {
+//                                // alert('s')
+//                                $endurance = $test->pivot->endurance_static;
+//                            } else {
+//                                if ($test->pivot->endurance_percentage > 0) {
+//                                    $endurance =
+//                                        ($price * $test->pivot->endurance_percentage) / 100;
+//                                } else {
+//                                    $endurance = ($price * $patient_company->lab_endurance) / 100;
+//                                }
+//                            }
+//
+//                        }
+//                        $lr = LabRequest::create(['pid' => $patient->id, 'main_test_id' => $d, 'price' => $price, 'user_requested' => $user->id,'endurance'=>$endurance]);
+//                        //                $patient->labrequests()->attach($d);
+//                        //add test with their children to requested results
+//                        /** @var ChildTest $childTest */
+//                        foreach ($main->childTests as $childTest) {
+//                            $id = $childTest->id;
+//                            $normal_range = $childTest->normalRange;
+//                            $requested_result = new RequestedResult(['child_test_id' => $id, 'normal_range' => $normal_range, 'patient_id' => $patient->id, 'main_test_id' => $d]);
+//                            $lr->requested_results()->save($requested_result);
+//                            //                    $patient->requestedResults()->attach($d,['child_test_id'=>$id,'normal_range'=>$normal_range]);
+//                        }
+//
+//                    }
+//                } else {
+//                    $patient->labrequests()->attach($data['main_test_id']);
+//                    //add test with their children to requested results
+//                    $main = MainTest::with('childtests')->find($data['main_test_id']);
+//                    /** @var ChildTest $childTest */
+//                    foreach ($main->childTests as $childTest) {
+//                        $id = $childTest->child_test_id;
+//                        $normal_range = $childTest->normalRange;
+//                        $patient->requestedResults()->attach($data['main_test_id'], ['child_test_id' => $id, 'normal_range' => $normal_range]);
+//                    }
+//
+//                }
+//            });
+//        } catch (\Throwable $e) {
+//            return ['status' => false, 'message' => $e->getMessage()];
+//
+//        }
+//
+//        return ['status' => true,'patient'=>$patient->fresh()];
+//
+//    }
 
     public function destroy(Request $request,LabRequest $labRequest,Doctorvisit $doctorVisit)
     {
@@ -389,7 +381,7 @@ class LabRequestController extends Controller
         } catch (\Throwable $e) {
             return ['status' => false, 'message' => $e->getMessage()];
         }
-        return ['status' => true, 'data' => $labRequest->patient , 'patient'=>$doctorVisit->fresh()];
+        return ['status' => true,  'data'=>$doctorVisit->fresh()];
 
 
     }

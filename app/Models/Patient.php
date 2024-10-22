@@ -168,7 +168,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereRbs($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RequestedService> $requestedServices
  * @property-read int|null $requested_services_count
- * @method static \Illuminate\Database\Eloquent\Builder|Patient whereSubcompanyId($value)
  * @mixin \Eloquent
  */
 class Patient extends Model
@@ -196,7 +195,10 @@ class Patient extends Model
     {
         return $this->total_lab_value_unpaid();
     }
-
+    public function doctorVisit()
+    {
+        return $this->hasMany(DoctorVisit::class)->first();
+    }
 
     protected $appends = ['paid','hasCbc','visit_count','total_lab_value_unpaid','total_lab_value_will_pay','discountAmount'];
     public  function getVisitCountAttribute()

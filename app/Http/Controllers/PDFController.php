@@ -752,8 +752,9 @@ class PDFController extends Controller
         $pdf->Ln();
 
         $index = 1;
-        /** @var Patient $patient */
+        /** @var Doctorvisit $patient */
         foreach ($shift->patients as $patient) {
+            $patient = $patient->patient;
             $y = $pdf->GetY();
             $pdf->Line(PDF_MARGIN_LEFT, $y, $page_width + PDF_MARGIN_RIGHT, $y);
             $pdf->Cell($table_col_widht / 2, 5, $patient->visit_number, 0, 0, 'C');

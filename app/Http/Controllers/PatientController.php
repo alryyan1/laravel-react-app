@@ -19,6 +19,7 @@ use App\Models\Shift;
 use App\Models\Sickleave;
 use App\Zebra;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -120,13 +121,11 @@ class PatientController extends Controller
         if (is_numeric($name)){
             return  ['status'=>true,'data'=>Patient::find($name)];
         }
-     elseif ($request->has('withTests') && $request->withTests == '1'){
-         return Patient::whereHas('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->limit(30)->get();
+         return Doctorvisit::whereHas('patient',function(Builder $query)use($name){
+             $query->where('name','like',"%$name%");
+         })->orderByDesc('id')->limit(30)->get();
 
-     }else{
-            return Patient::with('labrequests')->where('name','like',"%$name%")->orderByDesc('id')->get();
 
-        }
 
     }
   public function printLock(Request $request , Patient $patient){
@@ -182,10 +181,11 @@ class PatientController extends Controller
         $doctor_visit = new Doctorvisit();
         $doctor_visit->only_lab = $data['onlyLab'] ?? 0;
         $doctor_visit->number = $count +1;
+        $doctor_visit->shift_id = Shift::max('id');
         $doctor_visit->patient_id = $patient_data['patient']->id;
         $doctor_visit->doctor_shift_id = $current_shift->id;
         $current_shift->visits()->save($doctor_visit);
-        return ['status'=>true,'patient'=>$patient_data['patient']->id];
+        return ['status'=>true,'patient'=>$doctor_visit->fresh()];
     }
     public function search(Request $request){
        $data =  $request->all();
@@ -222,7 +222,7 @@ class PatientController extends Controller
          $result =  $doctorvisit->patient->update($request->validated());
 
         if ($result){
-            return ['status'=>true,'patient'=>$doctorvisit->refresh()];
+            return ['status'=>true,'data'=>$doctorvisit->refresh()];
         }
 
     }

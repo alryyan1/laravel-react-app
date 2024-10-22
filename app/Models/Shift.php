@@ -60,13 +60,14 @@ class Shift extends Model
 
     protected $fillable = ['total',	'bank'	,'expenses'	,'closed_at','is_closed','touched'];
     public function patients(){
-        return $this->hasMany(Patient::class);
+        return $this->hasMany(Doctorvisit::class);
     }
     public function doctorShifts(){
         return $this->hasMany(DoctorShift::class);
     }
 
 //    protected $with = ['patients','cost','deducts'];
+    protected $with = ['cost'];
 
     /**
      * cash + insurance test prices values only paid
@@ -122,23 +123,34 @@ class Shift extends Model
      * return total lab money considering discounts
      * @return int|mixed
      */
-    public function totalPaid(): mixed
+
+    public function summary($user=null)
     {
         $total = 0;
-
+        $bank = 0;
         /** @var DoctorShift $doctorShift */
         foreach ($this->doctorShifts as $doctorShift){
-
             /** @var Doctorvisit $doctorvisit */
             foreach ($doctorShift->visits as $doctorvisit){
 
-//                if ($doctorvisit->patient->is_lab_paid == 1){
-//                    $total += $doctorvisit->patient->paid();
-//                }
+                $total+= $doctorvisit->total_paid_services(null, $user);
+                $bank+= $doctorvisit->bankak_service();
+            }
+        }
+        $totalCost = $this->totalCost();
+        return ['total'=>$total,'bank'=>$bank,'expenses'=>$totalCost,'cash'=>$total - $bank,'safi'=>$total - $totalCost];
+    }
+
+    public function total_paid_services(): mixed
+    {
+        $total = 0;
+        /** @var DoctorShift $doctorShift */
+        foreach ($this->doctorShifts as $doctorShift){
+            /** @var Doctorvisit $doctorvisit */
+            foreach ($doctorShift->visits as $doctorvisit){
                 $total+= $doctorvisit->total_paid_services();
             }
         }
-
         return $total;
     }
 
@@ -149,20 +161,16 @@ class Shift extends Model
     public function totalPaidService($user = null): mixed
     {
         $total = 0;
-//        return  $this->doctorShifts;
         /** @var DoctorShift $doctorShift */
         foreach ($this->doctorShifts as $doctorShift){
-
-
             /** @var Doctorvisit $doctorvisit */
             foreach ($doctorShift->visits as $doctorvisit){
-//               return   $doctorvisit;
                 $total+= $doctorvisit->total_paid_services(null, $user);
             }
         }
-
         return $total;
-    }    public function companies($user = null)
+    }
+    public function companies($user = null)
     {
 
         /** @var DoctorShift $doctorShift */
@@ -269,43 +277,43 @@ class Shift extends Model
 
     public function paidLab($user = null){
         $total = 0;
-        /** @var Patient $patient */
+        /** @var Doctorvisit $patient */
         foreach ($this->patients as $patient){
-                $total += $patient->paid_lab($user);
+                $total += $patient->patient->paid_lab($user);
         }
         return $total;
     }
     public function paidLabInsurance($user = null){
         $total = 0;
-        /** @var Patient $patient */
+        /** @var Doctorvisit $patient */
         foreach ($this->patients as $patient){
-            if (!$patient->company) continue;
-                $total += $patient->paid_lab($user);
+            if (!$patient->patient->company) continue;
+                $total += $patient->patient->paid_lab($user);
         }
         return $total;
     }
     public function labInsuranceValue($user = null){
         $total = 0;
-        /** @var Patient $patient */
+        /** @var Doctorvisit $patient */
         foreach ($this->patients as $patient){
-            if (!$patient->company) continue;
-                $total += $patient->total_lab_value_unpaid();
+            if (!$patient->patient->company) continue;
+                $total += $patient->patient->total_lab_value_unpaid();
         }
         return $total;
     }
     public function paidLabBank($user = null){
         $total = 0;
-        /** @var Patient $patient */
+        /** @var Doctorvisit $patient */
         foreach ($this->patients as $patient){
-            $total += $patient->lab_bank($user);
+            $total += $patient->patient->lab_bank($user);
         }
         return $total;
     }
     public function bankakLab($user = null){
         $total = 0;
-        /** @var Patient $patient */
+        /** @var Doctorvisit $patient */
         foreach ($this->patients as $patient){
-                $total += $patient->lab_bank($user);
+                $total += $patient->patient->lab_bank($user);
         }
         return $total;
     }

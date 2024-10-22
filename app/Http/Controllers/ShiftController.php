@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\DB;
 class ShiftController extends Controller
 {
 
+    public function shiftSummery(Request $request,Shift $shift)
+    {
+        return $shift->summary();
+    }
     public function deductSummery(Request $request, Shift $shift){
        return $shift->deductSummary();
 
@@ -67,9 +71,7 @@ class ShiftController extends Controller
     }
     public function last()
     {
-        $shift = Shift::with(['deducts','patients'=>function (HasMany $query) {
-                return $query->orderByDesc('patients.id');
-            }])->orderByDesc('id')->first();
+        $shift = Shift::with(['deducts'])->orderByDesc('id')->first();
         return ['status' => true, 'data' => $shift ];
 
     }public function shiftById(Request $request , Shift $shift)
@@ -84,7 +86,7 @@ class ShiftController extends Controller
 
     public function total(){
         $shift = Shift::orderByDesc('id')->first();
-        return ['status'=> true, 'total'=>$shift->totalPaid()];
+        return ['status'=> true, 'total'=>$shift->total_paid_services()];
     }
     public function totalService(){
          $user =  auth()->user();
