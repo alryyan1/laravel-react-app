@@ -131,23 +131,14 @@ class PatientController extends Controller
   public function printLock(Request $request , Patient $patient){
         $lock = $patient->result_is_locked == 0 ? 1 : 0;
         $patient->update(['result_is_locked'=> $lock]);
-        return ['status'=>true,'patient'=>$patient,'lock'=>$lock];
+        return ['status'=>true,'data'=>$patient->doctorVisit(),'lock'=>$lock];
     }
     public function collectSample(Request $request , Patient $patient)
     {
-        return ['status'=>$patient->update(['sample_collected'=>1,'sample_collect_time'=>now()]),'patient'=>$patient->fresh(),'shift'=>$patient->shift];
+        return ['status'=>$patient->update(['sample_collected'=>1,'sample_collect_time'=>now()]),'data'=>$patient->doctorVisit(),'shift'=>$patient->shift];
     }
 
-    public function saveByHistoryLab(Patient $patient , Doctor|null $doctor,Request $request){
-        if ($doctor == null){
-            $patient->doctor_id = $doctor->id;
 
-        }else{
-            $this->store(null,false,$patient);
-
-        }
-//        return ['status'=>$patient];
-    }
 
 
     public function copy(Request $request,Doctor $doctor){
@@ -287,14 +278,16 @@ class PatientController extends Controller
         $result =  $patient->update($request->validated());
 
         if ($result){
-            return ['status'=>true,'patient'=>$patient->refresh()];
+            return ['status'=>true,'data'=>$patient->doctorVisit()];
         }
 
     }
-    public function store(PatientAddRequest|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null){
+    public function store(Request|null $request,$isLab=false,Patient $patient_from_history = null,$doctor_id = null){
 
         //اخر ورديه موحده
         $shift = Shift::orderByDesc('id')->first();
+
+
         //لو مقفوله ما تسجل
         if ($shift->is_closed){
             return  response(['message'=>'لم يتم فتح الورديه الماليه'],400);

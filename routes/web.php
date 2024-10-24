@@ -79,7 +79,9 @@ Route::get('/home', function () {
     FacadesDebugbar::info('info');
     return "h";
 });
-
+Route::get('info',function (){
+   echo  phpinfo();
+});
 Route::post('webhook',[WebhookController::class,'webhook']);
     Route::get('migrate',function (){
       $items = \App\Models\DepositItem::all();
@@ -93,6 +95,36 @@ Route::post('webhook',[WebhookController::class,'webhook']);
           }
       }
         return ['status'=>true,'count'=>$count];
+    });
+
+    Route::get('deleteDuplicates',function (){
+        $items =  Item::all();
+        $deletedCount = 0;
+        /** @var Item $item */
+        foreach ($items as  $item){
+            $depositItem =  \App\Models\DepositItem::where('item_id','=',$item->id)->first();
+            if ($depositItem){
+                continue;
+            }
+            //if this item has multiples
+            $duplicatedItems =  Item::where('market_name','=',$item->market_name)->get();
+            if (count($duplicatedItems) > 0){
+                foreach ($duplicatedItems as $duplicatedItem){
+                    $depositItem =  \App\Models\DepositItem::where('item_id','=',$duplicatedItem->id)->first();
+                    if ($depositItem){
+                        continue;
+                    }
+                    $item->delete();
+                    $deletedCount++;
+
+                }
+            }
+
+
+        }
+
+        echo  'deleted items'.$deletedCount;
+
     });
     Route::get('test',function (){
 

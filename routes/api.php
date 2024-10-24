@@ -308,7 +308,6 @@ Route::middleware('auth:sanctum')->patch('prescribedDrugs/{prescribedDrug}', [Pa
 Route::middleware('auth:sanctum')->delete('prescribedDrugs/{prescribedDrug}', [PatientController::class, 'prescribedDrugDelete']);
 Route::middleware('auth:sanctum')->post('patients/add/{isLab?}', [PatientController::class, 'store']);
 Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history/{doctor}/{patient}', [PatientController::class, 'book']);
-Route::middleware('auth:sanctum')->post('/patients/add-patient-by-history-lab/{patient}/{doctor?}', [PatientController::class, 'saveByHistoryLab']);
 Route::middleware('auth:sanctum')->post('patients/reception/add/{doctor}/{patient_id?}', [PatientController::class, 'book']);
 
 
@@ -429,6 +428,7 @@ Route::get('items/all/pie/{section}', [ItemController::class, 'pie']);
 Route::get('items/all/withItemRemaining', [ItemController::class, 'withItemRemaining']);
 
 
+Route::get('deleteZeroQuantity/{deposit}', [DepositController::class, 'deleteZeroQuantity']);
 Route::post('sections/create', [SectionController::class, 'create']);
 Route::get('sections/all', [SectionController::class, 'all']);
 Route::delete('sections/{section}', [SectionController::class, 'destroy']);

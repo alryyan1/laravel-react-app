@@ -183,6 +183,6 @@ class RequestedResultController extends Controller
     public function save(Request $request , RequestedResult $requestedResult){
        $val =  $request->get('val');
        $result = $requestedResult->update(['result'=>$val]);
-       return ['status'=> $result,'patient'=>$requestedResult->patient];
+       return ['status'=> $result,'data'=>$requestedResult->patient->doctorVisit()];
     }
 }

@@ -113,7 +113,18 @@ class Item extends Model
     }
     public function getLastDepositItem()
     {
-        return DepositItem::where('item_id','=',$this->id)->latest()->first();
+        $depositItem =  DepositItem::where('item_id','=',$this->id)->where('sell_price','>',0)->latest()->first();
+        if ($depositItem == null){
+            return DepositItem::where('item_id','=',$this->id)->latest()->first();
+
+        }
+        return  $depositItem;
+
+
+
+    }
+    public function getLastDepositItemWithPrice()
+    {
     }
     public function depositItem()
     {

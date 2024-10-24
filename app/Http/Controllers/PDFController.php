@@ -3006,7 +3006,7 @@ class PDFController extends Controller
         /** @var Deduct $deduct */
         $deduct = Deduct::find($request->get('deduct_id'));
         $count =  $deduct->deductedItems->count();
-        $custom_layout = array(80, 155 + $count * 5);
+        $custom_layout = array(80, 140 + $count * 5);
         $settings= Setting::all()->first();
 
         $pdf = new Pdf('portrait', PDF_UNIT, $custom_layout, true, 'UTF-8', false);
@@ -3016,7 +3016,7 @@ class PDFController extends Controller
         $lg['a_meta_dir'] = 'rtl';
         $lg['a_meta_language'] = 'fa';
         $lg['w_page'] = 'page';
-        $pdf->setLanguageArray($lg);
+//        $pdf->setLanguageArray($lg);
 //        $lg = array();
 
         $pdf->setCreator(PDF_CREATOR);
@@ -3030,13 +3030,12 @@ class PDFController extends Controller
 //        echo  $pdf->getPageWidth();
         $arial = TCPDF_FONTS::addTTFfont(public_path('arial.ttf'));
         $pdf->AddPage();
-
         /** @var Setting $img_base64_encoded */
         $settings= Setting::all()->first();
         $img_base64_encoded =  $settings->header_base64;
         $img = base64_decode(preg_replace('#^data:image/[^;]+;base64,#', '', $img_base64_encoded));
         if ($settings->is_logo ){
-            $pdf->Image("@".$img, 48, 5, 25, 25,align: 'C');
+            $pdf->Image("@".$img, 22 , 0, 30, 30,align: 'C');
 
         }
 
@@ -3050,27 +3049,24 @@ class PDFController extends Controller
         $pdf->Cell(60,5,$deduct->created_at->format('Y/m/d H:i A'),0,1);
 
         $pdf->SetFont($arial, 'u', 10, '', true);
-        $pdf->Ln(25);
+        $pdf->Ln(20);
 
         $pdf->Cell($page_width,5,$settings->hospital_name,0,1,'C');
 //        $pdf->Cell($page_width,5,'مسقط - عمان',0,1,'C');
         $pdf->SetFont($arial, '', 10, '', true);
         $pdf->SetFont($arial, '', 7, '', true);
 
-        $pdf->Ln();
         $colWidth = $page_width/3;
-        $pdf->Cell($colWidth,5,'فاتوره',0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,$deduct->id,0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,'Invoice',0,1,'C');
-        $pdf->Cell($colWidth,5,'الرقم الضريبي',0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,$settings->vatin,0,0,'C',fill: 0);
-        $pdf->Cell($colWidth,5,'Tax No',0,1,'C');
-        $pdf->Ln();
-
-        $pdf->Cell($page_width,5,'------------------------------------------------------------------------------------------------ ',0,1,'C');
-
-        $pdf->Cell(10,5,'رقم العمليه',0,0);
-        $pdf->Cell(15,5,$deduct->id,0,1,'R');
+        $pdf->Cell($page_width,5,'  فاتوره Invoice',0,1,'C',fill: 1);
+        $pdf->Cell($page_width,5,'VATIN '.$settings->vatin,0,1,'C',fill: 0);
+        $pdf->Cell(15,5,'No :',0,0);
+        $pdf->Cell(30,5,$deduct->id,0,1,'');
+        $pdf->Cell(10,5,'Date :',0,0);
+        $pdf->Cell(30,5,$deduct->created_at->format('Y-m-d H:i A'),0,1,'');
+        $pdf->Cell(10,5,'User :',0,0);
+        $pdf->Cell(30,5,$deduct->user->username,0,1,'');
+        $pdf->Cell(10,5,'To :',0,0);
+        $pdf->Cell(30,5,$deduct->client->name ?? 'Default Client',0,1,'');
 //        $pdf->Ln();
 //        $pdf->Cell(15,5,'Date',0,0);
 
@@ -3081,20 +3077,21 @@ class PDFController extends Controller
 
         $pdf->SetFont($arial, '', 8, '', true);
         $colWidth = $page_width/4;
-        $pdf->Cell($colWidth*2,5,'Name','TB',0,fill: 1);
+
+        $pdf->Cell($colWidth*2.7,5,'Item','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'Price','TB',0,fill: 1);
-        $pdf->Cell($colWidth/2,5,'QY','TB',0,fill: 1);
-        $pdf->Cell($colWidth,5,'Subtotal','TB',1,fill: 1);
-        $pdf->Cell($colWidth*2,5,'الاسم','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'Qty','TB',0,fill: 1);
+        $pdf->Cell($colWidth/2,5,'S.total','TB',1,fill: 1);
+        $pdf->Cell($colWidth*2.7,5,'الصنف','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'السعر','TB',0,fill: 1);
         $pdf->Cell($colWidth/2,5,'كميه','TB',0,fill: 1);
-        $pdf->Cell($colWidth,5,'اجمالي','TB',1,fill: 1);
+        $pdf->Cell($colWidth/2,5,'اجمالي','TB',1,fill: 1);
         /** @var DeductedItem $deductedItem */
         foreach ($deduct->deductedItems as $deductedItem){
-            $pdf->Cell($colWidth*2,5,$deductedItem->item->market_name,'TB',0,stretch: 1);
+            $pdf->Cell($colWidth*2.7,5,$deductedItem->item->market_name,'TB',0,stretch: 1);
             $pdf->Cell($colWidth/2,5,$deductedItem->price,'TB',0);
             $pdf->Cell($colWidth/2,5,$deductedItem->box,'TB',0);
-            $pdf->Cell($colWidth,5,$deductedItem->box * $deductedItem->price,'TB',1);
+            $pdf->Cell($colWidth/2,5,$deductedItem->box * $deductedItem->price,'TB',1);
         }
 //
 
@@ -3120,24 +3117,56 @@ class PDFController extends Controller
 
 
 //        $pdf->Ln();
-        $pdf->write1DBarcode("$deduct->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
+//        $pdf->write1DBarcode("$deduct->id", 'C128', '', '', '40', 18, 0.4, $style, 'N');
 //        $pdf->Ln();
-        $pdf->Cell(15,5,'المجموع',0,0,fill: 1);
-//
-        $pdf->Cell(30,5,$deduct->total_price() .' OMR',0 ,1,1);
-        $pdf->Cell(15,5,'الخصم',0,0,fill: 1);
+        $cols = $page_width / 6;
+        $y = $pdf->GetY();
+        $pdf->setLineWidth(1);
+        $pdf->Line(5,$y,$page_width +5 ,$y);
+//                $pdf->Ln();
+        $pdf->setLineWidth(0.5);
 
-        $pdf->Cell(30,5,$deduct->discount .' OMR',0 ,1,1);
-        $pdf->Cell(15,5,'المدفوع',0,0,fill: 1);
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20 ,5,'Total','TB',0,'C',fill: 0);
+        $pdf->Cell(20,5,$deduct->total_price() ,'TB' ,0,'C',0);
+        $pdf->Cell(20,5,'المجموع','TB',0,'C',fill: 0);
+        $pdf->Cell(3 ,5,'',0,1,fill: 0);
 
-        $pdf->Cell(30,5,$deduct->total_price() - $deduct->discount  .' OMR',0 ,1,1);
-        $pdf->Ln();
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20 ,5,'Vat','TB',0,'C',fill: 0);
+        $pdf->Cell(20,5,$deduct->calculateTax() ,'TB' ,0,'C',0);
+        $pdf->Cell(20,5,'الضريبه','TB',0,'C',fill: 0);
+        $pdf->Cell(3 ,5,'',0,1,fill: 0);
 
-        $pdf->Cell(15,5,'المستخدم',0,0,fill: 1);
-        $pdf->Cell(35,5,$deduct->user->username,0,0,'C',fill: 0);
-        $pdf->Cell(15,5,'User',0,1,fill: 1);
+
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20 ,5,'Total','TB',0,'C',fill: 0);
+        $pdf->Cell(20,5,$deduct->calculateTax() + $deduct->total_price()  ,'TB' ,0,'C',0);
+        $pdf->Cell(20,5,'المجموع','TB',0,'C',fill: 0);
+        $pdf->Cell(3 ,5,'',0,1,fill: 0);
+
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20 ,5,'Payment',0,0,'C',fill: 0);
+        $pdf->Cell(20,5,$deduct->paymentType->name ,0 ,0,'C',0);
+        $pdf->Cell(20,5,'الدفع',0,0,'C',fill: 0);
+        $pdf->Cell(3 ,5,'',0,1,fill: 0);
 
 
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20 ,5,'Discount','TB',0,'C',fill: 0);
+        $pdf->Cell(20,5,$deduct->discount ,'TB' ,0,'C',0);
+        $pdf->Cell(20,5,'الخصم','TB',0,'C',fill: 0);
+        $pdf->Cell(3 ,5,'',0,1,fill: 0);
+
+
+        $pdf->Cell(3 ,5,'',0,0,fill: 0);
+        $pdf->Cell(20 ,5,'Paid','TB',0,'C',fill: 0);
+        $pdf->Cell(20,5,$deduct->total_price() - $deduct->discount ,'TB' ,0,'C',0);
+        $pdf->Cell(20,5,'المدفوع','TB',0,'C',fill: 0);
+        $pdf->Cell(3 ,5,'',0,1,fill: 0);
+        $pdf->setLineWidth(1);
+        $y = $pdf->GetY();
+        $pdf->Line(5,$y,$page_width +5 ,$y);
         $pdf->Cell($page_width,5,'CR'.$settings->cr,0,1,'C');
         $pdf->Cell($page_width,5,'GSM'.$settings->phone,0,1,'C');
         $pdf->Cell($page_width,5,'Email:'.$settings->email,0,1,'C');
@@ -3145,7 +3174,6 @@ class PDFController extends Controller
         //whatsapp icon
         $pdf->MultiCell($page_width,5,'الادويه مهما كانت طبيعتها لا تسترد لاستبدالها او لاسترجاع ثمنها لاسباب تتعلق بالسلامة الدوائية حسب تعليمات وزارة الصحة',0,1,'C');
 
-        $pdf->Ln();
 
         if ($request->has('base64')) {
             $result_as_bs64 = $pdf->output('name.pdf', 'E');

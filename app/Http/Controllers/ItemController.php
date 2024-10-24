@@ -238,14 +238,35 @@ class ItemController extends Controller
         $data  = $request->all();
         if (isset($data['word'])){
             $name  = $data['word'];
-            $items = \App\Models\Item::whereHas('depositItem',function ( $query){
-                $query->where('quantity','>',0);
-            })->where('market_name','like',"%$name%")->orWhere('sc_name','like',"%$name%")->orWhere('active1','like',"%$name%")->orWhere('barcode','like',"%$name%")->paginate($page);
+            $expireDateSelected  = $request->get('date') ?? null;
+            $date  = new \DateTime($expireDateSelected);
+            $date = $date->format('Ymd');
+            if ($expireDateSelected != null){
+                $items = \App\Models\Item::whereHas('depositItem',function ( $query) use($date){
+                    $query->where('quantity','>',0)->where('expire','<=',$date);
+                })->where('market_name','like',"%$name%")-> orWhere('sc_name','like',"%$name%")->orWhere('active1','like',"%$name%")->orWhere('barcode','like',"%$name%")->paginate($page);
+            }else{
+                $items = \App\Models\Item::whereHas('depositItem',function ( $query){
+                    $query->where('quantity','>',0);
+                })->where('market_name','like',"%$name%")->orWhere('sc_name','like',"%$name%")->orWhere('active1','like',"%$name%")->orWhere('barcode','like',"%$name%")->paginate($page);
+            }
+
 
         }else{
-            $items = \App\Models\Item::whereHas('depositItem',function ( $query){
-                $query->where('quantity','>',0);
-            })->orderByDesc('id')->paginate($page);
+            $expireDateSelected  = $request->get('date') ?? null;
+            $date  = new \DateTime($expireDateSelected);
+            $date = $date->format('Ymd');
+            if ($expireDateSelected != null){
+                $items = \App\Models\Item::whereHas('depositItem',function ( $query) use($date){
+                    $query->where('quantity','>',0)->where('expire','<=',$date);;
+                })->orderByDesc('id')->paginate($page);
+
+            }else{
+                $items = \App\Models\Item::whereHas('depositItem',function ( $query){
+                    $query->where('quantity','>',0);
+                })->orderByDesc('id')->paginate($page);
+
+            }
 
         }
         /** @var Item $item */
@@ -258,7 +279,7 @@ class ItemController extends Controller
             $item->totaldeduct = $total_deduct;
             $item->remaining = $item->totaldeposit - $total_deduct;
         }
-        return $items;
+        return collect($items);
     }
     public function profitAndLoss(Request $request,$page)
     {
@@ -407,7 +428,8 @@ class ItemController extends Controller
     public function search(Request $request)
     {
 
-            $word = $request->query('word');
+
+            $word = $request->query('word') ?? null;
             if ($request->has('barcode')){
                 $barcode = $request->get('barcode');
                 /** @var Item $item */
@@ -441,13 +463,17 @@ class ItemController extends Controller
 //                })->get();
 
                 $items =   DepositItem::with(['item','deposit'])->whereHas('item',function ( $query) use($word){
-                    $query->where('market_name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('active1','like',"%$word%");
+                    $query->where('market_name','like',"%$word%")->orWhere('sc_name','like',"%$word%")->orWhere('active1','like',"%$word%")->orWhere('barcode','=',$word);
                 })->paginate(50);
             return collect($items);
     }
     public function depositItemsPagination(Request $request,Deposit $deposit)
     {
         $count =  $request->query('rows');
+        if ($request->query('depositItemId')){
+            return DepositItem::with('item')->where('id',$request->query('depositItemId'))->paginate($count);
+
+        }
 
 //        ->orWhere('item.sc_name','like',"%$word%")->orWhere('item.market_name','like',"%$word%")->
         if ( $request->query('word') && $request->query('word') != ''){

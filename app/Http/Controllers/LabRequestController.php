@@ -48,7 +48,7 @@ class LabRequestController extends Controller
     public function hide(Request $request,LabRequest $labRequest){
 //        return $labRequest;
         $data = $request->all();
-        return ['status'=>$labRequest->update(['hidden'=>$data['val']]),'data'=>$labRequest->patient->refresh()];
+        return ['status'=>$labRequest->update(['hidden'=>$data['val']]),'data'=>$labRequest->patient->doctorVisit()];
     }
     public function edit(Request $request,LabRequest $labRequest,Doctorvisit $doctorVisit){
         $user =  auth()->user();
